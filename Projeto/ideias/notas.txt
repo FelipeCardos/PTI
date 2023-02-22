@@ -1,0 +1,31 @@
+frontend:
+
+layer 1
+
+	vite para mais rapido processamento da pagina
+
+layer 2 
+
+	react normal atraves do vite em js
+
+layer 3
+
+	bibliotecas:
+		mui 5, https://www.youtube.com/watch?v=_W3uuxDnySQ&t=3s&ab_channel=AnthonySistilli (resumo) + playlist do mesmo youtuber
+
+		react-grid-carousel, react-grid-carousel
+
+backend:
+
+layer 1
+
+	nodejs
+
+layer 2
+
+	express
+
+layer 3
+
+	bibliotecas:
+		nodemon para produção

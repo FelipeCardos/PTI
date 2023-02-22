@@ -1,0 +1,53 @@
+(function($){
+
+    "use strict";
+ 
+  function fetchResults(){
+ 
+          var keyword = $('.searchInput').val();
+          var keyword_two = $('.product_cat').val();
+          if(keyword.length < 2) {
+            $('.search_fetching').removeClass('d-block');
+            $('.search_fetching').html('<p class="d-none">none</p>');
+          }
+          else{
+            $.ajax({
+              url: searchopt.ajaxUrl,
+              type: 'POST',
+              data : {
+                action : 'nest_data_fetch',
+                keyword_two : keyword_two  ,
+                keyword : keyword
+              },
+              beforeSend: function() {
+                $('.search_fetching').addClass('d-block');
+                $('.search_fetching').addClass('loading');
+              },
+              success : function( data ) {
+                $('.search_fetching').html(data);
+                $('.search_fetching').removeClass('loading');
+              } ,
+         });
+           
+          }
+ 
+  } 
+   
+  $('.product-search').each(function(){
+      var form = $(this);
+      var keyword = $('.searchInput').val();
+      var keyword_two = $('.product_cat').val();
+      form.on('change',function(){
+      var passedvalues = keyword_two;
+      fetchResults(passedvalues);
+      });
+  
+      form.keyup(function(){
+          var passedvalues =  keyword;
+          fetchResults(passedvalues);
+      });
+  });
+ 
+})(jQuery);
+
+
