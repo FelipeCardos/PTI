@@ -14,6 +14,7 @@ export default function Registo(props) {
     },
     nif: "",
     telemovel: "",
+    email: "",
     utilizador: "",
     tipo: tipoDeRegisto,
   });
@@ -50,13 +51,6 @@ export default function Registo(props) {
           onChange={handleChange}
           name='ultimoNome'
           value={formData.ultimoNome}
-        />
-        <input
-          type='password'
-          placeholder='Palavra-passe'
-          onChange={handleChange}
-          name='password'
-          value={formData.password}
         />
         <select
           name='pais'
@@ -113,6 +107,20 @@ export default function Registo(props) {
           onChange={handleChange}
           name='telemovel'
           value={formData.telemovel}
+        />
+        <input
+          type='text'
+          placeholder='E-mail'
+          onChange={handleChange}
+          name='email'
+          value={formData.email}
+        />
+        <input
+          type='password'
+          placeholder='Palavra-passe'
+          onChange={handleChange}
+          name='password'
+          value={formData.password}
         />
         <button type='submit'>Registar</button>
       </form>
