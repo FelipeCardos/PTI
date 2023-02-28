@@ -3,6 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const path = require("path");
 const saltRounds = 15;
 
 
