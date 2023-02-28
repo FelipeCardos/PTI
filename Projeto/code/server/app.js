@@ -153,7 +153,7 @@ app.post('/utilizador/administrador', (req,res) => {
 
 
 
-app.get('/login',(req,res) => {
+app.post('/login',(req,res) => {
     const email = req.body.email;
     const password = req.body.password;
 
