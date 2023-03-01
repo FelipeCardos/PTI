@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 export default function Registo(props) {
   let tipoDeRegisto = props.tipo;
   const [formData, setFormData] = useState({
