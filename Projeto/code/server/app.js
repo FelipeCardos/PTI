@@ -179,7 +179,7 @@ app.post('/login',(req,res) => {
             res.send(err);
         }
         if (resultado.length >0) {
-            bcrypt.compare(password,result[0].password,(err,result) =>{
+            bcrypt.compare(password,resultado[0].password,(err,result) =>{
                 if (result) {
                     req.session.user = {id:resultado[0].id,first_name:resultado[0].first_name,last_name:resultado[0].last_name,email:resultado[0].email};
                     res.send({msg:'Utilizador logado com sucesso'});
