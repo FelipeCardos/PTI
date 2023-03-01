@@ -5,13 +5,29 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const path = require("path");
 const saltRounds = 15;
+const cookieParser = require("cookie-parser");
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
+
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(session({
+    key : 'userID',
+    secret : 'nãoseioquepôraqui',
+    resave : false,
+    saveUnitialized : false,
+    cookie : {
+        maxAge : 60 * 1000 * 60 * 24
+    }
+}))
 
 
 
 
 app.get('/',(req,res,next) => {
-    res.sendFile(path.join(__dirname,'page/index.html'));
+    res.sendFile(path.join(__dirname,'index.html'));
 })
 
 
@@ -158,13 +174,14 @@ app.post('/login',(req,res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result) => {
+    con.query(`SELECT * FROM User WHERE email='${email}';`,(err,resultado) => {
         if (err) {
             res.send(err);
         }
-        if (result.length >0) {
+        if (resultado.length >0) {
             bcrypt.compare(password,result[0].password,(err,result) =>{
                 if (result) {
+                    req.session.user = {id:resultado[0].id,first_name:resultado[0].first_name,last_name:resultado[0].last_name,email:resultado[0].email};
                     res.send({msg:'Utilizador logado com sucesso'});
                 }
                 else {
@@ -178,6 +195,22 @@ app.post('/login',(req,res) => {
             res.send({msg:'Conta não encontrada'});
         }
     })
+})
+
+
+app.get('/login',(req,res) => {
+    if (req.session.user) {
+        res.send({loggedIn : true, user:req.session.user});
+    }
+
+    else {
+        res.send({loggedIn : false});
+    }
+})
+
+
+app.post('/logout',(req,res) => {
+    req.session.destroy();
 })
 
 
