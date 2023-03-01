@@ -182,7 +182,7 @@ app.post('/login',(req,res) => {
             bcrypt.compare(password,resultado[0].password,(err,result) =>{
                 if (result) {
                     req.session.user = {id:resultado[0].id,first_name:resultado[0].first_name,last_name:resultado[0].last_name,email:resultado[0].email};
-                    res.send({msg:'Utilizador logado com sucesso'});
+                    res.send(req.session.user);
                 }
                 else {
                     res.send({msg:'A palavra-passe está incorreta'});
@@ -211,6 +211,7 @@ app.get('/login',(req,res) => {
 
 app.post('/logout',(req,res) => {
     req.session.destroy();
+    res.send({msg:'Deslogado'})
 })
 
 
