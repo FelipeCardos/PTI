@@ -17,7 +17,7 @@ app.use(session({
     key : 'userID',
     secret : 'nãoseioquepôraqui',
     resave : false,
-    saveUnitialized : false,
+    saveUninitialized : false,
     cookie : {
         maxAge : 60 * 1000 * 60 * 24
     }
