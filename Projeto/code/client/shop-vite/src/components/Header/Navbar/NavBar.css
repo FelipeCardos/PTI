@@ -1,12 +1,9 @@
 .nav {
-  background-color: black;
   display: flex;
   flex-direction: row;
-  position: absolute;
 }
 
 .logo {
-  width: auto;
   height: 50px;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
