@@ -16,10 +16,10 @@ app.get('/',(req,res,next) => {
 
 
 var con = mysql.createPool({
-    host: "appserver-01.alunos.di.fc.ul.pt",
-    user: "asw29",
+    host: "database-1.c7cobqkowwcs.eu-west-3.rds.amazonaws.com",
+    user: "admin",
     password: "tiagodedeus",
-    database: "asw29"
+    database: "localshop_db"
   });
 
 
