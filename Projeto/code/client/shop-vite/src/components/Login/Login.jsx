@@ -65,6 +65,10 @@ export default function Login(props) {
           </button>
           <div id='gSignIn'></div>
         </div>
+        <hr className='hr' />
+        <div>
+          Already have an account? <a>Sign up</a>
+        </div>
       </form>
     </div>
   );
