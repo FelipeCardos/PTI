@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Login.css";
 
 export default function Login(props) {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ export default function Login(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='loginForm'>
         <input
           type='text'
           placeholder='E-mail'
@@ -39,7 +40,13 @@ export default function Login(props) {
           name='password'
           value={formData.password}
         />
-        <button type='submit'>Entrar</button>
+        <span class='psw'>
+          <a href='#'>Forgot password?</a>
+        </span>
+        <button type='submit' className='loginButton'>
+          ENTRAR
+        </button>
+        <div id='gSignIn'></div>
       </form>
     </div>
   );
