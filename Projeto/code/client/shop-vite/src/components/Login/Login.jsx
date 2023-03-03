@@ -6,6 +6,7 @@ export default function Login(props) {
     email: "",
     password: "",
   });
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -17,6 +18,10 @@ export default function Login(props) {
     });
   }
 
+  function handlePasswordVisibility() {
+    setPasswordVisible((prevPasswordVisible) => !prevPasswordVisible);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     // submitToApi(formData)
@@ -26,27 +31,40 @@ export default function Login(props) {
   return (
     <div>
       <form onSubmit={handleSubmit} className='loginForm'>
-        <input
-          type='text'
-          placeholder='E-mail'
-          onChange={handleChange}
-          name='email'
-          value={formData.email}
-        />
-        <input
-          type='password'
-          placeholder='Palavra-passe'
-          onChange={handleChange}
-          name='password'
-          value={formData.password}
-        />
-        <span class='psw'>
-          <a href='#'>Forgot password?</a>
-        </span>
-        <button type='submit' className='loginButton'>
-          ENTRAR
-        </button>
-        <div id='gSignIn'></div>
+        <h1 className='loginTitle'>Login</h1>
+        <div>
+          <input
+            type='text'
+            placeholder='E-mail'
+            onChange={handleChange}
+            name='email'
+            value={formData.email}
+          />
+        </div>
+        <div>
+          <input
+            type={passwordVisible ? "text" : "password"}
+            placeholder='Palavra-passe'
+            onChange={handleChange}
+            name='password'
+            value={formData.password}
+            className='loginPassword'
+          />
+          <i
+            className='far fa-eye togglePassword'
+            onClick={handlePasswordVisibility}
+          ></i>
+          <br />
+          <span className='forgotPassword'>
+            <a>Forgot password?</a>
+          </span>
+        </div>
+        <div>
+          <button type='submit' className='loginButton'>
+            ENTRAR
+          </button>
+          <div id='gSignIn'></div>
+        </div>
       </form>
     </div>
   );
