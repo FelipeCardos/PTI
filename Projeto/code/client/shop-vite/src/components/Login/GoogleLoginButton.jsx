@@ -13,7 +13,7 @@ export default function GoogleLoginButton() {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "1em" }}>
       <GoogleLogin
         clientId={clientId}
         buttonText='Sign In with Google'

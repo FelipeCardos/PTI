@@ -22,16 +22,14 @@ export default function Navbar() {
   });
   return (
     <div className='nav'>
-      <img src={logo} alt='' />
+      <img src={logo} />
       <div className='input-group'>
         <div className='form-outline'>
-          <input type='search' id='form1' className='form-control' />
-          <label className='form-label' htmlFor='form1'>
-            Search
-          </label>
+          <input id='search-input' type='search' className='form-control' />
+          <label className='form-label'>Search</label>
         </div>
-        <button type='button' className='btn btn-primary'>
-          <i className='fas fa-search'></i>
+        <button id='search-button' type='button' className='btn btn-primary'>
+          <i className='fas fa-search' />
         </button>
       </div>
     </div>

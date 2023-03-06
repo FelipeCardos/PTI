@@ -52,7 +52,7 @@ export default function Login(props) {
             className='loginPassword'
           />
           <i
-            className='far fa-eye togglePassword'
+            className='fa fa-eye togglePassword'
             onClick={handlePasswordVisibility}
           ></i>
           <br />
