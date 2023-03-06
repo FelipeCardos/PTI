@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import GoogleLoginButton from "./GoogleLoginButton";
 import "./Login.css";
 
 export default function Login(props) {
@@ -61,9 +62,9 @@ export default function Login(props) {
         </div>
         <div>
           <button type='submit' className='loginButton'>
-            ENTRAR
+            SIGN IN
           </button>
-          <div id='gSignIn'></div>
+          <GoogleLoginButton />
         </div>
         <hr className='hr' />
         <div>
