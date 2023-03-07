@@ -41,7 +41,7 @@ var con = mysql.createPool({
 
 
 
-app.get('/utilizador/consumidor', (req,res) => {
+app.post('/utilizador/consumidor', (req,res) => {
             const name = req.body.name;
             const lastname = req.body.lastname;
             const email = req.body.email;
@@ -76,7 +76,7 @@ app.get('/utilizador/consumidor', (req,res) => {
 
 
 
-app.get('/utilizador/transportador', (req,res) => {
+app.post('/utilizador/transportador', (req,res) => {
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
@@ -112,7 +112,7 @@ app.get('/utilizador/transportador', (req,res) => {
 
 
 
-app.get('/utilizador/administrador', (req,res) => {
+app.post('/utilizador/administrador', (req,res) => {
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
@@ -146,7 +146,7 @@ app.get('/utilizador/administrador', (req,res) => {
                             });
                         });
 
-app.get('/utilizador/fornecedor', (req,res) => {
+app.post('/utilizador/fornecedor', (req,res) => {
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
