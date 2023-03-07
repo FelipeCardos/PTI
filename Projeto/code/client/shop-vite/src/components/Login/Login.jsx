@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import GoogleLoginButton from "./GoogleLoginButton";
 import "./Login.css";
 
 export default function Login(props) {
@@ -25,8 +24,8 @@ export default function Login(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // submitToApi(formData)
-    console.log(formData);
+    console.log("Cliente: " + formData);
+    axios.post("http://localhost:5000/login/", formData);
   }
 
   return (
@@ -61,10 +60,7 @@ export default function Login(props) {
           </span>
         </div>
         <div>
-          <button type='submit' className='loginButton'>
-            SIGN IN
-          </button>
-          <GoogleLoginButton />
+          <input type='submit' className='loginButton' value='SIGN IN' />
         </div>
         <hr className='hr' />
         <div>
