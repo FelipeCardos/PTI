@@ -41,91 +41,29 @@ var con = mysql.createPool({
 
 
 
-app.post('/utilizador/consumidor', (req,res) => {
-    const name = req.body.name;
-    const lastname = req.body.lastname;
-    const email = req.body.email;
-    const password = req.body.password;
-    const phone = req.body.phone;
-    const companyid = req.body.companyid;
-    const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
-            if (err) {
-                res.send(err);
-            }
-            if (result.length == 0) {
-                bcrypt.hash(password,saltRounds,(err,hash) => {
-                    con.query(`INSERT INTO User (first_name,last_name,email,password,phone,company,type,registration_date) Values('${name}','${lastname}','${email}','${hash}','${phone}',${companyid},'CONSUMER','${date}');`,(err,result) => {
-                        if (err) {
-                            res.send(err);
-                        }
-
-                })
-        
-                    res.send({name:name,lastname:lastname,email:email,phone:phone,companyid:companyid,date:date})
-                }
-        );
-            }
-            else {
-                res.send({msg:'Utilizador já existe'})
-            }
-        });
-    });
-
-app.post('/utilizador/fornecedor', (req,res) => {
-        const name = req.body.name;
-        const lastname = req.body.lastname;
-        const email = req.body.email;
-        const password = req.body.password;
-        const phone = req.body.phone;
-        const companyid = req.body.companyid;
-        const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
-                if (err) {
-                    res.send(err);
-                }
-                if (result.length == 0) {
-                    bcrypt.hash(password,saltRounds,(err,hash) => {
-                        con.query(`INSERT INTO User (first_name,last_name,email,password,phone,company,type,registration_date) Values('${name}','${lastname}','${email}','${hash}','${phone}',${companyid},'SUPPLIER','${date}');`,(err,result) => {
-                            if (err) {
-                                res.send(err);
-                            }
-    
-                    })
-            
-                        res.send({name:name,lastname:lastname,email:email,phone:phone,companyid:companyid,date:date})
-                    }
-            );
-                }
-                else {
-                    res.send({msg:'Utilizador já existe'})
-                }
-            });
-        });
-
-
-app.post('/utilizador/transportador', (req,res) => {
+app.get('/utilizador/consumidor', (req,res) => {
             const name = req.body.name;
             const lastname = req.body.lastname;
             const email = req.body.email;
             const password = req.body.password;
             const phone = req.body.phone;
-            const companyid = req.body.companyid;
-            const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const address = req.body.adress;
+            const company = req.body.company;
+            const bio = req.body.bio;
             con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
                     if (err) {
                         res.send(err);
                     }
                     if (result.length == 0) {
                         bcrypt.hash(password,saltRounds,(err,hash) => {
-                            con.query(`INSERT INTO User (first_name,last_name,email,password,phone,company,type,registration_date) Values('${name}','${lastname}','${email}','${hash}','${phone}',${companyid},'TRANSPORTER','${date}');`,(err,result) => {
+                            con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'CONSUMER','${bio}');`,(err,result) => {
                                 if (err) {
                                     res.send(err);
                                 }
         
                         })
                 
-                            res.send({name:name,lastname:lastname,email:email,phone:phone,companyid:companyid,date:date})
+                        res.send({name:name,lastname:lastname,email:email,phone:phone,adressid:address,companyid:company,bio:bio})
                         }
                 );
                     }
@@ -137,36 +75,104 @@ app.post('/utilizador/transportador', (req,res) => {
 
 
 
-app.post('/utilizador/administrador', (req,res) => {
-                const name = req.body.name;
-                const lastname = req.body.lastname;
-                const email = req.body.email;
-                const password = req.body.password;
-                const phone = req.body.phone;
-                const companyid = req.body.companyid;
-                const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
-                        if (err) {
-                            res.send(err);
+app.get('/utilizador/transportador', (req,res) => {
+    const name = req.body.name;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const password = req.body.password;
+    const phone = req.body.phone;
+    const address = req.body.adress;
+    const company = req.body.company;
+    const bio = req.body.bio;
+            con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
+                    if (err) {
+                        res.send(err);
+                    }
+                    if (result.length == 0) {
+                        bcrypt.hash(password,saltRounds,(err,hash) => {
+                            con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'TRANSPORTER','${bio}');`,(err,result) => {
+                                if (err) {
+                                    res.send(err);
+                                }
+        
+                        })
+                
+                        res.send({name:name,lastname:lastname,email:email,phone:phone,adressid:address,companyid:company,bio:bio})
                         }
-                        if (result.length == 0) {
-                            bcrypt.hash(password,saltRounds,(err,hash) => {
-                                con.query(`INSERT INTO User (first_name,last_name,email,password,phone,company,type,registration_date) Values('${name}','${lastname}','${email}','${hash}','${phone}',${companyid},'ADMINISTRATOR','${date}');`,(err,result) => {
-                                    if (err) {
-                                        res.send(err);
-                                    }
-            
-                            })
-                    
-                                res.send({name:name,lastname:lastname,email:email,phone:phone,companyid:companyid,date:date})
-                            }
-                    );
-                        }
-                        else {
-                            res.send({msg:'Utilizador já existe'})
-                        }
-                    });
+                );
+                    }
+                    else {
+                        res.send({msg:'Utilizador já existe'})
+                    }
                 });
+            });
+
+
+
+app.get('/utilizador/administrador', (req,res) => {
+    const name = req.body.name;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const password = req.body.password;
+    const phone = req.body.phone;
+    const address = req.body.adress;
+    const company = req.body.company;
+    const bio = req.body.bio;
+    con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
+        if (err) {
+                    res.send(err);
+                    }
+                        if (result.length == 0) {
+                                    bcrypt.hash(password,saltRounds,(err,hash) => {
+                                    con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'ADMINISTRATOR','${bio}');`,(err,result) => {
+                                            if (err) {
+                                                res.send(err);
+                                            }
+                    
+                                    })
+                            
+                                    res.send({name:name,lastname:lastname,email:email,phone:phone,adressid:address,companyid:company,bio:bio})
+                                    }
+                            );
+                                }
+                                else {
+                                    res.send({msg:'Utilizador já existe'})
+                                }
+                            });
+                        });
+
+app.get('/utilizador/fornecedor', (req,res) => {
+    const name = req.body.name;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const password = req.body.password;
+    const phone = req.body.phone;
+    const address = req.body.adress;
+    const company = req.body.company;
+    const bio = req.body.bio;
+    con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
+        if (err) {
+                res.send(err);
+                    }
+                        if (result.length == 0) {
+                                            bcrypt.hash(password,saltRounds,(err,hash) => {
+                                                    con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'SUPPLIER','${bio}');`,(err,result) => {
+                                                        if (err) {
+                                                            res.send(err);
+                                                        }
+                                
+                                                })
+                                        
+                                                res.send({name:name,lastname:lastname,email:email,phone:phone,adressid:address,companyid:company,bio:bio})
+                                                }
+                                        );
+                                            }
+                                            else {
+                                                res.send({msg:'Utilizador já existe'})
+                                            }
+                                        });
+                                    });
+                        
 
 
 
