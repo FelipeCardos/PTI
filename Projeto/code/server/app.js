@@ -46,17 +46,19 @@ app.post('/utilizador/consumidor', (req,res) => {
             const lastname = req.body.lastname;
             const email = req.body.email;
             const password = req.body.password;
+            const nif = req.body.nif;
             const phone = req.body.phone;
             const address = req.body.adress;
             const company = req.body.company;
-            const bio = req.body.bio;
+            const bio = req.body.bio; 
+            
             con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
                     if (err) {
                         res.send(err);
                     }
                     if (result.length == 0) {
                         bcrypt.hash(password,saltRounds,(err,hash) => {
-                            con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'CONSUMER','${bio}');`,(err,result) => {
+                            con.query(`INSERT INTO User (first_name,last_name,email,password,nif,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}',${address},${company},'CONSUMER','${bio}');`,(err,result) => {
                                 if (err) {
                                     res.send(err);
                                 }
@@ -81,17 +83,19 @@ app.post('/utilizador/transportador', (req,res) => {
     const lastname = req.body.lastname;
     const email = req.body.email;
     const password = req.body.password;
+    const nif = req.body.nif;
     const phone = req.body.phone;
     const address = req.body.adress;
     const company = req.body.company;
     const bio = req.body.bio;
+
             con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
                     if (err) {
                         res.send(err);
                     }
                     if (result.length == 0) {
                         bcrypt.hash(password,saltRounds,(err,hash) => {
-                            con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'TRANSPORTER','${bio}');`,(err,result) => {
+                            con.query(`INSERT INTO User (first_name,last_name,email,password,nif,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}',${address},${company},'TRANSPORTER','${bio}');`,(err,result) => {
                                 if (err) {
                                     res.send(err);
                                 }
@@ -117,17 +121,19 @@ app.post('/utilizador/administrador', (req,res) => {
     const lastname = req.body.lastname;
     const email = req.body.email;
     const password = req.body.password;
+    const nif = req.body.nif;
     const phone = req.body.phone;
     const address = req.body.adress;
     const company = req.body.company;
     const bio = req.body.bio;
+
     con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
         if (err) {
                     res.send(err);
                     }
                         if (result.length == 0) {
                                     bcrypt.hash(password,saltRounds,(err,hash) => {
-                                    con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'ADMINISTRATOR','${bio}');`,(err,result) => {
+                                    con.query(`INSERT INTO User (first_name,last_name,email,password,nif,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}',${address},${company},'ADMINISTRATOR','${bio}');`,(err,result) => {
                                             if (err) {
                                                 res.send(err);
                                             }
@@ -151,17 +157,19 @@ app.post('/utilizador/fornecedor', (req,res) => {
     const lastname = req.body.lastname;
     const email = req.body.email;
     const password = req.body.password;
+    const nif = req.body.nif;
     const phone = req.body.phone;
     const address = req.body.adress;
     const company = req.body.company;
     const bio = req.body.bio;
+
     con.query(`SELECT * FROM User WHERE email='${email}';`,(err,result)=> {
         if (err) {
                 res.send(err);
                     }
                         if (result.length == 0) {
                                             bcrypt.hash(password,saltRounds,(err,hash) => {
-                                                    con.query(`INSERT INTO User (first_name,last_name,email,password,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${phone}',${address},${company},'SUPPLIER','${bio}');`,(err,result) => {
+                                                    con.query(`INSERT INTO User (first_name,last_name,email,password,nif,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}',${address},${company},'SUPPLIER','${bio}');`,(err,result) => {
                                                         if (err) {
                                                             res.send(err);
                                                         }
