@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import "./Registo.css";
 
 export default function Registo(props) {
   let tipoDeRegisto = props.tipo;
   const [formData, setFormData] = useState({
-    primeiroNome: "",
+  emai:"",
+  password:"",
+  passwordConfirmation:""
+  
+/**     primeiroNome: "",
     ultimoNome: "",
     password: "",
     morada: {
@@ -18,7 +23,7 @@ export default function Registo(props) {
     telemovel: "",
     email: "",
     utilizador: "",
-    tipo: tipoDeRegisto,
+    tipo: tipoDeRegisto,*/
   });
 
   function handleChange(event) {
@@ -39,8 +44,36 @@ export default function Registo(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="SignUpForm">
+      <h1 className='SignUpTitle'>SignUp</h1>
+      <div>
         <input
+          type='text'
+          placeholder="Email"
+          onChange={handleChange}
+          name='email'
+          value={formData.email}
+        />
+      </div>
+      <div>
+        <input
+          type='text'
+          placeholder="Password"
+          onChange={handleChange}
+          name='password'
+          value={formData.password}
+        />
+      </div>
+      <div>
+        <input
+          type='text'
+          placeholder="Password Confirmation"
+          onChange={handleChange}
+          name='passwordConfirmation'
+          value={formData.passwordConfirmation}
+        />
+      </div>
+ {/*         <input
           type='text'
           placeholder='Primeiro nome'
           onChange={handleChange}
@@ -123,8 +156,13 @@ export default function Registo(props) {
           onChange={handleChange}
           name='password'
           value={formData.password}
-        />
-        <button type='submit'>Registar</button>
+        />*/}
+        
+        <button type='submit'className="SignUpButton">Create Account</button>
+        <hr className='hr' />
+        <div>
+          Already have an account? <a>Sign in</a>
+      </div>
       </form>
     </div>
   );
