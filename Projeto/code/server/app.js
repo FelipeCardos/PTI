@@ -131,7 +131,7 @@ app.post('/utilizador/administrador', (req,res) => {
         if (err) {
                     res.send(err);
                     }
-                        if (result.length == 0) {
+                    if (result.length == 0) {
                                     bcrypt.hash(password,saltRounds,(err,hash) => {
                                     con.query(`INSERT INTO User (first_name,last_name,email,password,nif,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}',${address},${company},'ADMINISTRATOR','${bio}');`,(err,result) => {
                                             if (err) {
@@ -167,7 +167,7 @@ app.post('/utilizador/fornecedor', (req,res) => {
         if (err) {
                 res.send(err);
                     }
-                        if (result.length == 0) {
+                    if (result.length == 0) {
                                             bcrypt.hash(password,saltRounds,(err,hash) => {
                                                     con.query(`INSERT INTO User (first_name,last_name,email,password,nif,phone,address,company,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}',${address},${company},'SUPPLIER','${bio}');`,(err,result) => {
                                                         if (err) {
