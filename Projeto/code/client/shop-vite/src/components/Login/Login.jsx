@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import "./Login.css";
 
@@ -24,7 +25,7 @@ export default function Login(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Cliente: " + formData);
+    console.log("Cliente: " + JSON.stringify(formData));
     axios.post("http://localhost:5000/login/", formData);
   }
 
