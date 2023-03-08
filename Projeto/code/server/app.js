@@ -1,4 +1,5 @@
 const express = require("express");
+const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
@@ -6,6 +7,8 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const saltRounds = 15;
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const bodyParser = require("body-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 
