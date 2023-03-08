@@ -26,7 +26,19 @@ export default function Login(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log("Cliente: " + JSON.stringify(formData));
-    axios.post("http://localhost:5000/login/", formData);
+    axios
+      .post("http://localhost:5000/login/", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((res) => {
+        console.log("Servidor: " + JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
