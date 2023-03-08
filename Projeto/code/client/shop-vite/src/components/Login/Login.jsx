@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import Link from "react-router-dom";
 import "./Login.css";
 
 export default function Login(props) {
@@ -77,7 +78,7 @@ export default function Login(props) {
         </div>
         <hr className='hr' />
         <div>
-          Already have an account? <a>Sign up</a>
+          Already have an account? <a Link='#'>Sign up</a>
         </div>
       </form>
     </div>
