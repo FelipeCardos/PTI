@@ -1,11 +1,12 @@
-import React from "react";
+import { lazy, React, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Registo from "./components/Registo/registo";
 import "./index.css";
-import ErrorPage from "./pages/error-page";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
+
+const ErrorPage = lazy(() => import("./pages/error-page"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const Registo = lazy(() => import("./components/Registo/registo"));
 
 const router = createBrowserRouter([
   {
