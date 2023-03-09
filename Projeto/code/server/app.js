@@ -40,7 +40,7 @@ var con = mysql.createPool({
   database: "localshop_db",
 });
 
-app.get("/user", (req, res) => {
+app.post("/user", (req, res) => {
   const name = req.body.name;
   const lastname = req.body.lastname;
   const email = req.body.email;
