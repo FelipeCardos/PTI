@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
+// import { GoogleLogin } from "@react-oauth/google";
 import "./Login.css";
 
 export default function Login(props) {
@@ -75,6 +76,14 @@ export default function Login(props) {
         </div>
         <div>
           <input type='submit' className='loginButton' value='SIGN IN' />
+          {/* <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          /> */}
         </div>
         <hr className='hr' />
         <div>
