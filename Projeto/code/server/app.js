@@ -85,8 +85,8 @@ app.post("/user", (req, res) => {
 
 
 app.post("/login", (req, res) => {
-  const email = /*req.body.email*/"Bob";
-  const password = /*req.body.password*/"Bob";
+  const email = req.body.email;
+  const password = req.body.password;
 
   con.query(`SELECT * FROM User WHERE email='${email}';`, (err, resultado) => {
     if (err) {
