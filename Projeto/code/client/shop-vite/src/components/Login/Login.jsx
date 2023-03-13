@@ -57,7 +57,7 @@ export default function Login(props) {
         <div>
           <input
             type={passwordVisible ? "text" : "password"}
-            placeholder='Palavra-passe'
+            placeholder='Password'
             onChange={handleChange}
             name='password'
             value={formData.password}
