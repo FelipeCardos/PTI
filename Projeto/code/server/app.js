@@ -9,7 +9,6 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 
-
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
@@ -41,14 +40,12 @@ var con = mysql.createPool({
 });
 
 app.post("/user", (req, res) => {
-  const name = req.body.name;
-  const lastname = req.body.lastname;
-  const email = req.body.email;
-  const password = req.body.password;
-  const nif = req.body.nif;
-  const phone = req.body.phone;
-  const type = req.body.type;
-  const bio = req.body.bio;
+  const name = req.body.name || "";
+  const email = req.body.email || "";
+  const password = req.body.password || "";
+  const fiscal_identifier = req.body.nif || "";
+  const phone = req.body.phone || "";
+  const type = req.body.type || "";
 
   con.query(`SELECT * FROM User WHERE email='${email}';`, (err, result) => {
     if (err) {
@@ -57,7 +54,7 @@ app.post("/user", (req, res) => {
     if (result.length == 0) {
       bcrypt.hash(password, saltRounds, (err, hash) => {
         con.query(
-          `INSERT INTO User (first_name,last_name,email,password,nif,phone,type,bio) Values('${name}','${lastname}','${email}','${hash}','${nif}','${phone}','${type}','${bio}');`,
+          `INSERT INTO User (name,email,password,fiscal_identifier,phone,typeUser) Values('${name}','${email}','${hash}','${fiscal_identifier}','${phone}','${type}');`,
           (err, result) => {
             if (err) {
               res.send(err);
@@ -67,12 +64,10 @@ app.post("/user", (req, res) => {
         if (!err) {
           res.send({
             name: name,
-            lastname: lastname,
             email: email,
             nif: nif,
             phone: phone,
             type: type,
-            bio: bio,
           });
         }
       });
@@ -81,8 +76,6 @@ app.post("/user", (req, res) => {
     }
   });
 });
-
-
 
 app.post("/login", (req, res) => {
   const email = req.body.email;
@@ -97,11 +90,9 @@ app.post("/login", (req, res) => {
         if (result) {
           req.session.user = {
             id: resultado[0].id,
-            first_name: resultado[0].first_name,
-            last_name: resultado[0].last_name,
+            name: resultado[0].name,
             email: resultado[0].email,
             type: resultado[0].type,
-            bio: resultado[0].bio
           };
           res.send(req.session.user);
         } else {
