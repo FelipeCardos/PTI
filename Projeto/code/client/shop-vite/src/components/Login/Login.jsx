@@ -77,7 +77,7 @@ export default function Login(props) {
         </div>
         <hr className='hr' />
         <div>
-          Already have an account? <a Link='#'>Sign up</a>
+          Don't have an account? <a Link='#'>Sign up</a>
         </div>
       </form>
     </div>
