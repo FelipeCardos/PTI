@@ -23,6 +23,16 @@ CREATE TABLE User(
         ON DELETE SET NULL
 );
 
+CREATE TABLE Credentials(
+	user_id INT UNSIGNED PRIMARY KEY,
+    provider VARCHAR(8),
+    value VARCHAR(60),
+    
+    FOREIGN KEY (user_id)
+        REFERENCES User(id)
+        ON DELETE CASCADE
+);
+
 CREATE TABLE ProductionUnit(
 	id INT UNSIGNED AUTO_INCREMENT,
     producer_id INT UNSIGNED,
