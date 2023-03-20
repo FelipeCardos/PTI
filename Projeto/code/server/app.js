@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
   session({
     key: "userID",
@@ -40,12 +41,12 @@ var con = mysql.createPool({
 });
 
 app.post("/user", (req, res) => {
-  const name = req.body.name || "";
-  const email = req.body.email || "";
-  const password = req.body.password || "";
-  const fiscal_identifier = req.body.nif || "";
-  const phone = req.body.phone || "";
-  const type = req.body.type || "";
+  // const name = req.body.name || "";
+  const email = req.body.email;
+  const password = req.body.password;
+  const type = req.body.type;
+  // const fiscal_identifier = req.body.nif || "";
+  // const phone = req.body.phone || "";
 
   con.query(`SELECT * FROM User WHERE email='${email}';`, (err, result) => {
     if (err) {
@@ -54,7 +55,7 @@ app.post("/user", (req, res) => {
     if (result.length == 0) {
       bcrypt.hash(password, saltRounds, (err, hash) => {
         con.query(
-          `INSERT INTO User (name,email,password,fiscal_identifier,phone,typeUser) Values('${name}','${email}','${hash}','${fiscal_identifier}','${phone}','${type}');`,
+          `INSERT INTO User (email,password) Values('${email}','${hash}');`,
           (err, result) => {
             if (err) {
               res.send(err);
@@ -63,16 +64,16 @@ app.post("/user", (req, res) => {
         );
         if (!err) {
           res.send({
-            name: name,
+            // name: name,
             email: email,
-            nif: nif,
-            phone: phone,
-            type: type,
+            // nif: nif,
+            // phone: phone,
+            // type: type,
           });
         }
       });
     } else {
-      res.send({ msg: "User already exists" });
+      res.send({ msg: "User already exists", req: req.body });
     }
   });
 });

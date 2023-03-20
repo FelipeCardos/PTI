@@ -1,29 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import "./Registo.css";
 
 export default function Registo(props) {
-  let tipoDeRegisto = props.tipo;
+  const tipoDeRegisto = props.tipo;
   const [formData, setFormData] = useState({
-  emai:"",
-  password:"",
-  passwordConfirmation:""
-  
-/**     primeiroNome: "",
-    ultimoNome: "",
-    password: "",
-    morada: {
-      rua: "",
-      pais: "",
-      distrito: "",
-      concelho: "",
-      freguesia: "",
-      codPostal: "",
-    },
-    nif: "",
-    telemovel: "",
     email: "",
-    utilizador: "",
-    tipo: tipoDeRegisto,*/
+    password: "",
+    // passwordConfirmation: "",
+    type: tipoDeRegisto,
   });
 
   function handleChange(event) {
@@ -38,42 +23,53 @@ export default function Registo(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // submitToApi(formData)
-    console.log(formData);
+    console.log("Cliente: " + JSON.stringify(formData));
+    axios
+      .post("http://localhost:5000/user/", formData, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((res) => {
+        console.log("Servidor: " + JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="SignUpForm">
-      <h1 className='SignUpTitle'>SignUp</h1>
-      <div>
-        <input
-          type='text'
-          placeholder="Email"
-          onChange={handleChange}
-          name='email'
-          value={formData.email}
-        />
-      </div>
-      <div>
-        <input
-          type='text'
-          placeholder="Password"
-          onChange={handleChange}
-          name='password'
-          value={formData.password}
-        />
-      </div>
-      <div>
-        <input
-          type='text'
-          placeholder="Password Confirmation"
-          onChange={handleChange}
-          name='passwordConfirmation'
-          value={formData.passwordConfirmation}
-        />
-      </div>
- {/*         <input
+      <form onSubmit={handleSubmit} className='SignUpForm'>
+        <h1 className='SignUpTitle'>SignUp</h1>
+        <div>
+          <input
+            type='text'
+            placeholder='Email'
+            onChange={handleChange}
+            name='email'
+            value={formData.email}
+          />
+        </div>
+        <div>
+          <input
+            type='text'
+            placeholder='Password'
+            onChange={handleChange}
+            name='password'
+            value={formData.password}
+          />
+        </div>
+        <div>
+          <input
+            type='text'
+            placeholder='Password Confirmation'
+            // onChange={handleChange}
+            name='passwordConfirmation'
+            value={formData.passwordConfirmation}
+          />
+        </div>
+        {/*         <input
           type='text'
           placeholder='Primeiro nome'
           onChange={handleChange}
@@ -157,12 +153,16 @@ export default function Registo(props) {
           name='password'
           value={formData.password}
         />*/}
-        
-        <button type='submit'className="SignUpButton">Create Account</button>
+        <div>
+          <input type='submit' className='loginButton' value='SIGN IN' />
+        </div>
+        {/* <button type='submit' className='SignUpButton'>
+          Create Account
+        </button> */}
         <hr className='hr' />
         <div>
           Already have an account? <a>Sign in</a>
-      </div>
+        </div>
       </form>
     </div>
   );
