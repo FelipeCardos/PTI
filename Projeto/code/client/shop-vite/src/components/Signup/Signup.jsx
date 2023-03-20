@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./Registo.css";
+import "./Signup.css";
 
-export default function Registo(props) {
-  const tipoDeRegisto = props.tipo;
+export default function Signup(props) {
+  const signupType = props.tipo;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     // passwordConfirmation: "",
-    type: tipoDeRegisto,
+    type: signupType,
   });
 
   function handleChange(event) {
@@ -64,7 +64,7 @@ export default function Registo(props) {
           <input
             type='text'
             placeholder='Password Confirmation'
-            // onChange={handleChange}
+            onChange={handleChange}
             name='passwordConfirmation'
             value={formData.passwordConfirmation}
           />

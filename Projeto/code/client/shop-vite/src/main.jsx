@@ -6,7 +6,7 @@ import "./index.css";
 const ErrorPage = lazy(() => import("./pages/error-page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
-const Registo = lazy(() => import("./components/Registo/registo"));
+const Registo = lazy(() => import("./components/Signup/Signup"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
 
 const router = createBrowserRouter([
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <Registo />,
+    element: <SignupPage />,
   },
   {
     path: "/producer/:id",
