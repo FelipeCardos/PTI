@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function ProducerPage() {
   const { id } = useParams(); // Gets the id of the producer from the url
