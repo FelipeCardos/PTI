@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Login.css";
+import NavBarBase from "../NavBarBase/NavBarBase";
 
 export default function Login(props) {
   const [formData, setFormData] = useState({
@@ -43,6 +44,10 @@ export default function Login(props) {
 
   return (
     <div>
+      <div>
+        <NavBarBase/>
+      </div>
+      <div>
       <form onSubmit={handleSubmit} className='loginForm'>
         <h1 className='loginTitle'>Login</h1>
         <div>
@@ -80,6 +85,7 @@ export default function Login(props) {
           Don't have an account? <a Link='#'>Sign up</a>
         </div>
       </form>
+      </div>
     </div>
   );
 }

@@ -1,21 +1,40 @@
 .nav {
-  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: space-evenly;
 }
 
 .logo {
-  height: 50px;
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  height: 6vh;
+  width: auto;
+  display: flex;
 }
 
-.searchContainer {
-  border-radius: 10px;
-  width: 30vw;
-  border: 1px solid #73ad21;
+.btnShoppingBasket{
+  border: 0px;
+  width: 5vw;
+  margin-left: 200 px;
+  border-radius: 1em;
+}
+
+.searchBar{
+  height: 6vh;
+  width: 50%;
+}
+.searchBar>input{
+  width: 90%;
+  border-radius: 1em;
+}
+
+.nav>.btnSignUp,.btnSignIn{
+  border: 0px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0 0 0;
-  padding: 2 2 2 2;
+  width: 5vw;
+  background-color: #0d6efd;
+  border-radius: 1em;
+  text-align: center;
+  text-decoration: white;
+
 }

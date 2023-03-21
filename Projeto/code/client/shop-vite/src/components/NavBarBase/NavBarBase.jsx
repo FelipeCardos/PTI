@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
-import './NavBar.css'
+import './NavBarBase.css'
 
-export default function NavBar(props){
+export default function NavBarBase(props){
     return(
         <div className="containerNavBar">
             <button className="logoButton">
-                <img src={logo} className="logo" alt="Button Image" />
+                <img src={logo} className="logo" alt="Local Store" />
             </button>
             <hr/>
         </div>
         
-    )
+    );
 }
