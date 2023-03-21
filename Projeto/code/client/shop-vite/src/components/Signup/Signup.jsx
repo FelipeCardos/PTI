@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Signup.css";
+import NavBar from "../NavBar/NavBar";"../NavBar/NavBar";
 
 export default function Signup(props) {
   const signupType = props.tipo;
@@ -40,36 +41,40 @@ export default function Signup(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className='SignUpForm'>
-        <h1 className='SignUpTitle'>SignUp</h1>
-        <div>
-          <input
-            type='text'
-            placeholder='Email'
-            onChange={handleChange}
-            name='email'
-            value={formData.email}
-          />
-        </div>
-        <div>
-          <input
-            type='text'
-            placeholder='Password'
-            onChange={handleChange}
-            name='password'
-            value={formData.password}
-          />
-        </div>
-        <div>
-          <input
-            type='text'
-            placeholder='Password Confirmation'
-            onChange={handleChange}
-            name='passwordConfirmation'
-            value={formData.passwordConfirmation}
-          />
-        </div>
-        {/*         <input
+      <div>
+        <NavBar/>
+      </div>
+      <div>
+        <form onSubmit={handleSubmit} className='SignUpForm'>
+          <h1 className='SignUpTitle'>SignUp</h1>
+          <div>
+            <input
+              type='text'
+              placeholder='Email'
+              onChange={handleChange}
+              name='email'
+              value={formData.email}
+            />
+          </div>
+          <div>
+            <input
+              type='password'
+              placeholder='Password'
+              onChange={handleChange}
+              name='password'
+              value={formData.password}
+            />
+          </div>
+          <div>
+            <input
+              type='password'
+              placeholder='Password Confirmation'
+              onChange={handleChange}
+              name='passwordConfirmation'
+              value={formData.passwordConfirmation}
+            />
+          </div>
+          {/*         <input
           type='text'
           placeholder='Primeiro nome'
           onChange={handleChange}
@@ -153,17 +158,18 @@ export default function Signup(props) {
           name='password'
           value={formData.password}
         />*/}
-        <div>
-          <input type='submit' className='loginButton' value='SIGN IN' />
-        </div>
-        {/* <button type='submit' className='SignUpButton'>
+          <div>
+            <input type='submit' className='loginButton' value='SIGN UP' />
+          </div>
+          {/* <button type='submit' className='SignUpButton'>
           Create Account
         </button> */}
-        <hr className='hr' />
-        <div>
-          Already have an account? <a>Sign in</a>
-        </div>
-      </form>
+          <hr className='hr' />
+          <div>
+            Already have an account? <a>Sign in</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
