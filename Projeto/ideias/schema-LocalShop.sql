@@ -89,19 +89,6 @@ CREATE TABLE ProductImage(
         ON DELETE CASCADE
 );
 
-CREATE TABLE ProductAttribute(
-	id INT UNSIGNED AUTO_INCREMENT,
-    product_id INT UNSIGNED,
-    title VARCHAR(255),
-    content VARCHAR(255),
-    
-    PRIMARY KEY (id, product_id),
-    
-    FOREIGN KEY (product_id)
-        REFERENCES Product(id)
-        ON DELETE CASCADE
-);
-
 # ----------------------------------------------------------------------------
 
 CREATE TABLE ProductProductionUnit(
@@ -143,6 +130,20 @@ CREATE TABLE ProductCategory(
         ON DELETE CASCADE
 );
 
+CREATE TABLE CategoryAttribute(
+    id INT UNSIGNED AUTO_INCREMENT,
+    category_id INT UNSIGNED,
+    title VARCHAR(255),
+    content VARCHAR(255),
+    
+    PRIMARY KEY (id, category_id),
+    
+    FOREIGN KEY (category_id)
+        REFERENCES Category(id)
+        ON DELETE CASCADE
+);
+
+
 CREATE TABLE Comment(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED,
@@ -150,8 +151,6 @@ CREATE TABLE Comment(
     comment VARCHAR(1000),
     parent_comment INT UNSIGNED,
     date DATETIME,
-    upvotes INT UNSIGNED,
-    downvotes INT UNSIGNED,
     
     FOREIGN KEY (user_id)
         REFERENCES User(id)
@@ -165,6 +164,22 @@ CREATE TABLE Comment(
         REFERENCES Comment(id)
         ON DELETE CASCADE
 );
+
+CREATE TABLE ConsumerVote(
+    consumer_id INT UNSIGNED,
+    comment_id INT UNSIGNED,
+    upvote BOOLEAN,
+
+    PRIMARY KEY (consumer_id, comment_id),
+    FOREIGN KEY (consumer_id)
+    REFERENCES User(id)
+    ON DELETE CASCADE,
+
+    FOREIGN KEY (comment_id)
+	REFERENCES Comment(id)
+	ON DELETE CASCADE
+);
+	
 
 CREATE TABLE Rating(
 	id INT UNSIGNED AUTO_INCREMENT,
