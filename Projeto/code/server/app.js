@@ -8,6 +8,7 @@ const saltRounds = 15;
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const util = require("util");
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +39,28 @@ var con = mysql.createPool({
   user: "admin",
   password: "tiagodedeus",
   database: "localshop_db",
+});
+
+const makeQuery = util.promisify(con.query).bind(con);
+const hashPassword = util.promisify(bcrypt.hash).bind(bcrypt);
+
+
+app.post("/user", async (req, res) => {
+  // const name = req.body.name || "";
+  const email = req.body.email;
+  const password = req.body.password;
+  const type = req.body.type;
+  const resultado1 = await makeQuery(`SELECT * FROM User WHERE email='${email}';`);
+  if (resultado1.length == 0) {
+      const hash = await hashPassword(password,saltRounds);
+      const resultado2 = await makeQuery(`INSERT INTO User (email,password) Values('${email}','${hash}');`);
+    res.send({email:email});
+  }
+
+  else {
+    res.send({ msg: "User already exists", req: req.body });
+  }
+
 });
 
 app.post("/user", (req, res) => {
