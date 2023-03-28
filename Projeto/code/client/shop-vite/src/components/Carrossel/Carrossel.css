@@ -1,0 +1,33 @@
+.Carrossel-Container{
+    width: 100%;
+    max-width: 200vw;
+    margin: 0 auto;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.Carrossel-Slide{
+    display: flex;
+    min-height: 100%;
+}
+
+.Carrossel-Item{
+    min-height: 200px;
+    min-height: 400px;
+    padding: 14px;
+}
+
+.Carrossel-Item img{
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.Carrossel{
+    cursor: grab;
+    overflow: hidden;
+}
