@@ -8,6 +8,9 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
+const AddVehicleProductionUnitPage = lazy(() =>
+  import("./pages/AddVehicleProductionUnitPage")
+);
 
 const router = createBrowserRouter([
   {
@@ -24,8 +27,12 @@ const router = createBrowserRouter([
     element: <SignupPage />,
   },
   {
-    path: "/producer/:id",
+    path: "/producer/:producer_id",
     element: <ProducerPage />,
+  },
+  {
+    path: "/productionUnit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
+    element: <AddVehicleProductionUnitPage />,
   },
 ]);
 
