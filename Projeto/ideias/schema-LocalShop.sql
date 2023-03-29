@@ -179,7 +179,7 @@ CREATE TABLE CartLine(
     amount INT NOT NULL CHECK (amount > 0),
     CONSTRAINT chk_status CHECK (
         status = 'OPEN'
-        AND vehicle_id
+        AND vehicle_id IS NULL
     ),
     CONSTRAINT chk_status2 CHECK (
         status = openCart(cart_id, status)
