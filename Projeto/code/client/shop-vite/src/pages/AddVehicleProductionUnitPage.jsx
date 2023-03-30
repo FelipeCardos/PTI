@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import AddVehicleProductionUnit from "../components/AddVehicleProductionUnit";
+import AddVehicleProductionUnit from "../components/AddVehicleProductionUnit/AddVehicleProductionUnit";
 import MainLayout from "../layouts/MainLayout";
 export default function AddVehicleProductionUnitPage() {
   let { production_unit_id } = useParams();

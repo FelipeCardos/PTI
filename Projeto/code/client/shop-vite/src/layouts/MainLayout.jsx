@@ -6,8 +6,10 @@ export default function MainLayout({ children }) {
   return (
     <>
       <Header></Header>
-      <hr/>
-      <div>{children}</div>
+      <hr />
+      <div style={{ display: "inline-block", position: "relative" }}>
+        {children}
+      </div>
       <Footer></Footer>
     </>
   );
