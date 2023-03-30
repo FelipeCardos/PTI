@@ -12,10 +12,10 @@
 .Carrossel-Slide{
     display: flex;
     min-height: 100%;
+    
 }
 
 .Carrossel-Item{
-    min-height: 200px;
     min-height: 400px;
     padding: 14px;
 }
@@ -25,6 +25,8 @@
     height: 100%;
     border-radius: 12px;
     pointer-events: none;
+    max-width: 20vw;
+    min-width: 20vw;
 }
 
 .Carrossel{

@@ -8,6 +8,7 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
+const ProductionUnitPage = lazy(()=> import("./pages/ProductionUnit"))
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     path: "/producer/:id",
     element: <ProducerPage />,
   },
+  {
+    path:"/productionUnit",
+    element:<ProductionUnitPage/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

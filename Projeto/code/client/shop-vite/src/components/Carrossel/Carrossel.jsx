@@ -7,7 +7,7 @@ import iphone from '../Carrossel/images/iphone.jpg';
 import rubiks from '../Carrossel/images/rubiks.jpg';
 
 
-const products = [book, makeup, iphone, rubiks];
+const products = [book, makeup, iphone, rubiks,rubiks,rubiks,rubiks,rubiks,rubiks];
 
 export default function Carrossel(){
     const carrossel = useRef();

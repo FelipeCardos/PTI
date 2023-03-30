@@ -1,0 +1,33 @@
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 20vh 20vh 20vh 20vh;
+    grid-gap: 10px;
+}
+.productionUnit{
+    background-color: aquamarine;
+    border-radius: 12px;
+    min-height: 20vh;
+}
+
+.productionUnit p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.productionUnit i{
+    display: flex;
+    justify-content: end;
+}
+.togglePassword {
+    margin-top: 1em;
+    margin-left: -30px;
+    cursor: pointer;
+    z-index: 2;
+    color: black;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+  }
