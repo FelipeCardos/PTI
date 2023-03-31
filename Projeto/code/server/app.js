@@ -80,6 +80,7 @@ app.post("/user", (req, res) => {
                 // phone: phone,
                 // type: type,
               });
+              console.log(result);
             }
           }
         );
