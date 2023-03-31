@@ -41,59 +41,7 @@ var con = mysql.createPool({
   database: "localshop_db",
 });
 
-//const makeQuery = util.promisify(con.query).bind(con);
-//const hashPassword = util.promisify(bcrypt.hash).bind(bcrypt);
-//const comparePassword = util.promisify(bcrypt.compare).bind(bcrypt);
-
-
-/*app.post("/user", async (req, res) => {
-  // const name = req.body.name || "";
-  const email = req.body.email;
-  const password = req.body.password;
-  const type = req.body.type;
-  let haserror=false;
-  try {
-  const resultado1 = await makeQuery(`SELECT * FROM User WHERE email='${email}';`);
-  console.log(resultado1);
-  }
-  catch(err) {
-    haserror=true;
-    res.send(err);
-    console.log(err);
-    
-  }
- if(!haserror) {
- if (resultado1.length == 0) {
-      try {
-      const hash = await hashPassword(password,saltRounds);
-      }
-      catch(err2) {
-        haserror=true;
-        res.send(err2);
-        console.log(err2);
-      }
-      if(!haserror) {
-      try {
-      const resultado2 = await makeQuery(`INSERT INTO User (email,password) Values('${email}','${hash}');`);
-      res.send({email:email});
-      }
-      catch(err3) {
-        haserror=true;
-        res.send(err3);
-        console.log(err3);
-      }
-  
-    }
-  }
-
-  else {
-   if(!haserror) {
-   res.send({ msg: "User already exists", req: req.body });
-   }
-  }
- }
-
-});*/
+/*            USER                 */
 
 app.post("/user", (req, res) => {
   // const name = req.body.name || "";
@@ -144,48 +92,76 @@ app.post("/user", (req, res) => {
   });
 });
 
-/*app.post("/login", async (req,res)=> {
-  const email = req.body.email;
-  const password = req.body.password;
-  haserror=false;
-  try {
-  const resultado1 = await makeQuery(`SELECT * FROM User WHERE email='${email}';`);
-  }
-  catch(err) {
-    haserror=true;
-    res.send(err);
-    console.log(err);
-  }
-  if (!haserror) {
-    if (resultado1.length > 0) {
-      try {
-      const resultadoComparacao = await comparePassword(password,result[0].password);
-      }
-      catch (err) {
-        haserror=true;
-        res.send(err);
-        console.log(err);
-      }
-      if (!haserror) {
-        if (resultadoComparacao) {
-          req.session.user = {
-            id: resultado[0].id,
-            name: resultado[0].name,
-            email: resultado[0].email,
-            type: resultado[0].type,
-          };
-          res.send(req.session.user);
-        }
-        else {
-          res.send({ msg: "Wrong password" });
-        }
-      }
+
+/*            UNIDADE DE PRODUCAO                      */
+
+app.post("/productionUnit", (req,res) => {
+  const producerId = req.body.producerId;
+  const capacity = req.body.capacity;
+  const addressId = req.body.addressId;
+  con.query(`INSERT INTO ProductionUnit(producer_id,capacity,address_id) Values(${producerId},${capacity},${addressId});`,
+  (err,result) => {
+    if (err) {
+      res.send(err);
+      console.log(err);
     }
-    else {
-      res.send({ msg: "Account not found" });
+    else if (result) {
+      res.send(result);
+      console.log(result);
     }
   }
-})*/
+  )
+});
+
+app.delete("/productionUnit/:id", (req,res) => {
+  const id = req.params.id;
+  con.query(`DELETE FROM ProductionUnit WHERE id = ${id};`,
+  (err,result) => {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    }
+    else if (result) {
+      console.log(result);
+      res.send({msg:"Production Unit removed"});
+    }
+  })
+});
+
+/*            VEICULO UNIDADE DE PRODUCAO                      */
+
+app.post("/vehicle", (req,res) => {
+  const productionUnitId = req.body.productionUnitId;
+  const licensePlate = req.body.licensePlate;
+  const capacity = req.body.capacity;
+  con.query(`SELECT * FROM Vehicle WHERE license_plate=${licensePlate};`,
+  (err,result) => {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    }
+    else if (result) {
+      if (result.length==0) {
+        con.query(`INSERT INTO Vehicle Values(${productionUnitId},'${licensePlate}',${capacity});`,
+        (err,result) => {
+          if (err) {
+            res.send(err);
+            console.log(err);
+          }
+          else if (result) {
+            res.send(result);
+            console.log(result);
+          }
+        })
+      }
+      else {
+        res.send({msg:"There is already a vehicle with that license plate"});
+      }
+    }
+  })
+})
+
+/*            LOGIN                 */
 
 app.post("/login", (req, res) => {
   const email = req.body.email;
