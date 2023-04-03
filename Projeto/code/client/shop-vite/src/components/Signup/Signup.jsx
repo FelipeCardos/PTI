@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import NavBarBase from "../NavBarBase/NavBarBase";
 import "./Signup.css";
 
-export default function Signup(props) {
-  const signupType = props.signupType;
+export default function Signup() {
+  let { state } = useLocation();
+  const signupType = state.signupType;
+  console.log("signupType: " + JSON.stringify(signupType));
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,7 +15,6 @@ export default function Signup(props) {
     type: signupType,
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
-
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData((prevFormData) => {
