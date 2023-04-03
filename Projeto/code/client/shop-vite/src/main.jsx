@@ -32,11 +32,11 @@ const router = createBrowserRouter([
     element: <ProducerPage />,
   },
   {
-    path: "/productionUnit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
+    path: "/production-unit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
     element: <AddVehicleProductionUnitPage />,
   },
   {
-    path: "/ProductionUnits",
+    path: "/production-unit/",
     element: <ProductionUnits />,
   },
 ]);
