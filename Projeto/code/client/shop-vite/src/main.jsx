@@ -11,6 +11,7 @@ const ProducerPage = lazy(() => import("./pages/ProducerPage"));
 const AddVehicleProductionUnitPage = lazy(() =>
   import("./pages/AddVehicleProductionUnitPage")
 );
+const ProductionUnits = lazy(() => import("./pages/ProductionUnitsPage"));
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/productionUnit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
     element: <AddVehicleProductionUnitPage />,
+  },
+  {
+    path: "/ProductionUnits",
+    element: <ProductionUnits />,
   },
 ]);
 

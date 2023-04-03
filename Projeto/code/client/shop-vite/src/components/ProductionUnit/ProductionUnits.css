@@ -1,33 +1,50 @@
-.grid-container{
+.grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 20vh 20vh 20vh 20vh;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 20vh 20vh 20vh;
     grid-gap: 10px;
-}
-.productionUnit{
+  }
+  
+  .productionUnit {
     background-color: aquamarine;
     border-radius: 12px;
     min-height: 20vh;
-}
+    position: relative;
+    overflow: auto;
+  }
+  
+  .delete-productionUnit {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 3vh !important;
+  }
 
-.productionUnit p{
+.add-productionUnit{
+    background-color: aquamarine;
+    border-radius: 12px;
+    min-height: 20vh;
+    position: relative;
+}
+  
+.add-icon{
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    width: 100%;
     height: 100%;
 }
-
-.productionUnit i{
-    display: flex;
-    justify-content: end;
+.iconn{
+    font-size: 20vh !important;
 }
-.togglePassword {
-    margin-top: 1em;
-    margin-left: -30px;
-    cursor: pointer;
-    z-index: 2;
-    color: black;
-    position: absolute;
-    width: 10px;
-    height: 10px;
+.productionUnitContent{
+    max-width: 90%;
+    margin: 0 auto;
+}
+.productionUnitContent p {
+    margin: 0;
+    white-space: pre-wrap;
   }
+  .delete-productionUnit:hover {
+    cursor: pointer;
+}
