@@ -37,7 +37,7 @@ export default function Navbar() {
       </button>
       <button
         onClick={() => {
-          navigate("/signup");
+          navigate("/signup", { state: { signupType: "Consumer" } });
         }}
         className='btnSignUp'
       >

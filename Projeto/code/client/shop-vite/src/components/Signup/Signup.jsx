@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./Signup.css";
 import NavBarBase from "../NavBarBase/NavBarBase";
+import "./Signup.css";
 
 export default function Signup(props) {
-  const signupType = props.tipo;
+  const signupType = props.signupType;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,7 +12,6 @@ export default function Signup(props) {
     type: signupType,
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
-
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -40,14 +39,14 @@ export default function Signup(props) {
         console.log(err);
       });
   }
-  
+
   function handlePasswordVisibility() {
     setPasswordVisible((prevPasswordVisible) => !prevPasswordVisible);
   }
   return (
     <div>
       <div>
-        <NavBarBase/>
+        <NavBarBase />
       </div>
       <div>
         <form onSubmit={handleSubmit} className='SignUpForm'>
@@ -63,27 +62,27 @@ export default function Signup(props) {
           </div>
           <div>
             <input
-            type={passwordVisible ? "text" : "password"}
-            placeholder='Password'
-            onChange={handleChange}
-            name='password'
-            value={formData.password}
-            className='loginPassword'
+              type={passwordVisible ? "text" : "password"}
+              placeholder='Password'
+              onChange={handleChange}
+              name='password'
+              value={formData.password}
+              className='loginPassword'
             />
           </div>
           <div>
             <input
-              type={passwordVisible ? "text" : "password"}  
+              type={passwordVisible ? "text" : "password"}
               placeholder='Password Confirmation'
               onChange={handleChange}
               name='passwordConfirmation'
               value={formData.passwordConfirmation}
               className='loginPassword'
             />
-          <i
-            className='fa fa-eye togglePassword'
-            onClick={handlePasswordVisibility}
-          ></i>
+            <i
+              className='fa fa-eye togglePassword'
+              onClick={handlePasswordVisibility}
+            ></i>
           </div>
           <div>
             <input type='submit' className='loginButton' value='SIGN UP' />
