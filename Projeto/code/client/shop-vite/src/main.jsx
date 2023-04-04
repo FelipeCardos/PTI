@@ -11,7 +11,7 @@ const AddVehicleProductionUnitPage = lazy(() =>
   import("./pages/AddVehicleProductionUnitPage")
 );
 const ProductionUnitsPage = lazy(() => import("./pages/ProductionUnitsPage"));
-
+const AddProductionUnitsPage = lazy(() => import("./pages/AddProductionUnitPage"))
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +62,15 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
+  {
+    path: "/add-production-unit/",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <AddProductionUnitsPage />
+      </Suspense>
+    ),
+  },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
