@@ -1,7 +1,7 @@
 import React from "react";
-import "./Loading1.css";
+import "./LoadingHomePage.css";
 
-export default function Loading1() {
+export default function LoadingHomePage() {
   return (
     <div className='store-container'>
       <div className='border-animation'>

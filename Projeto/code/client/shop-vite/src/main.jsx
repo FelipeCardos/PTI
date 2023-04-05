@@ -1,7 +1,8 @@
 import { lazy, React, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Loading1 from "./components/Loadings/Loading1";
+import LoadingHomePage from "./components/Loadings/LoadingHomePage";
+import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
 const ErrorPage = lazy(() => import("./pages/error-page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<Loading1 />}>
+      <Suspense fallback={<LoadingHomePage />}>
         <HomePage />
       </Suspense>
     ),
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <LoginPage />
       </Suspense>
     ),
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <SignupPage />
       </Suspense>
     ),
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   {
     path: "/producer/:producer_id",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <ProducerPage />
       </Suspense>
     ),
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   {
     path: "/production-unit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <AddVehicleProductionUnitPage />
       </Suspense>
     ),
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
   {
     path: "/production-unit/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <ProductionUnitsPage />
       </Suspense>
     ),
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
   {
     path: "/add-production-unit/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <AddProductionUnitsPage />
       </Suspense>
     ),
