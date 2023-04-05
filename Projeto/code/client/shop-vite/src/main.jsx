@@ -1,6 +1,7 @@
 import { lazy, React, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Loading1 from "./components/Loadings/Loading1";
 import "./index.css";
 const ErrorPage = lazy(() => import("./pages/error-page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -11,12 +12,14 @@ const AddVehicleProductionUnitPage = lazy(() =>
   import("./pages/AddVehicleProductionUnitPage")
 );
 const ProductionUnitsPage = lazy(() => import("./pages/ProductionUnitsPage"));
-const AddProductionUnitsPage = lazy(() => import("./pages/AddProductionUnitPage"))
+const AddProductionUnitsPage = lazy(() =>
+  import("./pages/AddProductionUnitPage")
+);
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading1 />}>
         <HomePage />
       </Suspense>
     ),
@@ -70,7 +73,6 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
-  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
