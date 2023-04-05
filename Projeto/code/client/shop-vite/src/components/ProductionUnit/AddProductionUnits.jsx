@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./ProductionUnisAdd.css";
-import NavBarBase from "../NavBarBase/NavBarBase";
+import './AddProductionUnit.css';
 
 export default function ProductionUnitsAdd(props) {
   const signupType = props.tipo;
+  const [inputValue, setInputValue] = useState('');
   const [formData, setFormData] = useState({
     Country: "",
     State: "",
@@ -15,6 +15,7 @@ export default function ProductionUnitsAdd(props) {
 
 
   function handleChange(event) {
+    setInputValue(event.target.value);
     const { name, value } = event.target;
     setFormData((prevFormData) => {
       return {
@@ -26,9 +27,9 @@ export default function ProductionUnitsAdd(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Cliente: " + JSON.stringify(formData));
+    console.log("productionUnit: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/user/", formData, {
+      .post("http://localhost:5000/productionUnit/", formData, {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
@@ -43,9 +44,6 @@ export default function ProductionUnitsAdd(props) {
 
   return (
     <div>
-      <div>
-        <NavBarBase />
-      </div>
       <div>
         <form onSubmit={handleSubmit} className='addProductionUnitForm'>
           <h1 className='SignUpTitle'>Add Production Unit</h1>
@@ -81,7 +79,7 @@ export default function ProductionUnitsAdd(props) {
               type="text"
               placeholder='Postal Code'
               onChange={handleChange}
-              name='postalCode'
+              name='PostalCode'
               value={formData.PostalCode}
             />
           </div>
@@ -95,11 +93,10 @@ export default function ProductionUnitsAdd(props) {
             />
           </div>
           <div>
-            <input type='submit' className='loginButton' value='SIGN UP' />
+            <input disabled={Object.values(formData).some((value) => value === '')} type='submit' className='nextButton' value='NEXT' />
           </div>
-
-          <hr className='hr' />
         </form>
+        <br/>
       </div>
     </div>
   );

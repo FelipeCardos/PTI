@@ -1,8 +1,10 @@
 import { React, useState } from "react";
+import axios from "axios";
 import "./ProductionUnits.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { Dialog, DialogActions } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const initialProductionUnits = [
     {
@@ -32,7 +34,10 @@ const initialProductionUnits = [
     },
 ];
 
+
 export default function ProductionUnits() {
+    let navigate = useNavigate();
+
     const [productionUnits, setProductionUnits] = useState(initialProductionUnits);
     const [open, setOpen] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null);
@@ -49,12 +54,23 @@ export default function ProductionUnits() {
         setIdToDelete(id);
         setNameToDelete(name);
         setOpen(true);
+
+        axios
+            .delete("http://localhost:5000/productionUnit/:" + id)
+            .then((res) => {
+                console.log("Servidor: " + JSON.stringify(res.data));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
     return (
         <div className="grid-container">
             <div className="add-productionUnit">
                 <div className="add-icon">
-                    <AddIcon className="iconn"></AddIcon>
+                    <AddIcon className="iconn" onClick={() => {
+                        navigate("/add-production-unit");
+                    }}></AddIcon>
                 </div>
             </div>
             {productionUnits.map((productionUnit) => (

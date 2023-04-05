@@ -44,7 +44,10 @@
 .productionUnitContent p {
     margin: 0;
     white-space: pre-wrap;
-  }
+}
   .delete-productionUnit:hover {
     cursor: pointer;
+}
+.add-productionUnit:hover {
+  cursor: pointer;
 }
