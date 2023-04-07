@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
@@ -12,11 +12,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
+    "eslint": "^8.37.0",
     "express": "^4.18.2",
-    "install": "^0.13.0",
-    "mysql": "^2.18.1"
+    "express-session": "^1.17.3",
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.2.0",
+    "normalize-email": "^1.1.1",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.1",
+    "path": "^0.12.7",
+    "sequelize": "^6.30.0",
+    "sequelize-auto": "^0.8.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
