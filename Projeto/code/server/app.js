@@ -37,13 +37,14 @@ app.get("/", (req, res, next) => {
 var con = mysql.createPool({
   host: "database-1.c7cobqkowwcs.eu-west-3.rds.amazonaws.com",
   user: "admin",
+  port: 1433,
   password: "tiagodedeus",
   database: "localshop_db",
 });
 
 /*            USER                 */
 
-app.post("/user", (req, res) => {
+app.get("/user", (req, res) => {
   // const name = req.body.name || "";
   const email = req.body.email;
   const password = req.body.password;
@@ -75,6 +76,7 @@ app.post("/user", (req, res) => {
             else if (result) {
               res.send({
                 // name: name,
+                id: result.insertId,
                 email: email,
                 // nif: nif,
                 // phone: phone,
@@ -87,7 +89,7 @@ app.post("/user", (req, res) => {
       }
       });
     } else {
-      res.send({ msg: "User already exists", req: req.body });
+      res.send({ msg: "User already exists"});
     }
   }
   });
