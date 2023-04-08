@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {UserWithEmail} = require('../../../../controllers/User/findUsers');
+const {ComparePassword} = require('../../../../controllers/Auth/password');
 const jwt = require('jsonwebtoken');  
 const dayjs = require("dayjs");
 
@@ -23,7 +24,7 @@ router.post('/login' , async (req, res) => {
             res.status(401).send('Unauthorized');
         }
         else {
-            if (userWithEmail.password === password) {
+            if (ComparePassword(password, userWithEmail.password)) {
                 const jwToken = jwt.sign({id: userWithEmail.id}, process.env.JWT_SECRET1);
                 res.cookie("api-auth", jwToken, {
                     secure: false,

@@ -8,7 +8,7 @@ const router = express.Router();
 
 // import routes
 router.use('/local', loginJWTUser);
-router.use('/register', registerUser);
+router.use('/local', registerUser);
 router.use('/google', loginGoogleUser);
 
 

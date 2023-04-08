@@ -1,28 +1,30 @@
 const express = require('express');
 const {FindUserOrCreate} = require('../../../../controllers/User/findUsers');
+const {HashPassword} = require('../../../../controllers/Auth/password');
 const router = express.Router();
 require('dotenv').config();
 
 
 
 
-router.post('/',async (req, res) => {
+router.post('/register',async (req, res) => {
 
     const errHandler = (err) => {
         console.error('Error: ', err);
         res.status(500).send('Something went wrong');
     };
 
-    const {name, email, password, phone, typeUser, adminSecret} = req.body;
+    const {name, email, password, typeUser, adminSecret} = req.body;
 
 
-    if ( name === undefined || email === undefined || password === undefined || phone === undefined || typeUser === undefined ) {
+    if ( name === undefined || email === undefined || password === undefined || typeUser === undefined ) {
         res.status(400).send('Bad Request');
     } else {
         try {
             if (typeUser === 'Admin') {
                 if (adminSecret === process.env.ADMIN_SECRET) {
-                    const created = await FindUserOrCreate(name, email, password, phone, typeUser);
+                    const hash = await HashPassword(password);
+                    const created = await FindUserOrCreate(name, email, hash, typeUser);
                     if (created) {
                         res.status(201).send('Created');
                     } else {
@@ -32,7 +34,8 @@ router.post('/',async (req, res) => {
                     res.status(401).send('Unauthorized');
                 }
             } else {
-                const created = await FindUserOrCreate(name, email, password, phone, typeUser);
+                const hash = await HashPassword(password);
+                const created = await FindUserOrCreate(name, email, hash, typeUser);
                 if (created) {
                     res.status(201).send('Created');
                 } else {

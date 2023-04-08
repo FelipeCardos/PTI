@@ -11,7 +11,7 @@ async function UserWithEmail(email) {
     return user;
 }
 
-async function FindUserOrCreate(name, email, password, phone, typeUser) {
+async function FindUserOrCreate(name, email, password, typeUser) {
 
     const [user, created] = await User.findOrCreate({
         where: {email: email},
@@ -19,7 +19,6 @@ async function FindUserOrCreate(name, email, password, phone, typeUser) {
             email: email,
             name: name,
             password: password,
-            phone: phone,
             typeUser: typeUser
         }
     })
