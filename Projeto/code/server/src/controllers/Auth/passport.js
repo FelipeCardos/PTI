@@ -22,6 +22,7 @@ passport.use(
         passReqToCallback: true,
     },
     async function (req, jwtPayload, done) {
+        console.log("jwtPayload", jwtPayload);
         return User.findOne({ where: { id: jwtPayload.id } })
             .then(async (user) => {
                 if (user) {

@@ -8,10 +8,10 @@ const putRoute = require('./Products/Products.put');
 const router = express.Router();
 
 // import routes
-router.use('/', deleteRoute);
+// router.use('/', deleteRoute);
 router.use('/', getRoute);
-router.use('/', postRoute);
-router.use('/', putRoute);
+// router.use('/', postRoute);
+// router.use('/', putRoute);
 
 
 module.exports = router;

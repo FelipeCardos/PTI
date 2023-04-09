@@ -45,7 +45,7 @@ router.use('/users', User);
 
 // const Vehicle = require('./Vehicle/Vehicles.root');
 // router.use('/vehicles', Vehicle);
-                  
+
 // const Wishlist = require('./Wishlist/Wishlists.root');
 // router.use('/wishlists', Wishlist);
 
