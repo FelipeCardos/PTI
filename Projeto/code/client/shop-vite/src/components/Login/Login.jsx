@@ -49,9 +49,13 @@ export default function Login(props) {
       <div>
         <NavBarBase />
       </div>
-      <div>
-        <form onSubmit={handleSubmit} className='loginForm'>
-          <h1 className='loginTitle'>Login</h1>
+      <div className='container'>
+        <h1 className='loginTitle'>Login</h1>
+        <form
+          onSubmit={handleSubmit}
+          className='loginForm'
+          style={{ paddingTop: "clamp(2em, 5em, 10em" }}
+        >
           <div>
             <input
               type='text'
@@ -83,7 +87,7 @@ export default function Login(props) {
             <input type='submit' className='loginButton' value='SIGN IN' />
           </div>
           <hr className='hr' />
-          <div>
+          <div style={{ textAlign: "center" }}>
             Don't have an account?{" "}
             <a
               onClick={() => {
