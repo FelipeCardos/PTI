@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavBarBase from "../NavBarBase/NavBarBase";
 import "./Signup.css";
 
 export default function Signup() {
+  let navigate = useNavigate();
   let { state } = useLocation();
-  const signupType = state.signupType;
+  console.log(state);
+  const signupType = state ? state.signupType : "Consumer";
   console.log("signupType: " + JSON.stringify(signupType));
   const [formData, setFormData] = useState({
     email: "",
@@ -92,7 +94,14 @@ export default function Signup() {
 
           <hr className='hr' />
           <div>
-            Already have an account? <a>Sign in</a>
+            Already have an account?{" "}
+            <a
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Sign in
+            </a>
           </div>
         </form>
       </div>

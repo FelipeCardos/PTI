@@ -1,34 +1,44 @@
 a {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.SignUpTitle {
+  font-size: 2em;
+  font-weight: bold;
+  color: white;
+  padding: 1em;
+}
+
+.SignUpForm {
+  animation: fadeIn 750ms ease-in-out;
+  display: flex;
+  height: 75vh;
+  width: 50vw;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  background-color: #03add4;
+  border-radius: 2em;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  .SignUpTitle {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    padding: 1em;
+  100% {
+    opacity: 1;
   }
-  
-  .SignUpForm {
-    display: flex;
-    height: 75vh;
-    width: 50vw;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: auto;
-    background-color: #03add4;
-    border-radius: 2em;
-  }
-  
-  .SignUpForm > div {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    padding: 0.5em;
-    color: white;
-    position: relative;
-  }
+}
+
+.SignUpForm > div {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 0.5em;
+  color: white;
+  position: relative;
+}
 
 .SignUpForm > div > input {
   width: 60%;
@@ -37,23 +47,23 @@ a {
   height: 3em;
   border: none;
 }
-.SignUpButton{
-    width: 60%;
-    border-radius: 1em;
-    padding: 0.5em;
-    height: 3em;
-    border: none;
-    margin-bottom: 2%;  
+.SignUpButton {
+  width: 60%;
+  border-radius: 1em;
+  padding: 0.5em;
+  height: 3em;
+  border: none;
+  margin-bottom: 2%;
 }
 .hr {
-    width: 60%;
-    border: 1px solid white;
-  }
-  .togglePassword {
-    margin-top: 1em;
-    margin-left: -30px;
-    cursor: pointer;
-    z-index: 2;
-    color: black;
-    position: absolute;
-  }
+  width: 60%;
+  border: 1px solid white;
+}
+.togglePassword {
+  margin-top: 1em;
+  margin-left: -30px;
+  cursor: pointer;
+  z-index: 2;
+  color: black;
+  position: absolute;
+}

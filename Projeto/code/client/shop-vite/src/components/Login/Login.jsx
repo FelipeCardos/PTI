@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./Login.css";
+import { useNavigate } from "react-router-dom";
 import NavBarBase from "../NavBarBase/NavBarBase";
+import "./Login.css";
 
 export default function Login(props) {
+  let navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -45,46 +47,53 @@ export default function Login(props) {
   return (
     <div>
       <div>
-        <NavBarBase/>
+        <NavBarBase />
       </div>
       <div>
-      <form onSubmit={handleSubmit} className='loginForm'>
-        <h1 className='loginTitle'>Login</h1>
-        <div>
-          <input
-            type='text'
-            placeholder='E-mail'
-            onChange={handleChange}
-            name='email'
-            value={formData.email}
-          />
-        </div>
-        <div>
-          <input
-            type={passwordVisible ? "text" : "password"}
-            placeholder='Password'
-            onChange={handleChange}
-            name='password'
-            value={formData.password}
-            className='loginPassword'
-          />
-          <i
-            className='fa fa-eye togglePassword'
-            onClick={handlePasswordVisibility}
-          ></i>
-          <br />
-          <span className='forgotPassword'>
-            <a>Forgot password?</a>
-          </span>
-        </div>
-        <div>
-          <input type='submit' className='loginButton' value='SIGN IN' />
-        </div>
-        <hr className='hr' />
-        <div>
-          Don't have an account? <a Link='#'>Sign up</a>
-        </div>
-      </form>
+        <form onSubmit={handleSubmit} className='loginForm'>
+          <h1 className='loginTitle'>Login</h1>
+          <div>
+            <input
+              type='text'
+              placeholder='E-mail'
+              onChange={handleChange}
+              name='email'
+              value={formData.email}
+            />
+          </div>
+          <div>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              placeholder='Password'
+              onChange={handleChange}
+              name='password'
+              value={formData.password}
+              className='loginPassword'
+            />
+            <i
+              className='fa fa-eye togglePassword'
+              onClick={handlePasswordVisibility}
+            ></i>
+            <br />
+            <span className='forgotPassword'>
+              <a>Forgot password?</a>
+            </span>
+          </div>
+          <div>
+            <input type='submit' className='loginButton' value='SIGN IN' />
+          </div>
+          <hr className='hr' />
+          <div>
+            Don't have an account?{" "}
+            <a
+              onClick={() => {
+                navigate("/signup", { state: { signupType: "Consumer" } });
+              }}
+            >
+              Sign up
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   );

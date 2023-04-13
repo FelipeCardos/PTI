@@ -10,30 +10,44 @@ a {
 }
 
 .loginForm {
+  animation: fadeIn 750ms ease-in-out;
   display: flex;
   height: 75vh;
-  width: 50vw;
+  width: clamp(320px, 50vw, 1000px);
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   margin: auto;
   background-color: #03add4;
-  border-radius: 2em;
+  border-radius: 1em;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .loginForm > div {
-  width: 100%;
+  width: clamp(300px, 60%, 1000px);
   height: 100%;
   text-align: center;
-  padding: 0.5em;
+  padding: 0.5em 0;
   color: white;
   position: relative;
 }
 
+.loginForm > div:has(span) {
+  text-align: left;
+}
+
 .loginButton,
 .loginForm > div > input {
-  width: 60%;
-  border-radius: 1em;
+  width: 100%;
+  border-radius: 0.5em;
   padding: 0.5em;
   height: 3em;
   border: none;
@@ -53,7 +67,6 @@ a {
   text-decoration: underline;
   cursor: pointer;
   padding-top: 0.5em;
-  margin-left: -40%;
 }
 
 .loginButton {
