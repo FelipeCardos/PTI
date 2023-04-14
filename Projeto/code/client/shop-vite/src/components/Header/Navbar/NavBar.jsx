@@ -51,7 +51,7 @@ export default function Navbar() {
       </button>
       <button
         onClick={() => {
-          navigate("/login");
+          navigate("/signin");
         }}
         className='btnSignIn'
       >
