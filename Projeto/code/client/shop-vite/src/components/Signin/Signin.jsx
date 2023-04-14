@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarBase from "../NavBarBase/NavBarBase";
-import "./Login.css";
+import "./Signin.css";
 
-export default function Login(props) {
+export default function Signin(props) {
   let navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -50,11 +50,11 @@ export default function Login(props) {
         <NavBarBase />
       </div>
       <div className='container'>
-        <h1 className='loginTitle'>Login</h1>
+        <h1 className='loginTitle'>Sign In</h1>
         <form
           onSubmit={handleSubmit}
           className='loginForm'
-          style={{ paddingTop: "clamp(2em, 5em, 10em" }}
+          style={{ paddingTop: "clamp(30px, 3em, 10%)" }}
         >
           <div>
             <input

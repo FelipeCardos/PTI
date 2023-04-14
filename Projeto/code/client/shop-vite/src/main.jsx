@@ -6,7 +6,7 @@ import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
 const ErrorPage = lazy(() => import("./pages/error-page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
-const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SigninPage = lazy(() => import("./pages/SigninPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
 const AddVehicleProductionUnitPage = lazy(() =>
@@ -27,10 +27,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/login",
+    path: "/signin",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <LoginPage />
+        <SigninPage />
       </Suspense>
     ),
   },
