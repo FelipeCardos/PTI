@@ -3,14 +3,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkgray;
+  background-color: white;
   height: 15vh;
   width: auto;
   margin-bottom: 5vh;
+  border-bottom: 1px solid #03add4;
 }
 .logoButton {
   border: 0px;
-  background-color: darkgray;
+  background-color: white;
   height: 100%;
   overflow: hidden;
 }
