@@ -28,7 +28,7 @@ export default function Navbar() {
           src={logo}
           className='logo'
           onClick={() => {
-            window.location.reload(false);
+            navigate("/");
           }}
         />
       </div>
