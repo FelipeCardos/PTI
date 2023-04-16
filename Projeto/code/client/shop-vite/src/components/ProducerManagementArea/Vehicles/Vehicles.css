@@ -36,10 +36,16 @@
 .addVehicleButton {
   background-color: var(--bs-blue);
   color: white;
-  border: none;
+  border: 1px solid var(--bs-blue);
   border-radius: 5px;
   padding: 0.5em;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.viewAllVehiclesButton:hover,
+.addVehicleButton:hover {
+  background-color: white;
+  color: var(--bs-blue);
 }
