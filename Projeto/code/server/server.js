@@ -7,8 +7,16 @@ require('dotenv').config();
 require('./src/controllers/auth/passport');
 require('./src/controllers/auth/passportGoogleSSO');
 const cookieSession = require("cookie-session");
+const Paypal = require('paypal-rest-sdk');
+
 
 const app = express();
+
+Paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': process.env.PAYPAL_ID,
+  'client_secret': process.env.PAYPAL_SECRET
+});
 
 
 

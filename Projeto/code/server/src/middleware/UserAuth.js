@@ -1,16 +1,5 @@
 const passport = require("passport");
 
-// function isUserAuthenticated = (req, res, next) => {
-//     console.log(req.user);
-//     console.log(passport.authenticate("jwt", { session: false }));
-//     if (req.user||passport.authenticate("jwt", { session: false })) {
-//       console.log("User is authenticated");
-//       next();
-//     } else {
-//       res.status(401).send("You must login first!");
-//     }
-//   };
-
   function checkAuthenticated(req, res, next)  {
     if (req.isAuthenticated()) { return next() }
     passport.authenticate("jwt", { session: false })(req, res, next);
@@ -70,6 +59,13 @@ const passport = require("passport");
     res.status(401).send("Unauthorized"); 
   }
 
+  checkIfUserIsOwnerOfTheResource = (req, res, next) => {
+    if (parseInt(req.user.id) === parseInt(req.params.id)) {
+      return next();
+    }
+    res.status(401).send("Unauthorized");
+  };
+
   module.exports = {
     checkAuthenticated,
     checkNotAuthenticated,
@@ -79,5 +75,6 @@ const passport = require("passport");
     checkUsersIsAdminOrProducer,
     checkUsersIsAdminOrConsumer,
     checkUsersIsAdminOrProducerOrConsumer,
+    checkIfUserIsOwnerOfTheResource,
   };
 

@@ -1,8 +1,8 @@
 const express = require('express');
 
 // const deleteRoute = require('./ProductionUnits/ProductionUnits.delete');
-const getRoute = require('./ProductionUnits/ProductionUnits.get');
-const postRoute = require('./ProductionUnits/ProductionUnits.post');
+const getRoute = require('./ProductionUnits.get');
+const postRoute = require('./ProductionUnits.post');
 // const putRoute = require('./ProductionUnits/ProductionUnits.put');
 
 const router = express.Router();

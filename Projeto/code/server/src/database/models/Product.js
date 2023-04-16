@@ -15,6 +15,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(1000),
       allowNull: true
     },
+    barcode_id: {
+      type: DataTypes.STRING(13),
+      allowNull: true
+    },
     producer_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
@@ -25,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     production_date: {

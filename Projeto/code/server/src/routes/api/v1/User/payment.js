@@ -1,13 +1,18 @@
 const express = require("express");
 const passport = require("passport");
 const { checkAuthenticated, checkUsersIsProducer, checkUsersIsConsumer } = require("../../../../middleware/UserAuth");
+const {GetCartCost} = require("../../../../controllers/Cart/getCartCost");
 
 const router = express.Router();
 // passport.authenticate("jwt", { session: false })
 
-router.get("/", checkAuthenticated, checkUsersIsProducer,  (req, res) => {
+router.get("/",  (req, res) => {
+    GetCartCost(1).then((cartCost) => {
+        console.log(cartCost);
+        res.status(200).json({cartCost: cartCost});
+    });
 
-    res.json({ message: req.user.typeUser});
+
 });
   
 module.exports = router;

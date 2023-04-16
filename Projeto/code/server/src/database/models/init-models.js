@@ -8,6 +8,7 @@ var _Comment = require("./Comment");
 var _ConsumerVote = require("./ConsumerVote");
 var _Credentials = require("./Credentials");
 var _Product = require("./Product");
+var _ProductAttribute = require("./ProductAttribute");
 var _ProductCategory = require("./ProductCategory");
 var _ProductImage = require("./ProductImage");
 var _ProductProductionUnit = require("./ProductProductionUnit");
@@ -27,6 +28,7 @@ function initModels(sequelize) {
   var ConsumerVote = _ConsumerVote(sequelize, DataTypes);
   var Credentials = _Credentials(sequelize, DataTypes);
   var Product = _Product(sequelize, DataTypes);
+  var ProductAttribute = _ProductAttribute(sequelize, DataTypes);
   var ProductCategory = _ProductCategory(sequelize, DataTypes);
   var ProductImage = _ProductImage(sequelize, DataTypes);
   var ProductProductionUnit = _ProductProductionUnit(sequelize, DataTypes);
@@ -37,8 +39,10 @@ function initModels(sequelize) {
   var Wishlist = _Wishlist(sequelize, DataTypes);
 
   Cart.belongsToMany(Product, { as: 'product_id_Products', through: CartLine, foreignKey: "cart_id", otherKey: "product_id" });
+  CategoryAttribute.belongsToMany(Product, { as: 'product_id_Product_ProductAttributes', through: ProductAttribute, foreignKey: "attribute_id", otherKey: "product_id" });
   Comment.belongsToMany(User, { as: 'consumer_id_Users', through: ConsumerVote, foreignKey: "comment_id", otherKey: "consumer_id" });
   Product.belongsToMany(Cart, { as: 'cart_id_Carts', through: CartLine, foreignKey: "product_id", otherKey: "cart_id" });
+  Product.belongsToMany(CategoryAttribute, { as: 'attribute_id_CategoryAttributes', through: ProductAttribute, foreignKey: "product_id", otherKey: "attribute_id" });
   Product.belongsToMany(ProductionUnit, { as: 'production_unit_id_ProductionUnits', through: ProductProductionUnit, foreignKey: "product_id", otherKey: "production_unit_id" });
   ProductionUnit.belongsToMany(Product, { as: 'product_id_Product_ProductProductionUnits', through: ProductProductionUnit, foreignKey: "production_unit_id", otherKey: "product_id" });
   User.belongsToMany(Comment, { as: 'comment_id_Comments', through: ConsumerVote, foreignKey: "consumer_id", otherKey: "comment_id" });
@@ -54,6 +58,8 @@ function initModels(sequelize) {
   Category.hasMany(CategoryAttribute, { as: "CategoryAttributes", foreignKey: "category_id"});
   ProductCategory.belongsTo(Category, { as: "category", foreignKey: "category_id"});
   Category.hasMany(ProductCategory, { as: "ProductCategories", foreignKey: "category_id"});
+  ProductAttribute.belongsTo(CategoryAttribute, { as: "attribute", foreignKey: "attribute_id"});
+  CategoryAttribute.hasMany(ProductAttribute, { as: "ProductAttributes", foreignKey: "attribute_id"});
   Comment.belongsTo(Comment, { as: "parent_comment_Comment", foreignKey: "parent_comment"});
   Comment.hasMany(Comment, { as: "Comments", foreignKey: "parent_comment"});
   ConsumerVote.belongsTo(Comment, { as: "comment", foreignKey: "comment_id"});
@@ -62,6 +68,8 @@ function initModels(sequelize) {
   Product.hasMany(CartLine, { as: "CartLines", foreignKey: "product_id"});
   Comment.belongsTo(Product, { as: "product", foreignKey: "product_id"});
   Product.hasMany(Comment, { as: "Comments", foreignKey: "product_id"});
+  ProductAttribute.belongsTo(Product, { as: "product", foreignKey: "product_id"});
+  Product.hasMany(ProductAttribute, { as: "ProductAttributes", foreignKey: "product_id"});
   ProductCategory.belongsTo(Product, { as: "product", foreignKey: "product_id"});
   Product.hasMany(ProductCategory, { as: "ProductCategories", foreignKey: "product_id"});
   ProductImage.belongsTo(Product, { as: "product", foreignKey: "product_id"});
@@ -107,6 +115,7 @@ function initModels(sequelize) {
     ConsumerVote,
     Credentials,
     Product,
+    ProductAttribute,
     ProductCategory,
     ProductImage,
     ProductProductionUnit,

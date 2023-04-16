@@ -1,6 +1,8 @@
 const express = require("express");
 
-const Address = require("./Address/Users.get.Address");
+const Address = require("./Address/Users.Address.get");
+const ProductionUnit = require("./ProductionUnit/Users.ProductionUnits.get");
+const Cart = require("./Cart/Users.Carts.get");
 
 const router = express.Router();
 
@@ -28,6 +30,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.use("/:id/address", Address);
+router.use("/:id/productionUnits", ProductionUnit);
+router.use("/:id/carts", Cart);
 
 
 module.exports = router;

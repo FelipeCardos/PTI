@@ -5,12 +5,14 @@ async function CreateProductionUnit(producer_id, capacity, address_id) {
         producer_id: producer_id,
         capacity: capacity,
         address_id: address_id
-    }).then((productionUnit) => {
-        return true;
     }).catch((err) => {
+        console.log(err);
         return false;
-    }
-    );
+    });
+    return true;
 }
+
+
+
 
 module.exports = { CreateProductionUnit };

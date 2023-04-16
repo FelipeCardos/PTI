@@ -1,6 +1,6 @@
 const express = require("express");
 
-const Address = require("./Address/Users.put.Address");
+const Address = require("./Address/Users.Address.put");
 
 const router = express.Router();
 

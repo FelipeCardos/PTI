@@ -22,8 +22,8 @@ router.use('/auth', Auth);
 // const Consumervote = require('./ConsumerVote/ConsumerVotes.root');
 // router.use('/consumerVotes', Consumervote);
 
-// const Product = require('./Product/Products.root');
-// router.use('/products', Product);
+const Product = require('./Product/Products.root');
+router.use('/products', Product);
 
 // const Productcategory = require('./ProductCategory/ProductCategories.root');
 // router.use('/productCategories', Productcategory);
@@ -31,8 +31,8 @@ router.use('/auth', Auth);
 // const Productimage = require('./ProductImage/ProductImages.root');
 // router.use('/productImages', Productimage);
 
-// const Productionunit = require('./ProductionUnit/ProductionUnits.root');
-// router.use('/productionUnits', Productionunit);
+const Productionunit = require('./ProductionUnit/ProductionUnits.root');
+router.use('/productionUnits', Productionunit);
 
 // const Productproductionunit = require('./ProductProductionUnit/ProductProductionUnits.root');
 // router.use('/productProductionUnits', Productproductionunit);
@@ -48,5 +48,8 @@ router.use('/users', User);
 
 // const Wishlist = require('./Wishlist/Wishlists.root');
 // router.use('/wishlists', Wishlist);
+
+const Payment = require('./Payment/Payment.root');
+router.use('/payment', Payment);
 
 module.exports = router;

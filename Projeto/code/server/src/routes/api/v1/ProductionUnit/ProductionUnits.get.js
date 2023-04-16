@@ -1,11 +1,11 @@
 const express = require("express");
 
 const { FindProductionUnits, FindAllProductionUnits } = require('../../../../controllers/ProductionUnit/findProductionUnit');
-const { checkAuthenticated, checkUsersIsProducer, checkUsersIsConsumer } = require("../../../../middleware/UserAuth");
+const { checkAuthenticated, checkUsersIsAdmin } = require("../../../../middleware/UserAuth");
 
 const router = express.Router();
 
-router.get('/', checkAuthenticated,async (req, res) => {
+router.get('/', checkAuthenticated, checkUsersIsAdmin, async (req, res) => {
     FindAllProductionUnits().then((productionUnits) => {
         if (productionUnits === null) {
             res.status(404).send("Not Found");

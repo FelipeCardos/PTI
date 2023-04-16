@@ -9,9 +9,18 @@ async function FindProductionUnits(id) {
     return productionUnit;
 }
 
+async function FindAllProductionUnitsFromUser(id) {
+    const productionUnits = await ProductionUnit.findAll({
+        where: {
+            producer_id: id
+        }
+    });
+    return productionUnits;
+}
+
 async function FindAllProductionUnits() {
     const productionUnits = await ProductionUnit.findAll();
     return productionUnits;
 }
 
-module.exports = { FindProductionUnits, FindAllProductionUnits };
+module.exports = { FindProductionUnits, FindAllProductionUnits, FindAllProductionUnitsFromUser };
