@@ -20,3 +20,13 @@
 .containerVehicles {
   grid-area: 2 / 2 / span 1 / span 1;
 }
+
+.modalProducerManagementArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 3;
+}
