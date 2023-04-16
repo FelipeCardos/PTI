@@ -9,6 +9,9 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const SigninPage = lazy(() => import("./pages/SigninPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
+const ProducerManagementAreaPage = lazy(() =>
+  import("./pages/ProducerManagementAreaPage")
+);
 const AddVehicleProductionUnitPage = lazy(() =>
   import("./pages/AddVehicleProductionUnitPage")
 );
@@ -39,6 +42,14 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <SignupPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/management-area",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProducerManagementAreaPage />
       </Suspense>
     ),
   },
