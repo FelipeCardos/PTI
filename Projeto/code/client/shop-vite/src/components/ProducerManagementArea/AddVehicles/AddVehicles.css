@@ -1,0 +1,74 @@
+.containerAddVehiclesTitle {
+  display: flex;
+  font-size: 29px;
+  font-weight: bold;
+  align-items: center;
+  width: 90%;
+  margin: 10px 0 10px 10px;
+}
+
+.containerAddVehiclesTitleHR {
+  margin: 0 10px;
+}
+
+.containerAddVehiclesForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+}
+
+.containerAddVehiclesForm > div {
+  width: 80%;
+}
+
+.containerAddVehiclesForm > div > input {
+  width: 100%;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  height: 3em;
+  border: 1px solid #0d6efd;
+}
+
+.buttonsAddVehicles {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 80%;
+  gap: 10px;
+}
+
+.submitAddVehicle {
+  background-color: var(--bs-blue);
+  color: white;
+  border: 1px solid var(--bs-blue);
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submitAddVehicle:hover {
+  background-color: var(--bs-blue-hover);
+  border: 1px solid var(--bs-blue);
+  color: var(--bs-blue);
+}
+
+.cancelAddVehicle {
+  background-color: var(--bs-red);
+  color: white;
+  border: 1px solid var(--bs-red);
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancelAddVehicle:hover {
+  background-color: white;
+  border: 1px solid var(--bs-red);
+  color: var(--bs-red);
+}

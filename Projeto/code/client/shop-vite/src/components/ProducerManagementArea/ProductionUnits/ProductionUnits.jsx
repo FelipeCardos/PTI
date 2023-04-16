@@ -2,7 +2,7 @@ import React from "react";
 import ProductionUnitExample from "./ProductionUnitExample/ProductionUnitExample";
 import "./ProductionUnits.css";
 
-export default function ProductionUnits() {
+export default function ProductionUnits({ handleShowAddPUs }) {
   let productionUnits = [
     {
       id: 1,
@@ -29,7 +29,9 @@ export default function ProductionUnits() {
         ))}
       </div>
       <div className='containerProductionUnitsButtons'>
-        <button className='addProductionUnitButton'>ADD</button>
+        <button className='addProductionUnitButton' onClick={handleShowAddPUs}>
+          ADD
+        </button>
         <button className='viewAllProductionUnitsButton'>View All</button>
       </div>
     </>

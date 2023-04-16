@@ -2,7 +2,7 @@ import React from "react";
 import VehicleExample from "./VehicleExample/VehicleExample";
 import "./Vehicles.css";
 
-export default function Vehicles() {
+export default function Vehicles({ handleShowAddVehicles }) {
   let vehicles = [
     {
       id: 1,
@@ -32,7 +32,9 @@ export default function Vehicles() {
         ))}
       </div>
       <div className='containerVehiclesButtons'>
-        <button className='addVehicleButton'>ADD</button>
+        <button className='addVehicleButton' onClick={handleShowAddVehicles}>
+          ADD
+        </button>
         <button className='viewAllVehiclesButton'>View All</button>
       </div>
     </>

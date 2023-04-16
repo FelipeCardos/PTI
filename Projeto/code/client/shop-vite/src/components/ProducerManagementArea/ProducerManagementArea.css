@@ -30,3 +30,23 @@
   position: fixed;
   z-index: 3;
 }
+
+.AddPUs,
+.AddVehicles {
+  animation: fadeIn 750ms ease-in-out;
+  background-color: white;
+  border-radius: 0.5em;
+  border: 1px solid var(--bs-blue);
+  position: fixed;
+  z-index: 4;
+  inset: 15% 20% auto 20%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
