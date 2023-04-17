@@ -102,7 +102,7 @@ export default function Signup() {
             ></i>
           </div>
           <div>
-            <input type='submit' className='signinButton' value='SIGN UP' />
+            <input type='submit' className='SignUpButton' value='SIGN UP' />
           </div>
 
           <hr className='hr' />
