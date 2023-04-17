@@ -46,6 +46,7 @@ a {
   position: relative;
 }
 
+.SignUpButton,
 .SignUpForm > div > input {
   width: 100%;
   border-radius: 0.5em;
@@ -53,14 +54,12 @@ a {
   height: 3em;
   border: 1px solid #0d6efd;
 }
+
 .SignUpButton {
-  width: 60%;
-  border-radius: 1em;
-  padding: 0.5em;
-  height: 3em;
-  border: none;
-  margin-bottom: 2%;
+  background-color: #0d6efd;
+  color: white;
 }
+
 .hr {
   width: 80%;
   border: 1px solid #0d6efd;
