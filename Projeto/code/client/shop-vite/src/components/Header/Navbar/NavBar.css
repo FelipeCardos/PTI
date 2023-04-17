@@ -3,7 +3,7 @@
   grid: 1fr / 265px 100px 1fr 175px 100px 100px 100px;
   gap: 10px;
   height: 11vh;
-  width: 100vw;
+  width: 100%;
   border-bottom: 1px solid #0d6efd;
 }
 
