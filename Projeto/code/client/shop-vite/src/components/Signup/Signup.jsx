@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import NavBarBase from "../NavBarBase/NavBarBase";
 import "./Signup.css";
 
 export default function Signup() {
@@ -53,12 +52,13 @@ export default function Signup() {
   }
   return (
     <div>
-      <div>
-        <NavBarBase />
-      </div>
-      <div>
-        <form onSubmit={handleSubmit} className='SignUpForm'>
-          <h1 className='SignUpTitle'>SignUp</h1>
+      <div className='containerSignup'>
+        <h1 className='SignUpTitle'>SignUp</h1>
+        <form
+          onSubmit={handleSubmit}
+          className='SignUpForm'
+          style={{ paddingTop: "clamp(30px, 3em, 10%)" }}
+        >
           <div>
             <input
               type='text'
@@ -84,7 +84,7 @@ export default function Signup() {
               onChange={handleChange}
               name='password'
               value={formData.password}
-              className='loginPassword'
+              className='signinPassword'
             />
           </div>
           <div>
@@ -94,7 +94,7 @@ export default function Signup() {
               onChange={handleChange}
               name='passwordConfirmation'
               value={formData.passwordConfirmation}
-              className='loginPassword'
+              className='signinPassword'
             />
             <i
               className='fa fa-eye togglePassword'
@@ -102,15 +102,20 @@ export default function Signup() {
             ></i>
           </div>
           <div>
-            <input type='submit' className='loginButton' value='SIGN UP' />
+            <input type='submit' className='signinButton' value='SIGN UP' />
           </div>
 
           <hr className='hr' />
-          <div>
+          <div style={{ textAlign: "center" }}>
             Already have an account?{" "}
             <a
               onClick={() => {
-                navigate("/login");
+                navigate("/signin");
+              }}
+              style={{
+                color: "blue",
+                cursor: "pointer",
+                textDecoration: "underline",
               }}
             >
               Sign in
