@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBarBase from "../NavBarBase/NavBarBase";
 import "./Signin.css";
 
 export default function Signin(props) {
@@ -30,7 +29,7 @@ export default function Signin(props) {
     event.preventDefault();
     console.log("Cliente: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:3000/api/v1/auth/local/login", formData, {
+      .post("http://localhost:3000/api/v1/auth/local/signin", formData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -48,22 +47,19 @@ export default function Signin(props) {
       });
   }
 
-  function handleGoogleLogin(event) {
+  function handleGoogleSignin(event) {
     window.location.href =
-      "http://localhost:3000/api/v1/auth/google/login?typeUser=" +
+      "http://localhost:3000/api/v1/auth/google/signin?typeUser=" +
       props.typeUser;
   }
 
   return (
     <div>
-      <div>
-        <NavBarBase />
-      </div>
-      <div className='container'>
-        <h1 className='loginTitle'>Sign In</h1>
+      <div className='containerSignin'>
+        <h1 className='signinTitle'>Sign In</h1>
         <form
           onSubmit={handleSubmit}
-          className='loginForm'
+          className='signinForm'
           style={{ paddingTop: "clamp(30px, 3em, 10%)" }}
         >
           <div>
@@ -82,7 +78,7 @@ export default function Signin(props) {
               onChange={handleChange}
               name='password'
               value={formData.password}
-              className='loginPassword'
+              className='signinPassword'
             />
             <i
               className='fa fa-eye togglePassword'
@@ -94,9 +90,9 @@ export default function Signin(props) {
             </span>
           </div>
           <div>
-            <input type='submit' className='loginButton' value='SIGN IN' />
+            <input type='submit' className='signinButton' value='SIGN IN' />
           </div>
-          <div className='google-btn' onClick={handleGoogleLogin}>
+          <div className='google-btn' onClick={handleGoogleSignin}>
             <div className='google-icon-wrapper'>
               <img
                 className='google-icon'

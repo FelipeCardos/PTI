@@ -1,6 +1,11 @@
 import React from "react";
 import Signin from "../components/Signin/Signin";
+import SimpleLayout from "../layouts/SimpleLayout";
 
 export default function SigninPage(props) {
-  return <Signin></Signin>;
+  return (
+    <SimpleLayout>
+      <Signin />;
+    </SimpleLayout>
+  );
 }
