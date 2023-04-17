@@ -1,18 +1,21 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavBarBase from "../NavBarBase/NavBarBase";
 import "./Signup.css";
 
 export default function Signup() {
+  let navigate = useNavigate();
   let { state } = useLocation();
-  const signupType = state.signupType;
+  console.log(state);
+  const signupType = state ? state.signupType : "Consumer";
   console.log("signupType: " + JSON.stringify(signupType));
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
     // passwordConfirmation: "",
-    type: signupType,
+    typeUser: signupType,
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
   function handleChange(event) {
@@ -29,13 +32,16 @@ export default function Signup() {
     event.preventDefault();
     console.log("Cliente: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/user/", formData, {
+      .post("http://localhost:3000/api/v1/auth/local/register", formData, {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
       })
       .then((res) => {
         console.log("Servidor: " + JSON.stringify(res.data));
+        if (res.status === 201) {
+          navigate("/signin");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -53,6 +59,15 @@ export default function Signup() {
       <div>
         <form onSubmit={handleSubmit} className='SignUpForm'>
           <h1 className='SignUpTitle'>SignUp</h1>
+          <div>
+            <input
+              type='text'
+              placeholder='Name'
+              onChange={handleChange}
+              name='name'
+              value={formData.name}
+            />
+          </div>
           <div>
             <input
               type='text'
@@ -92,7 +107,14 @@ export default function Signup() {
 
           <hr className='hr' />
           <div>
-            Already have an account? <a>Sign in</a>
+            Already have an account?{" "}
+            <a
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Sign in
+            </a>
           </div>
         </form>
       </div>

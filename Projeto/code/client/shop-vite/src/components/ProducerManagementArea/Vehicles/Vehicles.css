@@ -1,0 +1,51 @@
+.vehiclesTitle {
+  display: flex;
+  font-size: 29px;
+  font-weight: bold;
+  height: 10vh;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.vehiclesTitleHR {
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.containerVehiclesExamples {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  margin-right: 10px;
+  gap: 15px;
+  overflow: auto;
+}
+
+.containerVehiclesButtons {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 1.5em;
+  gap: 15px;
+}
+
+.viewAllVehiclesButton,
+.addVehicleButton {
+  background-color: var(--bs-blue);
+  color: white;
+  border: 1px solid var(--bs-blue);
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.viewAllVehiclesButton:hover,
+.addVehicleButton:hover {
+  background-color: white;
+  color: var(--bs-blue);
+}

@@ -1,0 +1,124 @@
+a {
+  cursor: pointer;
+}
+
+.container {
+  width: clamp(350px, 30vw, 1000px);
+}
+
+.loginTitle {
+  animation: fadeIn 750ms ease-in-out;
+  position: relative;
+  font-size: 2em;
+  font-weight: bold;
+  color: black;
+  padding: 1em;
+}
+
+.loginForm {
+  animation: fadeIn 750ms ease-in-out;
+  display: flex;
+  height: 60vh;
+  width: clamp(330px, 100%, 1000px);
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  /* background-color: #0d6efd; */
+  border-radius: 1em;
+  border: #0d6efd 1px solid;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loginForm > div {
+  width: clamp(300px, 90%, 1000px);
+  height: 100%;
+  padding: 0.5em 0;
+  color: black;
+  position: relative;
+}
+
+.loginForm > div:has(span) {
+  text-align: left;
+}
+
+.loginButton,
+.loginForm > div > input {
+  width: 100%;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  height: 3em;
+  border: 1px solid #0d6efd;
+}
+
+.togglePassword {
+  margin-top: 1em;
+  margin-left: -30px;
+  cursor: pointer;
+  z-index: 2;
+  color: black;
+  position: absolute;
+}
+
+.forgotPassword {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.loginButton {
+  background-color: #0d6efd;
+  border: 1px solid #a88734 #9c7e31 #846a29;
+  color: white;
+}
+
+.hr {
+  width: 80%;
+  border: 1px solid #0d6efd;
+}
+
+.google-btn {
+  width: 184px;
+  height: 42px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.google-btn .google-icon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+}
+.google-btn .btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: "Roboto";
+}
+.google-btn:hover {
+  box-shadow: 0 0 6px #4285f4;
+}
+.google-btn:active {
+  background: #1669f2;
+}
