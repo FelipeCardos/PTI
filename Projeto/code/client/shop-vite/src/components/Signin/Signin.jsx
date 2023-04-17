@@ -30,18 +30,28 @@ export default function Signin(props) {
     event.preventDefault();
     console.log("Cliente: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/login/", formData, {
+      .post("http://localhost:3000/api/v1/auth/local/login", formData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
+        withCredentials: true,
       })
       .then((res) => {
         console.log("Servidor: " + JSON.stringify(res.data));
+        if (res.status === 200) {
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function handleGoogleLogin(event) {
+    window.location.href =
+      "http://localhost:3000/api/v1/auth/google/login?typeUser=" +
+      props.typeUser;
   }
 
   return (
@@ -86,6 +96,18 @@ export default function Signin(props) {
           <div>
             <input type='submit' className='loginButton' value='SIGN IN' />
           </div>
+          <div className='google-btn' onClick={handleGoogleLogin}>
+            <div className='google-icon-wrapper'>
+              <img
+                className='google-icon'
+                src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'
+              />
+            </div>
+            <p className='btn-text'>
+              <b>Sign in with google</b>
+            </p>
+          </div>
+
           <hr className='hr' />
           <div style={{ textAlign: "center" }}>
             Don't have an account?{" "}
