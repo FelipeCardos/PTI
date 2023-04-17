@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
+import Navbar from "../components/Header/Navbar/Navbar";
 
 export default function MainLayout({ children }) {
   return (
     <>
-      <Header></Header>
+      <Navbar></Navbar>
       <div style={{ display: "inline-block", position: "relative" }}>
         {children}
       </div>
