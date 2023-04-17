@@ -2,11 +2,12 @@ a {
   cursor: pointer;
 }
 
-.container {
+.containerSignin {
   width: clamp(350px, 30vw, 1000px);
+  margin: auto;
 }
 
-.loginTitle {
+.signinTitle {
   animation: fadeIn 750ms ease-in-out;
   position: relative;
   font-size: 2em;
@@ -15,7 +16,7 @@ a {
   padding: 1em;
 }
 
-.loginForm {
+.signinForm {
   animation: fadeIn 750ms ease-in-out;
   display: flex;
   height: 60vh;
@@ -38,7 +39,7 @@ a {
   }
 }
 
-.loginForm > div {
+.signinForm > div {
   width: clamp(300px, 90%, 1000px);
   height: 100%;
   padding: 0.5em 0;
@@ -46,12 +47,18 @@ a {
   position: relative;
 }
 
-.loginForm > div:has(span) {
+.signinForm > div:has(span) {
   text-align: left;
 }
 
-.loginButton,
-.loginForm > div > input {
+.signinForm a {
+  color: blue !important;
+  cursor: pointer;
+  text-decoration: underline !important;
+}
+
+.signinButton,
+.signinForm > div > input {
   width: 100%;
   border-radius: 0.5em;
   padding: 0.5em;
@@ -68,13 +75,7 @@ a {
   position: absolute;
 }
 
-.forgotPassword {
-  color: black;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.loginButton {
+.signinButton {
   background-color: #0d6efd;
   border: 1px solid #a88734 #9c7e31 #846a29;
   color: white;
