@@ -1,17 +1,26 @@
-.containerNavBar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: darkgray;
-    height: 15vh;
-    width: auto;
-    margin-bottom: 5vh;
+.containerNavBar {
+  animation: 750ms ease-in-out 0s 1 slideInFromTop;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 15vh;
+  width: auto;
+  margin-bottom: 5vh;
+  border-bottom: 1px solid #0d6efd;
 }
-.logoButton{
-    border:0px ;
-    background-color:darkgray;
-    height: 100%;
-    overflow: hidden;
+.logoButton {
+  border: 0px;
+  background-color: white;
+  height: 100%;
+  overflow: hidden;
 }
 
-
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

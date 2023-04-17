@@ -1,47 +1,62 @@
 import { lazy, React, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoadingHomePage from "./components/Loadings/LoadingHomePage";
+import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
 const ErrorPage = lazy(() => import("./pages/error-page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
-const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SigninPage = lazy(() => import("./pages/SigninPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
+const ProducerManagementAreaPage = lazy(() =>
+  import("./pages/ProducerManagementAreaPage")
+);
 const AddVehicleProductionUnitPage = lazy(() =>
   import("./pages/AddVehicleProductionUnitPage")
 );
 const ProductionUnitsPage = lazy(() => import("./pages/ProductionUnitsPage"));
-const AddProductionUnitsPage = lazy(() => import("./pages/AddProductionUnitPage"))
+const AddProductionUnitsPage = lazy(() =>
+  import("./pages/AddProductionUnitPage")
+);
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingHomePage />}>
         <HomePage />
       </Suspense>
     ),
     errorElement: <ErrorPage />,
   },
   {
-    path: "/login",
+    path: "/signin",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        <LoginPage />
+      <Suspense fallback={<LoadingSpinner />}>
+        <SigninPage />
       </Suspense>
     ),
   },
   {
     path: "/signup",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <SignupPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/management-area",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProducerManagementAreaPage />
       </Suspense>
     ),
   },
   {
     path: "/producer/:producer_id",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <ProducerPage />
       </Suspense>
     ),
@@ -49,7 +64,7 @@ const router = createBrowserRouter([
   {
     path: "/production-unit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <AddVehicleProductionUnitPage />
       </Suspense>
     ),
@@ -57,7 +72,7 @@ const router = createBrowserRouter([
   {
     path: "/production-unit/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <ProductionUnitsPage />
       </Suspense>
     ),
@@ -65,12 +80,11 @@ const router = createBrowserRouter([
   {
     path: "/add-production-unit/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <AddProductionUnitsPage />
       </Suspense>
     ),
   },
-  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

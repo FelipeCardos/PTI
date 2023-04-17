@@ -23,8 +23,14 @@ export default function Navbar() {
 
   return (
     <div className='nav'>
-      <div style={{ width: "20%" }}>
-        <img src={logo} className='logo' />
+      <div style={{ width: "20%", cursor: "pointer" }}>
+        <img
+          src={logo}
+          className='logo'
+          onClick={() => {
+            navigate("/");
+          }}
+        />
       </div>
       <div className='input-group searchBar'>
         <input type='search' placeholder=' Search' />
@@ -45,7 +51,7 @@ export default function Navbar() {
       </button>
       <button
         onClick={() => {
-          navigate("/login");
+          navigate("/signin");
         }}
         className='btnSignIn'
       >
