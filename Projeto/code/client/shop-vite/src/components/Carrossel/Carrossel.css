@@ -1,4 +1,4 @@
-.Carrossel-Container{
+/* .Carrossel-Container{
     width: 100%;
     max-width: 200vw;
     margin: 0 auto;
@@ -12,7 +12,7 @@
 .Carrossel-Slide{
     display: flex;
     min-height: 100%;
-    
+    min-width: 100%;
 }
 
 .Carrossel-Item{
@@ -32,4 +32,47 @@
 .Carrossel{
     cursor: grab;
     overflow: hidden;
-}
+} */
+.carrossel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+  }
+  
+  .carrossel__image-container {
+    width: 63vw;
+    height: 70vh;
+    overflow: hidden;
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .carrossel__image-container img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+    border-radius: 30px;
+  }
+  
+  .carrossel__image-container img:not(:first-child) {
+    transform: translateX(-100%);
+  }
+  .carrossel-slide{
+    background-color: lightslategray;
+    width: 80%;
+    border-radius: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .control-carrossel{
+    display: flex;
+    justify-content: center;
+  }
+  .iconn{
+    font-size: 10vh !important;
+  }
