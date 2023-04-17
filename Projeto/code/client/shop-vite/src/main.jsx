@@ -62,26 +62,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/production-unit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
-    element: (
-      <Suspense fallback={<LoadingSpinner />}>
-        <AddVehicleProductionUnitPage />
-      </Suspense>
-    ),
-  },
-  {
     path: "/production-unit/",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <ProductionUnitsPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: "/add-production-unit/",
-    element: (
-      <Suspense fallback={<LoadingSpinner />}>
-        <AddProductionUnitsPage />
       </Suspense>
     ),
   },
