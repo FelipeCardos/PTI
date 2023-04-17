@@ -1,42 +1,113 @@
 .nav {
-  display: flex;
-  height: 10vh;
-  width: 100%;
-  padding-top: 20px;
-  justify-content: space-evenly;
-  padding-bottom: 20px;
+  display: grid;
+  grid: 1fr / 265px 100px 1fr 175px 100px 100px 100px;
+  gap: 10px;
+  height: 11vh;
+  width: 100vw;
   border-bottom: 1px solid #0d6efd;
 }
 
+.nav > div {
+  padding-top: 0.5em;
+}
+
+.logoNavbar {
+  width: 265px;
+  cursor: pointer;
+}
+
 .logo {
-  height: 6vh;
-  width: auto;
+  width: 255px;
+  height: 9vh;
+  object-fit: contain;
+}
+
+.logoNavbar,
+.productsNavbar,
+.searchNavbar,
+.becomeProducerNavbar,
+.shoppingCartNavbar,
+.signinNavbar,
+.signupNavbar {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-.btnShoppingBasket {
-  border: 0px;
-  width: 5vw;
-  margin-left: 200 px;
-  border-radius: 1em;
-}
-
-.searchBar {
-  height: 6vh;
-  width: 50%;
-}
-.searchBar > input {
-  width: 90%;
-  border-radius: 1em;
-}
-
-.nav > .btnSignUp,
-.btnSignIn {
-  border: 0px;
-  display: flex;
-  width: 5vw;
+.logoNavbar > button,
+.productsNavbar > button,
+.becomeProducerNavbar > button,
+.signinNavbar > button,
+.signupNavbar > button {
+  border: 1px solid #0d6efd;
   background-color: #0d6efd;
-  border-radius: 1em;
-  text-align: center;
-  text-decoration: white;
+  color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.logoNavbar > button:hover,
+.productsNavbar > button:hover,
+.becomeProducerNavbar > button:hover,
+.signinNavbar > button:hover,
+.signupNavbar > button:hover {
+  background-color: white;
+  color: #0d6efd;
+}
+
+.searchBarNavbar {
+  width: 90%;
+  height: 2.5em;
+  border: 1px solid #0d6efd;
+  border-radius: 0.5em 0 0 0.5em;
+  padding-left: 0.5em;
+}
+
+.searchButtonNavbar {
+  height: 2.5em;
+  width: 2.5em;
+  border: 1px solid hsl(216, 98%, 52%);
+  border-radius: 0 0.5em 0.5em 0;
+  background-color: #0d6efd;
+  color: white;
+}
+
+.searchNavbar > button:hover {
+  background-color: #023e97;
+  border: 1px solid #023e97;
+}
+
+.shoppingCartButtonNavbar {
+  /* border: 1px solid #0d6efd; */
+  background-color: white;
+  color: var(--bs-blue);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shoppinCartBadgeNavbar {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 1em;
+  right: 1em;
+  background: #ff0000;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.shoppingCartNavbar:hover > button {
+  color: #023e97;
+}
+
+.shoppingCartNavbar:hover > .shoppinCartBadgeNavbar {
+  background: hsl(0, 100%, 40%);
 }
