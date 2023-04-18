@@ -29,7 +29,7 @@ export default function Signin(props) {
     event.preventDefault();
     console.log("Cliente: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:3000/api/v1/auth/local/login", formData, {
+      .post("http://localhost:3000/api/v1/auth/local/signin", formData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

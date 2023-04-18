@@ -3,14 +3,15 @@ import Home from "../components/Home/Home";
 import MainLayout from "../layouts/MainLayout";
 
 export default function HomePage(props) {
-  let udata = props.udata;
-  useEffect(() => {
-    console.log("HomePage");
-    console.log(udata.get());
-    console.log("HomePage");
-  }, []);
+  axios
+    .get("http://localhost:3000/api/v1/auth/user", { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    });
   return (
-    <MainLayout udata={udata.value}>
+    <MainLayout>
       <Home />
     </MainLayout>
   );

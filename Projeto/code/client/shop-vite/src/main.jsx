@@ -1,7 +1,7 @@
 import { lazy, React, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import udata from "./assets/udata";
+import uid from "./assets/uid";
 import LoadingHomePage from "./components/Loadings/LoadingHomePage";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Suspense fallback={<LoadingHomePage />}>
-        <HomePage udata={udata} />
+        <HomePage />
       </Suspense>
     ),
     errorElement: <ErrorPage />,
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     path: "/signin",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <SigninPage udata={udata} />
+        <SigninPage />
       </Suspense>
     ),
   },
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     path: "/signup",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <SignupPage udata={udata} />
+        <SignupPage />
       </Suspense>
     ),
   },
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     path: "/management-area",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <ProducerManagementAreaPage udata={udata} />
+        <ProducerManagementAreaPage />
       </Suspense>
     ),
   },
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
     path: "/producer/:producer_id",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <ProducerPage udata={udata} />
+        <ProducerPage />
       </Suspense>
     ),
   },
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
     path: "/production-unit/",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <ProductionUnitsPage udata={udata} />
+        <ProductionUnitsPage />
       </Suspense>
     ),
   },
