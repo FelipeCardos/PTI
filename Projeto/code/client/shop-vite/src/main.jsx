@@ -1,6 +1,7 @@
-import { lazy, React, Suspense } from "react";
+import { lazy, React, Suspense, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { UserContextProvider } from "./assets/UserContext";
 import LoadingHomePage from "./components/Loadings/LoadingHomePage";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
@@ -71,6 +72,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+function Root() {
+  return (
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Root />);

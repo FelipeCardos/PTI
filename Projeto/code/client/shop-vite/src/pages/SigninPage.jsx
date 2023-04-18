@@ -1,21 +1,25 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../assets/UserContext";
+import LoadingSpinner from "../components/Loadings/LoadingSpinner";
 import Signin from "../components/Signin/Signin";
 import SimpleLayout from "../layouts/SimpleLayout";
 
 export default function SigninPage(props) {
-  let navigate = useNavigate();
-  let udata = props.udata;
-  if (udata.get() !== null) {
-    console.log("SigninPage");
-    console.log(udata.get());
-    () => {
-      navigate("/");
-    };
-  }
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
+  setTimeout(() => {
+    if (myUserVariable) window.location = "/";
+    if (!myUserVariable) setLoading(false);
+  }, 1500);
   return (
-    <SimpleLayout>
-      <Signin />;
-    </SimpleLayout>
+    <>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <SimpleLayout>
+          <Signin />;
+        </SimpleLayout>
+      )}
+    </>
   );
 }
