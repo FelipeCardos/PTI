@@ -2,11 +2,12 @@ a {
   cursor: pointer;
 }
 
-.container {
+.containerSignin {
   width: clamp(350px, 30vw, 1000px);
+  margin: auto;
 }
 
-.loginTitle {
+.signinTitle {
   animation: fadeIn 750ms ease-in-out;
   position: relative;
   font-size: 2em;
@@ -15,7 +16,7 @@ a {
   padding: 1em;
 }
 
-.loginForm {
+.signinForm {
   animation: fadeIn 750ms ease-in-out;
   display: flex;
   height: 60vh;
@@ -38,7 +39,7 @@ a {
   }
 }
 
-.loginForm > div {
+.signinForm > div {
   width: clamp(300px, 90%, 1000px);
   height: 100%;
   padding: 0.5em 0;
@@ -46,12 +47,18 @@ a {
   position: relative;
 }
 
-.loginForm > div:has(span) {
+.signinForm > div:has(span) {
   text-align: left;
 }
 
-.loginButton,
-.loginForm > div > input {
+.signinForm a {
+  color: blue !important;
+  cursor: pointer;
+  text-decoration: underline !important;
+}
+
+.signinButton,
+.signinForm > div > input {
   width: 100%;
   border-radius: 0.5em;
   padding: 0.5em;
@@ -68,57 +75,36 @@ a {
   position: absolute;
 }
 
-.forgotPassword {
-  color: black;
-  text-decoration: underline;
-  cursor: pointer;
+.signinButton {
+  background-color: #0d6efd;
+  color: white;
 }
 
-.loginButton {
-  background-color: #0d6efd;
-  border: 1px solid #a88734 #9c7e31 #846a29;
+.signinGoogleButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5em;
+  align-items: center;
+}
+
+.signinGoogleButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 45%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid #db4437;
+  background-color: #db4437;
   color: white;
+  cursor: pointer;
 }
 
 .hr {
   width: 80%;
   border: 1px solid #0d6efd;
-}
-
-.google-btn {
-  width: 184px;
-  height: 42px;
-  background-color: #4285f4;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
-}
-.google-btn .google-icon-wrapper {
-  position: absolute;
-  margin-top: 1px;
-  margin-left: 1px;
-  width: 40px;
-  height: 40px;
-  border-radius: 2px;
-  background-color: #fff;
-}
-.google-btn .google-icon {
-  position: absolute;
-  margin-top: 11px;
-  margin-left: 11px;
-  width: 18px;
-  height: 18px;
-}
-.google-btn .btn-text {
-  float: right;
-  margin: 11px 11px 0 0;
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  font-family: "Roboto";
-}
-.google-btn:hover {
-  box-shadow: 0 0 6px #4285f4;
-}
-.google-btn:active {
-  background: #1669f2;
 }

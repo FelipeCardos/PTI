@@ -1,6 +1,7 @@
 import { lazy, React, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import uid from "./assets/uid";
 import LoadingHomePage from "./components/Loadings/LoadingHomePage";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Suspense fallback={<LoadingHomePage />}>
-        <HomePage />
+        <HomePage uid={uid} />
       </Suspense>
     ),
     errorElement: <ErrorPage />,
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
     path: "/signin",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <SigninPage />
+        <SigninPage uid={uid} />
       </Suspense>
     ),
   },
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
     path: "/signup",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <SignupPage />
+        <SignupPage uid={uid} />
       </Suspense>
     ),
   },
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
     path: "/management-area",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <ProducerManagementAreaPage />
+        <ProducerManagementAreaPage uid={uid} />
       </Suspense>
     ),
   },
@@ -57,15 +58,7 @@ const router = createBrowserRouter([
     path: "/producer/:producer_id",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <ProducerPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: "/production-unit/:production_unit_id/vehicle/new", // Esta página é exclusiva para fornecedores
-    element: (
-      <Suspense fallback={<LoadingSpinner />}>
-        <AddVehicleProductionUnitPage />
+        <ProducerPage uid={uid} />
       </Suspense>
     ),
   },
@@ -73,15 +66,7 @@ const router = createBrowserRouter([
     path: "/production-unit/",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
-        <ProductionUnitsPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: "/add-production-unit/",
-    element: (
-      <Suspense fallback={<LoadingSpinner />}>
-        <AddProductionUnitsPage />
+        <ProductionUnitsPage uid={uid} />
       </Suspense>
     ),
   },

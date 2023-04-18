@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
-import Navbar from "../components/Header/Navbar/Navbar";
+import NavbarBase from "../components/Header/NavBarBase/NavBarBase";
 
-export default function MainLayout({ children }) {
+export default function SimpleLayout({ children }) {
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarBase></NavbarBase>
       <div style={{ display: "inline-block", position: "relative" }}>
         {children}
       </div>
