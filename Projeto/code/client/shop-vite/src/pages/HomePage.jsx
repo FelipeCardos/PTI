@@ -1,15 +1,16 @@
-import axios from "axios";
-import React from "react";
-import udata from "../assets/udata";
+import React, { useEffect } from "react";
 import Home from "../components/Home/Home";
 import MainLayout from "../layouts/MainLayout";
 
 export default function HomePage(props) {
-  if (udata.get() === null) {
-    udata.apiGet();
-  }
+  let udata = props.udata;
+  useEffect(() => {
+    console.log("HomePage");
+    console.log(udata.get());
+    console.log("HomePage");
+  }, []);
   return (
-    <MainLayout udata={udata.get()}>
+    <MainLayout udata={udata.value}>
       <Home />
     </MainLayout>
   );
