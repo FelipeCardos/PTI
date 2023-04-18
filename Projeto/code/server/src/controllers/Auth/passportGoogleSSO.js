@@ -15,6 +15,7 @@ passport.use(new passportGoogleSSO({
         console.log("Error signing up",err);
         cb(err, null);
     });
+
     if (credentials != null) {
         console.log("User already exists");
         const user = await User.findOne( { where: { id: credentials.user_id } } ).catch((err) => {
@@ -23,8 +24,8 @@ passport.use(new passportGoogleSSO({
         });
         cb(null,  user);
     } else {
-        if (req.typeUser == "Producer") { 
-            await User.create({name: profile.displayName, email: profile.emails[0].value, typeUser: req.typeUser}).catch((err) => {
+        if (req.session.isProducer === 'true') { 
+            await User.create({name: profile.displayName, email: profile.emails[0].value, typeUser:"Producer"}).catch((err) => {
                 console.log("Error signing up",err);
                 cb(err, null);
             }).then((user) => {

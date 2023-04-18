@@ -1,19 +1,3 @@
-import {
-  AccountCircle,
-  CompareArrows,
-  Favorite,
-  ShoppingCart,
-} from "@mui/icons-material";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import {
-  AppBar,
-  Button,
-  IconButton,
-  InputBase,
-  Toolbar,
-  rgbToHex,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavBar.css";
@@ -23,40 +7,73 @@ export default function Navbar() {
 
   return (
     <div className='nav'>
-      <div style={{ width: "20%", cursor: "pointer" }}>
-        <img
-          src={logo}
-          className='logo'
-          onClick={() => {
-            navigate("/");
-          }}
-        />
+      <div
+        className='logoNavbar'
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <img src={logo} className='logo' />
       </div>
-      <div className='input-group searchBar'>
-        <input type='search' placeholder=' Search' />
-        <button id='search-button' type='button' className='btn btn-primary'>
-          <i className='fas fa-search' />
+      <div className='productsNavbar'>
+        <button
+          onClick={() => {
+            navigate("/products");
+          }}
+          className='productsButtonNavbar'
+        >
+          Products
         </button>
       </div>
-      <button className='btnShoppingBasket'>
-        <ShoppingBasketIcon />
-      </button>
-      <button
-        onClick={() => {
-          navigate("/signup", { state: { signupType: "Consumer" } });
-        }}
-        className='btnSignUp'
-      >
-        Sign Up
-      </button>
-      <button
-        onClick={() => {
-          navigate("/signin");
-        }}
-        className='btnSignIn'
-      >
-        Sign In
-      </button>
+      <div className='searchNavbar'>
+        <input
+          type='text'
+          className='searchBarNavbar'
+          name='searchQuery'
+          placeholder='Search...'
+        />
+        <button type='button' className='searchButtonNavbar'>
+          <i className='fa fa-search'></i>
+        </button>
+      </div>
+      <div className='becomeProducerNavbar'>
+        <button
+          onClick={() => {
+            navigate("/signup", { state: { signupType: "Producer" } });
+          }}
+          className='becomeProducerButtonNavbar'
+        >
+          Become a Producer
+        </button>
+      </div>
+      <div className='shoppingCartNavbar'>
+        <button className='shoppingCartButtonNavbar'>
+          <i className='fa fa-shopping-cart'></i>
+        </button>
+        <span className='shoppinCartBadgeNavbar'>0</span>
+      </div>
+      <div className='signinNavbar'>
+        <button
+          onClick={() => {
+            navigate("/signin");
+          }}
+          className='signinButtonNavbar'
+        >
+          Sign In
+        </button>
+      </div>
+      <div className='signupNavbar'>
+        <button
+          onClick={() => {
+            navigate("/signup", { state: { signupType: "Consumer" } });
+          }}
+          className='signupButtonNavbar'
+        >
+          Sign Up
+        </button>
+      </div>
     </div>
   );
 }
+
+// LOGO - PRODUCTS - SEARCHBAR - BECOME A PRODUCER - SHOPPING BASKET - SIGN IN - SIGN UP

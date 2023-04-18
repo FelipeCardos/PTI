@@ -2,9 +2,8 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ProductionUnit', {
     id: {
-      autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true
     },
     producer_id: {
@@ -27,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'ProductionUnit',
+    hasTrigger: true,
     timestamps: false,
     indexes: [
       {
@@ -34,8 +34,15 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
           { name: "producer_id" },
+          { name: "id" },
+        ]
+      },
+      {
+        name: "id",
+        using: "BTREE",
+        fields: [
+          { name: "id" },
         ]
       },
       {
