@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import book from "../Carrossel/images/book.jpg";
 import iphone from "../Carrossel/images/iphone.jpg";
@@ -8,21 +8,21 @@ import "./Carrossel.css";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const products = [book, makeup, iphone, rubiks]
+const products = [book, makeup, iphone, rubiks];
+
 export default function Carrossel() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [contador, setContador] = useState(0);
+
   const nextImage = () => {
     setCurrentImageIndex(currentImageIndex + 1);
-    console.log(currentImageIndex);
   };
+
   useEffect(() => {
-    if (currentImageIndex === products.length){
+    if (currentImageIndex === products.length) {
       setCurrentImageIndex(0);
     }
-  }, [currentImageIndex])
+  }, [currentImageIndex]);
 
-  
   const prevImage = () => {
     if (currentImageIndex === 0) {
       setCurrentImageIndex(products.length - 1);
@@ -31,43 +31,31 @@ export default function Carrossel() {
     }
   };
 
-
+  const carouselVariants = {
+    enter: { opacity: 0, x: 100 },
+    center: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -100 }
+  };
+  
   return (
     <div className="carrossel">
       <div  className="control-carrossel"><ArrowBackIosIcon onClick={prevImage} className="iconn"/></div>
       <div className="carrossel-slide">
-      <motion.div
-          className="carrossel__image-container"
-          initial={{ x: 100 }} // posição inicial do elemento
-          animate={{ x: 0 }} // posição final do elemento
-          transition={{ duration: 0.80 }} // duração da transição
-        >
-          <img src={products[currentImageIndex]} alt="Imagem do Carrossel" />
-        </motion.div>
+        <AnimatePresence>
+          <motion.div
+            key={currentImageIndex}
+            className="carrossel__image-container"
+            variants={carouselVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.8 }}
+          >
+            <img src={products[currentImageIndex]} alt="Imagem do Carrossel" />
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className="control-carrossel"><ArrowForwardIosIcon onClick={nextImage} className="iconn"/></div>
     </div>
-    // <div className='Carrossel-Container'>
-    //   <motion.div
-    //     ref={carrossel}
-    //     className='Carrossel'
-    //     whileTap={{ cursor: "grabbing" }}
-    //   >
-    //     <motion.div
-    //       className='Carrossel-Slide'
-    //       drag='x'
-    //       dragConstraints={{ right: 0, left: -width }}
-    //       initial={{ x: 100 }}
-    //       animate={{ x: 0 }}
-    //       transition={{ duration: 0.8 }}
-    //     >
-    //       {products.map((image) => (
-    //         <motion.div className='Carrossel-Item' key={image}>
-    //           <img src={image} alt='imagem' />
-    //         </motion.div>
-    //       ))}
-    //     </motion.div>
-    //   </motion.div>
-    // </div>
   );
 }
