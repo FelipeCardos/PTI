@@ -20,7 +20,7 @@ export const UserContextProvider = ({ children }) => {
       }
     };
 
-    getUserDataApi();
+    if (!myUserVariable) getUserDataApi();
   }, []);
 
   return (
