@@ -37,7 +37,12 @@ export default function NavbarConsumer() {
         </button>
       </div>
       <div className='shoppingCartNavbarConsumer'>
-        <button className='shoppingCartButtonNavbarConsumer'>
+        <button
+          className='shoppingCartButtonNavbarConsumer'
+          onClick={() => {
+            navigate("/shopping-cart");
+          }}
+        >
           <i className='fa fa-shopping-cart'></i>
         </button>
         <span className='shoppinCartBadgeNavbarConsumer'>0</span>
