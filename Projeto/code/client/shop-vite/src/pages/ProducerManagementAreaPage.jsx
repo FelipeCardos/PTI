@@ -12,7 +12,7 @@ export default function ProducerManagementAreaPage() {
 
   useEffect(() => {
     if (!myUserVariable) navigate("/signin");
-    if (myUserVariable.typeUser !== "Producer") navigate("/");
+    else if (myUserVariable.typeUser !== "Producer") navigate("/");
     setLoading(false);
   }, []);
   return (

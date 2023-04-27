@@ -6,9 +6,7 @@ import "./Signup.css";
 export default function Signup() {
   let navigate = useNavigate();
   let { state } = useLocation();
-  console.log(state);
   const signupType = state ? state.signupType : "Consumer";
-  console.log("signupType: " + JSON.stringify(signupType));
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,7 +35,6 @@ export default function Signup() {
         },
       })
       .then((res) => {
-        console.log("Servidor: " + JSON.stringify(res.data));
         if (res.status === 201) {
           navigate("/signin");
         }

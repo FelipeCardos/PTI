@@ -14,13 +14,13 @@ export default function MainLayout({ children }) {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   useEffect(() => {
     if (!myUserVariable) setNavbars({ ...navbars, Navbar: true });
-    if (myUserVariable.typeUser !== "Producer")
+    else if (myUserVariable.typeUser !== "Producer")
       setNavbars({
         Navbar: false,
         NavbarConsumer: true,
         NavbarProducer: false,
       });
-    if (myUserVariable.typeUser === "Producer")
+    else if (myUserVariable.typeUser === "Producer")
       setNavbars({
         Navbar: false,
         NavbarConsumer: false,

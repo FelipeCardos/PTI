@@ -16,7 +16,7 @@ export const UserContextProvider = ({ children }) => {
         const data = response.data;
         setMyUserVariable(data.user);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
 

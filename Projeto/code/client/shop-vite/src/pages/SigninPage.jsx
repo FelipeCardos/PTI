@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../assets/UserContext";
 import LoadingSpinner from "../components/Loadings/LoadingSpinner";
 import Signin from "../components/Signin/Signin";
@@ -7,10 +7,12 @@ import SimpleLayout from "../layouts/SimpleLayout";
 export default function SigninPage(props) {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
-  setTimeout(() => {
+
+  useEffect(() => {
     if (myUserVariable) window.location = "/";
-    if (!myUserVariable) setLoading(false);
-  }, 1500);
+    else if (!myUserVariable) setLoading(false);
+  }, []);
+
   return (
     <>
       {loading ? (
