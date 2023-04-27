@@ -55,7 +55,7 @@ export default function NavbarConsumer() {
           }}
           className='accountButtonNavbarConsumer'
         >
-          <i className='fa fa-user'></i>
+          <i className='fa fa-user'> Buraca som sisteama</i>
         </button>
       </div>
     </div>
