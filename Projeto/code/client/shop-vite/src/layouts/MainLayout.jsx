@@ -30,10 +30,9 @@ export default function MainLayout({ children }) {
 
   return (
     <>
-      {/* {navbars.Navbar && <Navbar />} */}
-      {/* {navbars.NavbarConsumer && <NavbarConsumer />} */}
-      {/* {navbars.NavbarProducer && <NavbarProducer />} */}
-      <NavbarProducer />
+      {navbars.Navbar && <Navbar />}
+      {navbars.NavbarConsumer && <NavbarConsumer />}
+      {navbars.NavbarProducer && <NavbarProducer />}
       <div style={{ display: "inline-block", position: "relative" }}>
         {children}
       </div>
