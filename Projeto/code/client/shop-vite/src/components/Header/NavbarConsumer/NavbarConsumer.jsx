@@ -45,7 +45,7 @@ export default function NavbarConsumer() {
         >
           <i className='fa fa-shopping-cart'></i>
         </button>
-        <span className='shoppinCartBadgeNavbarConsumer'>0</span>
+        <span className='shoppingCartBadgeNavbarConsumer'>0</span>
       </div>
       <div className='notificationBellNavbarConsumer'>
         <button className='notificationBellButtonNavbarConsumer'>

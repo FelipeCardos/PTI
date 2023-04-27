@@ -85,7 +85,7 @@
   align-items: center;
 }
 
-.shoppinCartBadgeNavbarConsumer,
+.shoppingCartBadgeNavbarConsumer,
 .notificationBellBadgeNavbarConsumer {
   position: absolute;
   width: 25px;
@@ -106,7 +106,7 @@
   color: #023e97;
 }
 
-.shoppingCartNavbarConsumer:hover > .shoppinCartBadgeNavbarConsumer,
+.shoppingCartNavbarConsumer:hover > .shoppingCartBadgeNavbarConsumer,
 .notificationBellNavbarConsumer:hover > .notificationBellBadgeNavbarConsumer {
   background: hsl(0, 100%, 40%);
 }

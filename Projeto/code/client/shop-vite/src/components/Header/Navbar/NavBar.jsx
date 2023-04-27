@@ -55,7 +55,7 @@ export default function Navbar() {
         >
           <i className='fa fa-shopping-cart'></i>
         </button>
-        <span className='shoppinCartBadgeNavbar'>0</span>
+        <span className='shoppingCartBadgeNavbar'>0</span>
       </div>
       <div className='signinNavbar'>
         <button
