@@ -1,49 +1,65 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
-// import "./NavBar.css";
+import "./NavbarConsumer.css";
 
 export default function NavbarConsumer() {
   let navigate = useNavigate();
 
   return (
-    <div className='nav'>
+    <div className='navConsumer'>
       <div
-        className='logoNavbar'
+        className='logoNavbarConsumer'
         onClick={() => {
           navigate("/");
         }}
       >
         <img src={logo} className='logo' />
       </div>
-      <div className='productsNavbar'>
+      <div className='productsNavbarConsumer'>
         <button
           onClick={() => {
             navigate("/products");
           }}
-          className='productsButtonNavbar'
+          className='productsButtonNavbarConsumer'
         >
           Products
         </button>
       </div>
-      <div className='searchNavbar'>
+      <div className='searchNavbarConsumer'>
         <input
           type='text'
-          className='searchBarNavbar'
+          className='searchBarNavbarConsumer'
           name='searchQuery'
           placeholder='Search...'
         />
-        <button type='button' className='searchButtonNavbar'>
+        <button type='button' className='searchButtonNavbarConsumer'>
           <i className='fa fa-search'></i>
         </button>
       </div>
-      <div className='shoppingCartNavbar'>
-        <button className='shoppingCartButtonNavbar'>
+      <div className='shoppingCartNavbarConsumer'>
+        <button className='shoppingCartButtonNavbarConsumer'>
           <i className='fa fa-shopping-cart'></i>
         </button>
-        <span className='shoppinCartBadgeNavbar'>0</span>
+        <span className='shoppinCartBadgeNavbarConsumer'>0</span>
+      </div>
+      <div className='notificationBellNavbarConsumer'>
+        <button className='notificationBellButtonNavbarConsumer'>
+          <i className='fa fa-bell'></i>
+        </button>
+        <span className='notificationBellBadgeNavbarConsumer'>0</span>
+      </div>
+      <div className='accountNavbarConsumer'>
+        <button
+          onClick={() => {
+            navigate("/account-overview");
+          }}
+          className='accountButtonNavbarConsumer'
+        >
+          <i className='fa fa-user'></i>
+        </button>
       </div>
     </div>
   );
 }
 
-// LOGO - SEARCHBAR - SHOPPING BASKET - NOTIFICATIONS - ACCOUNT
+// LOGO - PRODUCTS - SEARCHBAR - SHOPPING BASKET - NOTIFICATIONS - ACCOUNT

@@ -1,5 +1,4 @@
 import { React, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../assets/UserContext";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Header/Navbar/Navbar";
@@ -13,28 +12,28 @@ export default function MainLayout({ children }) {
     NavbarProducer: false,
   });
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
-  let navigate = useNavigate();
   useEffect(() => {
-    if (!myUserVariable) setNavbars({ ...navbars, Navbar: true });
-    if (myUserVariable.typeUser !== "Producer")
-      setNavbars({
-        Navbar: false,
-        NavbarConsumer: true,
-        NavbarProducer: false,
-      });
-    if (myUserVariable.typeUser === "Producer")
-      setNavbars({
-        Navbar: false,
-        NavbarConsumer: false,
-        NavbarProducer: true,
-      });
+    // if (!myUserVariable) setNavbars({ ...navbars, Navbar: true });
+    // if (myUserVariable.typeUser !== "Producer")
+    //   setNavbars({
+    //     Navbar: false,
+    //     NavbarConsumer: true,
+    //     NavbarProducer: false,
+    //   });
+    // if (myUserVariable.typeUser === "Producer")
+    //   setNavbars({
+    //     Navbar: false,
+    //     NavbarConsumer: false,
+    //     NavbarProducer: true,
+    //   });
   }, []);
 
   return (
     <>
-      {navbars.Navbar && <Navbar />}
-      {navbars.NavbarConsumer && <NavbarConsumer />}
-      {navbars.NavbarProducer && <NavbarProducer />}
+      {/* {navbars.Navbar && <Navbar />} */}
+      {/* {navbars.NavbarConsumer && <NavbarConsumer />} */}
+      <NavbarConsumer />
+      {/* {navbars.NavbarProducer && <NavbarProducer />} */}
       <div style={{ display: "inline-block", position: "relative" }}>
         {children}
       </div>
