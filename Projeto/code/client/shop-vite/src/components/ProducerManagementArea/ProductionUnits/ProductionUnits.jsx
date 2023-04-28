@@ -1,39 +1,24 @@
 import React from "react";
-import ProductionUnitExample from "./ProductionUnitExample/ProductionUnitExample";
+import { useNavigate } from "react-router-dom";
 import "./ProductionUnits.css";
 
-export default function ProductionUnits({ handleShowAddPUs }) {
-  let productionUnits = [
-    {
-      id: 1,
-      address: "Rua 1",
-      capacity: "20/100",
-    },
-    {
-      id: 2,
-      address: "Rua 2",
-      capacity: "30/100",
-    },
-  ];
+export default function ProductionUnits() {
+  let navigate = useNavigate();
   return (
     <>
-      <div className='productionUnitsTitle'>Production Units</div>
-      <hr className='productionUnitsTitleHR' />
-      <div className='containerProductionUnitsExamples'>
-        {productionUnits.map((productionUnit) => (
-          <ProductionUnitExample
-            key={productionUnit.id}
-            address={productionUnit.address}
-            capacity={productionUnit.capacity}
-          />
-        ))}
+      <div className='productionUnitsTitleProducerManagementArea'>
+        Production Units
       </div>
-      <div className='containerProductionUnitsButtons'>
-        <button className='addProductionUnitButton' onClick={handleShowAddPUs}>
-          ADD
-        </button>
-        <button className='viewAllProductionUnitsButton'>View All</button>
-      </div>
+      <hr className='productionUnitsTitleHRProducerManagementArea' />
+      <div className='containerProductionUnitsChartsProducerManagementArea'></div>
+      <button
+        className='viewAllProductionUnitsButtonProducerManagementArea'
+        onClick={() => {
+          navigate("/management-area/production-units");
+        }}
+      >
+        View All
+      </button>
     </>
   );
 }

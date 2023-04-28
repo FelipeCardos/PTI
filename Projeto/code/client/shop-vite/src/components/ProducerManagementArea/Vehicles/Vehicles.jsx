@@ -1,42 +1,22 @@
 import React from "react";
-import VehicleExample from "./VehicleExample/VehicleExample";
+import { useNavigate } from "react-router-dom";
 import "./Vehicles.css";
 
-export default function Vehicles({ handleShowAddVehicles }) {
-  let vehicles = [
-    {
-      id: 1,
-      licensePlate: "11-AA-11",
-      capacity: 100,
-      availability: true,
-    },
-    {
-      id: 2,
-      licensePlate: "22-BB-22",
-      capacity: 100,
-      availability: false,
-    },
-  ];
+export default function Vehicles() {
+  let navigate = useNavigate();
   return (
     <>
-      <div className='vehiclesTitle'>Vehicles</div>
-      <hr className='vehiclesTitleHR' />
-      <div className='containerVehiclesExamples'>
-        {vehicles.map((vehicle) => (
-          <VehicleExample
-            key={vehicle.id}
-            licensePlate={vehicle.address}
-            capacity={vehicle.capacity}
-            availability={vehicle.availability}
-          />
-        ))}
-      </div>
-      <div className='containerVehiclesButtons'>
-        <button className='addVehicleButton' onClick={handleShowAddVehicles}>
-          ADD
-        </button>
-        <button className='viewAllVehiclesButton'>View All</button>
-      </div>
+      <div className='vehiclesTitleProducerManagementArea'>Vehicles</div>
+      <hr className='vehiclesTitleHRProducerManagementArea' />
+      <div className='containerVehiclesChartsProducerManagementArea'></div>
+      <button
+        className='viewAllVehiclesButtonProducerManagementArea'
+        onClick={() => {
+          return navigate("/management-area/vehicles");
+        }}
+      >
+        View All
+      </button>
     </>
   );
 }

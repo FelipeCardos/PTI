@@ -4,6 +4,7 @@ import AddVehicles from "./AddVehicles/AddVehicles";
 import Notifications from "./Notifications/Notifications";
 import "./ProducerManagementArea.css";
 import ProductionUnits from "./ProductionUnits/ProductionUnits";
+import Products from "./Products/Products";
 import Vehicles from "./Vehicles/Vehicles";
 
 export default function ProducerManagementArea() {
@@ -29,13 +30,16 @@ export default function ProducerManagementArea() {
 
   return (
     <div className='containerProducerManagementArea'>
-      <div className='containerNotifications'>
+      <div className='containerNotificationsProducerManagementArea'>
         <Notifications />
       </div>
-      <div className='containerProductionUnits'>
+      <div className='containerProductsProducerManagementArea'>
+        <Products />
+      </div>
+      <div className='containerProductionUnitsProducerManagementArea'>
         <ProductionUnits handleShowAddPUs={handleShowAddPUs} />
       </div>
-      <div className='containerVehicles'>
+      <div className='containerVehiclesProducerManagementArea'>
         <Vehicles handleShowAddVehicles={handleShowAddVehicles} />
       </div>
       {modal && <div className='modalProducerManagementArea'></div>}
