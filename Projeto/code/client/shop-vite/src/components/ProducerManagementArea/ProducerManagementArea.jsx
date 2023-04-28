@@ -1,11 +1,11 @@
 import { React, useState } from "react";
-import AddProductionUnits from "./AddProductionUnits/AddProductionUnits";
-import AddVehicles from "./AddVehicles/AddVehicles";
 import Notifications from "./Notifications/Notifications";
 import "./ProducerManagementArea.css";
 import ProductionUnits from "./ProductionUnits/ProductionUnits";
+import AddProductionUnits from "./ProductionUnitsPMA/AddProductionUnits/AddProductionUnits";
 import Products from "./Products/Products";
 import Vehicles from "./Vehicles/Vehicles";
+import AddVehicles from "./VehiclesPMA/AddVehicles/AddVehicles";
 
 export default function ProducerManagementArea() {
   const [modal, setModal] = useState(false);

@@ -13,9 +13,11 @@ const ProducerPage = lazy(() => import("./pages/ProducerPage"));
 const ProducerManagementAreaPage = lazy(() =>
   import("./pages/ProducerManagementAreaPage")
 );
-const AddVehicleProductionUnitPage = lazy(() =>
-  import("./pages/AddVehicleProductionUnitPage")
+const ProductsPMApage = lazy(() => import("./pages/ProductsPMApage"));
+const ProductionUnitsPMApage = lazy(() =>
+  import("./pages/ProductionUnitsPMApage")
 );
+const VehiclesPMApage = lazy(() => import("./pages/VehiclesPMApage"));
 const ProductionUnitsPage = lazy(() => import("./pages/ProductionUnitsPage"));
 const AddProductionUnitsPage = lazy(() =>
   import("./pages/AddProductionUnitPage")
@@ -51,6 +53,30 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <ProducerManagementAreaPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/management-area/products",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProductsPMApage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/management-area/production-units",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProductionUnitsPMApage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/management-area/vehicles",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <VehiclesPMApage />
       </Suspense>
     ),
   },
