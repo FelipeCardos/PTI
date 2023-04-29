@@ -1,4 +1,6 @@
 
 Projeto/code/server/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node
 
+server/.env
+
 Projeto/code/server/.env
