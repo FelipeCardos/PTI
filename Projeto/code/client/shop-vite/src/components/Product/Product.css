@@ -1,0 +1,140 @@
+.containerProduct {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  /* height: 95vh; */
+  display: grid;
+  grid: 35px 500px 300px auto auto / 1.5fr 1fr;
+  position: relative;
+  gap: 20px;
+}
+
+.containerProductBreadcrumb {
+  grid-area: 1 / 1 / span 1 / span 2;
+  border-bottom: 1px solid var(--bs-blue);
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--bs-gray-400);
+}
+
+.containerProductBreadcrumb > div {
+  margin-left: 20px;
+}
+
+.containerProductTitle {
+  grid-area: 2 / 1 / span 1 / span 1;
+}
+
+.containerProductTitle > div {
+  margin-left: 20px;
+}
+
+.containerProductTitleTitle {
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 65px;
+}
+
+.containerProductTitleRating {
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.containerProductTitleRating > span > span {
+  color: var(--bs-gray-400);
+}
+
+.containerProductTitleRating > span > span.checked {
+  color: var(--bs-yellow);
+}
+
+.containerProductTitleImage > img {
+  object-fit: cover;
+  height: 400px;
+}
+
+.containerProductPrice {
+  grid-area: 2 / 2 / span 1 / span 1;
+  box-shadow: 0 0.5rem 1rem var(--bs-blue);
+  margin-right: 20px;
+}
+
+.containerProductPriceInfo {
+  height: 100px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.containerProductPriceInfoPrice {
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 65px;
+}
+
+.containerProductPriceInfoProducer {
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.containerProductPriceAddToCartButton {
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.containerProductPriceAddToCartButton > button {
+  height: 50px;
+  width: 60%;
+  background-color: var(--bs-blue);
+  color: white;
+  border: 0;
+  border-radius: 0.5em;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+.containerProductPriceAddToCartButton > button:hover {
+  background-color: var(--bs-blue-hover);
+  border: 1px solid var(--bs-blue);
+  color: var(--bs-blue);
+}
+
+.containerProductPriceAddToCartButton > i {
+  font-size: 30px;
+  color: var(--bs-blue);
+  cursor: pointer;
+}
+
+.containerProductPriceAddToCartButton > i:hover {
+  color: #023e97;
+}
+
+.containerProductPriceCompareProduct {
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.containerProductPriceCompareProduct > button {
+  height: 50px;
+  width: 60%;
+  background-color: var(--bs-blue);
+  color: white;
+  border: 0;
+  border-radius: 0.5em;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+.containerProductPriceCompareProduct > button:hover {
+  background-color: var(--bs-blue-hover);
+  border: 1px solid var(--bs-blue);
+  color: var(--bs-blue);
+}
