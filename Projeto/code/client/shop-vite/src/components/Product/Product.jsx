@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import rubiks from "../Carrossel/images/rubiks.jpg";
+import AttributeRow from "./AttributeRow/AttributeRow";
 import "./Product.css";
 import ProductSimilar from "./ProductSimilar/ProductSimilar";
 
@@ -53,7 +54,17 @@ export default function Product() {
           <ProductSimilar image={"../" + rubiks} />
         </div>
       </div>
-      <div className='containerProductProductAttributes'></div>
+      <div className='containerProductProductAttributes'>
+        <div className='containerProductProductAttributesTitle'>
+          Product Information
+        </div>
+        <div className='containerProductProductAttributesInfo'>
+          <table className='containerProductProductAttributesInfoTable'>
+            {/* Falta renderizar os atributos na tabela*/}
+            <AttributeRow />
+          </table>
+        </div>
+      </div>
       <div className='containerProductCommentSection'></div>
     </div>
   );
