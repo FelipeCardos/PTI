@@ -31,9 +31,11 @@
 }
 
 .containerProductTitleTitle {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
   line-height: 65px;
+  max-height: 130px;
+  overflow: hidden;
 }
 
 .containerProductTitleRating {
@@ -51,13 +53,14 @@
 
 .containerProductTitleImage > img {
   object-fit: cover;
-  height: 400px;
+  height: 335px;
 }
 
 .containerProductPrice {
   grid-area: 2 / 2 / span 1 / span 1;
   box-shadow: 0 0.5rem 1rem var(--bs-blue);
   margin-right: 20px;
+  border-radius: 1em;
 }
 
 .containerProductPriceInfo {
@@ -137,4 +140,19 @@
   background-color: var(--bs-blue-hover);
   border: 1px solid var(--bs-blue);
   color: var(--bs-blue);
+}
+
+.containerProductSimilarProducts {
+  grid-area: 3 / 1 / span 1 / span 2;
+  margin: 0 20px;
+  position: relative;
+  box-shadow: 0 0.5rem 1rem var(--bs-blue);
+  border-radius: 1em;
+}
+
+.containerProductSimilarProducts > div {
+  display: grid;
+  grid: 1fr / repeat(5, 1fr);
+  height: 100%;
+  position: relative;
 }

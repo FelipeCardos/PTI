@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import rubiks from "../Carrossel/images/rubiks.jpg";
 import "./Product.css";
+import ProductSimilar from "./ProductSimilar/ProductSimilar";
 
 export default function Product() {
   let { product_id } = useParams();
@@ -12,7 +13,10 @@ export default function Product() {
       </div>
       <div className='containerProductTitle'>
         <div>
-          <div className='containerProductTitleTitle'>Product Title</div>
+          <div className='containerProductTitleTitle'>
+            Jogo de Lógica RUBIK's Cubo Mini 3x3 (Idade Mínima: 7 Anos -
+            Dificuldade: Intermédio)
+          </div>
           <div className='containerProductTitleRating'>
             <span>
               <span className='fa fa-star checked'></span>
@@ -32,7 +36,7 @@ export default function Product() {
         <div className='containerProductPriceInfo'>
           <div className='containerProductPriceInfoPrice'>100€</div>
           <div className='containerProductPriceInfoProducer'>
-            Producer's name
+            Sold by: Producer's name
           </div>
         </div>
         <div className='containerProductPriceAddToCartButton'>
@@ -43,7 +47,12 @@ export default function Product() {
           <button>Compare product</button>
         </div>
       </div>
-      <div className='containerProductSimilarProducts'></div>
+      <div className='containerProductSimilarProducts'>
+        <div>
+          {/* Falta renderizar os produtos similares*/}
+          <ProductSimilar image={"../" + rubiks} />
+        </div>
+      </div>
       <div className='containerProductProductAttributes'></div>
       <div className='containerProductCommentSection'></div>
     </div>

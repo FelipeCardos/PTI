@@ -1,0 +1,44 @@
+.containerProductSimilarProduct {
+  margin: 15px;
+  border: 1px red solid;
+  border-radius: 0.5em;
+  height: calc(100% - 30px);
+  position: relative;
+}
+
+@keyframes hoverSimilarProduct {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.containerProductSimilarProduct:hover {
+  animation: hoverSimilarProduct 0.5s forwards;
+  box-shadow: 0 0.5rem 1rem var(--bs-blue);
+}
+
+.containerProductSimilarProductTitle {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  width: 95%;
+  border-radius: 0 0.5em 0 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerProductSimilarProductTitle > span {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.containerProductSimilarProductTitle > div > span.checked {
+  color: var(--bs-yellow);
+}
