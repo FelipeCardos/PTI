@@ -21,6 +21,12 @@ export default function ProductsPMA() {
           {/* Falta renderizar os produtos */}
         </div>
       </div>
+      {modal && <div className='modalPMA'></div>}
+      {showAddProducts && (
+        <div className='AddProducts'>
+          <AddProducts handleShowAddPUs={handleShowAddProducts} />
+        </div>
+      )}
     </div>
   );
 }
