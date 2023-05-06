@@ -1,7 +1,7 @@
 import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../assets/UserContext";
 import Footer from "../components/Footer/Footer";
-import Navbar from "../components/Header/Navbar/Navbar";
+import Navbar from "../components/Header/Navbar/NavBar";
 import NavbarConsumer from "../components/Header/NavbarConsumer/NavbarConsumer";
 import NavbarProducer from "../components/Header/NavbarProducer/NavbarProducer";
 
