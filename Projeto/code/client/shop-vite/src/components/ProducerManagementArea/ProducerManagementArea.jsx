@@ -17,7 +17,6 @@ export default function ProducerManagementArea() {
     setShowAddPUs(!showAddPUs);
     setShowAddVehicles(false);
     setModal(!modal);
-    console.log("handleShowAddPUs");
   };
 
   const handleShowAddVehicles = () => {

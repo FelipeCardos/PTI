@@ -9,7 +9,6 @@ export default function VehiclesPMA() {
     event.preventDefault();
     setShowAddVehicles(!showAddVehicles);
     setModal(!modal);
-    console.log("handleShowAddVehicles");
   };
   return (
     <div className='containerVehiclesPMA'>

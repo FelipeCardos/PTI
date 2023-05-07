@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import AddProducts from "./AddProducts/AddProducts";
 import "./ProductsPMA.css";
 
@@ -9,7 +9,6 @@ export default function ProductsPMA() {
     event.preventDefault();
     setShowAddProducts(!showAddProducts);
     setModal(!modal);
-    console.log("handleShowAddProducts");
   };
   return (
     <div className='containerProductsPMA'>
