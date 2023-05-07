@@ -54,7 +54,7 @@ export default function AddProducts(props) {
 
   return (
     <div className='containerAddProduct'>
-      <div className='containerAddProductTitle'>New Production Unit</div>
+      <div className='containerAddProductTitle'>New Product</div>
       <hr className='containerAddProductTitleHR' />
       <form onSubmit={handleSubmit} className='containerAddProductForm'>
         <div>

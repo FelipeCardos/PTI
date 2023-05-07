@@ -1,7 +1,16 @@
-import React from "react";
+import { React, useState } from "react";
+import AddProducts from "./AddProducts/AddProducts";
 import "./ProductsPMA.css";
 
 export default function ProductsPMA() {
+  const [modal, setModal] = useState(false);
+  const [showAddProducts, setShowAddProducts] = useState(false);
+  const handleShowAddProducts = () => {
+    event.preventDefault();
+    setShowAddProducts(!showAddProducts);
+    setModal(!modal);
+    console.log("handleShowAddProducts");
+  };
   return (
     <div className='containerProductsPMA'>
       <div className='containerProductsPMADashboard'>
@@ -14,7 +23,12 @@ export default function ProductsPMA() {
       <div className='containerProductsPMAYourProducts'>
         <div className='productsPMAYourProductsTitle'>
           Your Products
-          <button className='productsPMAAddProducts'>ADD</button>
+          <button
+            className='productsPMAAddProducts'
+            onClick={handleShowAddProducts}
+          >
+            ADD
+          </button>
         </div>
         <hr className='productsPMAYourProductsTitleHR' />
         <div className='containerProductsPMAYourProductsProducts'>
@@ -24,7 +38,7 @@ export default function ProductsPMA() {
       {modal && <div className='modalPMA'></div>}
       {showAddProducts && (
         <div className='AddProducts'>
-          <AddProducts handleShowAddPUs={handleShowAddProducts} />
+          <AddProducts handleShowAddProducts={handleShowAddProducts} />
         </div>
       )}
     </div>
