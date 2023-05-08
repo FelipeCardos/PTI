@@ -11,6 +11,10 @@
   border-radius: 0.5em;
 }
 
+.containerAccountOverviewOrders {
+  margin: 20px;
+}
+
 .modalAO {
   display: flex;
   align-items: center;
