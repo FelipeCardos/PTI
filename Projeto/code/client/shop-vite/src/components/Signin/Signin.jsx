@@ -28,17 +28,13 @@ export default function Signin(props) {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post(
-        "../../../../../server/src/routes/api/v1/auth/local/login",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          withCredentials: true,
-        }
-      )
+      .post("http://localhost:3000/api/v1/auth/local/login", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.status === 200) {
           navigate("/");
@@ -51,11 +47,10 @@ export default function Signin(props) {
 
   function handleGoogleSignin(typeUser) {
     if (typeUser === "Consumer") {
-      window.location.href =
-        "../../../../../server/src/routes/api/v1/auth/google/login";
+      window.location.href = "http://localhost:3000/api/v1/auth/google/login";
     } else if (typeUser === "Producer") {
       window.location.href =
-        "../../../../../server/src/routes/api/v1/auth/google/login?isProducer=true";
+        "http://localhost:3000/api/v1/auth/google/login?isProducer=true";
     }
   }
 

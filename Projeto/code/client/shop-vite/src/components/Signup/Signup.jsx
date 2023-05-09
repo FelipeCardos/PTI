@@ -29,15 +29,11 @@ export default function Signup() {
     event.preventDefault();
     console.log("Cliente: " + JSON.stringify(formData));
     axios
-      .post(
-        "../../../../../server/src/routes/api/v1/auth/local/register",
-        formData,
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
+      .post("http://localhost:3000/api/v1/auth/local/register", formData, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
       .then((res) => {
         if (res.status === 201) {
           navigate("/signin");
