@@ -88,6 +88,28 @@
   inset: 15% 20% auto 20%;
 }
 
+.containerOrdersAOViewDetailsModal
+  > .containerOrdersAOViewDetailsModalTitle
+  > button {
+  background-color: var(--bs-blue);
+  color: white;
+  border: 1px solid var(--bs-blue);
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.containerOrdersAOViewDetailsModal
+  > .containerOrdersAOViewDetailsModalTitle
+  > button:hover {
+  background-color: var(--bs-blue-hover);
+  border: 1px solid var(--bs-blue);
+  color: var(--bs-blue);
+}
+
 .containerOrdersAOViewDetailsModalCloseButton {
   position: absolute;
   right: 0;

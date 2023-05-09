@@ -51,6 +51,9 @@ export default function OrdersAO(props) {
           </div>
           <div className='containerOrdersAOViewDetailsModalTitle'>
             Order Details
+            <button className='containerOrdersAOViewDetailsModalExportJSON'>
+              Export to JSON
+            </button>
           </div>
           <hr className='containerOrdersAOViewDetailsModalHr' />
           <div className='containerOrdersAOViewDetailsModalList'>
