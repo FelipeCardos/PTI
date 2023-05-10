@@ -1,8 +1,10 @@
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../assets/UserContext";
 import "./InfoAO.css";
 
 export default function InfoAO(props) {
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
@@ -10,10 +12,10 @@ export default function InfoAO(props) {
   const [deleteAccountPasswordCorrect, setDeleteAccountPasswordCorrect] =
     useState(false);
   const [formDataAccount, setFormDataAccount] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    fiscal_identifier: "",
+    name: myUserVariable.name,
+    email: myUserVariable.email,
+    phone: myUserVariable.phone,
+    fiscal_identifier: myUserVariable.fiscal_identifier,
     address: "",
   });
   const [formDataPassword, setFormDataPassword] = useState({
@@ -93,6 +95,7 @@ export default function InfoAO(props) {
               readOnly={!editMode}
               value={formDataAccount.name}
               onChange={handleChangeDataAccount}
+              name='name'
             />
             <label htmlFor='name'>Your Email:</label>
             <input
@@ -100,6 +103,7 @@ export default function InfoAO(props) {
               readOnly={!editMode}
               value={formDataAccount.email}
               onChange={handleChangeDataAccount}
+              name='email'
             />
             <label htmlFor='name'>Your Phone:</label>
             <input
@@ -107,6 +111,7 @@ export default function InfoAO(props) {
               readOnly={!editMode}
               value={formDataAccount.phone}
               onChange={handleChangeDataAccount}
+              name='phone'
             />
             <label htmlFor='name'>Your Fiscal Identifier:</label>
             <input
@@ -114,6 +119,7 @@ export default function InfoAO(props) {
               readOnly={!editMode}
               value={formDataAccount.fiscal_identifier}
               onChange={handleChangeDataAccount}
+              name='fiscal_identifier'
             />
             <label htmlFor='name'>Your Address:</label>
             <input
@@ -121,6 +127,7 @@ export default function InfoAO(props) {
               readOnly={!editMode}
               value={formDataAccount.address}
               onChange={handleChangeDataAccount}
+              name='address'
             />
           </form>
         </div>

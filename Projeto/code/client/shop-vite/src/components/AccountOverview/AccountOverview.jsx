@@ -1,9 +1,11 @@
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../assets/UserContext";
 import "./AccountOverview.css";
 import InfoAO from "./InfoAO/InfoAO";
 import OrdersAO from "./OrdersAO/OrdersAO";
 
 export default function AccountOverview(props) {
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [modal, setModal] = useState(false);
   function toggleModal() {
     setModal(!modal);

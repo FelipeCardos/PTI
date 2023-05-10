@@ -11,7 +11,7 @@ export default function AccountOverviewPage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    // if (!myUserVariable) return navigate("/signin");
+    if (!myUserVariable) return navigate("/signin");
     setLoading(false);
   }, []);
   return (
