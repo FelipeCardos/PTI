@@ -20,7 +20,7 @@
 
 .containerProductSimilarProduct:hover {
   animation: hoverSimilarProduct 0.5s forwards;
-  box-shadow: 0 0.5rem 1rem var(--bs-blue);
+  box-shadow: 0 0.5rem 1rem grey;
 }
 
 .containerProductSimilarProductTitle {

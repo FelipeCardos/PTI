@@ -58,7 +58,7 @@
 
 .containerProductPrice {
   grid-area: 2 / 2 / span 1 / span 1;
-  box-shadow: 0 0.5rem 1rem var(--bs-blue);
+  box-shadow: 0 0.5rem 1rem gray;
   margin-right: 20px;
   border-radius: 1em;
 }
@@ -146,7 +146,7 @@
   grid-area: 3 / 1 / span 1 / span 2;
   margin: 0 20px;
   position: relative;
-  box-shadow: 0 0.5rem 1rem var(--bs-blue);
+  box-shadow: 0 0.5rem 1rem gray;
   border-radius: 1em;
 }
 
@@ -161,10 +161,13 @@
   grid-area: 4 / 1 / span 1 / span 2;
   margin: 0 20px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .containerProductProductAttributesTitle {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   line-height: 45px;
   max-height: 90px;
