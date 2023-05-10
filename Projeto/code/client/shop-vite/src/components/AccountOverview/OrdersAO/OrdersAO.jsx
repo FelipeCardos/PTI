@@ -1,13 +1,27 @@
-import { React, useEffect, useState } from "react";
+import axios from "axios";
+import { React, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../assets/UserContext";
 import "./OrdersAO.css";
+import OrdersAOListItem from "./OrdersAOListItem/OrdersAOListItem";
 
 export default function OrdersAO(props) {
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [viewDetailsModal, setViewDetailsModal] = useState(false);
+  const [orders, setOrders] = useState([]);
   function toggleViewDetailsModal() {
     props.toggleModal();
     setViewDetailsModal(!viewDetailsModal);
     // Refresh div containerOrdersAOViewDetailsModal with the proper data
   }
+
+  useEffect(() => {
+    // GET REQUEST TO GET ALL ORDERS FROM THE USER
+    axios
+      .get("http://localhost:3000/api/v1/users/" + myUserVariable.id + "/carts")
+      .then((response) => {
+        setOrders(response.data);
+      });
+  }, []);
   return (
     <>
       <div className='containerOrdersAOHeader'>
@@ -23,24 +37,15 @@ export default function OrdersAO(props) {
       </div>
       <hr className='containerOrdersAOHr' />
       <div className='containerOrdersAOList'>
-        <div className='containerOrdersAOListItem'>
-          <div className='containerOrdersAOListItemOrderID'>
-            OrderID: 123456789
-          </div>
-          <div className='containerOrdersAOListItemDate'>Date: 01/01/2021</div>
-          <div className='containerOrdersAOListItemPrice'>Price: 1000€</div>
-          <div className='containerOrdersAOListItemStatus'>
-            Status: Delivered
-          </div>
-          <div className='containerOrdersAOListItemButton'>
-            <button
-              className='ordersAOViewDetails'
-              onClick={toggleViewDetailsModal}
-            >
-              View Details
-            </button>
-          </div>
-        </div>
+        {orders.map((order) => (
+          <OrdersAOListItem
+            toggleViewDetailsModal={toggleViewDetailsModal}
+            order_id={order.id}
+            order_date={order.order_date}
+            order_price={null}
+            order_status={order.status}
+          />
+        ))}
       </div>
       {viewDetailsModal && (
         <div className='containerOrdersAOViewDetailsModal'>

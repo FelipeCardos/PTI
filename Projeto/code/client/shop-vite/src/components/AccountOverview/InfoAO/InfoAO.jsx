@@ -25,7 +25,6 @@ export default function InfoAO(props) {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      console.log(deleteAccountPassword);
       // Send the inputted password to the backend to check if it is correct
       setDeleteAccountPasswordCorrect(deleteAccountPassword === "1234");
     }, 500);
