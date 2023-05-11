@@ -1,13 +1,3 @@
-CREATE FUNCTION openCart(cart_id INT, cartline_status VARCHAR(32)) RETURNS VARCHAR(32)
-DECLARE cart_status VARCHAR(32);
-BEGIN
-SELECT status INTO cart_status
-FROM Cart
-WHERE id = cart_id;
-IF cart_status = 'OPEN' THEN RETURN 'OPEN';
-ELSE RETURN cartline_status;
-END IF;
-END;
 CREATE TABLE Address(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     country VARCHAR(100) NOT NULL,
@@ -19,8 +9,8 @@ CREATE TABLE Address(
 CREATE TABLE User(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     fiscal_identifier VARCHAR(255),
     address_id INT UNSIGNED,
     phone VARCHAR(255),
@@ -35,22 +25,37 @@ CREATE TABLE Credentials(
     FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
 CREATE TABLE ProductionUnit(
-    id INT UNSIGNED AUTO_INCREMENT,
+    id INT UNSIGNED,
     producer_id INT UNSIGNED,
     capacity INT UNSIGNED NOT NULL CHECK (capacity > 0),
-    address_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (id, producer_id),
+    address_id INT UNSIGNED,
+    PRIMARY KEY (producer_id, id),
+    INDEX (id),
     FOREIGN KEY (address_id) REFERENCES Address(id) ON DELETE
     SET NULL
 );
+
+DELIMITER $$
+CREATE TRIGGER production_unit_id_trigger
+BEFORE INSERT ON ProductionUnit
+FOR EACH ROW BEGIN
+    DECLARE max_id INT UNSIGNED;
+    SELECT MAX(id) INTO max_id FROM ProductionUnit WHERE producer_id = NEW.producer_id;
+    SET NEW.id = IFNULL(max_id, 0) + 1;
+END $$
+DELIMITER ;
+
 CREATE TABLE Vehicle(
     id INT UNSIGNED AUTO_INCREMENT,
-    production_unit_id INT UNSIGNED NOT NULL,
+    production_unit_id INT UNSIGNED,
+    producer_id INT UNSIGNED,
     license_plate VARCHAR(32) NOT NULL,
     capacity INT UNSIGNED NOT NULL CHECK (capacity > 0),
     PRIMARY KEY (id),
     FOREIGN KEY (production_unit_id) REFERENCES ProductionUnit(id) ON DELETE
-    SET NULL
+    SET NULL,
+    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
+
 );
 # ----------------------------------------------------------------------------
 # Product related ------------------------------------------------------------
@@ -58,8 +63,9 @@ CREATE TABLE Product(
     id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1000),
+    barcode_id VARCHAR(13),    
     producer_id INT UNSIGNED NOT NULL,
-    price FLOAT NOT NULL CHECK (price > 0),
+    price INT NOT NULL CHECK (price > 0),
     production_date DATETIME NOT NULL,
     PRIMARY KEY (id, producer_id),
     FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
@@ -100,6 +106,14 @@ CREATE TABLE CategoryAttribute(
     PRIMARY KEY (id, category_id),
     FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
 );
+CREATE TABLE ProductAttribute(
+    product_id INT UNSIGNED NOT NULL,
+    attribute_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (product_id, attribute_id),
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_id) REFERENCES CategoryAttribute(id) ON DELETE CASCADE
+);
+
 CREATE TABLE Comment(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,
@@ -180,9 +194,6 @@ CREATE TABLE CartLine(
     CONSTRAINT chk_status CHECK (
         status = 'OPEN'
         AND vehicle_id IS NULL
-    ),
-    CONSTRAINT chk_status2 CHECK (
-        status = openCart(cart_id, status)
     ),
     PRIMARY KEY (cart_id, product_id),
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE,

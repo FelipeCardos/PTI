@@ -4,8 +4,8 @@ const session = require("express-session");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
-require("./src/controllers/auth/passport");
-require("./src/controllers/auth/passportGoogleSSO");
+require("./src/controllers/Auth/passport");
+require("./src/controllers/Auth/passportGoogleSSO");
 const cookieSession = require("cookie-session");
 const Paypal = require("paypal-rest-sdk");
 

@@ -27,7 +27,6 @@ export default function Signin(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Cliente: " + JSON.stringify(formData));
     axios
       .post("http://localhost:3000/api/v1/auth/local/login", formData, {
         headers: {
@@ -37,7 +36,6 @@ export default function Signin(props) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("Servidor: " + JSON.stringify(res.data));
         if (res.status === 200) {
           navigate("/");
         }

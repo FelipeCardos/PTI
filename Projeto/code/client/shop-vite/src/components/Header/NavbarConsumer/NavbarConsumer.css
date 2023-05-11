@@ -1,0 +1,112 @@
+.navConsumer {
+  display: grid;
+  grid: 1fr / 265px 100px 1fr 100px 100px 100px;
+  gap: 10px;
+  height: 11vh;
+  width: 100%;
+  border-bottom: 1px solid #0d6efd;
+}
+
+.navConsumer > div {
+  padding-top: 0.5em;
+}
+
+.logoNavbarConsumer {
+  width: 265px;
+  cursor: pointer;
+}
+
+.logo {
+  width: 255px;
+  height: 9vh;
+  object-fit: contain;
+}
+
+.logoNavbarConsumer,
+.productsNavbarConsumer,
+.searchNavbarConsumer,
+.shoppingCartNavbarConsumer,
+.notificationBellNavbarConsumer,
+.accountNavbarConsumer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.logoNavbarConsumer > button,
+.productsNavbarConsumer > button {
+  border: 1px solid #0d6efd;
+  background-color: #0d6efd;
+  color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.logoNavbarConsumer > button:hover,
+.productsNavbarConsumer > button:hover {
+  background-color: white;
+  color: #0d6efd;
+}
+
+.searchBarNavbarConsumer {
+  width: 90%;
+  height: 2.5em;
+  border: 1px solid #0d6efd;
+  border-radius: 0.5em 0 0 0.5em;
+  padding-left: 0.5em;
+}
+
+.searchButtonNavbarConsumer {
+  height: 2.5em;
+  width: 2.5em;
+  border: 1px solid hsl(216, 98%, 52%);
+  border-radius: 0 0.5em 0.5em 0;
+  background-color: #0d6efd;
+  color: white;
+}
+
+.searchNavbarConsumer > button:hover {
+  background-color: #023e97;
+  border: 1px solid #023e97;
+}
+
+.shoppingCartButtonNavbarConsumer,
+.notificationBellButtonNavbarConsumer,
+.accountButtonNavbarConsumer {
+  /* border: 1px solid #0d6efd; */
+  background-color: white;
+  color: var(--bs-blue);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shoppingCartBadgeNavbarConsumer,
+.notificationBellBadgeNavbarConsumer {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 1em;
+  right: 1em;
+  background: #ff0000;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.shoppingCartNavbarConsumer:hover > button,
+.notificationBellNavbarConsumer:hover > button,
+.accountNavbarConsumer:hover > button {
+  color: #023e97;
+}
+
+.shoppingCartNavbarConsumer:hover > .shoppingCartBadgeNavbarConsumer,
+.notificationBellNavbarConsumer:hover > .notificationBellBadgeNavbarConsumer {
+  background: hsl(0, 100%, 40%);
+}

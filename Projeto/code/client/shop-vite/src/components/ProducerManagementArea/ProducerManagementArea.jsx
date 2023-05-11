@@ -1,10 +1,11 @@
 import { React, useState } from "react";
-import AddProductionUnits from "./AddProductionUnits/AddProductionUnits";
-import AddVehicles from "./AddVehicles/AddVehicles";
 import Notifications from "./Notifications/Notifications";
 import "./ProducerManagementArea.css";
 import ProductionUnits from "./ProductionUnits/ProductionUnits";
+import AddProductionUnits from "./ProductionUnitsPMA/AddProductionUnits/AddProductionUnits";
+import Products from "./Products/Products";
 import Vehicles from "./Vehicles/Vehicles";
+import AddVehicles from "./VehiclesPMA/AddVehicles/AddVehicles";
 
 export default function ProducerManagementArea() {
   const [modal, setModal] = useState(false);
@@ -16,7 +17,6 @@ export default function ProducerManagementArea() {
     setShowAddPUs(!showAddPUs);
     setShowAddVehicles(false);
     setModal(!modal);
-    console.log("handleShowAddPUs");
   };
 
   const handleShowAddVehicles = () => {
@@ -29,13 +29,16 @@ export default function ProducerManagementArea() {
 
   return (
     <div className='containerProducerManagementArea'>
-      <div className='containerNotifications'>
+      <div className='containerNotificationsProducerManagementArea'>
         <Notifications />
       </div>
-      <div className='containerProductionUnits'>
+      <div className='containerProductsProducerManagementArea'>
+        <Products />
+      </div>
+      <div className='containerProductionUnitsProducerManagementArea'>
         <ProductionUnits handleShowAddPUs={handleShowAddPUs} />
       </div>
-      <div className='containerVehicles'>
+      <div className='containerVehiclesProducerManagementArea'>
         <Vehicles handleShowAddVehicles={handleShowAddVehicles} />
       </div>
       {modal && <div className='modalProducerManagementArea'></div>}
