@@ -60,11 +60,16 @@ export default function Product() {
         <div className='containerProductPriceInfo'>
           <div className='containerProductPriceInfoPrice'>
             {product.price ? (
-              product.price.toString()[product.price.toString().length - 1] +
+              product.price
+                .toString()
+                .slice(0, product.price.toString().length - 2) +
               "," +
               product.price
                 .toString()
-                .slice(1, product.price.toString().length) +
+                .slice(
+                  product.price.toString().length - 2,
+                  product.price.toString().length
+                ) +
               "€"
             ) : (
               <LoadingSpinner />

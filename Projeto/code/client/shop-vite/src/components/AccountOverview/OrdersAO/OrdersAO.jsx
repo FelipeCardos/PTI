@@ -42,7 +42,7 @@ export default function OrdersAO(props) {
             toggleViewDetailsModal={toggleViewDetailsModal}
             order_id={order.id}
             order_date={order.order_date}
-            order_price={null}
+            order_price={order.price}
             order_status={order.status}
           />
         ))}

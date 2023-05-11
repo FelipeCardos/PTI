@@ -11,7 +11,18 @@ export default function OrdersAOListItem(props) {
         Date: {props.order_date}
       </div>
       <div className='containerOrdersAOListItemPrice'>
-        Price: {props.order_price}
+        Price:{" "}
+        {props.order_price
+          .toString()
+          .slice(0, props.order_price.toString().length - 2) +
+          "," +
+          props.order_price
+            .toString()
+            .slice(
+              props.order_price.toString().length - 2,
+              props.order_price.toString().length
+            ) +
+          "€"}
       </div>
       <div className='containerOrdersAOListItemStatus'>
         Status: {props.order_status}
