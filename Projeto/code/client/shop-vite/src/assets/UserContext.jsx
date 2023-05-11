@@ -13,8 +13,17 @@ export const UserContextProvider = ({ children }) => {
           "http://localhost:3000/api/v1/auth/user",
           { withCredentials: true }
         );
-        const data = response.data;
-        setMyUserVariable(data.user);
+        const response2 = await axios.get(
+          "http://localhost:3000/api/v1/users/" +
+            response.data.user.id +
+            "/credentials"
+        );
+        const data = {
+          ...response.data.user,
+          ["provider"]: response2.data.credentials.provider,
+        };
+        setMyUserVariable(data);
+        console.log(data);
       } catch (error) {
         // console.error(error);
       }

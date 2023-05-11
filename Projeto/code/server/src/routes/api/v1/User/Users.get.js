@@ -4,6 +4,7 @@ const Address = require("./Address/Users.Address.get");
 const ProductionUnit = require("./ProductionUnit/Users.ProductionUnits.get");
 const Cart = require("./Cart/Users.Carts.get");
 const CartCartLines = require("./Cart/CartLine/Users.Carts.CartLines.get");
+const Credentials = require("./Credentials/Users.Credentials.get");
 
 const router = express.Router();
 
@@ -37,5 +38,6 @@ router.use("/:id/address", Address);
 router.use("/:id/productionUnits", ProductionUnit);
 router.use("/:id/carts", Cart);
 router.use("/:id/carts/:id/cartLines", CartCartLines);
+router.use("/:id/credentials", Credentials);
 
 module.exports = router;
