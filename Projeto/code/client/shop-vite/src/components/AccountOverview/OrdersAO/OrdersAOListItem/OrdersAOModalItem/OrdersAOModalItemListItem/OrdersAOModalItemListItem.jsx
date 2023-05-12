@@ -5,16 +5,27 @@ export default function OrdersAOModalItemListItem(props) {
   return (
     <div className='containerOrdersAOViewDetailsModalListItem'>
       <div className='containerOrdersAOViewDetailsModalListItemProduct'>
-        {props.cart_line.product_id}
+        Product: {props.cart_line.product.name}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProductQuantity'>
-        {props.cart_line.amount}
+        Quantity: {props.cart_line.amount}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProductPrice'>
-        {props.order_status}
+        Price:{" "}
+        {props.cart_line.product.price
+          .toString()
+          .slice(0, props.cart_line.product.price.toString().length - 2) +
+          "," +
+          props.cart_line.product.price
+            .toString()
+            .slice(
+              props.cart_line.product.price.toString().length - 2,
+              props.cart_line.product.price.toString().length
+            ) +
+          "€"}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProducer'>
-        {props.order_status}
+        Producer: {props.cart_line.producer.name}
       </div>
     </div>
   );

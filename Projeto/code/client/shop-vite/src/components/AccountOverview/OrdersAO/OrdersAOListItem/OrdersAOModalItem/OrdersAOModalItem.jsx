@@ -21,7 +21,7 @@ export default function OrdersAOModalItem(props) {
       <div className='containerOrdersAOViewDetailsModalList'>
         {props.order_cart_lines.map((cartLine) => (
           <OrdersAOModalItemListItem
-            key={cartLine.id}
+            key={(cartLine.cart_id, cartLine.product_id)}
             toggleViewDetailsModal={props.toggleViewDetailsModal}
             cart_line={cartLine}
           />

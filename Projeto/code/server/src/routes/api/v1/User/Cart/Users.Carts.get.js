@@ -1,6 +1,10 @@
 const express = require("express");
 
 const {
+  FindProductWithId,
+} = require("../../../../../controllers/Product/findProducts");
+
+const {
   FindAllCarts,
   FindCartWithId,
   FindAllCartsWithUserId,
@@ -11,6 +15,7 @@ const {
 const { GetCartCost } = require("../../../../../controllers/Cart/getCartCost");
 
 const CartLine = require("./CartLine/Users.Carts.CartLines.get");
+const { FindUserById } = require("../../../../../controllers/User/findUsers");
 
 const router = express.Router({ mergeParams: true });
 
@@ -24,8 +29,22 @@ router.get("/", (req, res) => {
           await GetCartCost(c.dataValues.id).then((cartPrice) => {
             carts[i].dataValues["price"] = cartPrice;
           });
-          await FindCartLinesWithId(c.dataValues.id).then((cartLines) => {
+          await FindCartLinesWithId(c.dataValues.id).then(async (cartLines) => {
             carts[i].dataValues["cart_lines"] = cartLines;
+            for (let j = 0; j < cartLines.length; j++) {
+              await FindProductWithId(cartLines[j].dataValues.product_id).then(
+                async (product) => {
+                  carts[i].dataValues.cart_lines[j].dataValues["product"] =
+                    product;
+                  await FindUserById(product.dataValues.producer_id).then(
+                    (producer) => {
+                      carts[i].dataValues.cart_lines[j].dataValues["producer"] =
+                        producer;
+                    }
+                  );
+                }
+              );
+            }
           });
         });
       }

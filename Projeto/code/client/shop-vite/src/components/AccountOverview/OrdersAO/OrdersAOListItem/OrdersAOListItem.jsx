@@ -40,6 +40,7 @@ export default function OrdersAOListItem(props) {
       </div>
       {props.isViewDetailsModalItemVisible && (
         <OrdersAOModalItem
+          key={props.order_id}
           order_id={props.order_id}
           toggleViewDetailsModal={props.toggleViewDetailsModal}
           order_status={props.order_status}
