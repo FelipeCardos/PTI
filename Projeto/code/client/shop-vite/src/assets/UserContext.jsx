@@ -9,6 +9,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const getUserDataApi = async () => {
       try {
+        let data = null;
         const response = await axios.get(
           "http://localhost:3000/api/v1/auth/user",
           { withCredentials: true }
@@ -16,20 +17,26 @@ export const UserContextProvider = ({ children }) => {
         const response2 = await axios.get(
           "http://localhost:3000/api/v1/users/" +
             response.data.user.id +
-            "/credentials"
+            "/credentials",
+          { withCredentials: true }
         );
-        const data = {
+        console.log(response2.data.credentials);
+        data = {
           ...response.data.user,
-          ["provider"]: response2.data.credentials.provider,
+          ["provider"]:
+            response2.data.credentials === "local"
+              ? "local"
+              : response2.data.credentials.provider,
         };
         setMyUserVariable(data);
         console.log(data);
       } catch (error) {
-        // console.error(error);
+        console.error(error);
       }
     };
 
     if (!myUserVariable) getUserDataApi();
+    console.log(myUserVariable);
   }, []);
 
   return (

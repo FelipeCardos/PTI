@@ -30,14 +30,14 @@ export default function Signin(props) {
     axios
       .post("http://localhost:3000/api/v1/auth/local/login", formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
           "Access-Control-Allow-Origin": "*",
         },
         withCredentials: true,
       })
       .then((res) => {
         if (res.status === 200) {
-          navigate("/");
+          return navigate("/");
         }
       })
       .catch((err) => {
