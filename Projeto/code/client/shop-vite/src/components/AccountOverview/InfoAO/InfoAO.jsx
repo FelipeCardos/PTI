@@ -99,7 +99,7 @@ export default function InfoAO(props) {
             <label htmlFor='name'>Your Email:</label>
             <input
               type='text'
-              readOnly={!editMode}
+              readOnly={!editMode || !(myUserVariable.provider === "local")}
               value={formDataAccount.email}
               onChange={handleChangeDataAccount}
               name='email'
