@@ -1,11 +1,13 @@
 import { React, useContext, useEffect, useState } from "react";
 import "../../OrdersAO.css";
+import OrdersAOModalItemListItem from "./OrdersAOModalItemListItem/OrdersAOModalItemListItem";
 
 export default function OrdersAOModalItem(props) {
+  console.log(props);
   return (
     <div className='containerOrdersAOViewDetailsModal'>
       <div className='containerOrdersAOViewDetailsModalCloseButton'>
-        <button onClick={() => props.toggleViewDetailsModal(props.order_id)}>
+        <button onClick={() => props.toggleViewDetailsModal()}>
           <i className='fa fa-times'></i>
         </button>
       </div>
@@ -17,20 +19,13 @@ export default function OrdersAOModalItem(props) {
       </div>
       <hr className='containerOrdersAOViewDetailsModalHr' />
       <div className='containerOrdersAOViewDetailsModalList'>
-        <div className='containerOrdersAOViewDetailsModalListItem'>
-          <div className='containerOrdersAOViewDetailsModalListItemProduct'>
-            {props.order_status}
-          </div>
-          <div className='containerOrdersAOViewDetailsModalListItemProductQuantity'>
-            {props.order_status}
-          </div>
-          <div className='containerOrdersAOViewDetailsModalListItemProductPrice'>
-            {props.order_status}
-          </div>
-          <div className='containerOrdersAOViewDetailsModalListItemProducer'>
-            {props.order_status}
-          </div>
-        </div>
+        {props.order_cart_lines.map((cartLine) => (
+          <OrdersAOModalItemListItem
+            key={cartLine.id}
+            toggleViewDetailsModal={props.toggleViewDetailsModal}
+            cart_line={cartLine}
+          />
+        ))}
       </div>
     </div>
   );

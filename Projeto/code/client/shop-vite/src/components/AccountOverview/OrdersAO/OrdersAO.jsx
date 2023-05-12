@@ -17,7 +17,6 @@ export default function OrdersAO(props) {
       ...viewDetailsModalItems,
       [id]: !viewDetailsModalItems[id],
     });
-    // Refresh div containerOrdersAOViewDetailsModal with the proper data
   }
 
   useEffect(() => {
