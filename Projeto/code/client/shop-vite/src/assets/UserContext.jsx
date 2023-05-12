@@ -20,13 +20,9 @@ export const UserContextProvider = ({ children }) => {
             "/credentials",
           { withCredentials: true }
         );
-        console.log(response2.data.credentials);
         data = {
           ...response.data.user,
-          ["provider"]:
-            response2.data.credentials === "local"
-              ? "local"
-              : response2.data.credentials.provider,
+          ["provider"]: response2.data.credentials.provider,
         };
         setMyUserVariable(data);
         console.log(data);
