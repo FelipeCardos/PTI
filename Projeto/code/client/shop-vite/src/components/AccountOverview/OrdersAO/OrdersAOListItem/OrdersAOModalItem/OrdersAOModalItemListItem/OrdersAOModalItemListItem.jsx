@@ -5,10 +5,10 @@ export default function OrdersAOModalItemListItem(props) {
   return (
     <div className='containerOrdersAOViewDetailsModalListItem'>
       <div className='containerOrdersAOViewDetailsModalListItemProduct'>
-        {props.order_status}
+        {props.cart_line.product_id}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProductQuantity'>
-        {props.order_status}
+        {props.cart_line.amount}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProductPrice'>
         {props.order_status}

@@ -7,7 +7,7 @@ export default function OrdersAOModalItem(props) {
   return (
     <div className='containerOrdersAOViewDetailsModal'>
       <div className='containerOrdersAOViewDetailsModalCloseButton'>
-        <button onClick={() => props.toggleViewDetailsModal()}>
+        <button onClick={() => props.toggleViewDetailsModal(props.order_id)}>
           <i className='fa fa-times'></i>
         </button>
       </div>

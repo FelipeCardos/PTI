@@ -43,6 +43,7 @@ export default function OrdersAOListItem(props) {
           order_id={props.order_id}
           toggleViewDetailsModal={props.toggleViewDetailsModal}
           order_status={props.order_status}
+          order_cart_lines={props.order_cart_lines}
         />
       )}
     </>
