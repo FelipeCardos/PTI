@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     if (credentials) {
       res.status(200).json({ credentials: credentials });
     } else {
-      res.status(404).send("Credentials not found");
+      res.status(200).json({ credentials: "local" });
     }
   });
 });
