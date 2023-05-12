@@ -7,10 +7,16 @@ import OrdersAOListItem from "./OrdersAOListItem/OrdersAOListItem";
 export default function OrdersAO(props) {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [viewDetailsModal, setViewDetailsModal] = useState(false);
+  const [viewDetailsModalItems, setViewDetailsModalItems] = useState({});
   const [orders, setOrders] = useState([]);
-  function toggleViewDetailsModal() {
+
+  function toggleViewDetailsModal(id) {
     props.toggleModal();
     setViewDetailsModal(!viewDetailsModal);
+    setViewDetailsModalItems({
+      ...viewDetailsModalItems,
+      [id]: !viewDetailsModalItems[id],
+    });
     // Refresh div containerOrdersAOViewDetailsModal with the proper data
   }
 
@@ -39,46 +45,17 @@ export default function OrdersAO(props) {
       <div className='containerOrdersAOList'>
         {orders.map((order) => (
           <OrdersAOListItem
+            key={order.id}
+            viewDetailsModal={viewDetailsModal}
             toggleViewDetailsModal={toggleViewDetailsModal}
             order_id={order.id}
             order_date={order.order_date}
             order_price={order.price}
             order_status={order.status}
+            isViewDetailsModalItemVisible={viewDetailsModalItems[order.id]}
           />
         ))}
       </div>
-      {viewDetailsModal && (
-        <div className='containerOrdersAOViewDetailsModal'>
-          <div className='containerOrdersAOViewDetailsModalCloseButton'>
-            <button onClick={toggleViewDetailsModal}>
-              <i className='fa fa-times'></i>
-            </button>
-          </div>
-          <div className='containerOrdersAOViewDetailsModalTitle'>
-            Order Details
-            <button className='containerOrdersAOViewDetailsModalExportJSON'>
-              Export to JSON
-            </button>
-          </div>
-          <hr className='containerOrdersAOViewDetailsModalHr' />
-          <div className='containerOrdersAOViewDetailsModalList'>
-            <div className='containerOrdersAOViewDetailsModalListItem'>
-              <div className='containerOrdersAOViewDetailsModalListItemProduct'>
-                Product: Product 1
-              </div>
-              <div className='containerOrdersAOViewDetailsModalListItemProductQuantity'>
-                Quantity: 1
-              </div>
-              <div className='containerOrdersAOViewDetailsModalListItemProductPrice'>
-                Price: 1000€
-              </div>
-              <div className='containerOrdersAOViewDetailsModalListItemProducer'>
-                Producer: Producer 1
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

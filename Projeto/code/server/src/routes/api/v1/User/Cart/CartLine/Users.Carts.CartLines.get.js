@@ -7,6 +7,7 @@ const {
 const router = express.Router({ mergeParams: true });
 
 router.get("/", (req, res) => {
+  // http://localhost:3000/api/v1/users/:user_id/carts/:cart_id/cartLines example
   const cartId = req.params.idCart;
   FindCartLinesWithId(cartId).then((cartLines) => {
     if (cartLines) {

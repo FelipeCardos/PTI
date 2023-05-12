@@ -25,14 +25,12 @@ export const UserContextProvider = ({ children }) => {
           ["provider"]: response2.data.credentials.provider,
         };
         setMyUserVariable(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
     };
 
     if (!myUserVariable) getUserDataApi();
-    console.log(myUserVariable);
   }, []);
 
   return (
