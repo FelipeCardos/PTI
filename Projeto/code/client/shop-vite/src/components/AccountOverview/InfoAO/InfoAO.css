@@ -145,7 +145,7 @@
 .confirmDeleteAccount:disabled,
 .confirmDeleteAccount:disabled:hover {
   cursor: auto;
-  background-color: var(--bs-red);
+  background-color: gray;
   color: white;
-  border: 1px solid var(--bs-red);
+  border: 1px solid gray;
 }

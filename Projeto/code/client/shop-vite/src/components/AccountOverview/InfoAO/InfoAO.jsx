@@ -8,8 +8,8 @@ export default function InfoAO(props) {
   const [editMode, setEditMode] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
-  const [deleteAccountPassword, setDeleteAccountPassword] = useState("");
-  const [deleteAccountPasswordCorrect, setDeleteAccountPasswordCorrect] =
+  const [deleteAccountEmail, setDeleteAccountEmail] = useState("");
+  const [deleteAccountEmailCorrect, setDeleteAccountEmailCorrect] =
     useState(false);
   const [formDataAccount, setFormDataAccount] = useState({
     name: myUserVariable.name,
@@ -26,11 +26,11 @@ export default function InfoAO(props) {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // Send the inputted password to the backend to check if it is correct
-      setDeleteAccountPasswordCorrect(deleteAccountPassword === "1234");
+      setDeleteAccountEmailCorrect(deleteAccountEmail === myUserVariable.email);
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [deleteAccountPassword]);
+  }, [deleteAccountEmail]);
 
   function handleEdit(event) {
     event.preventDefault();
@@ -201,22 +201,20 @@ export default function InfoAO(props) {
               <p className='containerInfoAODeleteAccountFormParagraph'>
                 Are you sure you want to delete your account? This action cannot
                 be undone. In order to delete your account, please type your
-                password below.
+                email below.
               </p>
               <label htmlFor='currentPassword'></label>
               <input
                 type='text'
                 id='currentPassword'
                 name='currentPassword'
-                value={deleteAccountPassword}
-                onChange={(event) =>
-                  setDeleteAccountPassword(event.target.value)
-                }
+                value={deleteAccountEmail}
+                onChange={(event) => setDeleteAccountEmail(event.target.value)}
               />
               <div className='containerInfoAOModalFormButtons'>
                 <button
                   className='confirmDeleteAccount'
-                  disabled={!deleteAccountPasswordCorrect}
+                  disabled={!deleteAccountEmailCorrect}
                   onClick={handleDeleteAccountConfirmation}
                 >
                   DELETE
