@@ -9,6 +9,7 @@ export default function Signin(props) {
     email: "",
     password: "",
   });
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   function handleChange(event) {
@@ -19,6 +20,14 @@ export default function Signin(props) {
         [name]: value,
       };
     });
+  }
+
+  function handleShowErrorMessage() {
+    setShowErrorMessage(true);
+
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 5000);
   }
 
   function handlePasswordVisibility() {
@@ -42,6 +51,7 @@ export default function Signin(props) {
       })
       .catch((err) => {
         console.log(err);
+        handleShowErrorMessage();
       });
   }
 
@@ -63,6 +73,11 @@ export default function Signin(props) {
           className='signinForm'
           style={{ paddingTop: "clamp(30px, 3em, 10%)" }}
         >
+          {showErrorMessage && (
+            <div className='containerSigninErrorMessage'>
+              Invalid e-mail or password
+            </div>
+          )}
           <div>
             <input
               type='text'

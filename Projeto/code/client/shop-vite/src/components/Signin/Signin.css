@@ -108,3 +108,15 @@ a {
   width: 80%;
   border: 1px solid #0d6efd;
 }
+
+.containerSigninErrorMessage {
+  animation: fadeIn 750ms ease-in-out;
+  position: relative;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 1em;
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.2);
+  text-align: center;
+  border-radius: 0.5rem;
+}
