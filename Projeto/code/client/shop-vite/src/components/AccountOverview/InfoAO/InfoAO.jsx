@@ -134,12 +134,14 @@ export default function InfoAO(props) {
           <button className='containerInfoAOEdit' onClick={handleEdit}>
             {editMode ? "Save" : "Edit"}
           </button>
-          <button
-            className='containerInfoAOChangePassword'
-            onClick={handleChangePassword}
-          >
-            Change Password
-          </button>
+          {myUserVariable.provider === "local" && (
+            <button
+              className='containerInfoAOChangePassword'
+              onClick={handleChangePassword}
+            >
+              Change Password
+            </button>
+          )}
           <button
             className='containerInfoAODeleteAccount'
             onClick={handleDeleteAccount}
@@ -201,7 +203,7 @@ export default function InfoAO(props) {
               <p className='containerInfoAODeleteAccountFormParagraph'>
                 Are you sure you want to delete your account? This action cannot
                 be undone. In order to delete your account, please type your
-                email below.
+                <strong> email</strong> below.
               </p>
               <label htmlFor='currentPassword'></label>
               <input

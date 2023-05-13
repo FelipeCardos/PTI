@@ -1,9 +1,20 @@
+import { Menu, MenuItem } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavbarProducer.css";
 
 export default function NavbarProducer() {
   let navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className='navProducer'>
@@ -53,14 +64,28 @@ export default function NavbarProducer() {
         <span className='notificationBellBadgeNavbarProducer'>0</span>
       </div>
       <div className='accountNavbarProducer'>
-        <button
-          onClick={() => {
-            navigate("/account-overview");
-          }}
-          className='accountButtonNavbarProducer'
-        >
+        <button onClick={handleClick} className='accountButtonNavbarProducer'>
           <i className='fa fa-user'></i>
         </button>
+        <Menu
+          id='basic-menu'
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              navigate("/account-overview");
+            }}
+          >
+            Account Overview
+          </MenuItem>
+          <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </Menu>
       </div>
     </div>
   );
