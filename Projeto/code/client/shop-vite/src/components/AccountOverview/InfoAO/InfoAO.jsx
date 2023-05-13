@@ -35,7 +35,18 @@ export default function InfoAO(props) {
   function handleEdit(event) {
     event.preventDefault();
     if (editMode) {
-      //POST REQUEST TO UPDATE USER INFO IN DATABASE USING AXIOS
+      //PUT REQUEST TO UPDATE USER INFO IN DATABASE USING AXIOS
+      axios.put(
+        "http://localhost:3000/api/v1/users/" + myUserVariable.id,
+        formDataAccount,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Access-Control-Allow-Origin": "*",
+          },
+          withCredentials: true,
+        }
+      );
     }
     setEditMode(!editMode);
   }
