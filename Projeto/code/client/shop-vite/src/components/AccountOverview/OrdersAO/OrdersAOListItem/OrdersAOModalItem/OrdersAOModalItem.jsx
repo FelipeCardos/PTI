@@ -3,7 +3,17 @@ import "../../OrdersAO.css";
 import OrdersAOModalItemListItem from "./OrdersAOModalItemListItem/OrdersAOModalItemListItem";
 
 export default function OrdersAOModalItem(props) {
-  console.log(props);
+  function downloadObjectAsJson(exportObj, exportName) {
+    var dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
   return (
     <div className='containerOrdersAOViewDetailsModal'>
       <div className='containerOrdersAOViewDetailsModalCloseButton'>
@@ -13,7 +23,15 @@ export default function OrdersAOModalItem(props) {
       </div>
       <div className='containerOrdersAOViewDetailsModalTitle'>
         Order Details
-        <button className='containerOrdersAOViewDetailsModalExportJSON'>
+        <button
+          className='containerOrdersAOViewDetailsModalExportJSON'
+          onClick={() =>
+            downloadObjectAsJson(
+              props.order_cart_lines,
+              "order_" + props.order_id + "_" + Date.now()
+            )
+          }
+        >
           Export to JSON
         </button>
       </div>

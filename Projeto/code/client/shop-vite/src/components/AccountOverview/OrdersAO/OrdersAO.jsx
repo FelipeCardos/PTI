@@ -19,6 +19,18 @@ export default function OrdersAO(props) {
     });
   }
 
+  function downloadObjectAsJson(exportObj, exportName) {
+    var dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
   useEffect(() => {
     // GET REQUEST TO GET ALL ORDERS FROM THE USER
     axios
@@ -35,7 +47,15 @@ export default function OrdersAO(props) {
           <button className='containerOrdersAOHeaderLocalImpactReport'>
             View Local Impact Report
           </button>
-          <button className='containerOrdersAOHeaderExportJSON'>
+          <button
+            className='containerOrdersAOHeaderExportJSON'
+            onClick={() =>
+              downloadObjectAsJson(
+                orders,
+                "orders_" + Date.now() + "_" + myUserVariable.id
+              )
+            }
+          >
             Export to JSON
           </button>
         </div>
