@@ -25,7 +25,7 @@ export default function OrdersAOModalItemListItem(props) {
           "€"}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProducer'>
-        Producer: {props.cart_line.producer.name}
+        Producer: {props.cart_line.product.producer.name}
       </div>
     </div>
   );

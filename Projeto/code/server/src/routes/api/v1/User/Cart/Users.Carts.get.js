@@ -38,8 +38,9 @@ router.get("/", (req, res) => {
                     product;
                   await FindUserById(product.dataValues.producer_id).then(
                     (producer) => {
-                      carts[i].dataValues.cart_lines[j].dataValues["producer"] =
-                        producer;
+                      carts[i].dataValues.cart_lines[
+                        j
+                      ].dataValues.product.dataValues["producer"] = producer;
                     }
                   );
                 }
