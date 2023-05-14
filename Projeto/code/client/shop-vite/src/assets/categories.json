@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "name": "Electronics",
+      "subcategories": [
+        {
+          "name": "Phones",
+          "attributes": [
+            { "name": "Brand", "type": "text" },
+            { "name": "Model", "type": "text" },
+            { "name": "Color", "type": "text" },
+            { "name": "Storage Capacity", "type": "number" }
+          ]
+        },
+        {
+          "name": "Laptops",
+          "attributes": [
+            { "name": "Brand", "type": "text" },
+            { "name": "Model", "type": "text" },
+            { "name": "Color", "type": "text" },
+            { "name": "Processor", "type": "text" },
+            { "name": "RAM", "type": "number" },
+            { "name": "Storage Capacity", "type": "number" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Clothing",
+      "subcategories": [
+        {
+          "name": "Shirts",
+          "attributes": [
+            { "name": "Brand", "type": "text" },
+            { "name": "Model", "type": "text" },
+            { "name": "Color", "type": "text" },
+            { "name": "Size", "type": "text" },
+            { "name": "Material", "type": "text" }
+          ]
+        },
+        {
+          "name": "Pants",
+          "attributes": [
+            { "name": "Brand", "type": "text" },
+            { "name": "Model", "type": "text" },
+            { "name": "Color", "type": "text" },
+            { "name": "Size", "type": "text" },
+            { "name": "Material", "type": "text" }
+          ]
+        }
+      ]
+    }
+  ]
+}
