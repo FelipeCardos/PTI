@@ -14,6 +14,7 @@ export default function Signup() {
     // passwordConfirmation: "",
     typeUser: signupType,
   });
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   function handleChange(event) {
     const { name, value } = event.target;
@@ -56,6 +57,11 @@ export default function Signup() {
           className='SignUpForm'
           style={{ paddingTop: "clamp(30px, 3em, 10%)" }}
         >
+          {showErrorMessage && (
+            <div className='containerSignupErrorMessage'>
+              E-mail already on use
+            </div>
+          )}
           <div>
             <input
               type='text'

@@ -72,3 +72,15 @@ a {
   color: black;
   position: absolute;
 }
+
+.containerSignupErrorMessage {
+  animation: fadeIn 750ms ease-in-out;
+  position: relative;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 1em;
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.2);
+  text-align: center;
+  border-radius: 0.5rem;
+}
