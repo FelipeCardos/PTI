@@ -17,7 +17,15 @@ export default function VehiclesPMA() {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:3000/users/" + myUserVariable.id + "/vehicles")
+      .get(
+        "http://localhost:3000/api/v1/users/" + myUserVariable.id + "/vehicles",
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         setVehicles(response.data.vehicles);
       });
@@ -43,7 +51,9 @@ export default function VehiclesPMA() {
         </div>
         <hr className='vehiclesPMAYourVehiclesTitleHR' />
         <div className='containerVehiclesPMAYourVehiclesVehicles'>
-          {/* Falta renderizar os veículos */}
+          {vehicles.map((vehicle) => (
+            <VehiclesPMACard key={vehicle.id} vehicle={vehicle} />
+          ))}
         </div>
       </div>
       {modal && <div className='modalPMA'></div>}
