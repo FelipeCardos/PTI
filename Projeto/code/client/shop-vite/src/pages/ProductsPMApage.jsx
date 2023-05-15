@@ -11,8 +11,8 @@ export default function ProductsPMApage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    // if (!myUserVariable) return navigate("/signin");
-    // if (myUserVariable.typeUser !== "Producer") return navigate("/");
+    if (!myUserVariable) return navigate("/signin");
+    if (myUserVariable.typeUser !== "Producer") return navigate("/");
     setLoading(false);
   }, []);
   return (
