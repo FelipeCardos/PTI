@@ -10,29 +10,6 @@ export default function AddVehicles(props) {
     capacity: "",
     productionUnit: null,
   });
-  const [productionUnits, setProductionUnits] = useState([]);
-  console.log("productionUnits: " + JSON.stringify(productionUnits));
-
-  useEffect(() => {
-    axios
-      .get(
-        "http://localhost:3000/api/v1/users/" +
-          myUserVariable.id +
-          "/productionUnits",
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        setProductionUnits(res.data.productionUnits);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -56,13 +33,22 @@ export default function AddVehicles(props) {
     event.preventDefault();
     console.log("productionUnit: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/productionUnit/", formData, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
+      .post(
+        "http://localhost:3000/api/v1/users/" + myUserVariable.id + "/vehicles",
+        formData,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
       .then((res) => {
         console.log("Servidor: " + JSON.stringify(res.data));
+        props.handleShowAddVehicles();
+        props.setProductionUnits((prevProductionUnits) => {
+          return [...prevProductionUnits, res.data.production_unit_id];
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -99,11 +85,11 @@ export default function AddVehicles(props) {
           <label htmlFor=''>Production Unit:</label>
           <select name='productionUnit' onChange={handleSelectChange}>
             <option value='default'>None</option>
-            {productionUnits &&
-              productionUnits.map((productionUnit) => {
+            {props.productionUnits &&
+              props.productionUnits.map((productionUnit) => {
                 return (
                   <option value={productionUnit.id}>
-                    Production Unit in {productionUnit.address.street}
+                    {productionUnit.address.street}
                   </option>
                 );
               })}

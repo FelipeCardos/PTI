@@ -56,19 +56,22 @@ export default function VehiclesPMACard(props) {
           onChange={handleOnChangeProductionUnit}
         >
           <option value='default'>None</option>
-          {props.productionUnits.map((productionUnit) => {
-            return (
-              <option
-                value={productionUnit.id}
-                key={productionUnit.id}
-                selected={
-                  props.vehicle.production_unit_id === productionUnit.id
-                }
-              >
-                {productionUnit.address.street}
-              </option>
-            );
-          })}
+          {props.productionUnits &&
+            props.productionUnits.map((productionUnit) => {
+              return (
+                <option
+                  value={productionUnit.id}
+                  key={productionUnit.id}
+                  selected={
+                    props.vehicle.production_unit_id === productionUnit.id
+                  }
+                >
+                  {productionUnit.address
+                    ? productionUnit.address.street
+                    : null}
+                </option>
+              );
+            })}
         </select>
       </div>
       {props.vehicle.available ? null : (

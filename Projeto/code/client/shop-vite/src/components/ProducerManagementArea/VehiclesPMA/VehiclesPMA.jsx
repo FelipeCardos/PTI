@@ -82,6 +82,7 @@ export default function VehiclesPMA() {
           <AddVehicles
             handleShowAddVehicles={handleShowAddVehicles}
             productionUnits={productionUnits}
+            setProductionUnits={setProductionUnits}
           />
         </div>
       )}

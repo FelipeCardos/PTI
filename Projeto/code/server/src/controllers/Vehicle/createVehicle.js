@@ -9,10 +9,7 @@ async function CreateVehicle(
   if (capacity <= 0) {
     return null;
   }
-  if (license_plate.length != 8) {
-    return null;
-  }
-  if (production_unit_id == null && producer_id == null) {
+  if (producer_id == null) {
     return null;
   }
   const vehicle = await Vehicle.create({
@@ -23,3 +20,5 @@ async function CreateVehicle(
   });
   return vehicle;
 }
+
+module.exports = { CreateVehicle };
