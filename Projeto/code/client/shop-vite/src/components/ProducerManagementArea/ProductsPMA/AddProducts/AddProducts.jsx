@@ -8,31 +8,43 @@ export default function AddProducts(props) {
     name: "",
     description: "",
     productImage: [],
-    category: "",
+    category: [],
     attributes: [],
     productionDate: "",
     price: "",
   });
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(0);
   const [attributes, setAttributes] = useState([]);
 
   const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-    setSelectedSubcategory("");
+    setSelectedCategory(event.target.id);
+    setSelectedSubcategory(0);
     setAttributes([]);
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        category: [event.target.id],
+      };
+    });
   };
 
   const handleSubcategoryChange = (event) => {
-    setSelectedSubcategory(event.target.value);
+    setSelectedSubcategory(event.target.id);
     setAttributes(
       categoryData.categories
-        .find((category) => category.name === selectedCategory)
+        .find((category) => category.id === selectedCategory)
         .subcategories.find(
           (subcategory) => subcategory.name === event.target.value
         ).attributes
     );
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        category: [selectedCategory, event.target.id],
+      };
+    });
   };
 
   function handleChange(event) {
@@ -42,12 +54,6 @@ export default function AddProducts(props) {
         return {
           ...prevFormData,
           [name]: event.target.files,
-        };
-      }
-      if (name === "attributes") {
-        return {
-          ...prevFormData,
-          [name]: value.split(","),
         };
       }
       return {
@@ -107,7 +113,7 @@ export default function AddProducts(props) {
             >
               <option value=''>-- Please select a category --</option>
               {categoryData.categories.map((category) => (
-                <option key={category.name} value={category.name}>
+                <option key={category.id} value={category.name}>
                   {category.name}
                 </option>
               ))}
@@ -125,7 +131,7 @@ export default function AddProducts(props) {
                   {categoryData.categories
                     .find((category) => category.name === selectedCategory)
                     .subcategories.map((subcategory) => (
-                      <option key={subcategory.name} value={subcategory.name}>
+                      <option key={subcategory.id} value={subcategory.name}>
                         {subcategory.name}
                       </option>
                     ))}
@@ -150,7 +156,10 @@ export default function AddProducts(props) {
             ))}
           </ul>
         </div>
-        {/* Gerar os atributos que o fornecedor pode escolher para o seu produto após a escolha da categoria */}
+        <div>
+          <label htmlFor='productionDate'>Production Date:</label>
+          <input type='date' name='productionDate' />
+        </div>
         <div>
           <input
             type='file'
@@ -158,6 +167,10 @@ export default function AddProducts(props) {
             name='productImage'
             multiple={true}
           />
+        </div>
+        <div>
+          <label htmlFor='price'>Price:</label>
+          <input type='text' name='price' />
         </div>
         <div className='buttonsAddProduct'>
           <button

@@ -1,9 +1,11 @@
 {
   "categories": [
     {
+      "id": 1,
       "name": "Electronics",
       "subcategories": [
         {
+          "id": 2,
           "name": "Phones",
           "attributes": [
             { "name": "Brand", "type": "text" },
@@ -13,6 +15,7 @@
           ]
         },
         {
+          "id": 3,
           "name": "Laptops",
           "attributes": [
             { "name": "Brand", "type": "text" },
@@ -26,9 +29,11 @@
       ]
     },
     {
+      "id": 4,
       "name": "Clothing",
       "subcategories": [
         {
+          "id": 5,
           "name": "Shirts",
           "attributes": [
             { "name": "Brand", "type": "text" },
@@ -39,6 +44,7 @@
           ]
         },
         {
+          "id": 6,
           "name": "Pants",
           "attributes": [
             { "name": "Brand", "type": "text" },
