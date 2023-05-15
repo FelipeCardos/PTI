@@ -22,7 +22,9 @@ export const UserContextProvider = ({ children }) => {
         );
         data = {
           ...response.data.user,
-          ["provider"]: response2.data.credentials.provider,
+          ["provider"]: response2.data.credentials.provider
+            ? response2.data.credentials.provider
+            : "local",
         };
         setMyUserVariable(data);
       } catch (error) {
