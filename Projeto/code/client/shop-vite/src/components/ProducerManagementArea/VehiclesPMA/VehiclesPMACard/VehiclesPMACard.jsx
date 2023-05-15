@@ -1,26 +1,42 @@
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../../assets/UserContext";
 import "./VehiclesPMACard.css";
 
 export default function VehiclesPMACard(props) {
   const [selectDisabled, setSelectDisabled] = useState(false);
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
 
-  function handleOnChangeProductionUnit(event) {
+  async function handleOnChangeProductionUnit(event) {
     setSelectDisabled(true);
     const { name, value } = event.target;
-    if (value === "default") return;
-    axios.put(
-      "http://localhost:3000/api/v1/vehicles/" + props.vehicle.id,
-      {
-        productionUnit: value,
-      },
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
+    if (value === "default") {
+      setSelectDisabled(false);
+      return;
+    }
+    console.log("ola");
+    try {
+      const response = await axios.put(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.id +
+          "/vehicles/" +
+          props.vehicle.id,
+        {
+          productionUnit: value,
         },
-        withCredentials: true,
-      }
-    );
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log("response: " + JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+    setSelectDisabled(false);
   }
 
   return (
@@ -42,7 +58,13 @@ export default function VehiclesPMACard(props) {
           <option value='default'>None</option>
           {props.productionUnits.map((productionUnit) => {
             return (
-              <option value={productionUnit.id}>
+              <option
+                value={productionUnit.id}
+                key={productionUnit.id}
+                selected={
+                  props.vehicle.production_unit_id === productionUnit.id
+                }
+              >
                 {productionUnit.address.street}
               </option>
             );
