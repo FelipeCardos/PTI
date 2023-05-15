@@ -18,6 +18,7 @@ export default function AddProducts(props) {
   const [selectedSubcategory, setSelectedSubcategory] = useState(0);
   const [attributes, setAttributes] = useState([]);
 
+  console.log(selectedCategory);
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
     setSelectedSubcategory(0);
@@ -34,9 +35,9 @@ export default function AddProducts(props) {
     setSelectedSubcategory(event.target.value);
     setAttributes(
       categoryData.categories
-        .find((category) => category.id === selectedCategory)
+        .find((category) => category.id === parseInt(selectedCategory))
         .subcategories.find(
-          (subcategory) => subcategory.name === event.target.value
+          (subcategory) => subcategory.id === parseInt(event.target.value)
         ).attributes
     );
     setFormData((prevFormData) => {
@@ -119,7 +120,7 @@ export default function AddProducts(props) {
               ))}
             </select>
 
-            {selectedCategory && (
+            {!!selectedCategory && (
               <div>
                 <label htmlFor='subcategory'>Subcategory:</label>
                 <select
@@ -129,7 +130,9 @@ export default function AddProducts(props) {
                 >
                   <option value=''>-- Please select a subcategory --</option>
                   {categoryData.categories
-                    .find((category) => category.name === selectedCategory)
+                    .find(
+                      (category) => category.id === parseInt(selectedCategory)
+                    )
                     .subcategories.map((subcategory) => (
                       <option key={subcategory.id} value={subcategory.id}>
                         {subcategory.name}

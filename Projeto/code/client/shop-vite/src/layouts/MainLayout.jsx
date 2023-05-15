@@ -26,7 +26,7 @@ export default function MainLayout({ children }) {
         NavbarConsumer: false,
         NavbarProducer: true,
       });
-  }, []);
+  }, [myUserVariable]);
 
   return (
     <>

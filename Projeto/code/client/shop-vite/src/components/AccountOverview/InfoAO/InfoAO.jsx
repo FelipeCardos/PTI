@@ -5,7 +5,6 @@ import "./InfoAO.css";
 
 export default function InfoAO(props) {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
-  console.log(myUserVariable);
   const [editMode, setEditMode] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
