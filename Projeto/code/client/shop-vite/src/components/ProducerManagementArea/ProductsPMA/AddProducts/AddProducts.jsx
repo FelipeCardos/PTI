@@ -19,19 +19,19 @@ export default function AddProducts(props) {
   const [attributes, setAttributes] = useState([]);
 
   const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.id);
+    setSelectedCategory(event.target.value);
     setSelectedSubcategory(0);
     setAttributes([]);
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        category: [event.target.id],
+        category: [event.target.value],
       };
     });
   };
 
   const handleSubcategoryChange = (event) => {
-    setSelectedSubcategory(event.target.id);
+    setSelectedSubcategory(event.target.value);
     setAttributes(
       categoryData.categories
         .find((category) => category.id === selectedCategory)
@@ -42,7 +42,7 @@ export default function AddProducts(props) {
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        category: [selectedCategory, event.target.id],
+        category: [selectedCategory, event.target.value],
       };
     });
   };
@@ -113,7 +113,7 @@ export default function AddProducts(props) {
             >
               <option value=''>-- Please select a category --</option>
               {categoryData.categories.map((category) => (
-                <option key={category.id} value={category.name}>
+                <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
               ))}
@@ -131,7 +131,7 @@ export default function AddProducts(props) {
                   {categoryData.categories
                     .find((category) => category.name === selectedCategory)
                     .subcategories.map((subcategory) => (
-                      <option key={subcategory.id} value={subcategory.name}>
+                      <option key={subcategory.id} value={subcategory.id}>
                         {subcategory.name}
                       </option>
                     ))}

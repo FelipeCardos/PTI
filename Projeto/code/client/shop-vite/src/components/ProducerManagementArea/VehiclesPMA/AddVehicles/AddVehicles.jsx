@@ -1,12 +1,38 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../../assets/UserContext";
 import "./AddVehicles.css";
 
 export default function AddVehicles(props) {
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [formData, setFormData] = useState({
     license_plate: "",
     capacity: "",
+    productionUnit: null,
   });
+  const [productionUnits, setProductionUnits] = useState([]);
+  console.log("productionUnits: " + JSON.stringify(productionUnits));
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.id +
+          "/productionUnits",
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        setProductionUnits(res.data.productionUnits);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -17,6 +43,14 @@ export default function AddVehicles(props) {
       };
     });
   }
+
+  const handleSelectChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value === "default" ? "" : value,
+    });
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -43,20 +77,37 @@ export default function AddVehicles(props) {
         <div>
           <input
             type='text'
-            placeholder='License Plate'
+            placeholder='License Plate 6-8 characters'
             onChange={handleChange}
             name='license_plate'
             value={formData.license_plate}
+            minLength={6}
+            maxLength={8}
           />
         </div>
         <div>
           <input
-            type='text'
+            type='number'
             placeholder='Capacity'
             onChange={handleChange}
             name='capacity'
             value={formData.capacity}
+            min={0}
           />
+        </div>
+        <div>
+          <label htmlFor=''>Production Unit:</label>
+          <select name='productionUnit' onChange={handleSelectChange}>
+            <option value='default'>None</option>
+            {productionUnits &&
+              productionUnits.map((productionUnit) => {
+                return (
+                  <option value={productionUnit.id}>
+                    Production Unit in {productionUnit.address.street}
+                  </option>
+                );
+              })}
+          </select>
         </div>
         <div className='buttonsAddVehicles'>
           <button
