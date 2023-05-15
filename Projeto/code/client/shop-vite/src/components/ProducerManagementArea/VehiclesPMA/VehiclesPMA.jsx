@@ -1,15 +1,27 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../assets/UserContext";
 import AddVehicles from "./AddVehicles/AddVehicles";
 import "./VehiclesPMA.css";
+import VehiclesPMACard from "./VehiclesPMACard/VehiclesPMACard";
 
 export default function VehiclesPMA() {
   const [modal, setModal] = useState(false);
   const [showAddVehicles, setShowAddVehicles] = useState(false);
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
+  const [vehicles, setVehicles] = useState([]);
   const handleShowAddVehicles = () => {
     event.preventDefault();
     setShowAddVehicles(!showAddVehicles);
     setModal(!modal);
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/users/" + myUserVariable.id + "/vehicles")
+      .then((response) => {
+        setVehicles(response.data.vehicles);
+      });
+  }, []);
   return (
     <div className='containerVehiclesPMA'>
       <div className='containerVehiclesPMADashboard'>
