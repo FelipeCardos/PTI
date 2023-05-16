@@ -1,0 +1,46 @@
+.category-bar-container {
+    display: flex;
+    align-items: center; /* centraliza verticalmente o botão */
+    background-color: #0d6efd;
+    position: relative;
+}
+.dropdown-toggle {
+    position: relative;
+    z-index: 1;
+  }
+
+.grid-category-bar{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+}
+
+.category-bar-container button {
+    height: 100%;
+    background-color: #0d6efd;
+
+}
+.category{
+    text-align: center;
+    color:white;
+    margin-right: 16px;
+
+}
+.category:hover{
+    background-color: white;
+    color: #0d6efd;
+    border-color: #0d6efd;
+    border-radius: 10px;
+}
+
+.dropdown {
+    position: absolute;
+    top: 40px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 150px;
+  }
