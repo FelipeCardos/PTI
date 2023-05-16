@@ -1,9 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../assets/UserContext";
 import "./Signin.css";
 
 export default function Signin(props) {
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   let navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -46,7 +48,16 @@ export default function Signin(props) {
       })
       .then((res) => {
         if (res.status === 200) {
-          return navigate("/");
+          axios
+            .get("http://localhost:3000/api/v1/auth/user", {
+              withCredentials: true,
+            })
+            .then((res) => {
+              setMyUserVariable(res.data.user);
+            })
+            .then(() => {
+              return navigate("/");
+            });
         }
       })
       .catch((err) => {
