@@ -1,36 +1,50 @@
 const express = require("express");
 
-const { CreateProductionUnit } = require('../../../../../controllers/ProductionUnit/createProductionUnit');
-const { checkAuthenticated, checkUsersIsAdminOrProducer, checkIfUserIsOwnerOfTheResource } = require("../../../../../middleware/UserAuth");
+const {
+  CreateAddress,
+} = require("../../../../../controllers/Address/createAddress");
 
-const router = express.Router({ mergeParams: true});
+const {
+  CreateProductionUnit,
+} = require("../../../../../controllers/ProductionUnit/createProductionUnit");
+const {
+  checkAuthenticated,
+  checkUsersIsAdminOrProducer,
+  checkIfUserIsOwnerOfTheResource,
+} = require("../../../../../middleware/UserAuth");
 
-router.post('/', checkAuthenticated, checkUsersIsAdminOrProducer, checkIfUserIsOwnerOfTheResource,  async (req, res) => {
+const router = express.Router({ mergeParams: true });
+
+router.post(
+  "/",
+  checkAuthenticated,
+  checkUsersIsAdminOrProducer,
+  checkIfUserIsOwnerOfTheResource,
+  async (req, res) => {
     const producer_id = req.params.id;
     const capacity = req.body.capacity;
-    let address_id = req.body.address_id;
+    const country = req.body.country;
+    const state = req.body.state;
+    const street = req.body.street;
+    const postal_code = req.body.postal_code;
 
-    if (capacity === undefined) {
-        console.log("capacity undefined");
+    CreateAddress(country, state, street, postal_code).then((address) => {
+      if (address) {
+        const address_id = address.id;
+        CreateProductionUnit(producer_id, capacity, address_id).then(
+          (productionUnit) => {
+            if (productionUnit) {
+              res.status(200).send("Created");
+            } else {
+              res.status(400).send("Bad Request");
+            }
+          }
+        );
+      } else {
         res.status(400).send("Bad Request");
-        return;
-    }
-
-    if (address_id === undefined) {
-        address_id = null;
-    }
-
-    CreateProductionUnit(producer_id, capacity, address_id).then((productionUnit) => {
-        if (productionUnit) {
-            res.status(200).send("Created");
-
-        } else {
-            res.status(400).send("Bad Request");
-        }
+      }
     });
-
-
-});
-
+  }
+);
 
 module.exports = router;

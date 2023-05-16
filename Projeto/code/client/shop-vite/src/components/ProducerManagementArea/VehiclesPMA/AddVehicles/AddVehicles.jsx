@@ -41,6 +41,7 @@ export default function AddVehicles(props) {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/x-www-form-urlencoded",
           },
+          withCredentials: true,
         }
       )
       .then((res) => {

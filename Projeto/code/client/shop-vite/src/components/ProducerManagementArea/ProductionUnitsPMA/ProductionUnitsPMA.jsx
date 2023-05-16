@@ -1,5 +1,5 @@
 import axios from "axios";
-import { React, useState, useEffect, useContext } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../assets/UserContext";
 import AddProductionUnits from "./AddProductionUnits/AddProductionUnits";
 import "./ProductionUnitsPMA.css";
@@ -14,7 +14,6 @@ export default function ProductionUnitsPMA() {
     event.preventDefault();
     setShowAddPUs(!showAddPUs);
     setModal(!modal);
-    console.log("handleShowAddPUs");
   };
 
   useEffect(() => {

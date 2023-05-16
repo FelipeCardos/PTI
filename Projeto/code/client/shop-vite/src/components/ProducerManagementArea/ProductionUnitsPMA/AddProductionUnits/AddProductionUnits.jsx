@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../../../assets/UserContext";
 import "./AddProductionUnits.css";
 
 export default function AddProductionUnits(props) {
@@ -10,6 +11,7 @@ export default function AddProductionUnits(props) {
     postal_code: "",
     capacity: "",
   });
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -26,7 +28,7 @@ export default function AddProductionUnits(props) {
     console.log("productionUnit: " + JSON.stringify(formData));
     axios
       .post(
-        "http://localhost:3000/api/v1/users" +
+        "http://localhost:3000/api/v1/users/" +
           myUserVariable.id +
           "/productionUnits",
         formData,
@@ -35,10 +37,12 @@ export default function AddProductionUnits(props) {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/x-www-form-urlencoded",
           },
+          withCredentials: true,
         }
       )
       .then((res) => {
         console.log("Servidor: " + JSON.stringify(res.data));
+        props.handleShowAddPUs();
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +61,7 @@ export default function AddProductionUnits(props) {
             type='text'
             placeholder='Country'
             onChange={handleChange}
-            name='Country'
+            name='country'
             value={formData.country}
           />
         </div>
@@ -66,7 +70,7 @@ export default function AddProductionUnits(props) {
             type='text'
             placeholder='State'
             onChange={handleChange}
-            name='State'
+            name='state'
             value={formData.state}
           />
         </div>
@@ -75,7 +79,7 @@ export default function AddProductionUnits(props) {
             type='text'
             placeholder='Street'
             onChange={handleChange}
-            name='Street'
+            name='street'
             value={formData.street}
           />
         </div>
@@ -84,7 +88,7 @@ export default function AddProductionUnits(props) {
             type='text'
             placeholder='Postal Code'
             onChange={handleChange}
-            name='PostalCode'
+            name='postal_code'
             value={formData.postal_code}
           />
         </div>
@@ -93,7 +97,7 @@ export default function AddProductionUnits(props) {
             type='text'
             placeholder='Capacity'
             onChange={handleChange}
-            name='Capacity'
+            name='capacity'
             value={formData.capacity}
           />
         </div>
