@@ -1,16 +1,39 @@
-import { React, useState } from "react";
+import axios from "axios";
+import { React, useState, useEffect, useContext } from "react";
+import { UserContext } from "../../../assets/UserContext";
 import AddProductionUnits from "./AddProductionUnits/AddProductionUnits";
 import "./ProductionUnitsPMA.css";
+import ProductionUnitsPMACard from "./ProductionUnitsPMACard/ProductionUnitsPMACard";
 
 export default function ProductionUnitsPMA() {
   const [modal, setModal] = useState(false);
   const [showAddPUs, setShowAddPUs] = useState(false);
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
+  const [productionUnits, setProductionUnits] = useState([]);
   const handleShowAddPUs = () => {
     event.preventDefault();
     setShowAddPUs(!showAddPUs);
     setModal(!modal);
     console.log("handleShowAddPUs");
   };
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.id +
+          "/productionUnits",
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        setProductionUnits(response.data.productionUnits);
+      });
+  }, []);
   return (
     <div className='containerProductionUnitsPMA'>
       <div className='containerProductionUnitsPMADashboard'>
@@ -32,6 +55,13 @@ export default function ProductionUnitsPMA() {
         </div>
         <hr className='productionUnitsPMAYourProductionUnitsTitleHR' />
         <div className='containerProductionUnitsPMAYourProductionUnitsProductionUnits'>
+          {productionUnits &&
+            productionUnits.map((productionUnit) => (
+              <ProductionUnitsPMACard
+                key={productionUnit.id}
+                productionUnit={productionUnit}
+              />
+            ))}
           {/* Falta renderizar as unidades de produção */}
         </div>
       </div>

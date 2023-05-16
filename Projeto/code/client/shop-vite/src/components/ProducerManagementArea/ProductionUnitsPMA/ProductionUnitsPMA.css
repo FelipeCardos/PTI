@@ -9,7 +9,7 @@
 
 .containerProductionUnitsPMA {
   display: grid;
-  grid: 1fr 1fr / 1fr;
+  grid: 300px 1fr / 1fr;
 }
 
 .productionUnitsPMADashboardTitle,
@@ -75,4 +75,15 @@
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   z-index: 3;
+}
+
+.containerProductionUnitsPMAYourProductionUnitsProductionUnits {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 1vh;
+  gap: 15px;
 }
