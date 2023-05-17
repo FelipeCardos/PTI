@@ -3,6 +3,7 @@
     align-items: center; /* centraliza verticalmente o botão */
     background-color: #0d6efd;
     position: relative;
+    height: 9vh;
 }
 .dropdown-toggle {
     position: relative;
@@ -13,6 +14,7 @@
     display: grid;
     grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr;
     width: 100%;
+    height: 90%;
 }
 
 .category-bar-container button {
@@ -44,3 +46,6 @@
     text-align: left;
     width: 150px;
   }
+  .category-bar-container.disabled {
+    pointer-events: none;
+}
