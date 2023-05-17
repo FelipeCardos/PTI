@@ -1,52 +1,60 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./CategoryBar.css";
 import MenuIcon from '@mui/icons-material/Menu';
+import "./SideBar.css";
+import CloseIcon from '@mui/icons-material/Close';
 
+const moreCategories = [
+    "Books", "Toys", "Makeup", "Eletronics", "Clothing", "Food", "Sports", "Home"
+];
 const categories = [
     "Books", "Toys", "Makeup", "Eletronics", "Home"
 ];
 
-const moreCategories = [
-    "Books", "Toys", "Makeup", "Eletronics","Clothing", "Food", "Sports", "Home"
-];
-
 export default function CategoryBar() {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const handleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
+    const handleClick = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
-
-    const handleBlur = () => {
-        setIsDropdownOpen(false);
-    };
-    const [sortedCategories, setSortedCategories] = useState(moreCategories.sort());
 
     return (
-        <div className="category-bar-container">
-            <div className="grid-category-bar">
-            <button onClick={handleDropdown} onBlur={handleBlur} className="dropdown-toggle"><MenuIcon /></button>
-                {categories.map((category) => (
-                    <button className="category">
-                        <div>
-                            {category}
-                        </div>
-                    </button>
-                ))}
-                {isDropdownOpen && (
-                    <div ref={dropdownRef} onBlur={handleBlur} className="dropdown">
-                        {sortedCategories.map((category) => (
-                            <button className="category">
-                                <div>
-                                    {category}
-                                </div>
-                            </button>
-                        ))}
+        <>
+            {isMenuOpen && (
+                <div>
+                    <div>
+                        <button className="close-sidebar" onClick={handleClick}>
+                            <CloseIcon/>
+                        </button>
                     </div>
-                )}
+                    <div className="sidebar-container">
+                        <div className="sidebar">
+                            <ul>
+                                {moreCategories.map((category) => (
+                                    <li key={category}>
+                                        <button className="sidebar-category">
+                                            {category}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <div className={`category-bar-container ${isMenuOpen ? 'disabled' : ''}`}>
+                <div className="grid-category-bar">
+                    <button onClick={handleClick} className="dropdown-toggle">
+                        <MenuIcon />
+                    </button>
+                    {categories.map((category) => (
+                        <button className="category" key={category}>
+                            <div>{category}</div>
+                        </button>
+                    ))}
+                </div>
+                <hr />
             </div>
-            <hr />
-        </div>
+        </>
     );
 }

@@ -1,6 +1,6 @@
 .container-feed-products{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
     grid-gap: 2px;
 }
 .grid-feed-products{
@@ -10,9 +10,10 @@
     min-height: 30vh;
     position: relative;
     overflow: auto;
+    margin: 5px
 }
 .product-content{
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto;
     height: 90%;
     overflow: hidden;
@@ -30,5 +31,8 @@
 }
 .product-content>p{
     border: 0px;
-    margin: 0px;
+    margin: 0px 0px 0px 10px;
+}
+hr{
+    color: #0d6efd;
 }
