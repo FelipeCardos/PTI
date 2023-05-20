@@ -4,7 +4,7 @@ const { checkAuthenticated } = require("../../../../middleware/UserAuth");
 
 // import routes
 router.get("/", checkAuthenticated, (req, res) => {
-  res.status(200).json({ user: req.user });
+  res.status(200).json({ user_id: req.user.id });
 });
 
 module.exports = router;

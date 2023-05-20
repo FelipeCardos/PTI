@@ -23,6 +23,18 @@ export default function InfoAO(props) {
     newPassword: "",
   });
 
+  const jsonToUrlEncoded = (json) => {
+    const formData = new URLSearchParams();
+
+    for (const key in json) {
+      if (json.hasOwnProperty(key)) {
+        formData.append(key, json[key]);
+      }
+    }
+
+    return formData.toString();
+  };
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       setDeleteAccountEmailCorrect(deleteAccountEmail === myUserVariable.email);
@@ -33,23 +45,30 @@ export default function InfoAO(props) {
 
   function handleEdit(event) {
     event.preventDefault();
-    console.log(myUserVariable);
-    console.log(formDataAccount);
     if (editMode) {
-      async () => {
+      console.log(myUserVariable);
+      console.log(jsonToUrlEncoded(formDataAccount));
+      (async () => {
         //FALTA FORÇAR O LOGOUT E LOGIN PARA ATUALIZAR O CONTEXTO
-        await axios.put(
-          "http://localhost:3000/api/v1/users/" + myUserVariable.id,
-          formDataAccount,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "Access-Control-Allow-Origin": "*",
-            },
-            withCredentials: true,
-          }
-        );
-      };
+        await axios
+          .put(
+            "http://localhost:3000/api/v1/users/" + myUserVariable.id,
+            jsonToUrlEncoded(formDataAccount),
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*",
+              },
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })();
     }
     setEditMode(!editMode);
   }

@@ -10,6 +10,9 @@ const Vehicles = require("./Vehicle/Users.Vehicles.get");
 const router = express.Router();
 
 const {
+  FindCredentialsByUserId,
+} = require("../../../../controllers/Credentials/findCredentials");
+const {
   FindUserById,
   FindAllUsers,
 } = require("../../../../controllers/User/findUsers");
@@ -30,7 +33,15 @@ router.get("/:id", (req, res) => {
     if (user === null) {
       res.status(404).send("Not Found");
     } else {
-      res.status(200).json({ user: user });
+      FindCredentialsByUserId(id).then((credentials) => {
+        if (credentials) {
+          res
+            .status(200)
+            .json({ ...user.dataValues, ["provider"]: credentials.provider });
+        } else {
+          res.status(200).json({ ...user.dataValues, ["provider"]: "local" });
+        }
+      });
     }
   });
 });
