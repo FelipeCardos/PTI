@@ -68,7 +68,7 @@ export default function InfoAO(props) {
         //FALTA FORÇAR O LOGOUT E LOGIN PARA ATUALIZAR O CONTEXTO
         await axios
           .put(
-            "http://localhost:3000/api/v1/users/" + myUserVariable.id,
+            "http://localhost:3000/api/v1/users/" + myUserVariable.user_id,
             jsonToUrlEncoded(formDataAccount),
             {
               headers: {
