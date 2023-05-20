@@ -7,4 +7,9 @@
   transition: all 0.3s ease-in-out;
   padding: 0.5em;
   margin: 1em;
+  width: 350px;
+}
+
+.vehiclesPMACard_vehicle_productionUnits select {
+  width: calc(350px - 1em);
 }
