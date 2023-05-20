@@ -14,7 +14,7 @@ export const UserContextProvider = ({ children }) => {
           "http://localhost:3000/api/v1/auth/user",
           { withCredentials: true }
         );
-        data = response.data.user;
+        data = response.data;
         setMyUserVariable(data);
       } catch (error) {
         console.error(error);
