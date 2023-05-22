@@ -36,7 +36,7 @@ export default function Navbar() {
           <i className='fa fa-search'></i>
         </button>
       </div>
-      <div className='becomeProducerNavbar'>
+      <div className='becomeProducerNavbar' title='Become a Producer'>
         <button
           onClick={() => {
             navigate("/signup", { state: { signupType: "Producer" } });
@@ -46,7 +46,7 @@ export default function Navbar() {
           Become a Producer
         </button>
       </div>
-      <div className='shoppingCartNavbar'>
+      <div className='shoppingCartNavbar' title='Shopping Cart'>
         <button
           className='shoppingCartButtonNavbar'
           onClick={() => {
@@ -57,7 +57,7 @@ export default function Navbar() {
         </button>
         <span className='shoppingCartBadgeNavbar'>0</span>
       </div>
-      <div className='signinNavbar'>
+      <div className='signinNavbar' title='Sign In'>
         <button
           onClick={() => {
             navigate("/signin");
@@ -67,7 +67,7 @@ export default function Navbar() {
           Sign In
         </button>
       </div>
-      <div className='signupNavbar'>
+      <div className='signupNavbar' title='Sign Up'>
         <button
           onClick={() => {
             navigate("/signup", { state: { signupType: "Consumer" } });

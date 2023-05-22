@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavbarConsumer.css";
 
-export default function NavbarConsumer() {
+export default function NavbarConsumer(props) {
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -47,7 +47,7 @@ export default function NavbarConsumer() {
           <i className='fa fa-search'></i>
         </button>
       </div>
-      <div className='shoppingCartNavbarConsumer'>
+      <div className='shoppingCartNavbarConsumer' title='Shopping Cart'>
         <button
           className='shoppingCartButtonNavbarConsumer'
           onClick={() => {
@@ -58,7 +58,7 @@ export default function NavbarConsumer() {
         </button>
         <span className='shoppingCartBadgeNavbarConsumer'>0</span>
       </div>
-      <div className='notificationBellNavbarConsumer'>
+      <div className='notificationBellNavbarConsumer' title='Notifications'>
         <button className='notificationBellButtonNavbarConsumer'>
           <i className='fa fa-bell'></i>
         </button>
@@ -67,6 +67,7 @@ export default function NavbarConsumer() {
       <div className='accountNavbarConsumer'>
         <button onClick={handleClick} className='accountButtonNavbarConsumer'>
           <i className='fa fa-user'></i>
+          <p>Olá, {props.userName}</p>
         </button>
         <Menu
           id='basic-menu'

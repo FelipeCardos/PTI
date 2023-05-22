@@ -102,11 +102,36 @@
 
 .shoppingCartNavbarConsumer:hover > button,
 .notificationBellNavbarConsumer:hover > button,
-.accountNavbarConsumer:hover > button {
+.accountNavbarConsumer:hover > button,
+.accountNavbarConsumer:hover > button > p {
   color: #023e97;
 }
 
 .shoppingCartNavbarConsumer:hover > .shoppingCartBadgeNavbarConsumer,
 .notificationBellNavbarConsumer:hover > .notificationBellBadgeNavbarConsumer {
   background: hsl(0, 100%, 40%);
+}
+
+.accountButtonNavbarConsumer > p {
+  position: absolute;
+  margin: 0;
+  margin-top: 3.3em;
+  padding: 0;
+  font-size: 0.4em;
+  color: var(--bs-blue);
+}
+
+.accountButtonNavbarConsumer > p::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #023e97;
+  transition: width 0.7s ease;
+}
+
+.accountNavbarConsumer:hover > button > p::after {
+  width: 100%;
 }

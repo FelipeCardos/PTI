@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavbarProducer.css";
 
-export default function NavbarProducer() {
+export default function NavbarProducer(props) {
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -66,6 +66,7 @@ export default function NavbarProducer() {
       <div className='accountNavbarProducer'>
         <button onClick={handleClick} className='accountButtonNavbarProducer'>
           <i className='fa fa-user'></i>
+          <p>Olá, {props.userName}</p>
         </button>
         <Menu
           id='basic-menu'
