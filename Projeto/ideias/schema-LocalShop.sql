@@ -52,8 +52,6 @@ CREATE TABLE Vehicle(
     license_plate VARCHAR(32) NOT NULL,
     capacity INT UNSIGNED NOT NULL CHECK (capacity > 0),
     PRIMARY KEY (id),
-    FOREIGN KEY (production_unit_id) REFERENCES ProductionUnit(id) ON DELETE
-    SET NULL,
     FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
 
 );
@@ -101,7 +99,7 @@ CREATE TABLE ProductCategory(
 CREATE TABLE CategoryAttribute(
     id INT UNSIGNED AUTO_INCREMENT,
     category_id INT UNSIGNED NOT NULL,
-    title VARCHAR(255) NOT NULL,,
+    title VARCHAR(255) NOT NULL,
     PRIMARY KEY (id, category_id),
     FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
 );
@@ -144,9 +142,7 @@ CREATE TABLE Rating(
         AND rating <= 5
     ),
     PRIMARY KEY (id, consumer_id),
-    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
+    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE
 );
 CREATE TABLE Wishlist(
     id INT UNSIGNED AUTO_INCREMENT,
@@ -168,10 +164,6 @@ CREATE TABLE Cart(
         'COMPLETE',
         'FAILURE'
     ) NOT NULL,
-    CONSTRAINT chk_status_orderDate CHECK (
-        status = 'OPEN'
-        AND order_date IS NULL
-    ),
     PRIMARY KEY (id, consumer_id),
     FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE
 );
@@ -191,10 +183,6 @@ CREATE TABLE CartLine(
     ) NOT NULL,
     vehicle_id INT UNSIGNED,
     amount INT NOT NULL CHECK (amount > 0),
-    CONSTRAINT chk_status CHECK (
-        status = 'OPEN'
-        AND vehicle_id IS NULL
-    ),
     PRIMARY KEY (cart_id, product_id),
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
