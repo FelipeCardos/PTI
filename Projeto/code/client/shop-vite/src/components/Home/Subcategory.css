@@ -1,0 +1,30 @@
+.subcategory-container{
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width:20vw;
+    height: 100vh;
+    background-color: #0d6efd;
+    z-index: 2;
+    box-shadow: 0px 0px 0px 10000px rgba(19, 18, 18, 0.726);
+    overflow-y: none;
+    position: fixed;
+    overflow-y: hidden;
+    transition: max-height 0.3s ease;
+
+}
+.subcategory-ulli{
+    list-style-type: none;
+    padding:0;
+    color: white;
+    position: fixed;
+}
+
+.subcategory{
+    position: fixed;
+}
+
+.subcategory-container.hovered {
+    max-height: 500px;
+    overflow-y: auto;
+  }
