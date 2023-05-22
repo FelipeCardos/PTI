@@ -1,4 +1,4 @@
-const { Product } = require("../../database/models");
+const { Product, ProductCategory } = require("../../database/models");
 
 async function FindProductWithId(id) {
   const product = await Product.findOne({
@@ -14,4 +14,16 @@ async function FindAllProducts() {
   return products;
 }
 
-module.exports = { FindProductWithId, FindAllProducts };
+async function FindProductsWithSubcategoryId(id){
+  const products = await Product.findAll({
+    include:[
+      {
+        model: ProductCategory,
+        where: {category_id: id},
+        required: true
+      }
+    ]
+  });
+  return products;
+}
+module.exports = { FindProductWithId, FindAllProducts ,FindProductsWithSubcategoryId}
