@@ -419,6 +419,45 @@ VALUES
   (19, 'https://example.com/images/bookshelf.jpg'),
   (20, 'https://example.com/images/camera.jpg');
 
+INSERT INTO ProductProductionUnit (product_id, production_unit_id, amount)
+VALUES
+  -- Electronics
+  (1, 1, 10),  -- Smart TV produced by Production Unit 1 with 10 units
+  (2, 2, 20),  -- Bluetooth Speaker produced by Production Unit 2 with 20 units
+  (3, 3, 15),  -- Laptop produced by Production Unit 3 with 15 units
+  -- Clothing
+  (4, 4, 30),  -- T-Shirt produced by Production Unit 4 with 30 units
+  (5, 5, 25),  -- Jeans produced by Production Unit 5 with 25 units
+  (6, 6, 20),  -- Dress produced by Production Unit 6 with 20 units
+  -- Home & Kitchen
+  (7, 7, 35),  -- Coffee Maker produced by Production Unit 7 with 35 units
+  (8, 8, 40),  -- Blender produced by Production Unit 8 with 40 units
+  (9, 1, 20),  -- Cookware Set produced by Production Unit 1 with 20 units
+  -- Computers
+  (10, 2, 15),  -- Gaming PC produced by Production Unit 2 with 15 units
+  (11, 3, 25),  -- Monitor produced by Production Unit 3 with 25 units
+  (12, 4, 30),  -- Keyboard produced by Production Unit 4 with 30 units
+  -- Mobile Phones
+  (13, 5, 20),  -- Smartphone produced by Production Unit 5 with 20 units
+  (14, 6, 35),  -- Wireless Earbuds produced by Production Unit 6 with 35 units
+  (15, 7, 40),  -- Power Bank produced by Production Unit 7 with 40 units
+  -- Tops
+  (16, 8, 30),  -- Tank Top produced by Production Unit 8 with 30 units
+  (17, 1, 25),  -- Turtleneck Sweater produced by Production Unit 1 with 25 units
+  (18, 2, 20),  -- Button-up Shirt produced by Production Unit 2 with 20 units
+  -- Bottoms
+  (19, 3, 15),  -- Shorts produced by Production Unit 3 with 15 units
+  (20, 4, 10),  -- Leggings produced by Production Unit 4 with 10 units
+  (21, 5, 20),  -- Jeans produced by Production Unit 5 with 20 units
+  -- Appliances
+  (22, 6, 25),  -- Refrigerator produced by Production Unit 6 with 25 units
+  (23, 7, 30),  -- Washing Machine produced by Production Unit 7 with 30 units
+  (24, 8, 20),  -- Air Conditioner produced by Production Unit 8 with 20 units
+  -- Furniture
+  (25, 1, 15),  -- Sofa produced by Production Unit 1 with 15 units
+  (26, 2, 20),  -- Dining Table produced by Production Unit 2 with 20 units
+  (27, 3, 10);  -- Bed produced by Production Unit 3 with 10 units
+
 -- Insert data into Category table
 INSERT INTO
   Category (name, parent_category)
