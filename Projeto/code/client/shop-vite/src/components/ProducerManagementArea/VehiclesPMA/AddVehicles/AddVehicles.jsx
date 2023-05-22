@@ -31,10 +31,11 @@ export default function AddVehicles(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("productionUnit: " + JSON.stringify(formData));
     axios
       .post(
-        "http://localhost:3000/api/v1/users/" + myUserVariable.id + "/vehicles",
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/vehicles",
         formData,
         {
           headers: {
@@ -45,11 +46,8 @@ export default function AddVehicles(props) {
         }
       )
       .then((res) => {
-        console.log("Servidor: " + JSON.stringify(res.data));
         props.handleShowAddVehicles();
-        props.setProductionUnits((prevProductionUnits) => {
-          return [...prevProductionUnits, res.data.production_unit_id];
-        });
+        props.updateVehicles();
       })
       .catch((err) => {
         console.log(err);

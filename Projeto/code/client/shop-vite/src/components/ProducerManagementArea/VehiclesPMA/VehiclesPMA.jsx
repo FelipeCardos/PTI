@@ -16,10 +16,13 @@ export default function VehiclesPMA() {
     setShowAddVehicles(!showAddVehicles);
     setModal(!modal);
   };
-  useEffect(() => {
+
+  function updateVehicles() {
     axios
       .get(
-        "http://localhost:3000/api/v1/users/" + myUserVariable.id + "/vehicles",
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/vehicles",
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -30,10 +33,13 @@ export default function VehiclesPMA() {
       .then((response) => {
         setVehicles(response.data.vehicles);
       });
+  }
+  useEffect(() => {
+    updateVehicles();
     axios
       .get(
         "http://localhost:3000/api/v1/users/" +
-          myUserVariable.id +
+          myUserVariable.user_id +
           "/productionUnits",
         {
           headers: {
@@ -83,6 +89,7 @@ export default function VehiclesPMA() {
             handleShowAddVehicles={handleShowAddVehicles}
             productionUnits={productionUnits}
             setProductionUnits={setProductionUnits}
+            updateVehicles={updateVehicles}
           />
         </div>
       )}

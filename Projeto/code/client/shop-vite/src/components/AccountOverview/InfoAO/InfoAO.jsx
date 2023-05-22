@@ -12,16 +12,44 @@ export default function InfoAO(props) {
   const [deleteAccountEmailCorrect, setDeleteAccountEmailCorrect] =
     useState(false);
   const [formDataAccount, setFormDataAccount] = useState({
-    name: myUserVariable.name,
-    email: myUserVariable.email,
-    phone: myUserVariable.phone,
-    fiscal_identifier: myUserVariable.fiscal_identifier,
+    name: "",
+    email: "",
+    phone: "",
+    fiscal_identifier: "",
     address: "",
   });
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/v1/users/" + myUserVariable.user_id, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setFormDataAccount({
+          name: res.data.name,
+          email: res.data.email,
+          phone: res.data.phone,
+          fiscal_identifier: res.data.fiscal_identifier,
+          address: res.data.address,
+        });
+      });
+  }, [myUserVariable]);
+
   const [formDataPassword, setFormDataPassword] = useState({
     currentPassword: "",
     newPassword: "",
   });
+
+  const jsonToUrlEncoded = (json) => {
+    const formData = new URLSearchParams();
+
+    for (const key in json) {
+      if (json.hasOwnProperty(key)) {
+        formData.append(key, json[key]);
+      }
+    }
+
+    return formData.toString();
+  };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -33,23 +61,30 @@ export default function InfoAO(props) {
 
   function handleEdit(event) {
     event.preventDefault();
-    console.log(myUserVariable);
-    console.log(formDataAccount);
     if (editMode) {
-      async () => {
+      console.log(myUserVariable);
+      console.log(jsonToUrlEncoded(formDataAccount));
+      (async () => {
         //FALTA FORÇAR O LOGOUT E LOGIN PARA ATUALIZAR O CONTEXTO
-        await axios.put(
-          "http://localhost:3000/api/v1/users/" + myUserVariable.id,
-          formDataAccount,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "Access-Control-Allow-Origin": "*",
-            },
-            withCredentials: true,
-          }
-        );
-      };
+        await axios
+          .put(
+            "http://localhost:3000/api/v1/users/" + myUserVariable.user_id,
+            jsonToUrlEncoded(formDataAccount),
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*",
+              },
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })();
     }
     setEditMode(!editMode);
   }

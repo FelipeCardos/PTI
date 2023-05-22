@@ -53,7 +53,7 @@ export default function Signin(props) {
               withCredentials: true,
             })
             .then((res) => {
-              setMyUserVariable(res.data.user);
+              setMyUserVariable(res.data);
             })
             .then(() => {
               return navigate("/");

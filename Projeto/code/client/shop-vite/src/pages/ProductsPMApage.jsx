@@ -12,7 +12,15 @@ export default function ProductsPMApage() {
 
   useEffect(() => {
     if (!myUserVariable) return navigate("/signin");
-    if (myUserVariable.typeUser !== "Producer") return navigate("/");
+    (async () => {
+      await axios
+        .get("http://localhost:3000/api/v1/users/" + myUserVariable.user_id, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.data.typeUser !== "Producer") return navigate("/");
+        });
+    })();
     setLoading(false);
   }, []);
   return (

@@ -16,11 +16,11 @@ export default function ProductionUnitsPMA() {
     setModal(!modal);
   };
 
-  useEffect(() => {
+  function updateProductionUnits() {
     axios
       .get(
         "http://localhost:3000/api/v1/users/" +
-          myUserVariable.id +
+          myUserVariable.user_id +
           "/productionUnits",
         {
           headers: {
@@ -32,7 +32,12 @@ export default function ProductionUnitsPMA() {
       .then((response) => {
         setProductionUnits(response.data.productionUnits);
       });
+  }
+
+  useEffect(() => {
+    updateProductionUnits();
   }, []);
+
   return (
     <div className='containerProductionUnitsPMA'>
       <div className='containerProductionUnitsPMADashboard'>
@@ -67,7 +72,10 @@ export default function ProductionUnitsPMA() {
       {modal && <div className='modalPMA'></div>}
       {showAddPUs && (
         <div className='AddPUs'>
-          <AddProductionUnits handleShowAddPUs={handleShowAddPUs} />
+          <AddProductionUnits
+            handleShowAddPUs={handleShowAddPUs}
+            updateProductionUnits={updateProductionUnits}
+          />
         </div>
       )}
     </div>

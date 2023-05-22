@@ -25,11 +25,10 @@ export default function AddProductionUnits(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("productionUnit: " + JSON.stringify(formData));
     axios
       .post(
         "http://localhost:3000/api/v1/users/" +
-          myUserVariable.id +
+          myUserVariable.user_id +
           "/productionUnits",
         formData,
         {
@@ -41,8 +40,8 @@ export default function AddProductionUnits(props) {
         }
       )
       .then((res) => {
-        console.log("Servidor: " + JSON.stringify(res.data));
         props.handleShowAddPUs();
+        props.updateProductionUnits();
       })
       .catch((err) => {
         console.log(err);
