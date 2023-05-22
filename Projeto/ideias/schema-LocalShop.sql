@@ -101,14 +101,14 @@ CREATE TABLE ProductCategory(
 CREATE TABLE CategoryAttribute(
     id INT UNSIGNED AUTO_INCREMENT,
     category_id INT UNSIGNED NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    content VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,,
     PRIMARY KEY (id, category_id),
     FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
 );
 CREATE TABLE ProductAttribute(
     product_id INT UNSIGNED NOT NULL,
     attribute_id INT UNSIGNED NOT NULL,
+    content VARCHAR(255) NOT NULL,
     PRIMARY KEY (product_id, attribute_id),
     FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
     FOREIGN KEY (attribute_id) REFERENCES CategoryAttribute(id) ON DELETE CASCADE
