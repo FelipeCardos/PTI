@@ -51,7 +51,7 @@ VALUES
   (
     'John Doe',
     'johndoe@example.com',
-    '$2a$14$KYOjv8xYmCqDF1kSvnlNYO...',
+    '$2a$14$UJ9XCBatoicb5fJ7/UPE.OvJ.Ij/dAd0rPZVgNJnnx2wPKCoyzAle',
     '1234567890',
     1,
     '+1 123-456-7890',
@@ -60,7 +60,7 @@ VALUES
   (
     'Jane Smith',
     'janesmith@example.com',
-    '$2a$14$0cCm08ZmMdEFCtm2BhRYeO...',
+    '$2a$14$4u96jzaQkjleu5hLtaSYj.2fWdTYkh9H1kA0TjXJOhro0sytzX2gW',
     '9876543210',
     2,
     '+1 987-654-3210',
@@ -69,7 +69,7 @@ VALUES
   (
     'David Johnson',
     'davidjohnson@example.com',
-    '$2a$14$qCB7LPs0jEZVKWZk/b3eLO...',
+    '$2a$14$VV8NIBGU65WHCoogFGReLOUDTi36G5bE08l4gBrmtn6jjIRjave8u',
     '2468135790',
     3,
     '+1 246-813-5790',
@@ -78,7 +78,7 @@ VALUES
   (
     'Emily Brown',
     'emilybrown@example.com',
-    '$2a$14$/yAqSwn21WVYkwICzO4nwe...',
+    '$2a$14$ARoCYsW0zGG2VfvTKgLfLejKur1zrdzWyMx07KFqZEPIBZLC76FQK',
     '1357924680',
     4,
     '+1 135-792-4680',
@@ -87,7 +87,7 @@ VALUES
   (
     'Michael Wilson',
     'michaelwilson@example.com',
-    '$2a$14$yCOyCtw8cbi2ZpZnh3..9u...',
+    '$2a$14$PS2pOazPPUWgJU.EAa3hXen1beSMNZSmm7tCFQPEuYlzN2YZUi0Qi',
     '5678901234',
     5,
     '+1 567-890-1234',
@@ -96,7 +96,7 @@ VALUES
   (
     'Sarah Davis',
     'sarahdavis@example.com',
-    '$2a$14$hU8cZEm6Sl5VUetJcBBshO...',
+    '$2a$14$7Rau1EBfbpdpyzcqQpd8vOjdFmdYbe9DlrJFFzExiyUmgpfRQ99fe',
     '4321098765',
     6,
     '+1 432-109-8765',
@@ -105,7 +105,7 @@ VALUES
   (
     'Christopher Lee',
     'christopherlee@example.com',
-    '$2a$14$iL4ZGs89GBDZXzV0kaa6Iu...',
+    '$2a$14$sWeXb7KotoDLUEOOXWXfYedRnOhaQTagh3evcPxnuk/RatdP4RW46',
     '9012345678',
     7,
     '+1 901-234-5678',
@@ -114,7 +114,7 @@ VALUES
   (
     'Olivia Taylor',
     'oliviataylor@example.com',
-    '$2a$14$8eiFe38mQa2aZaaZXmHcyu...',
+    '$2a$14$BxMilgFqJtYhYoNG6A5lp.i4U00SWDphTGAdNP1BmEwJx8SXORNyK',
     '',
     8,
     '+1 975-310-8642',
@@ -419,45 +419,73 @@ VALUES
   (19, 'https://example.com/images/bookshelf.jpg'),
   (20, 'https://example.com/images/camera.jpg');
 
-INSERT INTO ProductProductionUnit (product_id, production_unit_id, amount)
+INSERT INTO
+  ProductProductionUnit (product_id, production_unit_id, amount)
 VALUES
   -- Electronics
-  (1, 1, 10),  -- Smart TV produced by Production Unit 1 with 10 units
-  (2, 2, 20),  -- Bluetooth Speaker produced by Production Unit 2 with 20 units
-  (3, 3, 15),  -- Laptop produced by Production Unit 3 with 15 units
+  (1, 1, 10),
+  -- Smart TV produced by Production Unit 1 with 10 units
+  (2, 2, 20),
+  -- Bluetooth Speaker produced by Production Unit 2 with 20 units
+  (3, 3, 15),
+  -- Laptop produced by Production Unit 3 with 15 units
   -- Clothing
-  (4, 4, 30),  -- T-Shirt produced by Production Unit 4 with 30 units
-  (5, 5, 25),  -- Jeans produced by Production Unit 5 with 25 units
-  (6, 6, 20),  -- Dress produced by Production Unit 6 with 20 units
+  (4, 4, 30),
+  -- T-Shirt produced by Production Unit 4 with 30 units
+  (5, 5, 25),
+  -- Jeans produced by Production Unit 5 with 25 units
+  (6, 6, 20),
+  -- Dress produced by Production Unit 6 with 20 units
   -- Home & Kitchen
-  (7, 7, 35),  -- Coffee Maker produced by Production Unit 7 with 35 units
-  (8, 8, 40),  -- Blender produced by Production Unit 8 with 40 units
-  (9, 1, 20),  -- Cookware Set produced by Production Unit 1 with 20 units
+  (7, 7, 35),
+  -- Coffee Maker produced by Production Unit 7 with 35 units
+  (8, 8, 40),
+  -- Blender produced by Production Unit 8 with 40 units
+  (9, 1, 20),
+  -- Cookware Set produced by Production Unit 1 with 20 units
   -- Computers
-  (10, 2, 15),  -- Gaming PC produced by Production Unit 2 with 15 units
-  (11, 3, 25),  -- Monitor produced by Production Unit 3 with 25 units
-  (12, 4, 30),  -- Keyboard produced by Production Unit 4 with 30 units
+  (10, 2, 15),
+  -- Gaming PC produced by Production Unit 2 with 15 units
+  (11, 3, 25),
+  -- Monitor produced by Production Unit 3 with 25 units
+  (12, 4, 30),
+  -- Keyboard produced by Production Unit 4 with 30 units
   -- Mobile Phones
-  (13, 5, 20),  -- Smartphone produced by Production Unit 5 with 20 units
-  (14, 6, 35),  -- Wireless Earbuds produced by Production Unit 6 with 35 units
-  (15, 7, 40),  -- Power Bank produced by Production Unit 7 with 40 units
+  (13, 5, 20),
+  -- Smartphone produced by Production Unit 5 with 20 units
+  (14, 6, 35),
+  -- Wireless Earbuds produced by Production Unit 6 with 35 units
+  (15, 7, 40),
+  -- Power Bank produced by Production Unit 7 with 40 units
   -- Tops
-  (16, 8, 30),  -- Tank Top produced by Production Unit 8 with 30 units
-  (17, 1, 25),  -- Turtleneck Sweater produced by Production Unit 1 with 25 units
-  (18, 2, 20),  -- Button-up Shirt produced by Production Unit 2 with 20 units
+  (16, 8, 30),
+  -- Tank Top produced by Production Unit 8 with 30 units
+  (17, 1, 25),
+  -- Turtleneck Sweater produced by Production Unit 1 with 25 units
+  (18, 2, 20),
+  -- Button-up Shirt produced by Production Unit 2 with 20 units
   -- Bottoms
-  (19, 3, 15),  -- Shorts produced by Production Unit 3 with 15 units
-  (20, 4, 10),  -- Leggings produced by Production Unit 4 with 10 units
-  (21, 5, 20),  -- Jeans produced by Production Unit 5 with 20 units
+  (19, 3, 15),
+  -- Shorts produced by Production Unit 3 with 15 units
+  (20, 4, 10),
+  -- Leggings produced by Production Unit 4 with 10 units
+  (21, 5, 20),
+  -- Jeans produced by Production Unit 5 with 20 units
   -- Appliances
-  (22, 6, 25),  -- Refrigerator produced by Production Unit 6 with 25 units
-  (23, 7, 30),  -- Washing Machine produced by Production Unit 7 with 30 units
-  (24, 8, 20),  -- Air Conditioner produced by Production Unit 8 with 20 units
+  (22, 6, 25),
+  -- Refrigerator produced by Production Unit 6 with 25 units
+  (23, 7, 30),
+  -- Washing Machine produced by Production Unit 7 with 30 units
+  (24, 8, 20),
+  -- Air Conditioner produced by Production Unit 8 with 20 units
   -- Furniture
-  (25, 1, 15),  -- Sofa produced by Production Unit 1 with 15 units
-  (26, 2, 20),  -- Dining Table produced by Production Unit 2 with 20 units
-  (27, 3, 10);  -- Bed produced by Production Unit 3 with 10 units
+  (25, 1, 15),
+  -- Sofa produced by Production Unit 1 with 15 units
+  (26, 2, 20),
+  -- Dining Table produced by Production Unit 2 with 20 units
+  (27, 3, 10);
 
+-- Bed produced by Production Unit 3 with 10 units
 -- Insert data into Category table
 INSERT INTO
   Category (name, parent_category)
@@ -871,7 +899,6 @@ VALUES
   (7, '2023-05-22 16:20:00', 'CANCELLED'),
   (7, '2023-05-22 18:45:00', 'COMPLETE'),
   (7, '2023-05-22 18:50:00', 'COMPLETE');
-
 
 -- Insert data into CartLine table
 -- For open carts with cart lines
