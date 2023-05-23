@@ -14,8 +14,8 @@ router.use("/auth", Auth);
 const Cartline = require("./CartLine/CartLines.root");
 router.use("/cartLines", Cartline);
 
-// const Category = require('./Category/Categories.root');
-// router.use('/categories', Category);
+const Category = require('./Category/Categories.root');
+router.use('/categories', Category);
 
 // const Categoryattribute = require('./CategoryAttribute/CategoryAttributes.root');
 // router.use('/categoryAttributes', Categoryattribute);
