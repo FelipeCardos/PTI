@@ -176,6 +176,7 @@ CREATE TABLE Cart(
     id INT UNSIGNED AUTO_INCREMENT,
     consumer_id INT UNSIGNED NOT NULL,
     order_date DATETIME,
+    delivery_date DATETIME,
     status ENUM(
         'OPEN',
         'AWAITING_PAYMENT',
@@ -204,6 +205,7 @@ CREATE TABLE CartLine(
     ) NOT NULL,
     vehicle_id INT UNSIGNED,
     amount INT NOT NULL CHECK (amount > 0),
+    delivery_date DATETIME,
     PRIMARY KEY (cart_id, product_id),
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
