@@ -152,8 +152,8 @@ CREATE TABLE ConsumerVote(
 CREATE TABLE Rating(
     id INT UNSIGNED AUTO_INCREMENT,
     consumer_id INT UNSIGNED NOT NULL,
-    producer_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
+    producer_id INT UNSIGNED,
+    product_id INT UNSIGNED,
     rating INT UNSIGNED NOT NULL,
     CONSTRAINT chk_rating CHECK (
         0 < rating
