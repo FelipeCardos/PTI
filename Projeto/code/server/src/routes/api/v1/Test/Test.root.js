@@ -1,14 +1,14 @@
 const express = require("express");
+
 const {
-  CreateCartLine,
-} = require("../../../../controllers/CartLine/createCartline");
+  CreateCategory,
+} = require("../../../../controllers/Category/createCategory");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  console.log("testar criar uma cartline");
-  await CreateCartLine(1, 3, 3).then((cartline) => {
-    res.send(cartline);
+  await CreateCategory("boa tarde").then((result) => {
+    res.send(result);
   });
 });
 
