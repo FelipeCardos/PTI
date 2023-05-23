@@ -148,7 +148,7 @@ VALUES
   (1, 1, 2, 'ABC123', 50),
   (2, NULL, 4, 'DEF456', 70),
   (3, 3, 4, 'GHI789', 60),
-  (4, 2, 6, 'JKL012', 80),
+  (4, 5, 6, 'JKL012', 80),
   (5, 5, 6, 'MNO345', 90),
   (6, NULL, 6, 'PQR678', 75),
   (7, 6, 6, 'STU901', 100),
@@ -423,21 +423,21 @@ INSERT INTO
   ProductProductionUnit (product_id, production_unit_id, amount)
 VALUES
   -- Electronics
-  (1, 1, 10),
+  (1, 3, 10),
   -- Smart TV produced by Production Unit 1 with 10 units
   (2, 2, 20),
   -- Bluetooth Speaker produced by Production Unit 2 with 20 units
   (3, 3, 15),
   -- Laptop produced by Production Unit 3 with 15 units
   -- Clothing
-  (4, 4, 30),
+  (4, 1, 30),
   -- T-Shirt produced by Production Unit 4 with 30 units
   (5, 5, 25),
   -- Jeans produced by Production Unit 5 with 25 units
-  (6, 6, 20),
+  (6, 7, 20),
   -- Dress produced by Production Unit 6 with 20 units
   -- Home & Kitchen
-  (7, 7, 35),
+  (7, 5, 35),
   -- Coffee Maker produced by Production Unit 7 with 35 units
   (8, 8, 40),
   -- Blender produced by Production Unit 8 with 40 units
@@ -887,49 +887,99 @@ VALUES
 
 -- Insert data into Cart table
 INSERT INTO
-  Cart (consumer_id, order_date, status)
+  Cart (
+    id,
+    consumer_id,
+    order_date,
+    delivery_date,
+    status
+  )
 VALUES
-  (1, NULL, 'OPEN'),
-  (3, NULL, 'OPEN'),
-  (5, NULL, 'OPEN'),
-  (7, NULL, 'OPEN'),
-  (1, '2023-05-20 10:30:00', 'AWAITING_PAYMENT'),
-  (3, '2023-05-21 14:45:00', 'PROCESSING'),
-  (5, '2023-05-22 09:15:00', 'COMPLETE'),
-  (7, '2023-05-22 16:20:00', 'CANCELLED'),
-  (7, '2023-05-22 18:45:00', 'COMPLETE'),
-  (7, '2023-05-22 18:50:00', 'COMPLETE');
+  (1, 1, NULL, NULL, 'OPEN'),
+  (2, 3, NULL, NULL, 'OPEN'),
+  (3, 5, NULL, NULL, 'OPEN'),
+  (4, 7, NULL, NULL, 'OPEN'),
+  (
+    5,
+    1,
+    '2023-05-20 10:30:00',
+    NULL,
+    'AWAITING_PAYMENT'
+  ),
+  (6, 3, '2023-05-21 14:45:00', NULL, 'PROCESSING'),
+  (
+    7,
+    5,
+    '2023-05-22 09:15:00',
+    '2023-05-23 14:00:00',
+    'COMPLETE'
+  ),
+  (
+    8,
+    7,
+    '2023-05-22 16:20:00',
+    '2023-05-23 15:00:00',
+    'COMPLETE'
+  ),
+  (
+    9,
+    7,
+    '2023-05-22 18:45:00',
+    '2023-05-23 10:30:00',
+    'COMPLETE'
+  ),
+  (
+    10,
+    7,
+    '2023-05-22 18:50:00',
+    '2023-05-23 11:45:00',
+    'COMPLETE'
+  );
 
 -- Insert data into CartLine table
 -- For open carts with cart lines
 INSERT INTO
-  CartLine (cart_id, product_id, status, vehicle_id, amount)
+  CartLine (
+    cart_id,
+    product_id,
+    status,
+    vehicle_id,
+    amount,
+    delivery_date
+  )
 VALUES
-  (1, 1, 'OPEN', NULL, 2),
-  (1, 2, 'OPEN', NULL, 1),
-  (3, 1, 'OPEN', NULL, 3),
-  (5, 3, 'OPEN', NULL, 2),
-  (7, 2, 'OPEN', NULL, 1);
+  (1, 1, 'OPEN', NULL, 2, NULL),
+  (1, 2, 'OPEN', NULL, 1, NULL),
+  (3, 1, 'OPEN', NULL, 3, NULL),
+  (5, 3, 'OPEN', NULL, 2, NULL),
+  (7, 2, 'OPEN', NULL, 1, NULL);
 
 -- For carts with 'PROCESSING' status and cart lines
 INSERT INTO
   CartLine (cart_id, product_id, status, vehicle_id, amount)
 VALUES
-  (2, 1, 'PROCESSING', 1, 1),
-  (2, 2, 'PROCESSING', 1, 2),
+  (2, 1, 'PROCESSING', NULL, 1),
+  (2, 2, 'PROCESSING', NULL, 2),
   (2, 3, 'AWAITING_TRANSPORT', NULL, 2),
-  (2, 4, 'TRANSPORT_IMMINENT', NULL, 1),
-  (4, 5, 'PROCESSING', 3, 2),
-  (4, 6, 'IN_TRANSIT', NULL, 3),
-  (6, 7, 'LAST_KM', NULL, 1),
-  (6, 8, 'PROCESSING', 2, 2);
+  (2, 4, 'TRANSPORT_IMMINENT', 1, 1),
+  (4, 5, 'PROCESSING', NULL, 2),
+  (4, 6, 'IN_TRANSIT', 7, 3),
+  (6, 7, 'LAST_KM', 4, 1),
+  (6, 8, 'PROCESSING', NULL, 2);
 
 -- For carts with 'COMPLETE' status and cart lines
 INSERT INTO
-  CartLine (cart_id, product_id, status, vehicle_id, amount)
+  CartLine (
+    cart_id,
+    product_id,
+    status,
+    vehicle_id,
+    amount,
+    delivery_date
+  )
 VALUES
-  (8, 1, 'COMPLETE', 1, 2),
-  (8, 2, 'COMPLETE', 1, 1),
-  (8, 3, 'FAILURE', 1, 2),
-  (9, 2, 'COMPLETE', 2, 1),
-  (9, 3, 'COMPLETE', 2, 2);
+  (8, 1, 'COMPLETE', 3, 2, '2023-05-23 15:00:00'),
+  (8, 2, 'COMPLETE', 3, 1, '2023-05-23 15:00:00'),
+  (8, 3, 'FAILURE', 2, 2, NULL),
+  (9, 2, 'COMPLETE', 2, 1, '2023-05-23 16:00:00'),
+  (9, 3, 'COMPLETE', 2, 2, '2023-05-23 16:30:00');
