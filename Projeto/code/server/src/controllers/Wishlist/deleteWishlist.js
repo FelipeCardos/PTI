@@ -9,3 +9,5 @@ async function DeleteWishlistWithId(id) {
   await wishlist.destroy();
   return wishlist;
 }
+
+module.exports = { DeleteWishlistWithId };
