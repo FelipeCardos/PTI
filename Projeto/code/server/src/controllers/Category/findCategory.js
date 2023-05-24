@@ -1,45 +1,65 @@
-const {Category, ProductCategory, Product} = require("../../database/models");
+const { Category } = require("../../database/models");
 
-async function FindAllCategories(){
-    const categories = await Category.findAll({
-      where:{
-        parent_category:null
-      },
-    });
-    const sortedCategories = categories.sort((a, b) => {
-        const nameA = a.name.toLowerCase();
-        const nameB = b.name.toLowerCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-      return sortedCategories;
-    }
-
-async function FindSubcategoryWithCategoryId(id){
-  const subcategories = await Category.findAll({
-    where:{
-      parent_category: id
+async function FindAllCategories() {
+  const categories = await Category.findAll({
+    where: {
+      parent_category: null,
     },
   });
-  return subcategories
-}
-
-async function FindProductsWithSubcategoryId(id){
-  const products = await Product.findAll({
-    include:[
-      {
-        model: ProductCategory,
-        where: {category_id: id},
-        required: true
-      }
-    ]
+  const sortedCategories = categories.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
   });
-
-  return products
+  return sortedCategories;
 }
-module.exports = {FindAllCategories, FindSubcategoryWithCategoryId, FindProductsWithSubcategoryId};
+
+async function FindCategoryWithId(id) {
+  const category = await Category.findOne({
+    where: {
+      id: id,
+    },
+  });
+  return category;
+}
+
+async function FindCategoryWithName(name) {
+  const category = await Category.findOne({
+    where: {
+      name: name,
+    },
+  });
+  return category;
+}
+
+async function FindAllCategoriesWithParentCategoryId(id) {
+  const categories = await Category.findAll({
+    where: {
+      parent_category: id,
+    },
+  });
+  return categories;
+}
+
+async function FindAllCategoriesWithoutParentCategory() {
+  const categories = await Category.findAll({
+    where: {
+      parent_category: null,
+    },
+  });
+  return categories;
+}
+
+module.exports = {
+  FindAllCategories,
+  FindCategoryWithId,
+  FindCategoryWithName,
+  FindAllCategoriesWithParentCategoryId,
+  FindAllCategoriesWithoutParentCategory,
+};
