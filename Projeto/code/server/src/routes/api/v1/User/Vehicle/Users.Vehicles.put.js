@@ -2,7 +2,7 @@ const express = require("express");
 
 const {
   FindAllVehiclesFromProducer,
-  FindVehicleById,
+  FindVehicleWithId,
 } = require("../../../../../controllers/Vehicle/findVehicle");
 const {
   FindAllCartLinesWithVehicleId,
@@ -20,7 +20,7 @@ router.put("/:vehicle_id", async (req, res) => {
   const productionUnitId = req.body.productionUnit;
   console.log(id, productionUnitId);
   // find the vehicle by id and update the production unit
-  await FindVehicleById(id).then(async (vehicle) => {
+  await FindVehicleWithId(id).then(async (vehicle) => {
     if (vehicle === null) {
       res.status(404).send("Not Found");
     } else {

@@ -1,15 +1,22 @@
 const { Vehicle } = require("../../database/models");
 
-async function FindVehicleById(id) {
+async function FindAllVehicles() {
+  const vehicles = await Vehicle.findAll();
+  return vehicles;
+}
+
+async function FindVehicleWithId(id) {
   const vehicle = await Vehicle.findOne({
     where: { id: id },
   });
   return vehicle;
 }
 
-async function FindAllVehicles() {
-  const vehicles = await Vehicle.findAll();
-  return vehicles;
+async function FindVehicleWithLicensePlate(licensePlate) {
+  const vehicle = await Vehicle.findOne({
+    where: { license_plate: licensePlate },
+  });
+  return vehicle;
 }
 
 async function FindAllVehiclesFromProductionUnit(id) {
@@ -27,8 +34,9 @@ async function FindAllVehiclesFromProducer(id) {
 }
 
 module.exports = {
-  FindVehicleById,
   FindAllVehicles,
+  FindVehicleWithId,
+  FindVehicleWithLicensePlate,
   FindAllVehiclesFromProductionUnit,
   FindAllVehiclesFromProducer,
 };
