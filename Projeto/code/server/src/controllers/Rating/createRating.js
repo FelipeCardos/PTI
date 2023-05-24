@@ -1,4 +1,4 @@
-const { Rating } = require("../../../../database/models");
+const { Rating } = require("../../database/models");
 
 async function CreateRatingProducer(consumer_id, producer_id, rating) {
   const ratingProducer = await Rating.create({
