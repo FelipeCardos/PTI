@@ -1,6 +1,6 @@
 const { CategoryAttribute } = require("../../database/models");
 
-async function FindCategoryAttributesWithCategoryId(categoryId) {
+async function FindAllCategoryAttributesWithCategoryId(categoryId) {
   const categoryAttributes = await CategoryAttribute.findAll({
     where: {
       category_id: categoryId,
@@ -9,4 +9,4 @@ async function FindCategoryAttributesWithCategoryId(categoryId) {
   return categoryAttributes;
 }
 
-module.exports = { FindCategoryAttributesWithCategoryId };
+module.exports = { FindAllCategoryAttributesWithCategoryId };
