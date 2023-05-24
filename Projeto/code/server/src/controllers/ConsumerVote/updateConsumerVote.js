@@ -5,7 +5,7 @@ async function UpdateConsumerVoteUpvoteWithConsumerIdAndCommentId(
   commentId,
   upvote
 ) {
-  const consumerVote = await ConsumerVote.update({
+  const consumerVote = await ConsumerVote.findOne({
     where: {
       consumer_id: consumerId,
       comment_id: commentId,

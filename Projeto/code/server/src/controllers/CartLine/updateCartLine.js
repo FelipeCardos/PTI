@@ -19,7 +19,7 @@ async function UpdateCartLine(
   amount,
   deliveryDate
 ) {
-  const cartLine = await CartLine.update({
+  const cartLine = await CartLine.findOne({
     where: {
       cart_id: cartId,
       product_id: productId,
