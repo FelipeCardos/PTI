@@ -1,4 +1,5 @@
 const { Comment } = require("../../database/models");
+const { Op } = require("sequelize");
 
 async function FindAllComments() {
   const comments = await Comment.findAll();
@@ -44,7 +45,7 @@ async function FindAllCommentsWithParentCommentId(parentCommentId) {
 async function FindAllCommentsWithoutParentComment() {
   const comments = await Comment.findAll({
     where: {
-      parent_comment: null,
+      parent_comment: { [Op.is]: null },
     },
   });
   return comments;

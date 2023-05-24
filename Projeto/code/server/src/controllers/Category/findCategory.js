@@ -1,23 +1,26 @@
 const { Category } = require("../../database/models");
+const { Op } = require("sequelize");
 
 async function FindAllCategories() {
-  const categories = await Category.findAll({
-    where: {
-      parent_category: null,
-    },
-  });
-  const sortedCategories = categories.sort((a, b) => {
-    const nameA = a.name.toLowerCase();
-    const nameB = b.name.toLowerCase();
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-    return 0;
-  });
-  return sortedCategories;
+  const categories = await Category.findAll();
+  return categories;
+  // const categories = await Category.findAll({
+  //   where: {
+  //     parent_category: null,
+  //   },
+  // });
+  // const sortedCategories = categories.sort((a, b) => {
+  //   const nameA = a.name.toLowerCase();
+  //   const nameB = b.name.toLowerCase();
+  //   if (nameA < nameB) {
+  //     return -1;
+  //   }
+  //   if (nameA > nameB) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // });
+  // return sortedCategories;
 }
 
 async function FindCategoryWithId(id) {
@@ -50,7 +53,7 @@ async function FindAllCategoriesWithParentCategoryId(id) {
 async function FindAllCategoriesWithoutParentCategory() {
   const categories = await Category.findAll({
     where: {
-      parent_category: null,
+      parent_category: { [Op.is]: null },
     },
   });
   return categories;
