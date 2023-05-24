@@ -17,3 +17,5 @@ async function CreateRatingProduct(consumer_id, product_id, rating) {
   });
   return ratingProduct;
 }
+
+module.exports = { CreateRatingProducer, CreateRatingProduct };
