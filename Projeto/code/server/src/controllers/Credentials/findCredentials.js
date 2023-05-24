@@ -7,4 +7,11 @@ async function FindCredentialsByUserId(userId) {
   return credentials;
 }
 
-module.exports = { FindCredentialsByUserId };
+async function FindAllCredentialsWithProvider(provider) {
+  const credentials = await Credentials.findAll({
+    where: { provider: provider },
+  });
+  return credentials;
+}
+
+module.exports = { FindCredentialsByUserId, FindAllCredentialsWithProvider };
