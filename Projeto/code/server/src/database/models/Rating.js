@@ -18,19 +18,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     producer_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      references: {
-        model: 'User',
-        key: 'id'
-      }
+      allowNull: true
     },
     product_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      references: {
-        model: 'Product',
-        key: 'id'
-      }
+      allowNull: true
     },
     rating: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -55,20 +47,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "consumer_id" },
-        ]
-      },
-      {
-        name: "producer_id",
-        using: "BTREE",
-        fields: [
-          { name: "producer_id" },
-        ]
-      },
-      {
-        name: "product_id",
-        using: "BTREE",
-        fields: [
-          { name: "product_id" },
         ]
       },
     ]

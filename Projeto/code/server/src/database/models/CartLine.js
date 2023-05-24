@@ -34,6 +34,10 @@ module.exports = function(sequelize, DataTypes) {
     amount: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    delivery_date: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,

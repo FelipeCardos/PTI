@@ -20,6 +20,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
+    delivery_date: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
     status: {
       type: DataTypes.ENUM('OPEN','AWAITING_PAYMENT','PROCESSING','CANCELLED','COMPLETE','FAILURE'),
       allowNull: false

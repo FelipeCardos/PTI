@@ -1,6 +1,42 @@
 var DataTypes = require("sequelize").DataTypes;
+var _Address = require("./Address");
+var _Cart = require("./Cart");
+var _CartLine = require("./CartLine");
+var _Category = require("./Category");
+var _CategoryAttribute = require("./CategoryAttribute");
+var _Comment = require("./Comment");
+var _ConsumerVote = require("./ConsumerVote");
+var _Credentials = require("./Credentials");
+var _Product = require("./Product");
+var _ProductAttribute = require("./ProductAttribute");
+var _ProductCategory = require("./ProductCategory");
+var _ProductImage = require("./ProductImage");
+var _ProductProductionUnit = require("./ProductProductionUnit");
+var _ProductionUnit = require("./ProductionUnit");
+var _Rating = require("./Rating");
+var _User = require("./User");
+var _Vehicle = require("./Vehicle");
+var _Wishlist = require("./Wishlist");
 
 function initModels(sequelize) {
+  var Address = _Address(sequelize, DataTypes);
+  var Cart = _Cart(sequelize, DataTypes);
+  var CartLine = _CartLine(sequelize, DataTypes);
+  var Category = _Category(sequelize, DataTypes);
+  var CategoryAttribute = _CategoryAttribute(sequelize, DataTypes);
+  var Comment = _Comment(sequelize, DataTypes);
+  var ConsumerVote = _ConsumerVote(sequelize, DataTypes);
+  var Credentials = _Credentials(sequelize, DataTypes);
+  var Product = _Product(sequelize, DataTypes);
+  var ProductAttribute = _ProductAttribute(sequelize, DataTypes);
+  var ProductCategory = _ProductCategory(sequelize, DataTypes);
+  var ProductImage = _ProductImage(sequelize, DataTypes);
+  var ProductProductionUnit = _ProductProductionUnit(sequelize, DataTypes);
+  var ProductionUnit = _ProductionUnit(sequelize, DataTypes);
+  var Rating = _Rating(sequelize, DataTypes);
+  var User = _User(sequelize, DataTypes);
+  var Vehicle = _Vehicle(sequelize, DataTypes);
+  var Wishlist = _Wishlist(sequelize, DataTypes);
 
   Cart.belongsToMany(Product, { as: 'product_id_Products', through: CartLine, foreignKey: "cart_id", otherKey: "product_id" });
   CategoryAttribute.belongsToMany(Product, { as: 'product_id_Product_ProductAttributes', through: ProductAttribute, foreignKey: "attribute_id", otherKey: "product_id" });
@@ -60,6 +96,24 @@ function initModels(sequelize) {
   Vehicle.hasMany(CartLine, { as: "CartLines", foreignKey: "vehicle_id"});
 
   return {
+    Address,
+    Cart,
+    CartLine,
+    Category,
+    CategoryAttribute,
+    Comment,
+    ConsumerVote,
+    Credentials,
+    Product,
+    ProductAttribute,
+    ProductCategory,
+    ProductImage,
+    ProductProductionUnit,
+    ProductionUnit,
+    Rating,
+    User,
+    Vehicle,
+    Wishlist,
   };
 }
 module.exports = initModels;

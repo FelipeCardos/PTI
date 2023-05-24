@@ -13,11 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     production_unit_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'ProductionUnit',
-        key: 'id'
-      }
+      primaryKey: true
     },
     amount: {
       type: DataTypes.INTEGER,
@@ -34,13 +30,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "product_id" },
-          { name: "production_unit_id" },
-        ]
-      },
-      {
-        name: "production_unit_id",
-        using: "BTREE",
-        fields: [
           { name: "production_unit_id" },
         ]
       },
