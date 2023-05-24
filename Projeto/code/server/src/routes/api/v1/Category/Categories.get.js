@@ -1,5 +1,7 @@
 const express = require("express");
 
+const CategoryAttribute = require("./CategoryAttribute/Categories.CategoryAttributes.get");
+
 const {
   FindAllCategories,
   FindCategoryWithId,
@@ -35,5 +37,7 @@ router.get("/:id", async (req, res) => {
     subcategories.length > 0 ? subcategories : [];
   res.status(200).json(category);
 });
+
+router.use("/:id/categoryAttributes", CategoryAttribute);
 
 module.exports = router;
