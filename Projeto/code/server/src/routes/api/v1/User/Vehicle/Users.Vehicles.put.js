@@ -5,7 +5,7 @@ const {
   FindVehicleById,
 } = require("../../../../../controllers/Vehicle/findVehicle");
 const {
-  FindCartLinesWithVehicleId,
+  FindAllCartLinesWithVehicleId,
 } = require("../../../../../controllers/CartLine/findCartLines");
 const {
   checkAuthenticated,

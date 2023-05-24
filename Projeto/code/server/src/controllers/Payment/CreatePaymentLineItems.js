@@ -1,9 +1,9 @@
-const { FindCartLinesWithId } = require("../CartLine/findCartLines");
+const { FindAllCartLinesWithCartId } = require("../CartLine/findCartLines");
 const { FindProductWithId } = require("../Product/findProducts");
 
 async function CreatePaymentLineItems(cartId) {
   const lineItems = [];
-  const cartLines = await FindCartLinesWithId(cartId);
+  const cartLines = await FindAllCartLinesWithCartId(cartId);
   for (const cartLine of cartLines) {
     const product = await FindProductWithId(cartLine.product_id);
     const lineItem = {
