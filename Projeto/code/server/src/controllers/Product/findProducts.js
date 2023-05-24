@@ -1,4 +1,9 @@
-const { Product, ProductCategory } = require("../../database/models");
+const { Product } = require("../../database/models");
+
+async function FindAllProducts() {
+  const products = await Product.findAll();
+  return products;
+}
 
 async function FindProductWithId(id) {
   const product = await Product.findOne({
@@ -9,21 +14,37 @@ async function FindProductWithId(id) {
   return product;
 }
 
-async function FindAllProducts() {
-  const products = await Product.findAll();
-  return products;
+async function FindProductWithName(name) {
+  const product = await Product.findOne({
+    where: {
+      name: name,
+    },
+  });
+  return product;
 }
 
-async function FindProductsWithSubcategoryId(id){
+async function FindProductWithBarcode(barcode) {
+  const product = await Product.findOne({
+    where: {
+      barcode_id: barcode,
+    },
+  });
+  return product;
+}
+
+async function FindAllProductsWithProducerId(producerId) {
   const products = await Product.findAll({
-    include:[
-      {
-        model: ProductCategory,
-        where: {category_id: id},
-        required: true
-      }
-    ]
+    where: {
+      producer_id: producerId,
+    },
   });
   return products;
 }
-module.exports = { FindProductWithId, FindAllProducts ,FindProductsWithSubcategoryId}
+
+module.exports = {
+  FindAllProducts,
+  FindProductWithId,
+  FindProductWithName,
+  FindProductWithBarcode,
+  FindAllProductsWithProducerId,
+};
