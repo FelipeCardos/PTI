@@ -1,11 +1,8 @@
 const express = require("express");
 
 const {
-  FindProductsIdWithCategoryId,
-
+  FindAllProductsIdsWithCategoryId,
 } = require("../../../../controllers/ProductCategory/findProductCategory");
-
-
 
 const {
   FindAllProducts,
@@ -35,16 +32,15 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.get("/subcategory/:id",(req,res) =>{
+router.get("/subcategory/:id", (req, res) => {
   const id = req.params.id;
-  FindProductsIdWithCategoryId(id).then((products)=>{
-    if(products){
+  FindAllProductsIdsWithCategoryId(id).then((products) => {
+    if (products) {
       res.status(200).json(products);
-    }
-    else{
+    } else {
       res.status(404).send("No products found for that category");
     }
-  })
-})
+  });
+});
 
 module.exports = router;
