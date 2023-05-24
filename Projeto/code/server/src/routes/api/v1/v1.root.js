@@ -8,8 +8,8 @@ router.get("/", (req, res) => {
 const Auth = require("./Auth/Auth.root");
 router.use("/auth", Auth);
 
-// const Cart = require('./Cart/Carts.root');
-// router.use('/carts', Cart);
+const Cart = require("./Cart/Carts.root");
+router.use("/carts", Cart);
 
 const Cartline = require("./CartLine/CartLines.root");
 router.use("/cartLines", Cartline);
@@ -55,8 +55,5 @@ router.use("/users", User);
 
 const Payment = require("./Payment/Payment.root");
 router.use("/payment", Payment);
-
-const Test = require("./Test/Test.root");
-router.use("/test", Test);
 
 module.exports = router;

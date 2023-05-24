@@ -5,6 +5,16 @@ async function FindAllCartLines() {
   return cartLines;
 }
 
+async function FindCartLineWithCartIdAndProductId(cartId, productId) {
+  const cartLine = await CartLine.findOne({
+    where: {
+      cart_id: cartId,
+      product_id: productId,
+    },
+  });
+  return cartLine;
+}
+
 async function FindAllCartLinesWithCartId(cartId) {
   const cartLine = await CartLine.findAll({
     where: {
@@ -43,6 +53,7 @@ async function FindAllCartLinesWithVehicleId(vehicleId) {
 
 module.exports = {
   FindAllCartLines,
+  FindCartLineWithCartIdAndProductId,
   FindAllCartLinesWithCartId,
   FindAllCartLinesWithProductId,
   FindAllCartLinesWithStatus,
