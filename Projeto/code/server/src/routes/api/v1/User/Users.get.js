@@ -3,6 +3,7 @@ const express = require("express");
 const Address = require("./Address/Users.Address.get");
 const ProductionUnit = require("./ProductionUnit/Users.ProductionUnits.get");
 const Cart = require("./Cart/Users.Carts.get");
+const ShoppingCart = require("./Cart/ShoppingCart.get");
 const CartCartLines = require("./Cart/CartLine/Users.Carts.CartLines.get");
 const Credentials = require("./Credentials/Users.Credentials.get");
 const Vehicles = require("./Vehicle/Users.Vehicles.get");
@@ -54,6 +55,7 @@ router.get("/:id", (req, res) => {
 router.use("/:id/address", Address);
 router.use("/:id/productionUnits", ProductionUnit);
 router.use("/:id/carts", Cart);
+router.use("/:id/shoppingCart", ShoppingCart);
 router.use("/:id/carts/:id/cartLines", CartCartLines);
 router.use("/:id/credentials", Credentials);
 router.use("/:id/vehicles", Vehicles);

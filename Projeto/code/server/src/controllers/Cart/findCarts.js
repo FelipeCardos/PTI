@@ -23,6 +23,16 @@ async function FindAllCartsWithUserId(userId) {
   return carts;
 }
 
+async function FindShoppingCartWithConsumerId(userId) {
+  const cart = await Cart.findOne({
+    where: {
+      consumer_id: userId,
+      status: "OPEN",
+    },
+  });
+  return cart;
+}
+
 async function FindAllCartsWithStatus(status) {
   const carts = await Cart.findAll({
     where: {
@@ -55,6 +65,7 @@ async function FindAllCartsWithUserIdAndStatus(userId, status) {
 module.exports = {
   FindAllCarts,
   FindCartWithId,
+  FindShoppingCartWithConsumerId,
   FindAllCartsWithUserId,
   FindAllCartsWithStatus,
   FindCartWithUserIdAndCartId,
