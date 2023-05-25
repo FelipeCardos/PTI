@@ -2,6 +2,7 @@ const express = require("express");
 
 const ProductionUnit = require("./ProductionUnit/ProductionUnit.get");
 const CartLine = require("./CartLine/CartLine.get");
+const ProductImage = require("./ProductImage/ProductImage.get");
 
 const {
   FindAllProductCategories,
@@ -55,5 +56,6 @@ router.get("/subcategory/:id", (req, res) => {
 
 router.use("/:id/productionUnits", ProductionUnit);
 router.use("/:id/cartLines", CartLine);
+router.use("/:id/productImages", ProductImage);
 
 module.exports = router;
