@@ -6,6 +6,7 @@ const ProductImage = require("./ProductImage/ProductImage.get");
 const Rating = require("./Rating/Rating.get");
 const Comment = require("./Comment/Comment.get");
 const Wishlist = require("./Wishlist/Wishlist.get");
+const ProductAttribute = require("./ProductAttribute/ProductAttribute.get");
 
 const {
   FindAllProductCategories,
@@ -63,5 +64,6 @@ router.use("/:id/productImages", ProductImage);
 router.use("/:id/ratings", Rating);
 router.use("/:id/comments", Comment);
 router.use("/:id/wishlists", Wishlist);
+router.use("/:id/productAttributes", ProductAttribute);
 
 module.exports = router;

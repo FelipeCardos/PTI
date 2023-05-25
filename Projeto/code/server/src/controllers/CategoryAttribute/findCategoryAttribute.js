@@ -9,4 +9,16 @@ async function FindAllCategoryAttributesWithCategoryId(categoryId) {
   return categoryAttributes;
 }
 
-module.exports = { FindAllCategoryAttributesWithCategoryId };
+async function FindCategoryAttributeWithId(id) {
+  const categoryAttribute = await CategoryAttribute.findOne({
+    where: {
+      id: id,
+    },
+  });
+  return categoryAttribute;
+}
+
+module.exports = {
+  FindAllCategoryAttributesWithCategoryId,
+  FindCategoryAttributeWithId,
+};
