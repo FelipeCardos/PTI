@@ -1,5 +1,7 @@
 const express = require("express");
 
+const ProductionUnit = require("./ProductionUnit/ProductionUnit.get");
+
 const {
   FindAllProductCategories,
   FindAllCategoriesIdsWithProductId,
@@ -49,5 +51,7 @@ router.get("/subcategory/:id", (req, res) => {
     }
   });
 });
+
+router.use("/:id/productionUnits", ProductionUnit);
 
 module.exports = router;

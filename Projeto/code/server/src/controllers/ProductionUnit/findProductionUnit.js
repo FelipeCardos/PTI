@@ -6,7 +6,7 @@ async function FindAllProductionUnits() {
 }
 
 async function FindProductionUnitWithId(id) {
-  const productionUnit = await ProductionUnit.findAll({
+  const productionUnit = await ProductionUnit.findOne({
     where: {
       id: id,
     },
