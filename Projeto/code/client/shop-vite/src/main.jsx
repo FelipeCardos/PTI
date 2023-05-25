@@ -20,6 +20,8 @@ const ProductionUnitsPMApage = lazy(() =>
   import("./pages/ProductionUnitsPMApage")
 );
 const VehiclesPMApage = lazy(() => import("./pages/VehiclesPMApage"));
+const ShoppingCartPage = lazy(() => import("./pages/ShoppingCartPage"));
+
 const ProductionUnitsPage = lazy(() => import("./pages/ProductionUnitsPage"));
 const AddProductionUnitsPage = lazy(() =>
   import("./pages/AddProductionUnitPage")
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <AccountOverviewPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/shopping-cart",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ShoppingCartPage />
       </Suspense>
     ),
   },
