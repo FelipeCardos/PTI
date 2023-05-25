@@ -3,13 +3,17 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ProductionUnit', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
+      allowNull: false,
       primaryKey: true
     },
     producer_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
     },
     capacity: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -26,7 +30,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'ProductionUnit',
-    hasTrigger: true,
     timestamps: false,
     indexes: [
       {

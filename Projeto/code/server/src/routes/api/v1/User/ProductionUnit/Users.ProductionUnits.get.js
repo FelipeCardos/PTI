@@ -1,7 +1,7 @@
 const express = require("express");
 
 const {
-  FindAllProductionUnitsFromUser,
+  FindAllProductionUnitsWithUserId,
 } = require("../../../../../controllers/ProductionUnit/findProductionUnit");
 const Vehicle = require("./Vehicle/Users.ProductionUnits.Vehicles.get");
 const {
@@ -22,7 +22,7 @@ router.get(
   checkIfUserIsOwnerOfTheResource,
   async (req, res) => {
     const id = req.params.id;
-    FindAllProductionUnitsFromUser(id).then(async (productionUnits) => {
+    FindAllProductionUnitsWithUserId(id).then(async (productionUnits) => {
       if (productionUnits === null) {
         res.status(404).send("Not Found");
       } else {

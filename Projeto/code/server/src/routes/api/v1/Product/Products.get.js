@@ -1,15 +1,25 @@
 const express = require("express");
 
+const ProductionUnit = require("./ProductionUnit/ProductionUnit.get");
+const CartLine = require("./CartLine/CartLine.get");
+const ProductImage = require("./ProductImage/ProductImage.get");
+const Rating = require("./Rating/Rating.get");
+const Comment = require("./Comment/Comment.get");
+const Wishlist = require("./Wishlist/Wishlist.get");
+const ProductAttribute = require("./ProductAttribute/ProductAttribute.get");
+
 const {
-  FindProductsIdWithCategoryId,
-
+  FindAllProductCategories,
+  FindAllCategoriesIdsWithProductId,
+  FindAllProductsIdsWithCategoryId,
 } = require("../../../../controllers/ProductCategory/findProductCategory");
-
-
 
 const {
   FindAllProducts,
   FindProductWithId,
+  FindProductWithName,
+  FindProductWithBarcode,
+  FindAllProductsWithProducerId,
 } = require("../../../../controllers/Product/findProducts");
 
 const router = express.Router();
@@ -35,16 +45,25 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.get("/subcategory/:id",(req,res) =>{
+// Nota:
+// JOAO: Tenho que falar com o FELIPE sobre este endpoint
+router.get("/subcategory/:id", (req, res) => {
   const id = req.params.id;
-  FindProductsIdWithCategoryId(id).then((products)=>{
-    if(products){
+  FindAllProductsIdsWithCategoryId(id).then((products) => {
+    if (products) {
       res.status(200).json(products);
-    }
-    else{
+    } else {
       res.status(404).send("No products found for that category");
     }
-  })
-})
+  });
+});
+
+router.use("/:id/productionUnits", ProductionUnit);
+router.use("/:id/cartLines", CartLine);
+router.use("/:id/productImages", ProductImage);
+router.use("/:id/ratings", Rating);
+router.use("/:id/comments", Comment);
+router.use("/:id/wishlists", Wishlist);
+router.use("/:id/productAttributes", ProductAttribute);
 
 module.exports = router;

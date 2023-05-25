@@ -1,7 +1,9 @@
 const express = require("express");
 
+const Product = require("./Product/Products.get");
+
 const {
-  FindProductionUnits,
+  FindProductionUnitWithId,
   FindAllProductionUnits,
 } = require("../../../../controllers/ProductionUnit/findProductionUnit");
 const {
@@ -31,7 +33,7 @@ router.get("/", checkAuthenticated, checkUsersIsAdmin, async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
-  FindProductionUnits(id).then((productionUnit) => {
+  FindProductionUnitWithId(id).then((productionUnit) => {
     if (productionUnit === null) {
       res.status(404).send("Not Found");
     } else {
@@ -39,5 +41,7 @@ router.get("/:id", async (req, res) => {
     }
   });
 });
+
+router.use("/:id/products", Product);
 
 module.exports = router;

@@ -18,6 +18,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'CategoryAttribute',
         key: 'id'
       }
+    },
+    content: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     }
   }, {
     sequelize,

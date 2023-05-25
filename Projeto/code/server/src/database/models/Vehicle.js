@@ -45,17 +45,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "production_unit_id",
-        using: "BTREE",
-        fields: [
-          { name: "production_unit_id" },
-        ]
-      },
-      {
         name: "producer_id",
         using: "BTREE",
         fields: [
           { name: "producer_id" },
+        ]
+      },
+      {
+        name: "production_unit_id",
+        using: "BTREE",
+        fields: [
+          { name: "production_unit_id" },
         ]
       },
     ]

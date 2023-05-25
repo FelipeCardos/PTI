@@ -7,6 +7,7 @@ import NavbarConsumer from "../components/Header/NavbarConsumer/NavbarConsumer";
 import NavbarProducer from "../components/Header/NavbarProducer/NavbarProducer";
 
 export default function MainLayout({ children }) {
+  const [user_name, setUserName] = useState("");
   const [navbars, setNavbars] = useState({
     Navbar: true,
     NavbarConsumer: false,
@@ -22,6 +23,7 @@ export default function MainLayout({ children }) {
         })
         .then((res) => {
           const data = res.data;
+          setUserName(data.name);
           if (data.typeUser === "Consumer")
             return setNavbars({
               ...navbars,
@@ -40,9 +42,9 @@ export default function MainLayout({ children }) {
 
   return (
     <>
-      {navbars.Navbar && <Navbar />}
-      {navbars.NavbarConsumer && <NavbarConsumer />}
-      {navbars.NavbarProducer && <NavbarProducer />}
+      {navbars.Navbar && <Navbar userName={user_name} />}
+      {navbars.NavbarConsumer && <NavbarConsumer userName={user_name} />}
+      {navbars.NavbarProducer && <NavbarProducer userName={user_name} />}
       <div style={{ display: "inline-block", position: "relative" }}>
         {children}
       </div>

@@ -6,17 +6,31 @@ const Vehicle = require("./Vehicle/Users.Vehicles.put");
 const router = express.Router();
 
 const { UpdateUser } = require("../../../../controllers/User/updateUser");
+const { FindUserById } = require("../../../../controllers/User/findUsers");
 
-router.put("/:id", (req, res) => {
-  const id = req.params.id;
-  const { name, fiscal_identifier, address_id, phone } = req.body;
-  UpdateUser(id, name, phone, fiscal_identifier, address_id).then((bool) => {
-    if (bool) {
-      res.status(200).send("Updated");
-    } else {
-      res.status(500).send("Internal Server Error");
-    }
-  });
+router.put("/:id", async (req, res) => {
+  // http://localhost:3000/api/v1/users/:id
+  try {
+    const id = req.params.id;
+    const { name, fiscal_identifier, address_id, phone } = req.body;
+
+    const user = await FindUserById(id);
+
+    if (!user) return res.status(404).send("Not Found");
+
+    const updatedUser = await UpdateUser(
+      id,
+      name,
+      phone,
+      fiscal_identifier,
+      address_id
+    );
+
+    res.send(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.use("/:id/address", Address);

@@ -10,7 +10,7 @@ const {
   FindAllCartsWithUserId,
 } = require("../../../../../controllers/Cart/findCarts");
 const {
-  FindCartLinesWithId,
+  FindAllCartLinesWithCartId,
 } = require("../../../../../controllers/CartLine/findCartLines");
 const { GetCartCost } = require("../../../../../controllers/Cart/getCartCost");
 
@@ -29,11 +29,13 @@ router.get("/", (req, res) => {
           await GetCartCost(c.dataValues.id).then((cartPrice) => {
             carts[i].dataValues["price"] = cartPrice;
           });
-          await FindCartLinesWithId(c.dataValues.id).then(async (cartLines) => {
-            carts[i].dataValues["cart_lines"] = cartLines;
-            for (let j = 0; j < cartLines.length; j++) {
-              await FindProductWithId(cartLines[j].dataValues.product_id).then(
-                async (product) => {
+          await FindAllCartLinesWithCartId(c.dataValues.id).then(
+            async (cartLines) => {
+              carts[i].dataValues["cart_lines"] = cartLines;
+              for (let j = 0; j < cartLines.length; j++) {
+                await FindProductWithId(
+                  cartLines[j].dataValues.product_id
+                ).then(async (product) => {
                   carts[i].dataValues.cart_lines[j].dataValues["product"] =
                     product;
                   await FindUserById(product.dataValues.producer_id).then(
@@ -43,10 +45,10 @@ router.get("/", (req, res) => {
                       ].dataValues.product.dataValues["producer"] = producer;
                     }
                   );
-                }
-              );
+                });
+              }
             }
-          });
+          );
         });
       }
       res.status(200).json(carts);
