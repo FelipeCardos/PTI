@@ -5,7 +5,7 @@ const {
   FindProductImageWithId,
   FindProductImageWithUri,
   FindAllProductImagesWithProductId,
-} = require("../../../../../controllers/ProductImage/findProducImage");
+} = require("../../../../../controllers/ProductImage/findProductImage");
 
 const router = express.Router({ mergeParams: true });
 
