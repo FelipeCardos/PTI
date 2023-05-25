@@ -1,6 +1,7 @@
 const express = require("express");
 
 const CategoryAttribute = require("./CategoryAttribute/CategoryAttributes.get");
+const Product = require("./Product/Product.get");
 
 const {
   FindAllCategories,
@@ -39,5 +40,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.use("/:id/categoryAttributes", CategoryAttribute);
+router.use("/:id/products", Product);
 
 module.exports = router;
