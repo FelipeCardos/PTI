@@ -7,12 +7,17 @@
 
 .shoppingCartContainer {
   display: grid;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 20px;
   grid: 1fr / 1fr 1fr;
   gap: 20px;
 }
 
 .shoppingCartInfoContainer {
   border: 1px solid red;
+}
+
+.shoppingCartCartLinesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

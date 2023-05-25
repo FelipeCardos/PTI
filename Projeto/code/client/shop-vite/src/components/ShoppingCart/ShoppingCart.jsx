@@ -67,6 +67,7 @@ export default function ShoppingCart() {
           productDescription: product.description,
           productPrice: product.price,
           producerName: producer.name,
+          producerId: producer.id,
           amount: shoppingCartLine.amount,
         };
         cartlines.push(cartline);
