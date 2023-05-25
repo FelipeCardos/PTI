@@ -7,6 +7,7 @@ const CartCartLines = require("./Cart/CartLine/Users.Carts.CartLines.get");
 const Credentials = require("./Credentials/Users.Credentials.get");
 const Vehicles = require("./Vehicle/Users.Vehicles.get");
 const Ratings = require("./Rating/Rating.get");
+const Comments = require("./Comment/Comments.get");
 
 const router = express.Router();
 
@@ -54,5 +55,6 @@ router.use("/:id/carts/:id/cartLines", CartCartLines);
 router.use("/:id/credentials", Credentials);
 router.use("/:id/vehicles", Vehicles);
 router.use("/:id/ratings", Ratings);
+router.use("/:id/comments", Comments);
 
 module.exports = router;
