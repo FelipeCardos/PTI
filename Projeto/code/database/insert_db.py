@@ -27,10 +27,10 @@ def execute_sql_file(file_path):
         for command in sqlCommands:
             try:
                 cursor.execute(command)
+                connection.commit()
             except pymysql.Error as e:
                 c = str(command)
         
-        connection.commit()
         print("SQL statements executed successfully.")
 
     except pymysql.Error as e:

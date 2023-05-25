@@ -983,3 +983,23 @@ VALUES
   (8, 3, 'FAILURE', 2, 2, NULL),
   (9, 2, 'COMPLETE', 2, 1, '2023-05-23 16:00:00'),
   (9, 3, 'COMPLETE', 2, 2, '2023-05-23 16:30:00');
+  
+INSERT INTO Notification (user_id, description, seen)
+VALUES
+    -- Producer notifications
+    (2, 'New product available for production.', FALSE),
+    (2, 'Production request approved.', FALSE),
+    (4, 'Production order delayed.', FALSE),
+    (4, 'Production order canceled.', FALSE),
+    (6, 'New product design submitted.', FALSE),
+    -- Consumer notifications
+    (1, 'Order confirmed and processing.', FALSE),
+    (1, 'Order out for delivery.', FALSE),
+    (3, 'Payment received for order.', FALSE),
+    (3, 'Order shipped.', FALSE),
+    (5, 'Delivery rescheduled.', FALSE),
+    (5, 'Order delivered successfully.', FALSE),
+    (7, 'Order canceled.', FALSE),
+    -- Admin notifications
+    (9, 'New user registration.', FALSE),
+    (9, 'System update scheduled.', FALSE);
