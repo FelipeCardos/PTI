@@ -8,6 +8,7 @@ const Credentials = require("./Credentials/Users.Credentials.get");
 const Vehicles = require("./Vehicle/Users.Vehicles.get");
 const Ratings = require("./Rating/Rating.get");
 const Comments = require("./Comment/Comments.get");
+const Products = require("./Product/Products.get");
 
 const router = express.Router();
 
@@ -56,5 +57,6 @@ router.use("/:id/credentials", Credentials);
 router.use("/:id/vehicles", Vehicles);
 router.use("/:id/ratings", Ratings);
 router.use("/:id/comments", Comments);
+router.use("/:id/products", Products);
 
 module.exports = router;
