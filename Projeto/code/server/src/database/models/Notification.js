@@ -1,12 +1,13 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('ProductionUnit', {
+  return sequelize.define('Notification', {
     id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true
     },
-    producer_id: {
+    user_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true,
@@ -15,21 +16,17 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    capacity: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+    description: {
+      type: DataTypes.STRING(1000),
+      allowNull: true
     },
-    address_id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
-      references: {
-        model: 'Address',
-        key: 'id'
-      }
+    seen: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'ProductionUnit',
+    tableName: 'Notification',
     timestamps: false,
     indexes: [
       {
@@ -37,22 +34,15 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "producer_id" },
           { name: "id" },
+          { name: "user_id" },
         ]
       },
       {
-        name: "id",
+        name: "user_id",
         using: "BTREE",
         fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "address_id",
-        using: "BTREE",
-        fields: [
-          { name: "address_id" },
+          { name: "user_id" },
         ]
       },
     ]

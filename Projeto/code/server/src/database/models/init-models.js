@@ -7,6 +7,7 @@ var _CategoryAttribute = require("./CategoryAttribute");
 var _Comment = require("./Comment");
 var _ConsumerVote = require("./ConsumerVote");
 var _Credentials = require("./Credentials");
+var _Notification = require("./Notification");
 var _Product = require("./Product");
 var _ProductAttribute = require("./ProductAttribute");
 var _ProductCategory = require("./ProductCategory");
@@ -27,6 +28,7 @@ function initModels(sequelize) {
   var Comment = _Comment(sequelize, DataTypes);
   var ConsumerVote = _ConsumerVote(sequelize, DataTypes);
   var Credentials = _Credentials(sequelize, DataTypes);
+  var Notification = _Notification(sequelize, DataTypes);
   var Product = _Product(sequelize, DataTypes);
   var ProductAttribute = _ProductAttribute(sequelize, DataTypes);
   var ProductCategory = _ProductCategory(sequelize, DataTypes);
@@ -76,6 +78,8 @@ function initModels(sequelize) {
   Product.hasMany(ProductProductionUnit, { as: "ProductProductionUnits", foreignKey: "product_id"});
   Wishlist.belongsTo(Product, { as: "product", foreignKey: "product_id"});
   Product.hasMany(Wishlist, { as: "Wishlists", foreignKey: "product_id"});
+  Vehicle.belongsTo(ProductionUnit, { as: "production_unit", foreignKey: "production_unit_id"});
+  ProductionUnit.hasMany(Vehicle, { as: "Vehicles", foreignKey: "production_unit_id"});
   Cart.belongsTo(User, { as: "consumer", foreignKey: "consumer_id"});
   User.hasMany(Cart, { as: "Carts", foreignKey: "consumer_id"});
   Comment.belongsTo(User, { as: "user", foreignKey: "user_id"});
@@ -84,8 +88,12 @@ function initModels(sequelize) {
   User.hasMany(ConsumerVote, { as: "ConsumerVotes", foreignKey: "consumer_id"});
   Credentials.belongsTo(User, { as: "user", foreignKey: "user_id"});
   User.hasOne(Credentials, { as: "Credential", foreignKey: "user_id"});
+  Notification.belongsTo(User, { as: "user", foreignKey: "user_id"});
+  User.hasMany(Notification, { as: "Notifications", foreignKey: "user_id"});
   Product.belongsTo(User, { as: "producer", foreignKey: "producer_id"});
   User.hasMany(Product, { as: "Products", foreignKey: "producer_id"});
+  ProductionUnit.belongsTo(User, { as: "producer", foreignKey: "producer_id"});
+  User.hasMany(ProductionUnit, { as: "ProductionUnits", foreignKey: "producer_id"});
   Rating.belongsTo(User, { as: "consumer", foreignKey: "consumer_id"});
   User.hasMany(Rating, { as: "Ratings", foreignKey: "consumer_id"});
   Vehicle.belongsTo(User, { as: "producer", foreignKey: "producer_id"});
@@ -104,6 +112,7 @@ function initModels(sequelize) {
     Comment,
     ConsumerVote,
     Credentials,
+    Notification,
     Product,
     ProductAttribute,
     ProductCategory,
