@@ -33,7 +33,7 @@ export default function CategoryBar() {
   function loadCategories() {
     axios.get("http://localhost:3000/api/v1/categories")
       .then((response) => {
-        setCategories(response.data);
+        setCategories(sortedCategories(response.data));
         setHoveredCategories(new Array(response.data.length).fill(false));
       });
   }
@@ -63,6 +63,22 @@ export default function CategoryBar() {
     setIsMenuOpen(!isMenuOpen);
     setIsSubcategoryVisible(false);
   }
+
+  function sortedCategories(categories){
+      const sortedCategories = categories.sort((a, b) => {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    return sortedCategories;
+  };
+
   return (
     <div>
       {isMenuOpen && (
