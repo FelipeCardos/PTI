@@ -5,6 +5,7 @@ const CartLine = require("./CartLine/CartLine.get");
 const ProductImage = require("./ProductImage/ProductImage.get");
 const Rating = require("./Rating/Rating.get");
 const Comment = require("./Comment/Comment.get");
+const Wishlist = require("./Wishlist/Wishlist.get");
 
 const {
   FindAllProductCategories,
@@ -61,5 +62,6 @@ router.use("/:id/cartLines", CartLine);
 router.use("/:id/productImages", ProductImage);
 router.use("/:id/ratings", Rating);
 router.use("/:id/comments", Comment);
+router.use("/:id/wishlists", Wishlist);
 
 module.exports = router;
