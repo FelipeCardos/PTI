@@ -1,5 +1,7 @@
 const express = require("express");
 
+const Product = require("./Product/Products.get");
+
 const {
   FindProductionUnitWithId,
   FindAllProductionUnits,
@@ -39,5 +41,7 @@ router.get("/:id", async (req, res) => {
     }
   });
 });
+
+router.use("/:id/products", Product);
 
 module.exports = router;
