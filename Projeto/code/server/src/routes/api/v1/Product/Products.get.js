@@ -3,6 +3,7 @@ const express = require("express");
 const ProductionUnit = require("./ProductionUnit/ProductionUnit.get");
 const CartLine = require("./CartLine/CartLine.get");
 const ProductImage = require("./ProductImage/ProductImage.get");
+const Rating = require("./Rating/Rating.get");
 
 const {
   FindAllProductCategories,
@@ -57,5 +58,6 @@ router.get("/subcategory/:id", (req, res) => {
 router.use("/:id/productionUnits", ProductionUnit);
 router.use("/:id/cartLines", CartLine);
 router.use("/:id/productImages", ProductImage);
+router.use("/:id/ratings", Rating);
 
 module.exports = router;
