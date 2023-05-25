@@ -37,24 +37,9 @@ CREATE TABLE ProductionUnit(
     INDEX (id),
     FOREIGN KEY (address_id) REFERENCES Address(id) ON DELETE
     SET
-        NULL
+        NULL,
+        FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
 );
-
-DELIMITER $ $ CREATE TRIGGER production_unit_id_trigger BEFORE
-INSERT
-    ON ProductionUnit FOR EACH ROW BEGIN DECLARE max_id INT UNSIGNED;
-
-SELECT
-    MAX(id) INTO max_id
-FROM
-    ProductionUnit
-WHERE
-    producer_id = NEW.producer_id;
-
-SET
-    NEW.id = IFNULL(max_id, 0) + 1;
-
-END $ $ DELIMITER;
 
 CREATE TABLE Vehicle(
     id INT UNSIGNED AUTO_INCREMENT,
@@ -63,7 +48,10 @@ CREATE TABLE Vehicle(
     license_plate VARCHAR(32) NOT NULL,
     capacity INT UNSIGNED NOT NULL CHECK (capacity > 0),
     PRIMARY KEY (id),
-    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
+    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE,
+    FOREIGN KEY (production_unit_id) REFERENCES ProductionUnit(id) ON DELETE
+    SET
+        NULL
 );
 
 # ----------------------------------------------------------------------------
@@ -208,6 +196,15 @@ CREATE TABLE CartLine(
     delivery_date DATETIME,
     PRIMARY KEY (cart_id, product_id),
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
-    FOREIGN KEY (vehicle_id) REFERENCES Vehicle(id) ON DELETE CASCADE
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE NO ACTION,
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicle(id) ON DELETE NO ACTION
+);
+
+CREATE TABLE Notification(
+    id INT UNSIGNED AUTO_INCREMENT,
+    user_id INT UNSIGNED NOT NULL,
+    description VARCHAR(1000),
+    seen BOOLEAN NOT NULL,
+    PRIMARY KEY (id, user_id),
+    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );

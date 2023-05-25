@@ -1006,5 +1006,5 @@ VALUES
   (5, 'Order delivered successfully.', FALSE),
   (7, 'Order canceled.', FALSE),
   -- Admin notifications
-  (9, 'New user registration.', FALSE),
-  (9, 'System update scheduled.', FALSE);
+  (8, 'New user registration.', FALSE),
+  (8, 'System update scheduled.', FALSE);
