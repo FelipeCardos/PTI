@@ -17,11 +17,8 @@ router.use("/cartLines", Cartline);
 const Category = require("./Category/Categories.root");
 router.use("/categories", Category);
 
-// const Categoryattribute = require('./CategoryAttribute/CategoryAttributes.root');
-// router.use('/categoryAttributes', Categoryattribute);
-
-// const Comment = require('./Comment/Comments.root');
-// router.use('/comments', Comment);
+const Comment = require("./Comment/Comments.root");
+router.use("/comments", Comment);
 
 // const Consumervote = require('./ConsumerVote/ConsumerVotes.root');
 // router.use('/consumerVotes', Consumervote);
