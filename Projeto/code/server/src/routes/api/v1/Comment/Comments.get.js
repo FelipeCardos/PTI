@@ -1,5 +1,7 @@
 const express = require("express");
 
+const ConsumerVote = require("./ConsumerVote/Comments.ConsumerVotes.get");
+
 const {
   FindAllComments,
   FindCommentWithId,
@@ -22,4 +24,5 @@ router.get("/:id", async (req, res) => {
   res.status(200).json(comment);
 });
 
+router.use("/:id/consumerVotes", ConsumerVote);
 module.exports = router;
