@@ -1,6 +1,6 @@
 const express = require("express");
 
-const ConsumerVote = require("./ConsumerVote/Comments.ConsumerVotes.get");
+const ConsumerVote = require("./ConsumerVote/ConsumerVotes.get");
 
 const {
   FindAllComments,
@@ -25,4 +25,5 @@ router.get("/:id", async (req, res) => {
 });
 
 router.use("/:id/consumerVotes", ConsumerVote);
+
 module.exports = router;

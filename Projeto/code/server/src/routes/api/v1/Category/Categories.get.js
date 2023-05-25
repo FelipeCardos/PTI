@@ -1,6 +1,6 @@
 const express = require("express");
 
-const CategoryAttribute = require("./CategoryAttribute/Categories.CategoryAttributes.get");
+const CategoryAttribute = require("./CategoryAttribute/CategoryAttributes.get");
 
 const {
   FindAllCategories,

@@ -1,12 +1,17 @@
 const express = require("express");
 
 const {
+  FindAllProductCategories,
+  FindAllCategoriesIdsWithProductId,
   FindAllProductsIdsWithCategoryId,
 } = require("../../../../controllers/ProductCategory/findProductCategory");
 
 const {
   FindAllProducts,
   FindProductWithId,
+  FindProductWithName,
+  FindProductWithBarcode,
+  FindAllProductsWithProducerId,
 } = require("../../../../controllers/Product/findProducts");
 
 const router = express.Router();
@@ -32,6 +37,8 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// Nota:
+// JOAO: Tenho que falar com o FELIPE sobre este endpoint
 router.get("/subcategory/:id", (req, res) => {
   const id = req.params.id;
   FindAllProductsIdsWithCategoryId(id).then((products) => {

@@ -1,5 +1,7 @@
 const express = require("express");
 
+const CartLines = require("./CartLine/CartLines.get");
+
 const {
   FindAllCarts,
   FindCartWithId,
@@ -25,7 +27,6 @@ const {
   FindProductWithBarcode,
   FindAllProductsWithProducerId,
 } = require("../../../../controllers/Product/findProducts");
-const { compareSync } = require("bcryptjs");
 
 const router = express.Router();
 
@@ -66,5 +67,7 @@ router.get("/:id", async (req, res) => {
   cart.dataValues.cart_lines = cartLines ? cartLines : [];
   return res.send(cart);
 });
+
+router.use("/:id/cartLines", CartLines);
 
 module.exports = router;
