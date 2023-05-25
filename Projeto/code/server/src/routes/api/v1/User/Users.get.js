@@ -10,6 +10,7 @@ const Ratings = require("./Rating/Rating.get");
 const Comments = require("./Comment/Comments.get");
 const Products = require("./Product/Products.get");
 const Wishlist = require("./Wishlist/Wishlist.get");
+const Notifications = require("./Notification/Notifications.get");
 
 const router = express.Router();
 
@@ -60,5 +61,6 @@ router.use("/:id/ratings", Ratings);
 router.use("/:id/comments", Comments);
 router.use("/:id/products", Products);
 router.use("/:id/wishlist", Wishlist);
+router.use("/:id/notifications", Notifications);
 
 module.exports = router;
