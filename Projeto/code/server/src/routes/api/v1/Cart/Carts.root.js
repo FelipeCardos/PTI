@@ -3,7 +3,7 @@ const express = require("express");
 // const deleteRoute = require("./Carts.delete");
 const getRoute = require("./Carts.get");
 // const postRoute = require("./Cart/Carts.post");
-// const putRoute = require("./Cart/Carts.put");
+const putRoute = require("./Carts.put");
 
 const router = express.Router();
 
@@ -11,6 +11,6 @@ const router = express.Router();
 // router.use("/", deleteRoute);
 router.use("/", getRoute);
 // router.use("/", postRoute);
-// router.use("/", putRoute);
+router.use("/", putRoute);
 
 module.exports = router;

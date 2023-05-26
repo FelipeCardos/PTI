@@ -8,6 +8,7 @@ export default function ShoppingCart() {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [shoppingCartLines, setShoppingCartLines] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [checkApi, setCheckApi] = useState(true);
 
   // use effect that calls the api to get the shopping carts with the user id using axios
   useEffect(() => {
@@ -64,6 +65,8 @@ export default function ShoppingCart() {
         const productImage = await getProductImage(shoppingCartLine.product_id);
         const producer = await getProducer(product.producer_id);
         const cartline = {
+          cartId: shoppingCartData.id,
+          productId: product.id,
           productName: product.name,
           productImage: productImage.uri,
           productDescription: product.description,
@@ -73,14 +76,17 @@ export default function ShoppingCart() {
           amount: shoppingCartLine.amount,
         };
         cartlines.push(cartline);
-        totalPrice = totalPrice + product.price;
+        totalPrice = totalPrice + product.price * shoppingCartLine.amount;
       }
       setShoppingCartLines(cartlines);
       setTotalPrice(totalPrice);
     }
 
-    fetchData();
-  }, []);
+    if (checkApi) {
+      fetchData();
+      setCheckApi(false);
+    }
+  }, [checkApi]);
 
   return (
     <>
@@ -88,7 +94,7 @@ export default function ShoppingCart() {
       <div className='shoppingCartContainer'>
         <div className='shoppingCartCartLinesContainer'>
           {shoppingCartLines.map((cartline) => {
-            return <Cartline cartline={cartline} />;
+            return <Cartline cartline={cartline} setCheckApi={setCheckApi} />;
           })}
         </div>
         <div className='shoppingCartInfoContainer'>
