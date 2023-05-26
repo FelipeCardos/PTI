@@ -66,7 +66,7 @@ export default function NavbarProducer(props) {
       <div className='accountNavbarProducer'>
         <button onClick={handleClick} className='accountButtonNavbarProducer'>
           <i className='fa fa-user'></i>
-          <p>Olá, {props.userName}</p>
+          <p>Olá, {props.user.userName}</p>
         </button>
         <Menu
           id='basic-menu'
