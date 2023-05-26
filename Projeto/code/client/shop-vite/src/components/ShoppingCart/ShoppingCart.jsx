@@ -7,6 +7,7 @@ import "./ShoppingCart.css";
 export default function ShoppingCart() {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [shoppingCartLines, setShoppingCartLines] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   // use effect that calls the api to get the shopping carts with the user id using axios
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function ShoppingCart() {
       let cartlines = [];
       const shoppingCartData = await getShoppingCart();
       const shoppingCartLines = await getCartLines(shoppingCartData.id);
+      let totalPrice = 0;
       for (let shoppingCartLine of shoppingCartLines) {
         const product = await getProducts(shoppingCartLine.product_id);
         const productImage = await getProductImage(shoppingCartLine.product_id);
@@ -71,8 +73,10 @@ export default function ShoppingCart() {
           amount: shoppingCartLine.amount,
         };
         cartlines.push(cartline);
+        totalPrice = totalPrice + product.price;
       }
       setShoppingCartLines(cartlines);
+      setTotalPrice(totalPrice);
     }
 
     fetchData();
@@ -87,7 +91,25 @@ export default function ShoppingCart() {
             return <Cartline cartline={cartline} />;
           })}
         </div>
-        <div className='shoppingCartInfoContainer'></div>
+        <div className='shoppingCartInfoContainer'>
+          <div className='shoppingCartInfoPriceContainer'>
+            <span>Total: </span>
+            <span>
+              {totalPrice
+                .toString()
+                .padStart(3, "0")
+                .slice(0, totalPrice.toString().padStart(3, "0").length - 2) +
+                "," +
+                totalPrice.toString().slice(totalPrice.toString().length - 2) +
+                "€"}
+            </span>
+          </div>
+          <div className='shoppingCartInfoButtonContainer'>
+            <button>
+              <i className='fas fa-cart-plus'></i> CHECKOUT
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
