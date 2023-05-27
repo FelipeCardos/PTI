@@ -89,6 +89,7 @@ export default function Cartline({ cartline, setCheckApi }) {
             onClick={() => {
               handleControlAmount("-");
             }}
+            style={cartline.amount == 1 ? disabledStyles : {}}
           >
             <i className='fa fa-minus'></i>
           </div>
