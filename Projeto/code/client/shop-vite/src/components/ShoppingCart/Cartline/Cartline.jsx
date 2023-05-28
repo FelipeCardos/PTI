@@ -2,22 +2,67 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import "./Cartline.css";
 
-export default function Cartline({ cartline, setCheckApi }) {
-  const [selectDisabled, setSelectDisabled] = useState(false);
+export default function Cartline({ data, setCheckApi, checkApi }) {
+  const [cartline, setCartline] = useState({});
+  const [disabled, setDisabled] = useState(false);
   const disabledStyles = {
     opacity: "0.5",
     pointerEvents: "none",
     userSelect: "none",
     cursor: "not-allowed",
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      async function getProduct(id) {
+        const getProduct = await axios.get(
+          `http://localhost:3000/api/v1/products/${id}`,
+          { withCredentials: true }
+        );
+        return getProduct.data;
+      }
+
+      async function getProducer(id) {
+        const getProducer = await axios.get(
+          `http://localhost:3000/api/v1/users/${id}`,
+          { withCredentials: true }
+        );
+        return getProducer.data;
+      }
+
+      async function getProductImage(id) {
+        const getProductImage = await axios.get(
+          `http://localhost:3000/api/v1/products/${id}/productImages`,
+          { withCredentials: true }
+        );
+        return getProductImage.data;
+      }
+      const product = await getProduct(data.product_id);
+      const productImage = await getProductImage(data.product_id);
+      const producer = await getProducer(product.producer_id);
+      setCartline({
+        ...cartline,
+        cartId: data.cart_id,
+        productId: product.id,
+        productName: product.name,
+        productDescription: product.description,
+        productPrice: product.price,
+        producerId: producer.id,
+        producerName: producer.name,
+        productImage: productImage.uri,
+      });
+    }
+    fetchData();
+  }, [checkApi]);
+
   function handleControlAmount(operation) {
-    setSelectDisabled(true);
+    setDisabled(true);
     async function updateCartLineAmount() {
       const response = await axios.put(
         "http://localhost:3000/api/v1/carts/" + cartline.cartId + "/cartLines",
         {
           productId: cartline.productId,
-          amount: operation === "+" ? cartline.amount + 1 : cartline.amount - 1,
+          amount: operation === "+" ? data.amount + 1 : data.amount - 1,
         },
         {
           headers: {
@@ -27,16 +72,12 @@ export default function Cartline({ cartline, setCheckApi }) {
           withCredentials: true,
         }
       );
+      setCheckApi(true);
       return response.data;
     }
-    updateCartLineAmount()
-      .then(() => {
-        setCheckApi(true);
-      })
-      .then(() => {
-        setSelectDisabled(false);
-      });
+    updateCartLineAmount().then(() => setDisabled(false));
   }
+
   return (
     <div className='containerCartline'>
       <div className='containerCartlineImage'>
@@ -59,7 +100,7 @@ export default function Cartline({ cartline, setCheckApi }) {
         </div>
         <div className='containerCartlineProductPrice'>
           {cartline.productPrice
-            .toString()
+            ?.toString()
             .padStart(3, "0")
             .slice(
               0,
@@ -67,7 +108,7 @@ export default function Cartline({ cartline, setCheckApi }) {
             ) +
             "," +
             cartline.productPrice
-              .toString()
+              ?.toString()
               .slice(cartline.productPrice.toString().length - 2) +
             "€"}
         </div>
@@ -82,18 +123,18 @@ export default function Cartline({ cartline, setCheckApi }) {
         <button className='containerCartlineRemoveProduct'>REMOVE</button>
         <div
           className='containerCartlineControlAmount'
-          style={selectDisabled ? disabledStyles : {}}
+          style={disabled ? disabledStyles : {}}
         >
           <div
             className='containerCartlineSubtractAmount'
             onClick={() => {
               handleControlAmount("-");
             }}
-            style={cartline.amount == 1 ? disabledStyles : {}}
+            style={data.amount == 1 ? disabledStyles : {}}
           >
             <i className='fa fa-minus'></i>
           </div>
-          <div className='containerCartlineAmount'>{cartline.amount}</div>
+          <div className='containerCartlineAmount'>{data.amount}</div>
           <div
             className='containerCartlineAddAmount'
             onClick={() => {

@@ -31,55 +31,11 @@ export default function ShoppingCart() {
       return getCartLines.data;
     }
 
-    async function getProducts(id) {
-      const getProducts = await axios.get(
-        `http://localhost:3000/api/v1/products/${id}`,
-        { withCredentials: true }
-      );
-      return getProducts.data;
-    }
-
-    async function getProducer(id) {
-      const getProducer = await axios.get(
-        `http://localhost:3000/api/v1/users/${id}`,
-        { withCredentials: true }
-      );
-      return getProducer.data;
-    }
-
-    async function getProductImage(id) {
-      const getProductImage = await axios.get(
-        `http://localhost:3000/api/v1/products/${id}/productImages`,
-        { withCredentials: true }
-      );
-      return getProductImage.data;
-    }
-
     async function fetchData() {
-      let cartlines = [];
       const shoppingCartData = await getShoppingCart();
       const shoppingCartLines = await getCartLines(shoppingCartData.id);
-      let totalPrice = 0;
-      for (let shoppingCartLine of shoppingCartLines) {
-        const product = await getProducts(shoppingCartLine.product_id);
-        const productImage = await getProductImage(shoppingCartLine.product_id);
-        const producer = await getProducer(product.producer_id);
-        const cartline = {
-          cartId: shoppingCartData.id,
-          productId: product.id,
-          productName: product.name,
-          productImage: productImage.uri,
-          productDescription: product.description,
-          productPrice: product.price,
-          producerName: producer.name,
-          producerId: producer.id,
-          amount: shoppingCartLine.amount,
-        };
-        cartlines.push(cartline);
-        totalPrice = totalPrice + product.price * shoppingCartLine.amount;
-      }
-      setShoppingCartLines(cartlines);
-      setTotalPrice(totalPrice);
+      setShoppingCartLines(shoppingCartLines);
+      setTotalPrice(shoppingCartData.price);
     }
 
     if (checkApi) {
@@ -93,8 +49,14 @@ export default function ShoppingCart() {
       <h1 className='shoppingCartTitle'>My shopping cart</h1>
       <div className='shoppingCartContainer'>
         <div className='shoppingCartCartLinesContainer'>
-          {shoppingCartLines.map((cartline) => {
-            return <Cartline cartline={cartline} setCheckApi={setCheckApi} />;
+          {shoppingCartLines.map((data) => {
+            return (
+              <Cartline
+                data={data}
+                checkApi={checkApi}
+                setCheckApi={setCheckApi}
+              />
+            );
           })}
         </div>
         <div className='shoppingCartInfoContainer'>

@@ -10,12 +10,15 @@ const {
   FindAllCartsWithUserIdAndStatus,
 } = require("../../../../../controllers/Cart/findCarts");
 
+const { GetCartCost } = require("../../../../../controllers/Cart/getCartCost");
+
 const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {
   const userId = req.params.id;
-  const shoppingCart = await FindShoppingCartWithConsumerId(userId);
-  res.send(shoppingCart);
+  let shoppingCart = await FindShoppingCartWithConsumerId(userId);
+  shoppingCart.dataValues.price = await GetCartCost(shoppingCart.id);
+  res.status(200).json(shoppingCart);
 });
 
 module.exports = router;
