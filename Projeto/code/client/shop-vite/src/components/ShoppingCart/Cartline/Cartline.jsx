@@ -4,7 +4,6 @@ import "./Cartline.css";
 
 export default function Cartline({ data, setCheckApi, checkApi }) {
   const [cartline, setCartline] = useState({});
-  const [disabled, setDisabled] = useState(false);
   const disabledStyles = {
     opacity: "0.5",
     pointerEvents: "none",
@@ -55,6 +54,26 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
     fetchData();
   }, [checkApi]);
 
+  function handleDeleteCartline() {
+    async function deleteCartline() {
+      const response = await axios.delete(
+        "http://localhost:3000/api/v1/carts/" + cartline.cartId + "/cartLines",
+        {
+          data: { productId: cartline.productId },
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          withCredentials: true,
+        }
+      );
+      setCheckApi(true);
+      return response.data;
+    }
+    deleteCartline().then((res) => console.log(res));
+  }
   function handleControlAmount(operation) {
     setDisabled(true);
     async function updateCartLineAmount() {
@@ -75,7 +94,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
       setCheckApi(true);
       return response.data;
     }
-    updateCartLineAmount().then(() => setDisabled(false));
+    updateCartLineAmount();
   }
 
   return (
@@ -120,7 +139,12 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
         </div>
       </div>
       <div className='containerCartlineActions'>
-        <button className='containerCartlineRemoveProduct'>REMOVE</button>
+        <button
+          className='containerCartlineRemoveProduct'
+          onClick={handleDeleteCartline}
+        >
+          REMOVE
+        </button>
         <div
           className='containerCartlineControlAmount'
           style={checkApi ? disabledStyles : {}}

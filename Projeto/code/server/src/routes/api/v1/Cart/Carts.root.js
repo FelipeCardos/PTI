@@ -1,6 +1,6 @@
 const express = require("express");
 
-// const deleteRoute = require("./Carts.delete");
+const deleteRoute = require("./Carts.delete");
 const getRoute = require("./Carts.get");
 // const postRoute = require("./Cart/Carts.post");
 const putRoute = require("./Carts.put");
@@ -8,7 +8,7 @@ const putRoute = require("./Carts.put");
 const router = express.Router();
 
 // import routes
-// router.use("/", deleteRoute);
+router.use("/", deleteRoute);
 router.use("/", getRoute);
 // router.use("/", postRoute);
 router.use("/", putRoute);

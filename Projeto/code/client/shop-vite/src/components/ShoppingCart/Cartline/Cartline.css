@@ -71,6 +71,12 @@
   margin-left: 20px;
 }
 
+.containerCartlineRemoveProduct:hover {
+  background-color: white;
+  border: 1px solid var(--bs-red);
+  color: var(--bs-red);
+}
+
 .containerCartlineControlAmount {
   display: flex;
   justify-content: center;
