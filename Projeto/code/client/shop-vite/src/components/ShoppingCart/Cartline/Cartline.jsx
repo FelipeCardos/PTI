@@ -123,7 +123,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
         <button className='containerCartlineRemoveProduct'>REMOVE</button>
         <div
           className='containerCartlineControlAmount'
-          style={disabled ? disabledStyles : {}}
+          style={checkApi ? disabledStyles : {}}
         >
           <div
             className='containerCartlineSubtractAmount'

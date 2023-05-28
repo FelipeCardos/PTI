@@ -37,10 +37,8 @@ export default function ShoppingCart() {
       setShoppingCartLines(shoppingCartLines);
       setTotalPrice(shoppingCartData.price);
     }
-
     if (checkApi) {
-      fetchData();
-      setCheckApi(false);
+      fetchData().then(() => setCheckApi(false));
     }
   }, [checkApi]);
 
