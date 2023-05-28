@@ -75,7 +75,6 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
     deleteCartline().then((res) => console.log(res));
   }
   function handleControlAmount(operation) {
-    setDisabled(true);
     async function updateCartLineAmount() {
       const response = await axios.put(
         "http://localhost:3000/api/v1/carts/" + cartline.cartId + "/cartLines",

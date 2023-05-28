@@ -1,10 +1,11 @@
 import { Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavbarProducer.css";
 
 export default function NavbarProducer(props) {
+  const [notificationsNumber, setNotificationsNumber] = useState(0);
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -15,6 +16,17 @@ export default function NavbarProducer(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    async function getNumberOfNotifications() {
+      const notifications = await axios.get(
+        "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
+        { withCredentials: true }
+      );
+      return notifications.data.length;
+    }
+    getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+  }, []);
 
   return (
     <div className='navProducer'>
@@ -61,7 +73,9 @@ export default function NavbarProducer(props) {
         <button className='notificationBellButtonNavbarProducer'>
           <i className='fa fa-bell'></i>
         </button>
-        <span className='notificationBellBadgeNavbarProducer'>0</span>
+        <span className='notificationBellBadgeNavbarProducer'>
+          {notificationsNumber}
+        </span>
       </div>
       <div className='accountNavbarProducer'>
         <button onClick={handleClick} className='accountButtonNavbarProducer'>

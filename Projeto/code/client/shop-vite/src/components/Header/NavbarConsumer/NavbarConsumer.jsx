@@ -7,6 +7,7 @@ import "./NavbarConsumer.css";
 
 export default function NavbarConsumer({ user }) {
   const [shoppingCartNumber, setShoppingCartNumber] = useState(0);
+  const [notificationsNumber, setNotificationsNumber] = useState(0);
 
   useEffect(() => {
     async function getShoppingCartNumberOfProducts() {
@@ -23,7 +24,16 @@ export default function NavbarConsumer({ user }) {
       }
       return numberOfProducts;
     }
+    async function getNumberOfNotifications() {
+      const notifications = await axios.get(
+        "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
+        { withCredentials: true }
+      );
+      return notifications.data.length;
+    }
+
     getShoppingCartNumberOfProducts().then((res) => setShoppingCartNumber(res));
+    getNumberOfNotifications().then((res) => setNotificationsNumber(res));
   }, []);
   let navigate = useNavigate();
 
@@ -84,7 +94,9 @@ export default function NavbarConsumer({ user }) {
         <button className='notificationBellButtonNavbarConsumer'>
           <i className='fa fa-bell'></i>
         </button>
-        <span className='notificationBellBadgeNavbarConsumer'>0</span>
+        <span className='notificationBellBadgeNavbarConsumer'>
+          {notificationsNumber}
+        </span>
       </div>
       <div className='accountNavbarConsumer'>
         <button onClick={handleClick} className='accountButtonNavbarConsumer'>
