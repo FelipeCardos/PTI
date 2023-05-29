@@ -1,5 +1,7 @@
 const { Cart } = require("../../database/models");
 
+const { CreateCart } = require("./createCart");
+
 async function FindAllCarts() {
   const carts = await Cart.findAll();
   return carts;
@@ -30,6 +32,7 @@ async function FindShoppingCartWithConsumerId(userId) {
       status: "OPEN",
     },
   });
+  if (cart === null) return await CreateCart(userId);
   return cart;
 }
 
