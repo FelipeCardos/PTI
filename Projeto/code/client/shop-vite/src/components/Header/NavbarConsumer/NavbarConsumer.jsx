@@ -34,6 +34,15 @@ export default function NavbarConsumer({ user }) {
 
     getShoppingCartNumberOfProducts().then((res) => setShoppingCartNumber(res));
     getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+
+    const interval = setInterval(() => {
+      getShoppingCartNumberOfProducts().then((res) =>
+        setShoppingCartNumber(res)
+      );
+      getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+    }, 1500);
+
+    return () => clearInterval(interval);
   }, []);
   let navigate = useNavigate();
 

@@ -26,6 +26,12 @@ export default function NavbarProducer(props) {
       return notifications.data.length;
     }
     getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+
+    const interval = setInterval(() => {
+      getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+    }, 1500);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
