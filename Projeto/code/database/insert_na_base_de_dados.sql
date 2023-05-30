@@ -510,7 +510,9 @@ VALUES
   (2, 1),
   -- Bluetooth Speaker belongs to Electronics
   (3, 1),
-  -- Laptop belongs to Electronics
+  -- Laptop belongs to Electronics and Computers
+  (3, 4),
+  -- Laptop belongs to Electronics and Computers
   -- Clothing
   (4, 2),
   -- T-Shirt belongs to Clothing
