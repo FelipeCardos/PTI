@@ -595,14 +595,13 @@ VALUES
   -- Sofa belongs to Home & Kitchen and Furniture
   (26, 3),
   -- Dining Table belongs to Home & Kitchen and Furniture
-  (27, 3);
-
--- Bed belongs to Home & Kitchen and Furniture
-(25, 9),
--- Sofa belongs to Home & Kitchen and Furniture
-(26, 9),
--- Dining Table belongs to Home & Kitchen and Furniture
-(27, 9);
+  (27, 3),
+  -- Bed belongs to Home & Kitchen and Furniture
+  (25, 9),
+  -- Sofa belongs to Home & Kitchen and Furniture
+  (26, 9),
+  -- Dining Table belongs to Home & Kitchen and Furniture
+  (27, 9);
 
 -- Bed belongs to Home & Kitchen and Furniture
 -- Insert data into CategoryAttribute table
