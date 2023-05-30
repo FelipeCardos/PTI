@@ -504,61 +504,107 @@ VALUES
 INSERT INTO
   ProductCategory (product_id, category_id)
 VALUES
+  -- Electronics
   (1, 1),
-  -- Smart TV belongs to Electronics category
-  (1, 3),
-  -- Smart TV also belongs to Home & Kitchen category
+  -- Smart TV belongs to Electronics
   (2, 1),
-  -- Laptop belongs to Electronics category
-  (2, 4),
-  -- Laptop also belongs to Computers category
+  -- Bluetooth Speaker belongs to Electronics
   (3, 1),
-  -- Smartphone belongs to Electronics category
-  (3, 5),
-  -- Smartphone also belongs to Mobile Phones category
+  -- Laptop belongs to Electronics
+  -- Clothing
   (4, 2),
-  -- T-Shirt belongs to Clothing category
+  -- T-Shirt belongs to Clothing
   (5, 2),
-  -- Jeans belongs to Clothing category
-  (6, 3),
-  -- Refrigerator belongs to Home & Kitchen category
+  -- Jeans belongs to Clothing
+  (6, 2),
+  -- Dress belongs to Clothing
+  -- Home & Kitchen
   (7, 3),
-  -- Sofa belongs to Home & Kitchen category
+  -- Coffee Maker belongs to Home & Kitchen
   (8, 3),
-  -- Coffee Maker belongs to Home & Kitchen category
+  -- Blender belongs to Home & Kitchen
   (9, 3),
-  -- Dining Table belongs to Home & Kitchen category
-  (9, 8),
-  -- Dining Table also belongs to Appliances category
+  -- Cookware Set belongs to Home & Kitchen
+  -- Computers
   (10, 1),
-  -- Headphones belongs to Electronics category
-  (11, 3),
-  -- Washing Machine belongs to Home & Kitchen category
-  (12, 2),
-  -- Dress belongs to Clothing category
-  (12, 6),
-  -- Dress also belongs to Tops category
-  (13, 2),
-  -- Shoes belongs to Clothing category
-  (13, 7),
-  -- Shoes also belongs to Bottoms category
-  (14, 3),
-  -- Microwave belongs to Home & Kitchen category
-  (15, 3),
-  -- Bed belongs to Home & Kitchen category
-  (16, 3),
-  -- Toaster belongs to Home & Kitchen category
-  (17, 3),
-  -- Chair belongs to Home & Kitchen category
-  (18, 3),
-  -- Blender belongs to Home & Kitchen category
-  (19, 3),
-  -- Bookshelf belongs to Home & Kitchen category
-  (20, 1),
-  -- Camera belongs to Electronics category
-  (20, 9);
+  -- Gaming PC belongs to Electronics and Computers
+  (11, 1),
+  -- Monitor belongs to Electronics and Computers
+  (12, 1),
+  -- Keyboard belongs to Electronics and Computers
+  (10, 4),
+  -- Gaming PC belongs to Electronics and Computers
+  (11, 4),
+  -- Monitor belongs to Electronics and Computers
+  (12, 4),
+  -- Keyboard belongs to Electronics and Computers
+  -- Mobile Phones
+  (13, 1),
+  -- Smartphone belongs to Electronics and Mobile Phones
+  (14, 1),
+  -- Wireless Earbuds belongs to Electronics and Mobile Phones
+  (15, 1),
+  -- Power Bank belongs to Electronics and Mobile Phone
+  (13, 5),
+  -- Smartphone belongs to Electronics and Mobile Phones
+  (14, 5),
+  -- Wireless Earbuds belongs to Electronics and Mobile Phones
+  (15, 5),
+  -- Power Bank belongs to Electronics and Mobile Phones
+  -- Tops
+  (16, 2),
+  -- Tank Top belongs to Clothing and Tops
+  (17, 2),
+  -- Turtleneck Sweater belongs to Clothing and Tops
+  (18, 2),
+  -- Button-up Shirt belongs to Clothing and Tops
+  (16, 6),
+  -- Tank Top belongs to Clothing and Tops
+  (17, 6),
+  -- Turtleneck Sweater belongs to Clothing and Tops
+  (18, 6),
+  -- Button-up Shirt belongs to Clothing and Tops
+  -- Bottoms
+  (19, 2),
+  -- Shorts belongs to Clothing and Bottoms
+  (20, 2),
+  -- Leggings belongs to Clothing and Bottoms
+  (21, 2),
+  -- Jeans belongs to Clothing and Bottoms
+  (19, 7),
+  -- Shorts belongs to Clothing and Bottoms
+  (20, 7),
+  -- Leggings belongs to Clothing and Bottoms
+  (21, 7),
+  -- Jeans belongs to Clothing and Bottoms
+  -- Appliances
+  (22, 3),
+  -- Refrigerator belongs to Home & Kitchen and Appliances
+  (23, 3),
+  -- Washing Machine belongs to Home & Kitchen and Appliances
+  (24, 3),
+  -- Air Conditioner belongs to Home & Kitchen and Appliances
+  (22, 8),
+  -- Refrigerator belongs to Home & Kitchen and Appliances
+  (23, 8),
+  -- Washing Machine belongs to Home & Kitchen and Appliances
+  (24, 8),
+  -- Air Conditioner belongs to Home & Kitchen and Appliances
+  -- Furniture
+  (25, 3),
+  -- Sofa belongs to Home & Kitchen and Furniture
+  (26, 3),
+  -- Dining Table belongs to Home & Kitchen and Furniture
+  (27, 3);
 
--- Camera also belongs to Furniture category
+-- Bed belongs to Home & Kitchen and Furniture
+(25, 9),
+-- Sofa belongs to Home & Kitchen and Furniture
+(26, 9),
+-- Dining Table belongs to Home & Kitchen and Furniture
+(27, 9);
+
+-- Bed belongs to Home & Kitchen and Furniture
 -- Insert data into CategoryAttribute table
 INSERT INTO
   CategoryAttribute (category_id, title)
