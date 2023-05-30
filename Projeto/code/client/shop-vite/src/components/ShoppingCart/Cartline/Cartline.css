@@ -1,0 +1,112 @@
+.containerCartline {
+  position: relative;
+  height: 300px;
+  display: grid;
+  grid: 250px 50px / 250px 1fr;
+  box-shadow: 0 0.5rem 1rem gray;
+  overflow: scroll;
+}
+
+.containerCartlineProductImage {
+  grid-area: 1 / 1 / span 1 / span 1;
+  background-size: cover;
+  background-position: center;
+  margin: 20px;
+  height: 220px;
+  width: 220px;
+}
+
+.containerCartlineProductInfo {
+  grid-area: 1 / 2 / span 1 / span 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 200px;
+}
+
+.containerCartlineProductName {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+
+.containerCartlineProductName > a {
+  text-decoration: none;
+  color: black;
+}
+
+.containerCartlineProductPrice {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+
+.containerCartlineProducerName {
+  color: grey;
+  font-size: 0.9em;
+}
+
+.containerCartlineProducerName > a {
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+}
+
+.containerCartlineActions {
+  grid-area: 2 / 1 / span 1 / span 2;
+  display: flex;
+  justify-content: space-between;
+}
+
+.containerCartlineRemoveProduct {
+  background-color: var(--bs-red);
+  color: white;
+  border: 1px solid var(--bs-red);
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 80%;
+  margin-left: 20px;
+}
+
+.containerCartlineRemoveProduct:hover {
+  background-color: white;
+  border: 1px solid var(--bs-red);
+  color: var(--bs-red);
+}
+
+.containerCartlineControlAmount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.containerCartlineControlAmount > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--bs-blue);
+  width: 40px;
+  height: 40px;
+  font-size: 1.25em;
+}
+.containerCartlineControlAmount:hover > div {
+  border: 2px solid var(--bs-blue);
+}
+
+.containerCartlineAddAmount {
+  border-radius: 0 5px 5px 0;
+}
+
+.containerCartlineSubtractAmount {
+  border-radius: 5px 0 0 5px;
+}
+
+.containerCartlineAddAmount:hover,
+.containerCartlineSubtractAmount:hover {
+  font-size: 1.5em;
+  cursor: pointer;
+}

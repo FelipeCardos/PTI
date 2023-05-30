@@ -171,7 +171,7 @@ VALUES
     'High-definition smart TV with built-in streaming services',
     '1234567890123',
     4,
-    1000,
+    100000,
     '2022-01-15 09:30:00'
   ),
   (
@@ -179,7 +179,7 @@ VALUES
     'Portable wireless speaker with 10-hour battery life',
     '2345678901234',
     2,
-    80,
+    8000,
     '2022-03-22 14:45:00'
   ),
   (
@@ -187,7 +187,7 @@ VALUES
     'Powerful laptop with Intel Core i7 processor and 16GB RAM',
     '3456789012345',
     6,
-    1500,
+    150000,
     '2022-02-10 11:20:00'
   ),
   -- Clothing
@@ -196,7 +196,7 @@ VALUES
     'Comfortable cotton t-shirt for everyday wear',
     '4567890123456',
     2,
-    20,
+    2000,
     '2022-04-05 16:10:00'
   ),
   (
@@ -204,7 +204,7 @@ VALUES
     'Classic denim jeans with a relaxed fit',
     '5678901234567',
     4,
-    50,
+    5000,
     '2022-03-01 13:00:00'
   ),
   (
@@ -212,7 +212,7 @@ VALUES
     'Elegant evening dress for special occasions',
     '6789012345678',
     6,
-    100,
+    10000,
     '2022-05-18 10:05:00'
   ),
   -- Home & Kitchen
@@ -221,7 +221,7 @@ VALUES
     'Automatic coffee maker with programmable timer',
     '7890123456789',
     6,
-    60,
+    6000,
     '2022-02-28 08:15:00'
   ),
   (
@@ -229,7 +229,7 @@ VALUES
     'Powerful blender for making smoothies and shakes',
     '8901234567890',
     2,
-    40,
+    4000,
     '2022-03-14 15:55:00'
   ),
   (
@@ -237,7 +237,7 @@ VALUES
     'Complete set of high-quality non-stick cookware',
     '9012345678901',
     4,
-    150,
+    15000,
     '2022-01-05 12:45:00'
   ),
   -- Computers
@@ -246,7 +246,7 @@ VALUES
     'High-performance gaming PC with NVIDIA RTX graphics card',
     '0123456789012',
     4,
-    2000,
+    200000,
     '2022-05-10 09:25:00'
   ),
   (
@@ -254,7 +254,7 @@ VALUES
     '27-inch LED monitor with IPS panel and Full HD resolution',
     '1234567890123',
     2,
-    300,
+    30000,
     '2022-02-15 14:30:00'
   ),
   (
@@ -262,7 +262,7 @@ VALUES
     'Mechanical gaming keyboard with customizable RGB lighting',
     '2345678901234',
     6,
-    120,
+    12000,
     '2022-04-20 11:50:00'
   ),
   -- Mobile Phones
@@ -271,7 +271,7 @@ VALUES
     'Flagship smartphone with high-resolution display and dual cameras',
     '3456789012345',
     6,
-    800,
+    80000,
     '2022-03-05 10:40:00'
   ),
   (
@@ -279,7 +279,7 @@ VALUES
     'True wireless earbuds with noise cancellation feature',
     '4567890123456',
     4,
-    100,
+    10000,
     '2022-05-12 16:20:00'
   ),
   (
@@ -287,7 +287,7 @@ VALUES
     'Portable power bank with fast charging capability',
     '5678901234567',
     2,
-    30,
+    3000,
     '2022-01-30 13:15:00'
   ),
   -- Tops
@@ -296,7 +296,7 @@ VALUES
     'Sleeveless cotton tank top for summer',
     '6789012345678',
     2,
-    15,
+    1500,
     '2022-04-08 11:35:00'
   ),
   (
@@ -304,7 +304,7 @@ VALUES
     'Warm and cozy turtleneck sweater for winter',
     '7890123456789',
     4,
-    50,
+    5000,
     '2022-02-25 08:55:00'
   ),
   (
@@ -312,7 +312,7 @@ VALUES
     'Classic button-up shirt for formal occasions',
     '8901234567890',
     6,
-    35,
+    3500,
     '2022-03-18 15:15:00'
   ),
   -- Bottoms
@@ -321,7 +321,7 @@ VALUES
     'Casual shorts for outdoor activities',
     '9012345678901',
     6,
-    25,
+    2500,
     '2022-01-20 12:05:00'
   ),
   (
@@ -329,7 +329,7 @@ VALUES
     'Comfortable and stretchy leggings for workouts',
     '0123456789012',
     4,
-    30,
+    3000,
     '2022-04-02 09:40:00'
   ),
   (
@@ -337,7 +337,7 @@ VALUES
     'Slim-fit jeans with distressed details',
     '1234567890123',
     2,
-    40,
+    4000,
     '2022-05-15 14:15:00'
   ),
   -- Appliances
@@ -346,7 +346,7 @@ VALUES
     'Energy-efficient refrigerator with spacious storage',
     '2345678901234',
     2,
-    800,
+    80000,
     '2022-03-08 10:25:00'
   ),
   (
@@ -354,7 +354,7 @@ VALUES
     'Front-loading washing machine with multiple wash programs',
     '3456789012345',
     4,
-    600,
+    60000,
     '2022-05-24 16:50:00'
   ),
   (
@@ -362,7 +362,7 @@ VALUES
     'Split air conditioner with remote control and adjustable temperature',
     '4567890123456',
     6,
-    900,
+    90000,
     '2022-02-18 13:30:00'
   ),
   -- Furniture
@@ -371,7 +371,7 @@ VALUES
     'Comfortable and stylish sofa for the living room',
     '5678901234567',
     6,
-    1000,
+    100000,
     '2022-04-15 11:10:00'
   ),
   (
@@ -379,7 +379,7 @@ VALUES
     'Solid wood dining table with seating for six',
     '6789012345678',
     4,
-    500,
+    50000,
     '2022-02-28 08:40:00'
   ),
   (
@@ -387,7 +387,7 @@ VALUES
     'Queen-sized bed frame with upholstered headboard',
     '7890123456789',
     2,
-    800,
+    80000,
     '2022-05-05 15:20:00'
   );
 
