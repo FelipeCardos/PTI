@@ -7,13 +7,14 @@ import NavbarConsumer from "../components/Header/NavbarConsumer/NavbarConsumer";
 import NavbarProducer from "../components/Header/NavbarProducer/NavbarProducer";
 
 export default function MainLayout({ children }) {
-  const [user_name, setUserName] = useState("");
+  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [navbars, setNavbars] = useState({
     Navbar: true,
     NavbarConsumer: false,
     NavbarProducer: false,
   });
-  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   useEffect(() => {
     if (!myUserVariable) return setNavbars({ ...navbars, Navbar: true });
     (async () => {
@@ -24,6 +25,7 @@ export default function MainLayout({ children }) {
         .then((res) => {
           const data = res.data;
           setUserName(data.name);
+          setUserId(data.id);
           if (data.typeUser === "Consumer")
             return setNavbars({
               ...navbars,
@@ -42,9 +44,15 @@ export default function MainLayout({ children }) {
 
   return (
     <>
-      {navbars.Navbar && <Navbar userName={user_name} />}
-      {navbars.NavbarConsumer && <NavbarConsumer userName={user_name} />}
-      {navbars.NavbarProducer && <NavbarProducer userName={user_name} />}
+      {navbars.Navbar && (
+        <Navbar user={{ userId: userId, userName: userName }} />
+      )}
+      {navbars.NavbarConsumer && (
+        <NavbarConsumer user={{ userId: userId, userName: userName }} />
+      )}
+      {navbars.NavbarProducer && (
+        <NavbarProducer user={{ userId: userId, userName: userName }} />
+      )}
       <div style={{ display: "inline-block", position: "relative" }}>
         {children}
       </div>

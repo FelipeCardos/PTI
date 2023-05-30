@@ -14,7 +14,11 @@ export default function OrdersAOModalItemListItem(props) {
         Price:{" "}
         {props.cart_line.product.price
           .toString()
-          .slice(0, props.cart_line.product.price.toString().length - 2) +
+          .padStart(3, "0")
+          .slice(
+            0,
+            props.cart_line.product.price.toString().padStart(3, "0").length - 2
+          ) +
           "," +
           props.cart_line.product.price
             .toString()

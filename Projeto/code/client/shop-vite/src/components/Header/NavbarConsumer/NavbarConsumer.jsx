@@ -1,10 +1,49 @@
 import { Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavbarConsumer.css";
 
-export default function NavbarConsumer(props) {
+export default function NavbarConsumer({ user }) {
+  const [shoppingCartNumber, setShoppingCartNumber] = useState(0);
+  const [notificationsNumber, setNotificationsNumber] = useState(0);
+
+  useEffect(() => {
+    async function getShoppingCartNumberOfProducts() {
+      let numberOfProducts = 0;
+      const cart = await axios.get(
+        "http://localhost:3000/api/v1/users/" + user.userId + "/shoppingCart",
+        { withCredentials: true }
+      );
+      const cartlines = await axios.get(
+        "http://localhost:3000/api/v1/carts/" + cart.data.id + "/cartLines"
+      );
+      for (const cartline of cartlines.data) {
+        numberOfProducts += cartline.amount;
+      }
+      return numberOfProducts;
+    }
+    async function getNumberOfNotifications() {
+      const notifications = await axios.get(
+        "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
+        { withCredentials: true }
+      );
+      return notifications.data.length;
+    }
+
+    getShoppingCartNumberOfProducts().then((res) => setShoppingCartNumber(res));
+    getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+
+    const interval = setInterval(() => {
+      getShoppingCartNumberOfProducts().then((res) =>
+        setShoppingCartNumber(res)
+      );
+      getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -56,18 +95,22 @@ export default function NavbarConsumer(props) {
         >
           <i className='fa fa-shopping-cart'></i>
         </button>
-        <span className='shoppingCartBadgeNavbarConsumer'>0</span>
+        <span className='shoppingCartBadgeNavbarConsumer'>
+          {shoppingCartNumber > 9 ? "9+" : shoppingCartNumber}
+        </span>
       </div>
       <div className='notificationBellNavbarConsumer' title='Notifications'>
         <button className='notificationBellButtonNavbarConsumer'>
           <i className='fa fa-bell'></i>
         </button>
-        <span className='notificationBellBadgeNavbarConsumer'>0</span>
+        <span className='notificationBellBadgeNavbarConsumer'>
+          {notificationsNumber}
+        </span>
       </div>
       <div className='accountNavbarConsumer'>
         <button onClick={handleClick} className='accountButtonNavbarConsumer'>
           <i className='fa fa-user'></i>
-          <p>Olá, {props.userName}</p>
+          <p>Olá, {user.userName}</p>
         </button>
         <Menu
           id='basic-menu'
