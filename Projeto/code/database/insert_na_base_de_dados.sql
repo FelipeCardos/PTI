@@ -515,18 +515,27 @@ VALUES
   -- Laptop belongs to Electronics and Computers
   -- Clothing
   (4, 2),
-  -- T-Shirt belongs to Clothing
+  -- T-Shirt belongs to Clothing and Tops
+  (4, 6),
+  -- T-Shirt belongs to Clothing and Tops
   (5, 2),
-  -- Jeans belongs to Clothing
+  -- Jeans belongs to Clothing and Bottoms
+  (5, 7),
+  -- Jeans belongs to Clothing and Bottoms
   (6, 2),
   -- Dress belongs to Clothing
   -- Home & Kitchen
   (7, 3),
-  -- Coffee Maker belongs to Home & Kitchen
+  -- Coffee Maker belongs to Home & Kitchen and Appliances
+  (7, 8),
+  -- Coffee Maker belongs to Home & Kitchen and Appliances
   (8, 3),
-  -- Blender belongs to Home & Kitchen
+  -- Blender belongs to Home & Kitchen and Appliances
+  (8, 8),
+  -- Blender belongs to Home & Kitchen and Appliances
   (9, 3),
-  -- Cookware Set belongs to Home & Kitchen
+  -- Cookware Set belongs to Home & Kitchen and Appliances
+  (9, 8),
   -- Computers
   (10, 1),
   -- Gaming PC belongs to Electronics and Computers
