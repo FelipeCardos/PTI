@@ -11,6 +11,7 @@ const SigninPage = lazy(() => import("./pages/SigninPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
 const AccountOverviewPage = lazy(() => import("./pages/AccountOverviewPage"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const ProducerPage = lazy(() => import("./pages/ProducerPage"));
 const ProducerManagementAreaPage = lazy(() =>
   import("./pages/ProducerManagementAreaPage")
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <ShoppingCartPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/products",
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProductsPage />
       </Suspense>
     ),
   },

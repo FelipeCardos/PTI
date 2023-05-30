@@ -33,14 +33,20 @@ export default function CategoryBar() {
   function loadCategories() {
     axios.get("http://localhost:3000/api/v1/categories")
       .then((response) => {
-        setCategories(sortedCategories(response.data));
-        setHoveredCategories(new Array(response.data.length).fill(false));
+        let categories = [];
+
+        for(let category of response.data){
+          if(category.parent_category === null) categories.push(category)
+        }
+        setCategories(sortedCategories(categories));
+        setHoveredCategories(new Array(categories.length).fill(false));
       });
-  }
+
+    }
   function loadSubCategory(id) {
     axios.get("http://localhost:3000/api/v1/categories/" + id)
       .then((response) => {
-        setSubcategory(response.data);
+        setSubcategory(response.data.subcategories);
         setIdSubCategory(id);
         setIsSubcategoryVisible(true);
       });
@@ -88,7 +94,7 @@ export default function CategoryBar() {
               <ul className="sidebar-ulli">
                 {moreCategories.map((category, index) => (
                   <li className="sidebar-ulli" key={category.id}>
-                    <button className="sidebar-category" isHovered={hoveredCategories[index]} onClick={() => loadSubCategory(category.id)}>
+                    <button className="sidebar-category"  onClick={() => loadSubCategory(category.id)}>
                       <div id={category.id}>
                         <p>{category.name}</p>
                       </div>

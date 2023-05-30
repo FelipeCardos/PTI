@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Subcategory({ subCategoryList, idSubCategory, isHovered }) {
+
+export default function Subcategory({ subCategoryList }) {
   const [isSubcategoryHovered, setIsSubcategoryHovered] = useState(false);
-
+  let navigate = useNavigate();
   if (!subCategoryList) {
     return null; // ou outra lógica adequada para lidar com o valor indefinido
   }
   function handleSubcategory(id){
-    // Carregar produtos da categoria id
-    // Redirecionar ?
+    navigate(`/products?category=${id}`);    
   }
 
   return (
