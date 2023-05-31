@@ -9,6 +9,7 @@ export default function ShoppingCart() {
   const [shoppingCartLines, setShoppingCartLines] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [checkApi, setCheckApi] = useState(true);
+  const [cartId, setCartId] = useState(0);
 
   // use effect that calls the api to get the shopping carts with the user id using axios
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function ShoppingCart() {
 
     async function fetchData() {
       const shoppingCartData = await getShoppingCart();
+      setCartId(shoppingCartData.id);
       const shoppingCartLines = await getCartLines(shoppingCartData.id);
       setShoppingCartLines(shoppingCartLines);
       setTotalPrice(shoppingCartData.price);
@@ -41,6 +43,22 @@ export default function ShoppingCart() {
       fetchData().then(() => setCheckApi(false));
     }
   }, [checkApi]);
+
+  async function handleCheckout() {
+    // const checkout = await axios.post(
+    //   "http://localhost:3000/api/v1/payment/stripe/create-payment-intent",
+    //   { cartId: cartId },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/x-www-form-urlencoded",
+    //       "Access-Control-Allow-Origin": "*",
+    //     },
+    //     withCredentials: true,
+    //   }
+    // );
+    window.location.href = `http://localhost:3000/api/v1/payment/stripe/create-payment-intent?cartId=${cartId}`;
+    return;
+  }
 
   return (
     <>
@@ -71,7 +89,7 @@ export default function ShoppingCart() {
             </span>
           </div>
           <div className='shoppingCartInfoButtonContainer'>
-            <button>
+            <button onClick={handleCheckout}>
               <i className='fas fa-cart-plus'></i> CHECKOUT
             </button>
           </div>

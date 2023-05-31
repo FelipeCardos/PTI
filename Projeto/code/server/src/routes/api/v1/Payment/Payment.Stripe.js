@@ -15,11 +15,11 @@ const Success = require("./Payment.Stripe.success");
 const router = express.Router();
 
 router.get("/create-payment-intent", async (req, res) => {
-  // const { cartId } = req.body;
-  const cartId = 1;
-  // const { id } = req.user;
-
-  UpdateCartStatusWithId(cartId, "AWAITING_PAYMENT");
+  console.log(
+    "create-payment-intent -----------------------------------------------------------------------------------------"
+  );
+  const { cartId } = req.query;
+  console.log("cartId: " + cartId);
 
   const lineItems = await CreatePaymentLineItems(cartId);
 

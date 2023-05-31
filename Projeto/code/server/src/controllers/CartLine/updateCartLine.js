@@ -49,13 +49,10 @@ async function UpdateCartLineStatusWithCartIdAndProductId(
   return cartLine;
 }
 
-async function UpdateAllCartLinesStatusWithCartId(
-  cartId,
-  status
-) {
+async function UpdateAllCartLinesStatusWithCartId(cartId, status) {
   const cartLine = await CartLine.update(
-    {status: status},
-    {where: {cart_id: cartId}},
+    { status: status },
+    { where: { cart_id: cartId } }
   );
   await cartLine.save();
   return cartLine;
@@ -109,6 +106,14 @@ async function UpdateCartLineDeliveryDateWithCartIdAndProductId(
   return cartLine;
 }
 
+async function UpdateAllCartLinesDeliveryDateWithCartId(cartId, deliveryDate) {
+  const cartLine = await CartLine.update(
+    { delivery_date: deliveryDate },
+    { where: { cart_id: cartId } }
+  );
+  await cartLine.save();
+  return cartLine;
+}
 
 module.exports = {
   UpdateCartLine,
@@ -117,4 +122,5 @@ module.exports = {
   UpdateCartLineAmountWithCartIdAndProductId,
   UpdateCartLineDeliveryDateWithCartIdAndProductId,
   UpdateAllCartLinesStatusWithCartId,
+  UpdateAllCartLinesDeliveryDateWithCartId,
 };
