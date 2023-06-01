@@ -1,15 +1,75 @@
-import { React, useEffect, useState } from "react";
+import axios from "axios";
+import { React, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../assets/UserContext";
 import AddProducts from "./AddProducts/AddProducts";
 import "./ProductsPMA.css";
+import ProductsPMACard from "./ProductsPMACard/ProductsPMACard";
 
 export default function ProductsPMA() {
+  const { myUserVariable } = useContext(UserContext);
   const [modal, setModal] = useState(false);
   const [showAddProducts, setShowAddProducts] = useState(false);
+  const [products, setProducts] = useState([]);
   const handleShowAddProducts = () => {
     event.preventDefault();
     setShowAddProducts(!showAddProducts);
     setModal(!modal);
   };
+
+  useEffect(() => {
+    async function getProducts() {
+      const products = await axios.get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/products",
+        { withCredentials: true }
+      );
+      return products.data;
+    }
+
+    async function getProductImage(productId) {
+      const productImage = await axios.get(
+        "http://localhost:3000/api/v1/products/" + productId + "/productImages",
+        { withCredentials: true }
+      );
+      return productImage.data;
+    }
+
+    async function getProductStock(productId) {
+      let productStock = 0;
+      const productProductionUnits = await axios.get(
+        "http://localhost:3000/api/v1/products/" +
+          productId +
+          "/productionUnits",
+        { withCredentials: true }
+      );
+      for (const productProductionUnit of productProductionUnits.data) {
+        productStock += productProductionUnit.amount;
+      }
+      return productStock;
+    }
+
+    async function fetchData() {
+      let products = await getProducts();
+      let productsV2 = [];
+      for (let product of products) {
+        const productImage = await getProductImage(product.id);
+        const productStock = await getProductStock(product.id);
+        product = {
+          ...product,
+          image: productImage[0]?.uri,
+          stock: productStock,
+        };
+        productsV2.push(product);
+      }
+      return productsV2;
+    }
+
+    fetchData().then((products) => {
+      setProducts(products);
+    });
+  }, []);
+
   return (
     <div className='containerProductsPMA'>
       <div className='containerProductsPMADashboard'>
@@ -31,7 +91,9 @@ export default function ProductsPMA() {
         </div>
         <hr className='productsPMAYourProductsTitleHR' />
         <div className='containerProductsPMAYourProductsProducts'>
-          {/* Falta renderizar os produtos */}
+          {products.map((product) => (
+            <ProductsPMACard product={product} />
+          ))}
         </div>
       </div>
       {modal && <div className='modalPMA'></div>}

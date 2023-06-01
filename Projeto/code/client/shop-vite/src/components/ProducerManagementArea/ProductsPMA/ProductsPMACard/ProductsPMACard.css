@@ -1,0 +1,11 @@
+.productsPMACard__product {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem gray;
+  transition: all 0.3s ease-in-out;
+  padding: 0.5em;
+  margin: 1em;
+  width: 350px;
+}

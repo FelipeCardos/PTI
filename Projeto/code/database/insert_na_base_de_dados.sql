@@ -424,9 +424,11 @@ INSERT INTO
 VALUES
   -- Electronics
   (1, 3, 10),
-  -- Smart TV produced by Production Unit 1 with 10 units
+  -- Smart TV produced by Production Unit 3 with 10 units
   (2, 2, 20),
   -- Bluetooth Speaker produced by Production Unit 2 with 20 units
+  (2, 1, 43),
+  -- Bluetooth Speaker produced by Production Unit 1 with 43 units
   (3, 3, 15),
   -- Laptop produced by Production Unit 3 with 15 units
   -- Clothing
