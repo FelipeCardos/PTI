@@ -63,7 +63,7 @@ export default function NavbarConsumer({ user }) {
       withCredentials: true,
     });
     console.log("logout");
-    return window.location.reload();
+    return (window.location.href = "http://localhost:5173/");
   }
 
   return (
