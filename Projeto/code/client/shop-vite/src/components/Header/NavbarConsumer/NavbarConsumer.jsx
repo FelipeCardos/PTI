@@ -55,6 +55,17 @@ export default function NavbarConsumer({ user }) {
     setAnchorEl(null);
   };
 
+  async function handleLogout() {
+    await axios.get("http://localhost:3000/api/v1/auth/logout", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      withCredentials: true,
+    });
+    console.log("logout");
+    return window.location.reload();
+  }
+
   return (
     <div className='navConsumer'>
       <div
@@ -129,7 +140,14 @@ export default function NavbarConsumer({ user }) {
           >
             Account Overview
           </MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              handleLogout();
+            }}
+          >
+            Logout
+          </MenuItem>
         </Menu>
       </div>
     </div>
