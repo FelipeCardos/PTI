@@ -1,24 +1,35 @@
-import { useNavigate } from "react-router-dom";
-import logo from "../../../assets/logo.png";
-import "./NavBar.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../../assets/logo.png';
+import './NavBar.css';
 
 export default function Navbar() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    navigate(`/products?search=${searchQuery}`);
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   return (
     <div className='nav'>
       <div
         className='logoNavbar'
         onClick={() => {
-          navigate("/");
+          navigate('/');
         }}
       >
-        <img src={logo} className='logo' />
+        <img src={logo} className='logo' alt='Logo' />
       </div>
       <div className='productsNavbar'>
         <button
           onClick={() => {
-            navigate("/products");
+            navigate('/products');
           }}
           className='productsButtonNavbar'
         >
@@ -26,20 +37,24 @@ export default function Navbar() {
         </button>
       </div>
       <div className='searchNavbar'>
-        <input
-          type='text'
-          className='searchBarNavbar'
-          name='searchQuery'
-          placeholder='Search...'
-        />
-        <button type='button' className='searchButtonNavbar'>
-          <i className='fa fa-search'></i>
-        </button>
+        <form onSubmit={handleSearch}>
+          <input
+            type='text'
+            className='searchBarNavbar'
+            name='searchQuery'
+            placeholder='Search...'
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          <button type='submit' className='searchButtonNavbar'>
+            <i className='fa fa-search'></i>
+          </button>
+        </form>
       </div>
       <div className='becomeProducerNavbar' title='Become a Producer'>
         <button
           onClick={() => {
-            navigate("/signup", { state: { signupType: "Producer" } });
+            navigate('/signup', { state: { signupType: 'Producer' } });
           }}
           className='becomeProducerButtonNavbar'
         >
@@ -50,7 +65,7 @@ export default function Navbar() {
         <button
           className='shoppingCartButtonNavbar'
           onClick={() => {
-            navigate("/shopping-cart");
+            navigate('/shopping-cart');
           }}
         >
           <i className='fa fa-shopping-cart'></i>
@@ -60,7 +75,7 @@ export default function Navbar() {
       <div className='signinNavbar' title='Sign In'>
         <button
           onClick={() => {
-            navigate("/signin");
+            navigate('/signin');
           }}
           className='signinButtonNavbar'
         >
@@ -70,7 +85,7 @@ export default function Navbar() {
       <div className='signupNavbar' title='Sign Up'>
         <button
           onClick={() => {
-            navigate("/signup", { state: { signupType: "Consumer" } });
+            navigate('/signup', { state: { signupType: 'Consumer' } });
           }}
           className='signupButtonNavbar'
         >
@@ -80,5 +95,3 @@ export default function Navbar() {
     </div>
   );
 }
-
-// LOGO - PRODUCTS - SEARCHBAR - BECOME A PRODUCER - SHOPPING BASKET - SIGN IN - SIGN UP

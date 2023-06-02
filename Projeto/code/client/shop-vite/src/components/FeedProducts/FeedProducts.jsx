@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './FeedProducts.css';
 import axios from "axios";
+import ProductSimilar from "../Product/ProductSimilar/ProductSimilar";
 
 export default function FeedProducts() {
     const [products, setProducts] = useState([]);
@@ -31,11 +32,7 @@ export default function FeedProducts() {
             <div className="container-feed-products">
                 {products.map((prod) => (
                     <div key={prod.id} className="grid-feed-products">
-                        <div className="product-content">
-                            <p>Product name: {prod.name}</p>
-                            <p>Price: {prod.price}€</p>
-                            <p>Date of production: {formatDate(prod.production_date)}</p>
-                        </div>
+                        <ProductSimilar product={prod}/>
                     </div>
                 ))}
             </div>
