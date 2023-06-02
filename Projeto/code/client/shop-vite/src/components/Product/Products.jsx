@@ -1,89 +1,119 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ProductSimilar from "./ProductSimilar/ProductSimilar";
-import './Products.css';
+import "./Products.css";
 import axios from "axios";
+import ProductFilter from "./ProductFilter/ProductFilter";
 
 export default function Products() {
   let location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const categoryId = queryParams.get('category');
-  const stringSearch = queryParams.get('search');
+  const categoryId = queryParams.get("category");
+  const stringSearch = queryParams.get("search");
   const [productsList, setProductsList] = useState([]);
-
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-  const totalPages = Math.ceil(productsList.length / itemsPerPage);
 
   useEffect(() => {
     loadProductsList();
   }, []);
 
+  useEffect(() => {
+    handlePageChange(1);
+  }, [filteredProducts]);
+
   function loadProductsList() {
     if (categoryId) {
-      axios.get("http://localhost:3000/api/v1/categories/" + categoryId + "/products")
-        .then((response) => {
-          setProductsList(response.data);
-        });
+      axios.get("http://localhost:3000/api/v1/categories/" + categoryId + "/products").then((response) => {
+        setProductsList(response.data);
+        setFilteredProducts(response.data); // Inicialmente, a lista filtrada é igual à lista completa
+      });
     } else {
       // Array temporário para armazenar os produtos sem duplicatas
-      const tempProductsList = [];
+      const tempProductsList = new Set(); // Usando um Set para evitar duplicatas
 
-      axios.get("http://localhost:3000/api/v1/products/search/" + stringSearch)
-        .then((response) => {
-          tempProductsList.push(...response.data);
-
-          axios.get("http://localhost:3000/api/v1/categories/search/" + stringSearch)
-            .then((response) => {
-              const categoryIds = response.data.map((catId) => catId.id);
-
-              // Função auxiliar para carregar os produtos das categorias
-              function loadCategoryProducts(index) {
-                if (index >= categoryIds.length) {
-                  // Todas as categorias foram carregadas, definir a lista de produtos sem duplicatas
-                  setProductsList([...new Set(tempProductsList)]);
-                  return;
-                }
-
-                axios.get("http://localhost:3000/api/v1/categories/" + categoryIds[index] + "/products")
-                  .then((response) => {
-                    tempProductsList.push(...response.data);
-                    loadCategoryProducts(index + 1);
-                  });
-              }
-
-              loadCategoryProducts(0);
-            });
+      axios.get("http://localhost:3000/api/v1/products/search/" + stringSearch).then((response) => {
+        response.data.forEach((product) => {
+          tempProductsList.add(product);
         });
+
+        axios.get("http://localhost:3000/api/v1/categories/search/" + stringSearch).then((response) => {
+          const categoryIds = response.data.map((catId) => catId.id);
+
+          // Função auxiliar para carregar os produtos das categorias
+          function loadCategoryProducts(index) {
+            if (index >= categoryIds.length) {
+              // Todas as categorias foram carregadas, definir a lista de produtos sem duplicatas
+              setProductsList(Array.from(tempProductsList));
+              setFilteredProducts(Array.from(tempProductsList)); // Inicialmente, a lista filtrada é igual à lista completa
+              return;
+            }
+
+            axios.get("http://localhost:3000/api/v1/categories/" + categoryIds[index] + "/products").then((response) => {
+              response.data.forEach((product) => {
+                tempProductsList.add(product);
+              });
+              loadCategoryProducts(index + 1);
+            });
+          }
+
+          loadCategoryProducts(0);
+        });
+      });
     }
   }
+
+  const handleFilteredProducts = (filteredProducts) => {
+    setCurrentPage(1);
+    setFilteredProducts(filteredProducts);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
   return (
     <div className="container-products">
       <div className="container-filter">
         <div className="filter-grid">
-          {/* Conteúdo do filtro */}
+          <ProductFilter
+            productsList={productsList}
+            updateFilteredProducts={handleFilteredProducts}
+            clearFilteredProducts={() => setFilteredProducts([])} // Limpar a lista ao receber atualização do componente filho
+          />
         </div>
       </div>
       <div className="products-grid">
-        {productsList
-          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-          .map((product) => (
-            <div key={product}>
-              <ProductSimilar product={product} />
-            </div>
-          ))}
+        {displayedProducts.map((product, index) => (
+          <div key={`${product.id}-${index}`}>
+            <ProductSimilar product={product} />
+        </div>
+        ))}
       </div>
       <div className="pagination-container">
-        <button className="pagination-control" disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
+        <button className="pagination-control" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
           Previous
         </button>
         {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index + 1} onClick={() => setCurrentPage(index + 1)} className={currentPage === index + 1 ? "active" : ""}>
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={currentPage === index + 1 ? "active" : ""}
+          >
             {index + 1}
           </button>
         ))}
-        <button className="pagination-control" disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>
+        <button
+          className="pagination-control"
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
           Next
         </button>
       </div>

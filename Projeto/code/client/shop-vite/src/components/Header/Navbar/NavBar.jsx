@@ -37,7 +37,7 @@ export default function Navbar() {
         </button>
       </div>
       <div className='searchNavbar'>
-        <form onSubmit={handleSearch}>
+        <form onSubmit={handleSearch} className='search-form'>
           <input
             type='text'
             className='searchBarNavbar'
