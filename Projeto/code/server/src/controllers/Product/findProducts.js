@@ -1,4 +1,5 @@
 const { Product } = require("../../database/models");
+const { Op } = require('sequelize');
 
 async function FindAllProducts() {
   const products = await Product.findAll();
@@ -15,12 +16,23 @@ async function FindProductWithId(id) {
 }
 
 async function FindProductWithName(name) {
-  const product = await Product.findOne({
+  const product = await Product.findAll({
     where: {
-      name: name,
+      [Op.or]: [
+        {
+          name: {
+            [Op.like]: `%${name}%`
+          }
+        },
+        {
+          description: {
+            [Op.like]: `%${name}%`
+          }
+        }
+      ]
     },
   });
-  return product;
+    return product;
 }
 
 async function FindProductWithBarcode(barcode) {

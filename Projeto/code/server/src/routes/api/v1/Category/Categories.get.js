@@ -39,6 +39,11 @@ router.get("/:id", async (req, res) => {
     subcategories.length > 0 ? subcategories : [];
   res.status(200).json(category);
 });
+router.get("/search/:str", async(req,res)=>{
+  let categories = await FindCategoryWithName(req.params.str);
+  if (!categories) return res.status(404).send("Category not found");
+  res.status(200).json(categories);
+})
 
 router.use("/:id/categoryAttributes", CategoryAttribute);
 router.use("/:id/products", Product);

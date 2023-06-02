@@ -33,9 +33,11 @@ async function FindCategoryWithId(id) {
 }
 
 async function FindCategoryWithName(name) {
-  const category = await Category.findOne({
+  const category = await Category.findAll({
     where: {
-      name: name,
+      name: {
+        [Op.like]: `%${name}%`
+      }
     },
   });
   return category;
