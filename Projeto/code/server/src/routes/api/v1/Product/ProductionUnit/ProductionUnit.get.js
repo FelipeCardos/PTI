@@ -20,13 +20,7 @@ router.get("/", async (req, res) => {
   const productId = req.params.id;
   const productProductionUnitPairs =
     await FindAllProductionUnitsIdsWithProductId(productId);
-  for (let productProductionUnit of productProductionUnitPairs) {
-    const productionUnit = await FindProductionUnitWithId(
-      productProductionUnit.dataValues.production_unit_id
-    );
-    productionUnits.push(productionUnit);
-  }
-  res.send(productionUnits);
+  res.send(productProductionUnitPairs);
 });
 
 module.exports = router;

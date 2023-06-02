@@ -78,3 +78,14 @@
   position: fixed;
   z-index: 3;
 }
+
+.containerProductsPMAYourProductsProducts {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 1vh;
+  gap: 15px;
+}

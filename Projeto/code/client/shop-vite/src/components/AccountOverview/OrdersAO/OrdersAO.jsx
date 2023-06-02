@@ -34,9 +34,15 @@ export default function OrdersAO(props) {
   useEffect(() => {
     // GET REQUEST TO GET ALL ORDERS FROM THE USER
     axios
-      .get("http://localhost:3000/api/v1/users/" + myUserVariable.id + "/carts")
+      .get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/carts"
+      )
       .then((response) => {
-        setOrders(response.data);
+        const orders = response.data;
+        let result = orders.filter((order) => order.status !== "OPEN");
+        setOrders(result);
       });
   }, []);
   return (

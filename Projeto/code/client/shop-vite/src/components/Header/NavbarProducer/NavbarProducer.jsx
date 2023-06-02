@@ -1,10 +1,11 @@
 import { Menu, MenuItem } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavbarProducer.css";
 
-export default function NavbarProducer(props) {
+export default function NavbarProducer({ user }) {
   const [notificationsNumber, setNotificationsNumber] = useState(0);
   let navigate = useNavigate();
 
@@ -33,6 +34,17 @@ export default function NavbarProducer(props) {
 
     return () => clearInterval(interval);
   }, []);
+
+  async function handleLogout() {
+    await axios.get("http://localhost:3000/api/v1/auth/logout", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      withCredentials: true,
+    });
+    console.log("logout");
+    return (window.location.href = "http://localhost:5173/");
+  }
 
   return (
     <div className='navProducer'>
@@ -86,7 +98,7 @@ export default function NavbarProducer(props) {
       <div className='accountNavbarProducer'>
         <button onClick={handleClick} className='accountButtonNavbarProducer'>
           <i className='fa fa-user'></i>
-          <p>Olá, {props.user.userName}</p>
+          <p>Olá, {user.userName}</p>
         </button>
         <Menu
           id='basic-menu'
@@ -105,7 +117,14 @@ export default function NavbarProducer(props) {
           >
             Account Overview
           </MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              handleLogout();
+            }}
+          >
+            Logout
+          </MenuItem>
         </Menu>
       </div>
     </div>
