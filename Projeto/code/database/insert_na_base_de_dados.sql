@@ -396,9 +396,9 @@ INSERT INTO
   ProductImage (product_id, uri)
 VALUES
   (1, 'https://example.com/images/smart_tv.jpg'),
-  (2, 'https://imgur.com/hvmPEvO'),
+  (2, 'https://i.imgur.com/hvmPEvO.jpg'),
   (3, 'https://example.com/images/smartphone.jpg'),
-  (4, 'https://imgur.com/4jFawpJ'),
+  (4, 'https://i.imgur.com/4jFawpJ.jpg'),
   (5, 'https://example.com/images/jeans.jpg'),
   (6, 'https://example.com/images/refrigerator.jpg'),
   (7, 'https://example.com/images/sofa.jpg'),
@@ -646,32 +646,25 @@ VALUES
   (4, 'Graphics Card'),
   (4, 'Operating System'),
   -- Mobile Phones
-  (5, 'Screen Size'),
   (5, 'Battery Capacity'),
   (5, 'Camera Resolution'),
   (5, 'Storage Capacity'),
   (5, 'Operating System'),
   -- Tops
-  (6, 'Size'),
-  (6, 'Color'),
   (6, 'Sleeve Length'),
   (6, 'Neckline Style'),
   (6, 'Fabric Type'),
   -- Bottoms
-  (7, 'Size'),
-  (7, 'Color'),
   (7, 'Fit Type'),
   (7, 'Closure Type'),
   (7, 'Fabric Type'),
   -- Appliances
-  (8, 'Power Consumption'),
   (8, 'Capacity'),
   (8, 'Energy Efficiency Rating'),
   (8, 'Control Type'),
   (8, 'Installation Type'),
   -- Furniture
   (9, 'Material'),
-  (9, 'Dimensions'),
   (9, 'Style'),
   (9, 'Assembly Required'),
   (9, 'Weight Capacity');

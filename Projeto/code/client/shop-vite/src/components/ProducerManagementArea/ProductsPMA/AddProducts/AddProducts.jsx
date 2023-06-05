@@ -43,7 +43,6 @@ export default function AddProducts(props) {
         });
       });
       Promise.all(categoriesWithAttributes).then((categoriesWithAttributes) => {
-        console.log(categoriesWithAttributes);
         setCategoryData(categoriesWithAttributes);
       });
     });
@@ -65,8 +64,6 @@ export default function AddProducts(props) {
     });
   };
 
-  console.log(attributes);
-
   const handleSubcategoryChange = (event) => {
     if (event.target.value === "") {
       setSelectedSubcategory(event.target.value);
@@ -75,6 +72,24 @@ export default function AddProducts(props) {
           (category) => category.id === parseInt(selectedCategory)
         ).attributes
       );
+      setFormData((prevFormData) => {
+        const newAttributes = Object.keys(prevFormData.attributes).filter(
+          (attribute) => {
+            categoryData
+              .find((category) => category.id === parseInt(selectedCategory))
+              .attributes.includes(attribute);
+          }
+        );
+        return {
+          ...prevFormData,
+          attributes: newAttributes.reduce((acc, attribute) => {
+            return {
+              ...acc,
+              [attribute]: prevFormData.attributes[attribute],
+            };
+          }, {}),
+        };
+      });
     } else {
       setSelectedSubcategory(event.target.value);
       setAttributes(
@@ -86,14 +101,42 @@ export default function AddProducts(props) {
             ).attributes
           )
       );
+      setFormData((prevFormData) => {
+        const newAttributes = Object.keys(prevFormData.attributes).filter(
+          (attribute) => {
+            const categoriesAttributes = categoryData
+              .find((category) => category.id === parseInt(selectedCategory))
+              .attributes.concat(
+                categoryData.find(
+                  (category) => category.id === parseInt(event.target.value)
+                ).attributes
+              );
+            console.log(categoriesAttributes);
+            return categoriesAttributes.includes(attribute);
+          }
+        );
+        return {
+          ...prevFormData,
+          attributes: newAttributes.reduce((acc, attribute) => {
+            return {
+              ...acc,
+              [attribute]: prevFormData.attributes[attribute],
+            };
+          }, {}),
+        };
+      });
     }
+  };
+
+  function handleAttributeChange(event) {
+    const { id, value } = event.target;
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        category: [selectedCategory, event.target.value],
+        attributes: { ...prevFormData.attributes, [id]: value },
       };
     });
-  };
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -111,14 +154,36 @@ export default function AddProducts(props) {
     });
   }
 
+  function handlePriceChange(event) {
+    const enteredValue = event.target.value;
+
+    // Remove any non-digit characters
+    const cleanValue = enteredValue.replace(/[^0-9.]/g, "");
+
+    // Get the integer and decimal parts
+    const parts = cleanValue.split(".");
+    const integerPart = parts[0];
+    let decimalPart = parts[1] || "";
+
+    // Limit the decimal part to two decimal places
+    decimalPart = decimalPart.slice(0, 2);
+
+    // Update the value in the state
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      price: integerPart + (decimalPart.length > 0 ? "." + decimalPart : ""),
+    }));
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     console.log("product: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/product/", formData, {
+      .post("http://localhost:3000/api/v1/product/", formData, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
+        withCredentials: true,
       })
       .then((res) => {
         console.log("Servidor: " + JSON.stringify(res.data));
@@ -127,6 +192,8 @@ export default function AddProducts(props) {
         console.log(err);
       });
   }
+
+  console.log(formData);
 
   return (
     <div className='containerAddProduct'>
@@ -194,9 +261,14 @@ export default function AddProducts(props) {
           <h3>Attributes:</h3>
           <ul>
             {attributes.map((attribute) => (
-              <li key={attribute.title}>
+              <li key={attribute.id}>
                 <label htmlFor={attribute.title}>{attribute.title}:</label>
-                <input type='text' id={attribute.id} />
+                <input
+                  type='text'
+                  id={attribute.id}
+                  onChange={handleAttributeChange}
+                  value={formData.attributes[attribute.id] || ""}
+                />
               </li>
             ))}
           </ul>
@@ -214,8 +286,16 @@ export default function AddProducts(props) {
           />
         </div>
         <div>
-          <label htmlFor='price'>Price:</label>
-          <input type='text' name='price' />
+          <label htmlFor='price'>Price (€):</label>
+          <input
+            type='number'
+            name='price'
+            placeholder='XX.XX€'
+            min={0}
+            step={0.01}
+            onChange={handlePriceChange}
+            value={formData.price}
+          />
         </div>
         <div className='buttonsAddProduct'>
           <button
