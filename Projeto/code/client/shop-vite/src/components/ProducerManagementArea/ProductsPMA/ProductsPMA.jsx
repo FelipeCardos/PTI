@@ -92,7 +92,7 @@ export default function ProductsPMA() {
         <hr className='productsPMAYourProductsTitleHR' />
         <div className='containerProductsPMAYourProductsProducts'>
           {products.map((product) => (
-            <ProductsPMACard product={product} />
+            <ProductsPMACard key={product.id} product={product} />
           ))}
         </div>
       </div>

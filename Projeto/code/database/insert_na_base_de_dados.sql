@@ -396,9 +396,9 @@ INSERT INTO
   ProductImage (product_id, uri)
 VALUES
   (1, 'https://example.com/images/smart_tv.jpg'),
-  (2, 'https://example.com/images/laptop.jpg'),
+  (2, 'https://imgur.com/hvmPEvO'),
   (3, 'https://example.com/images/smartphone.jpg'),
-  (4, 'https://example.com/images/tshirt.jpg'),
+  (4, 'https://imgur.com/4jFawpJ'),
   (5, 'https://example.com/images/jeans.jpg'),
   (6, 'https://example.com/images/refrigerator.jpg'),
   (7, 'https://example.com/images/sofa.jpg'),
@@ -922,16 +922,16 @@ INSERT INTO
 VALUES
   -- Ratings for Products
   (1, NULL, 1, 4),
-  (2, NULL, 2, 5),
-  (3, NULL, 3, 3),
-  (4, NULL, 4, 5),
-  (5, NULL, 5, 4),
+  (3, NULL, 2, 5),
+  (5, NULL, 3, 3),
+  (7, NULL, 4, 5),
+  (1, NULL, 5, 4),
   -- Ratings for Producers
   (1, 6, NULL, 4),
-  (2, 4, NULL, 5),
-  (3, 2, NULL, 3),
-  (4, 6, NULL, 5),
-  (5, 4, NULL, 4);
+  (3, 4, NULL, 5),
+  (5, 2, NULL, 3),
+  (7, 6, NULL, 5),
+  (1, 4, NULL, 4);
 
 -- Insert data into Wishlist table
 INSERT INTO
