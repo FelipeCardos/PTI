@@ -38,6 +38,12 @@ export default function ProductsPMACard({ product }) {
         <div className='productPMACard__product_stock'>
           Stock: {product.stock} units
         </div>
+        <div className='productsPMACard__product__edit'>
+          <i className='fas fa-edit'></i>
+        </div>
+        <div className='productPMACard__product__remove'>
+          <i className='fas fa-trash-alt'></i>
+        </div>
       </div>
     </div>
   );
