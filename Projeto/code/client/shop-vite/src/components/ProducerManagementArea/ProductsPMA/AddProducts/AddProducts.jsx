@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import categoryData from "../../../../assets/categories.json";
+// import categoryData from "../../../../assets/categories.json";
 import "./AddProducts.css";
 
 export default function AddProducts(props) {
@@ -13,16 +13,50 @@ export default function AddProducts(props) {
     productionDate: "",
     price: "",
   });
-
+  const [categoryData, setCategoryData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedSubcategory, setSelectedSubcategory] = useState(0);
   const [attributes, setAttributes] = useState([]);
 
-  console.log(selectedCategory);
+  useEffect(() => {
+    async function fetchCategories() {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/categories"
+      );
+      return response.data;
+    }
+
+    async function fetchCategoryAttributes(category_id) {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/categories/${category_id}/categoryAttributes`
+      );
+      return response.data;
+    }
+
+    fetchCategories().then((categories) => {
+      const categoriesWithAttributes = categories.map((category) => {
+        return fetchCategoryAttributes(category.id).then((attributes) => {
+          return {
+            ...category,
+            attributes: attributes,
+          };
+        });
+      });
+      Promise.all(categoriesWithAttributes).then((categoriesWithAttributes) => {
+        console.log(categoriesWithAttributes);
+        setCategoryData(categoriesWithAttributes);
+      });
+    });
+  }, []);
+
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
     setSelectedSubcategory(0);
-    setAttributes([]);
+    setAttributes(
+      categoryData.find(
+        (category) => category.id === parseInt(event.target.value)
+      ).attributes
+    );
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -31,15 +65,28 @@ export default function AddProducts(props) {
     });
   };
 
+  console.log(attributes);
+
   const handleSubcategoryChange = (event) => {
-    setSelectedSubcategory(event.target.value);
-    setAttributes(
-      categoryData.categories
-        .find((category) => category.id === parseInt(selectedCategory))
-        .subcategories.find(
-          (subcategory) => subcategory.id === parseInt(event.target.value)
+    if (event.target.value === "") {
+      setSelectedSubcategory(event.target.value);
+      setAttributes(
+        categoryData.find(
+          (category) => category.id === parseInt(selectedCategory)
         ).attributes
-    );
+      );
+    } else {
+      setSelectedSubcategory(event.target.value);
+      setAttributes(
+        categoryData
+          .find((category) => category.id === parseInt(selectedCategory))
+          .attributes.concat(
+            categoryData.find(
+              (category) => category.id === parseInt(event.target.value)
+            ).attributes
+          )
+      );
+    }
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -113,7 +160,7 @@ export default function AddProducts(props) {
               onChange={handleCategoryChange}
             >
               <option value=''>-- Please select a category --</option>
-              {categoryData.categories.map((category) => (
+              {categoryData.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -129,7 +176,7 @@ export default function AddProducts(props) {
                   onChange={handleSubcategoryChange}
                 >
                   <option value=''>-- Please select a subcategory --</option>
-                  {categoryData.categories
+                  {categoryData
                     .find(
                       (category) => category.id === parseInt(selectedCategory)
                     )
@@ -147,14 +194,9 @@ export default function AddProducts(props) {
           <h3>Attributes:</h3>
           <ul>
             {attributes.map((attribute) => (
-              <li key={attribute.name}>
-                <label htmlFor={attribute.name}>{attribute.name}:</label>
-                {attribute.type === "text" && (
-                  <input type='text' id={attribute.name} />
-                )}
-                {attribute.type === "number" && (
-                  <input type='number' id={attribute.name} />
-                )}
+              <li key={attribute.title}>
+                <label htmlFor={attribute.title}>{attribute.title}:</label>
+                <input type='text' id={attribute.id} />
               </li>
             ))}
           </ul>
