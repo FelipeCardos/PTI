@@ -7,7 +7,7 @@ export default function AddProducts(props) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    productImage: [],
+    productImage: null,
     category: [],
     attributes: [],
     productionDate: "",
@@ -51,11 +51,15 @@ export default function AddProducts(props) {
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
     setSelectedSubcategory(0);
-    setAttributes(
-      categoryData.find(
-        (category) => category.id === parseInt(event.target.value)
-      ).attributes
-    );
+    if (event.target.value === "") {
+      setAttributes([]);
+    } else {
+      setAttributes(
+        categoryData.find(
+          (category) => category.id === parseInt(event.target.value)
+        ).attributes
+      );
+    }
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -111,7 +115,6 @@ export default function AddProducts(props) {
                   (category) => category.id === parseInt(event.target.value)
                 ).attributes
               );
-            console.log(categoriesAttributes);
             return categoriesAttributes.includes(attribute);
           }
         );
@@ -139,14 +142,23 @@ export default function AddProducts(props) {
   }
 
   function handleChange(event) {
+    console.log(event.target);
     const { name, value } = event.target;
+    if (name === "productImage") {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64data = reader.result;
+        setFormData((prevFormData) => {
+          return {
+            ...prevFormData,
+            [name]: base64data,
+          };
+        });
+      };
+    }
     setFormData((prevFormData) => {
-      if (name === "productImage") {
-        return {
-          ...prevFormData,
-          [name]: event.target.files,
-        };
-      }
       return {
         ...prevFormData,
         [name]: value,
@@ -178,23 +190,22 @@ export default function AddProducts(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log("product: " + JSON.stringify(formData));
-    axios
-      .post("http://localhost:3000/api/v1/product/", formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log("Servidor: " + JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .post("http://localhost:3000/api/v1/products/", formData, {
+    //     headers: {
+    //       "Content-Type": "application/x-www-form-urlencoded",
+    //     },
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     console.log("Servidor: " + JSON.stringify(res.data));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
 
   console.log(formData);
-
   return (
     <div className='containerAddProduct'>
       <div className='containerAddProductTitle'>New Product</div>
@@ -207,6 +218,7 @@ export default function AddProducts(props) {
             onChange={handleChange}
             name='name'
             value={formData.name}
+            required={true}
           />
         </div>
         <div>
@@ -216,23 +228,27 @@ export default function AddProducts(props) {
             onChange={handleChange}
             name='description'
             value={formData.description}
+            required={true}
           />
         </div>
         <div>
-          <div>
-            <label htmlFor='category'>Category:</label>
-            <select
-              id='category'
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-            >
-              <option value=''>-- Please select a category --</option>
-              {categoryData.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+          <div className='addProductsCategoires'>
+            <div>
+              <label htmlFor='category'>Category:</label>
+              <select
+                id='category'
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+                required={true}
+              >
+                <option value=''>-- Please select a category --</option>
+                {categoryData.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {!!selectedCategory && (
               <div>
@@ -258,31 +274,37 @@ export default function AddProducts(props) {
           </div>
         </div>
         <div>
-          <h3>Attributes:</h3>
-          <ul>
+          <div>Attributes:</div>
+          <div className='addProductsAttributes'>
             {attributes.map((attribute) => (
-              <li key={attribute.id}>
+              <div key={attribute.id}>
                 <label htmlFor={attribute.title}>{attribute.title}:</label>
                 <input
                   type='text'
                   id={attribute.id}
                   onChange={handleAttributeChange}
                   value={formData.attributes[attribute.id] || ""}
+                  required={true}
                 />
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
         <div>
           <label htmlFor='productionDate'>Production Date:</label>
-          <input type='date' name='productionDate' />
+          <input
+            type='date'
+            name='productionDate'
+            onChange={handleChange}
+            value={formData.productionDate}
+          />
         </div>
         <div>
           <input
             type='file'
             onChange={handleChange}
             name='productImage'
-            multiple={true}
+            accept='image/*'
           />
         </div>
         <div>
@@ -295,6 +317,7 @@ export default function AddProducts(props) {
             step={0.01}
             onChange={handlePriceChange}
             value={formData.price}
+            required={true}
           />
         </div>
         <div className='buttonsAddProduct'>
@@ -302,6 +325,7 @@ export default function AddProducts(props) {
             className='submitAddProduct'
             disabled={Object.values(formData).some((value) => value === "")}
             type='submit'
+            onClick={handleSubmit}
           >
             ADD
           </button>

@@ -17,16 +17,16 @@ router.post("/", async (req, res) => {
     price,
   } = req.body;
 
-  const product = await createProduct(
-    name,
-    description,
-    category,
-    attributes,
-    productionDate,
-    productImages,
-    price
-  );
-  res.status(200).json(product);
+  // const product = await createProduct(
+  //   name,
+  //   description,
+  //   category,
+  //   attributes,
+  //   productionDate,
+  //   productImages,
+  //   price
+  // );
+  res.status(200).send(req.body);
 });
 
 module.exports = router;

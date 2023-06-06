@@ -32,6 +32,41 @@
   border: 1px solid #0d6efd;
 }
 
+.addProductsCategoires {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 3em;
+  padding: 0.5em;
+}
+
+.addProductsAttributes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.addProductsAttributes > div {
+  display: flex;
+  width: 48%;
+}
+
+.addProductsAttributes input {
+  border-bottom: 1px solid #0d6efd;
+  transition: 0.3s all ease-in-out;
+  flex-grow: 1;
+  padding: 0 0.2em;
+}
+
+.addProductsAttributes input:focus {
+  outline: none;
+  border: 1px solid #0d6efd;
+}
+
 .buttonsAddProduct {
   display: flex;
   flex-direction: row-reverse;
@@ -50,10 +85,24 @@
   cursor: pointer;
 }
 
+.submitAddProduct:disabled {
+  background-color: grey;
+  border: 1px solid grey;
+  color: white;
+  cursor: not-allowed;
+}
+
 .submitAddProduct:hover {
   background-color: var(--bs-blue-hover);
   border: 1px solid var(--bs-blue);
   color: var(--bs-blue);
+}
+
+.submitAddProduct:disabled:hover {
+  background-color: grey;
+  border: 1px solid grey;
+  color: white;
+  cursor: not-allowed;
 }
 
 .cancelAddProduct {
