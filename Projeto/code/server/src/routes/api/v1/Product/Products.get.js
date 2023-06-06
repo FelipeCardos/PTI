@@ -66,6 +66,14 @@ router.get("/search/:str",(req,res) =>{
   });
 });
 
+router.get("/producer/:id",(req,res) =>{
+  const idProducer = req.params.id;
+  FindAllProductsWithProducerId(idProducer).then((products) => {
+    if(products) res.status(200).json(products);
+    else res.status(404).send("No products with producer id: " + idProducer);
+  });
+});
+
 router.use("/:id/productionUnits", ProductionUnit);
 router.use("/:id/cartLines", CartLine);
 router.use("/:id/productImages", ProductImage);

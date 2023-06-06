@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 
 export default function ProductFilter({ productsList, updateFilteredProducts }) {
   const [priceInterval, setPriceInterval] = useState([]);
   const [selectedIntervals, setSelectedIntervals] = useState([]);
+  const [producers, setProducers] = useState([]);
+  const [productsPerProducer, setProdutsPerProducer] = useState([]);
+  const [selectedProducers, setSelectedProducers] = useState([]);
 
   useEffect(() => {
     getPriceInterval();
+    getProducers();
   }, [productsList]);
 
   const getPriceInterval = () => {
@@ -40,7 +46,6 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
 
     const noneSelected = updatedIntervals.length === 0;
     if (noneSelected) {
-        console.log()
       updateFilteredProducts(productsList);
     } else {
       const filteredProducts = productsList.filter((product) =>
@@ -50,6 +55,37 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
     }
   };
 
+  function getProducers() {
+    axios.get("http://localhost:3000/api/v1/users").then((response) => {
+      const producersFromServer = response.data.users.filter(
+        (producer) => producer.typeUser === "Producer"
+      );
+      setProducers(producersFromServer);
+    });
+  }
+
+  const handleProducerCheckboxChange = (producerId) => {
+    let updatedProducers;
+    if (selectedProducers.includes(producerId)) {
+      updatedProducers = selectedProducers.filter((selected) => selected !== producerId);
+    } else {
+      updatedProducers = [...selectedProducers, producerId];
+    }
+    setSelectedProducers(updatedProducers);
+
+
+    const noneSelected = updatedProducers.length === 0;
+
+    if (noneSelected) {
+      updateFilteredProducts(productsList);
+    } else {
+      const filteredProducts = productsList.filter((product) =>
+        updatedProducers.some((p) => p === product.producer_id)
+      );
+      console.log(filteredProducts)
+      updateFilteredProducts(filteredProducts);
+    }
+  };
   return (
     <div className="filter-container">
       <h3>Prices</h3>
@@ -63,6 +99,19 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
               onChange={() => handleCheckboxChange(interval)}
             />
             {`${interval.lowerBound} - ${interval.upperBound}`}
+          </div>
+        ))}
+      </div>
+      <div className="grid-producers">
+        <h3>Producers</h3>
+        {producers.map((producer) => (
+          <div key={producer.id}>
+            <input
+              type="checkbox"
+              checked={selectedProducers.includes(producer.id)}
+              onChange={() => handleProducerCheckboxChange(producer.id)}
+            />
+            {producer.name}
           </div>
         ))}
       </div>
