@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import categoryData from "../../../../assets/categories.json";
+// import categoryData from "../../../../assets/categories.json";
 import "./AddProducts.css";
 
 export default function AddProducts(props) {
@@ -13,16 +13,49 @@ export default function AddProducts(props) {
     productionDate: "",
     price: "",
   });
-
+  const [categoryData, setCategoryData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedSubcategory, setSelectedSubcategory] = useState(0);
   const [attributes, setAttributes] = useState([]);
 
-  console.log(selectedCategory);
+  useEffect(() => {
+    async function fetchCategories() {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/categories"
+      );
+      return response.data;
+    }
+
+    async function fetchCategoryAttributes(category_id) {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/categories/${category_id}/categoryAttributes`
+      );
+      return response.data;
+    }
+
+    fetchCategories().then((categories) => {
+      const categoriesWithAttributes = categories.map((category) => {
+        return fetchCategoryAttributes(category.id).then((attributes) => {
+          return {
+            ...category,
+            attributes: attributes,
+          };
+        });
+      });
+      Promise.all(categoriesWithAttributes).then((categoriesWithAttributes) => {
+        setCategoryData(categoriesWithAttributes);
+      });
+    });
+  }, []);
+
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
     setSelectedSubcategory(0);
-    setAttributes([]);
+    setAttributes(
+      categoryData.find(
+        (category) => category.id === parseInt(event.target.value)
+      ).attributes
+    );
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -32,21 +65,78 @@ export default function AddProducts(props) {
   };
 
   const handleSubcategoryChange = (event) => {
-    setSelectedSubcategory(event.target.value);
-    setAttributes(
-      categoryData.categories
-        .find((category) => category.id === parseInt(selectedCategory))
-        .subcategories.find(
-          (subcategory) => subcategory.id === parseInt(event.target.value)
+    if (event.target.value === "") {
+      setSelectedSubcategory(event.target.value);
+      setAttributes(
+        categoryData.find(
+          (category) => category.id === parseInt(selectedCategory)
         ).attributes
-    );
+      );
+      setFormData((prevFormData) => {
+        const newAttributes = Object.keys(prevFormData.attributes).filter(
+          (attribute) => {
+            categoryData
+              .find((category) => category.id === parseInt(selectedCategory))
+              .attributes.includes(attribute);
+          }
+        );
+        return {
+          ...prevFormData,
+          attributes: newAttributes.reduce((acc, attribute) => {
+            return {
+              ...acc,
+              [attribute]: prevFormData.attributes[attribute],
+            };
+          }, {}),
+        };
+      });
+    } else {
+      setSelectedSubcategory(event.target.value);
+      setAttributes(
+        categoryData
+          .find((category) => category.id === parseInt(selectedCategory))
+          .attributes.concat(
+            categoryData.find(
+              (category) => category.id === parseInt(event.target.value)
+            ).attributes
+          )
+      );
+      setFormData((prevFormData) => {
+        const newAttributes = Object.keys(prevFormData.attributes).filter(
+          (attribute) => {
+            const categoriesAttributes = categoryData
+              .find((category) => category.id === parseInt(selectedCategory))
+              .attributes.concat(
+                categoryData.find(
+                  (category) => category.id === parseInt(event.target.value)
+                ).attributes
+              );
+            console.log(categoriesAttributes);
+            return categoriesAttributes.includes(attribute);
+          }
+        );
+        return {
+          ...prevFormData,
+          attributes: newAttributes.reduce((acc, attribute) => {
+            return {
+              ...acc,
+              [attribute]: prevFormData.attributes[attribute],
+            };
+          }, {}),
+        };
+      });
+    }
+  };
+
+  function handleAttributeChange(event) {
+    const { id, value } = event.target;
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        category: [selectedCategory, event.target.value],
+        attributes: { ...prevFormData.attributes, [id]: value },
       };
     });
-  };
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -64,14 +154,36 @@ export default function AddProducts(props) {
     });
   }
 
+  function handlePriceChange(event) {
+    const enteredValue = event.target.value;
+
+    // Remove any non-digit characters
+    const cleanValue = enteredValue.replace(/[^0-9.]/g, "");
+
+    // Get the integer and decimal parts
+    const parts = cleanValue.split(".");
+    const integerPart = parts[0];
+    let decimalPart = parts[1] || "";
+
+    // Limit the decimal part to two decimal places
+    decimalPart = decimalPart.slice(0, 2);
+
+    // Update the value in the state
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      price: integerPart + (decimalPart.length > 0 ? "." + decimalPart : ""),
+    }));
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     console.log("product: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/product/", formData, {
+      .post("http://localhost:3000/api/v1/product/", formData, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
+        withCredentials: true,
       })
       .then((res) => {
         console.log("Servidor: " + JSON.stringify(res.data));
@@ -80,6 +192,8 @@ export default function AddProducts(props) {
         console.log(err);
       });
   }
+
+  console.log(formData);
 
   return (
     <div className='containerAddProduct'>
@@ -113,7 +227,7 @@ export default function AddProducts(props) {
               onChange={handleCategoryChange}
             >
               <option value=''>-- Please select a category --</option>
-              {categoryData.categories.map((category) => (
+              {categoryData.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -129,7 +243,7 @@ export default function AddProducts(props) {
                   onChange={handleSubcategoryChange}
                 >
                   <option value=''>-- Please select a subcategory --</option>
-                  {categoryData.categories
+                  {categoryData
                     .find(
                       (category) => category.id === parseInt(selectedCategory)
                     )
@@ -147,14 +261,14 @@ export default function AddProducts(props) {
           <h3>Attributes:</h3>
           <ul>
             {attributes.map((attribute) => (
-              <li key={attribute.name}>
-                <label htmlFor={attribute.name}>{attribute.name}:</label>
-                {attribute.type === "text" && (
-                  <input type='text' id={attribute.name} />
-                )}
-                {attribute.type === "number" && (
-                  <input type='number' id={attribute.name} />
-                )}
+              <li key={attribute.id}>
+                <label htmlFor={attribute.title}>{attribute.title}:</label>
+                <input
+                  type='text'
+                  id={attribute.id}
+                  onChange={handleAttributeChange}
+                  value={formData.attributes[attribute.id] || ""}
+                />
               </li>
             ))}
           </ul>
@@ -172,8 +286,16 @@ export default function AddProducts(props) {
           />
         </div>
         <div>
-          <label htmlFor='price'>Price:</label>
-          <input type='text' name='price' />
+          <label htmlFor='price'>Price (€):</label>
+          <input
+            type='number'
+            name='price'
+            placeholder='XX.XX€'
+            min={0}
+            step={0.01}
+            onChange={handlePriceChange}
+            value={formData.price}
+          />
         </div>
         <div className='buttonsAddProduct'>
           <button

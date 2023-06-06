@@ -9,7 +9,7 @@
 
 .containerProductsPMA {
   display: grid;
-  grid: 1fr 1fr / 1fr;
+  grid: 350px 1fr / 1fr;
 }
 
 .productsPMADashboardTitle,

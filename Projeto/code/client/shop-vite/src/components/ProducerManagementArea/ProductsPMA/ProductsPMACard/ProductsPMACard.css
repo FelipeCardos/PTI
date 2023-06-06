@@ -1,11 +1,56 @@
 .productsPMACard__product {
-  display: flex;
-  flex-direction: column;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 0.5rem 1rem gray;
   transition: all 0.3s ease-in-out;
-  padding: 0.5em;
   margin: 1em;
   width: 350px;
+  height: 350px;
+  position: relative;
+}
+
+.productsPMACard__product__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  background-color: #fff;
+  padding: 0.5em;
+  width: 200px;
+  bottom: 0;
+  position: absolute;
+  border-radius: 0 10px 0 10px;
+  transition: all 0.3s ease-in-out;
+  border-top: black 1px solid;
+  border-right: black 1px solid;
+}
+
+.productsPMACard__product__name {
+  width: 150px;
+}
+
+.productsPMACard__product:hover {
+  transform: scale(1.05);
+}
+
+.productsPMACard__product:hover > .productsPMACard__product__info {
+  opacity: 0;
+}
+
+.productsPMACard__product:hover > .productsPMACard__product__info:hover {
+  opacity: 1;
+}
+
+.productsPMACard__product__edit {
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+  cursor: pointer;
+}
+
+.productPMACard__product__remove {
+  position: absolute;
+  top: 0.25em;
+  right: 2em;
+  cursor: pointer;
 }

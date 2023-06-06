@@ -7,7 +7,14 @@ const { Product } = require("../../database/models");
 //     productionDate: "",
 //     productImages: [],
 //     price: "",
-//     FALTA FAZER UMA ALTERAÇÃO NA BASE DE DADOS - Tabela ProductAttribute guardar o conteudo em vez da CategoryAttribute, ou seja, a CategoryAttribute vai guardar apenas o header como por exemplo "Cor" e o ProductAttribute vai guardar o conteudo como por exemplo "Azul" em conjunto com o product_id e o attribute_id
+
+//     name: "",
+//     description: "",
+//     productImage: [],
+//     category: [],
+//     attributes: [],
+//     productionDate: "",
+//     price: "",
 
 async function createProduct(
   name,
@@ -36,6 +43,7 @@ async function createProduct(
       attribute_id: attributes[i],
     });
   }
+  // utilizar api do imgur para fazer upload das imagens e guardar os links
 }
 
 module.exports = { createProduct };
