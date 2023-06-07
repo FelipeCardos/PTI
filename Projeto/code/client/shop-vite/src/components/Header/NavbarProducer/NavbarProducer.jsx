@@ -29,7 +29,7 @@ export default function NavbarProducer({ user }) {
   };
 
   useEffect(() => {
-    async function getNumberOfNotifications() {
+    async function getNotifications() {
       const notifications = await axios.get(
         "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
         { withCredentials: true }
@@ -109,6 +109,7 @@ export default function NavbarProducer({ user }) {
           }}
         >
           <i className='fa fa-network-wired'></i>
+          <p>Mgmt Area</p>
         </button>
       </div>
       <div className='notificationBellNavbarProducer'>

@@ -110,7 +110,8 @@
   background: hsl(0, 100%, 40%);
 }
 
-.accountButtonNavbarProducer > p {
+.accountButtonNavbarProducer > p,
+.managementAreaButtonNavbarProducer > p {
   position: absolute;
   margin: 0;
   margin-top: 3.3em;
@@ -119,7 +120,8 @@
   color: var(--bs-blue);
 }
 
-.accountButtonNavbarProducer > p::after {
+.accountButtonNavbarProducer > p::after,
+.managementAreaButtonNavbarProducer > p::after {
   content: "";
   position: absolute;
   left: 0;
@@ -130,6 +132,7 @@
   transition: width 0.7s ease;
 }
 
-.accountNavbarProducer:hover > button > p::after {
+.accountNavbarProducer:hover > button > p::after,
+.managementAreaNavbarProducer:hover > button > p::after {
   width: 100%;
 }
