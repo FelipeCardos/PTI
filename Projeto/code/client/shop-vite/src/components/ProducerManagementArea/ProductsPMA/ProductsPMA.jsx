@@ -1,5 +1,7 @@
 import axios from "axios";
 import { React, useContext, useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../../assets/UserContext";
 import AddProducts from "./AddProducts/AddProducts";
 import "./ProductsPMA.css";
@@ -70,9 +72,17 @@ export default function ProductsPMA() {
     });
   }, []);
 
+  function handleToast() {
+    toast.success("Product added successfully!", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  }
+
   return (
     <div className='containerProductsPMA'>
       <div className='containerProductsPMADashboard'>
+        <ToastContainer />
         <div className='productsPMADashboardTitle'>Dashboard</div>
         <hr className='productsPMADashboardTitleHR' />
         <div className='containerProductsPMADashboardCharts'>
@@ -99,7 +109,10 @@ export default function ProductsPMA() {
       {modal && <div className='modalPMA'></div>}
       {showAddProducts && (
         <div className='AddProducts'>
-          <AddProducts handleShowAddProducts={handleShowAddProducts} />
+          <AddProducts
+            handleShowAddProducts={handleShowAddProducts}
+            handleToast={handleToast}
+          />
         </div>
       )}
     </div>

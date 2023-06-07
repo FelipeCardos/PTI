@@ -1,5 +1,6 @@
 import axios from "axios";
 import { React, useContext, useEffect, useState } from "react";
+import { ToastContainer, ToastContainer, toast } from "react-toastify";
 import { UserContext } from "../../../assets/UserContext";
 import AddProductionUnits from "./AddProductionUnits/AddProductionUnits";
 import "./ProductionUnitsPMA.css";
@@ -38,9 +39,17 @@ export default function ProductionUnitsPMA() {
     updateProductionUnits();
   }, []);
 
+  function handleToast() {
+    toast.success("Production Unit added successfully!", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  }
+
   return (
     <div className='containerProductionUnitsPMA'>
       <div className='containerProductionUnitsPMADashboard'>
+        <ToastContainer />
         <div className='productionUnitsPMADashboardTitle'>Dashboard</div>
         <hr className='productionUnitsPMADashboardTitleHR' />
         <div className='containerProductionUnitsPMADashboardCharts'>
@@ -75,6 +84,7 @@ export default function ProductionUnitsPMA() {
           <AddProductionUnits
             handleShowAddPUs={handleShowAddPUs}
             updateProductionUnits={updateProductionUnits}
+            handleToast={handleToast}
           />
         </div>
       )}

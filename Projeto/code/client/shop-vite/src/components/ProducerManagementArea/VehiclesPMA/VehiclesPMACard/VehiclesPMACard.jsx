@@ -33,6 +33,7 @@ export default function VehiclesPMACard(props) {
         }
       );
       console.log("response: " + JSON.stringify(response.data));
+      props.handleToast("Vehicle updated successfully!");
     } catch (error) {
       console.error(error);
     }

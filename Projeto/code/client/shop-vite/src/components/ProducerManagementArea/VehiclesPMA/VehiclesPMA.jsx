@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../../assets/UserContext";
 import AddVehicles from "./AddVehicles/AddVehicles";
 import "./VehiclesPMA.css";
@@ -16,6 +18,13 @@ export default function VehiclesPMA() {
     setShowAddVehicles(!showAddVehicles);
     setModal(!modal);
   };
+
+  function handleToast(message) {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  }
 
   function updateVehicles() {
     axios
@@ -55,6 +64,7 @@ export default function VehiclesPMA() {
   return (
     <div className='containerVehiclesPMA'>
       <div className='containerVehiclesPMADashboard'>
+        <ToastContainer />
         <div className='vehiclesPMADashboardTitle'>Dashboard</div>
         <hr className='vehiclesPMADashboardTitleHR' />
         <div className='containerVehiclesPMADashboardCharts'>
@@ -78,6 +88,7 @@ export default function VehiclesPMA() {
               key={vehicle.id}
               vehicle={vehicle}
               productionUnits={productionUnits}
+              handleToast={handleToast}
             />
           ))}
         </div>
@@ -90,6 +101,7 @@ export default function VehiclesPMA() {
             productionUnits={productionUnits}
             setProductionUnits={setProductionUnits}
             updateVehicles={updateVehicles}
+            handleToast={handleToast}
           />
         </div>
       )}

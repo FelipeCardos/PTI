@@ -48,6 +48,7 @@ export default function AddVehicles(props) {
       .then((res) => {
         props.handleShowAddVehicles();
         props.updateVehicles();
+        props.handleToast("Vehicle added successfully!");
       })
       .catch((err) => {
         console.log(err);

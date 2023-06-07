@@ -142,7 +142,6 @@ export default function AddProducts(props) {
   }
 
   function handleChange(event) {
-    console.log(event.target);
     const { name, value } = event.target;
     if (name === "productImage") {
       const file = event.target.files[0];
@@ -190,6 +189,8 @@ export default function AddProducts(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log("product: " + JSON.stringify(formData));
+    props.handleToast();
+    props.handleShowAddProducts();
     // axios
     //   .post("http://localhost:3000/api/v1/products/", formData, {
     //     headers: {

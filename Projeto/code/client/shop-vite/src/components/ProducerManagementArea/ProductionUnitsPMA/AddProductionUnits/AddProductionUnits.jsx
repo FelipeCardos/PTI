@@ -42,6 +42,7 @@ export default function AddProductionUnits(props) {
       .then((res) => {
         props.handleShowAddPUs();
         props.updateProductionUnits();
+        props.handleToast();
       })
       .catch((err) => {
         console.log(err);
