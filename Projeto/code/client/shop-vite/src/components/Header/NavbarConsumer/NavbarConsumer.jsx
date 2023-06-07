@@ -8,6 +8,7 @@ import "./NavbarConsumer.css";
 export default function NavbarConsumer({ user }) {
   const [shoppingCartNumber, setShoppingCartNumber] = useState(0);
   const [notificationsNumber, setNotificationsNumber] = useState(0);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     async function getShoppingCartNumberOfProducts() {
@@ -24,22 +25,32 @@ export default function NavbarConsumer({ user }) {
       }
       return numberOfProducts;
     }
-    async function getNumberOfNotifications() {
+    async function getNotifications() {
       const notifications = await axios.get(
         "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
         { withCredentials: true }
       );
-      return notifications.data.length;
+      return notifications.data;
     }
 
     getShoppingCartNumberOfProducts().then((res) => setShoppingCartNumber(res));
-    getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+    getNotifications().then((res) => {
+      setNotifications(res);
+      let notificationsNumber = 0;
+      for (const notification of res) {
+        if (!notification.seen) notificationsNumber++;
+      }
+      setNotificationsNumber(notificationsNumber);
+    });
 
     const interval = setInterval(() => {
       getShoppingCartNumberOfProducts().then((res) =>
         setShoppingCartNumber(res)
       );
-      getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+      getNotifications().then((res) => {
+        setNotifications(res);
+        setNotificationsNumber(res.length);
+      });
     }, 1500);
 
     return () => clearInterval(interval);
@@ -53,6 +64,15 @@ export default function NavbarConsumer({ user }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const [anchorEl2, setAnchorEl2] = useState(null);
+  const open2 = Boolean(anchorEl2);
+  const handleClick2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+  const handleClose2 = () => {
+    setAnchorEl2(null);
   };
 
   async function handleLogout() {
@@ -111,12 +131,40 @@ export default function NavbarConsumer({ user }) {
         </span>
       </div>
       <div className='notificationBellNavbarConsumer' title='Notifications'>
-        <button className='notificationBellButtonNavbarConsumer'>
+        <button
+          className='notificationBellButtonNavbarConsumer'
+          onClick={handleClick2}
+        >
           <i className='fa fa-bell'></i>
         </button>
         <span className='notificationBellBadgeNavbarConsumer'>
           {notificationsNumber}
         </span>
+        <Menu
+          id='basic-menu2'
+          anchorEl={anchorEl2}
+          open={open2}
+          onClose={handleClose2}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <div className='notificationMenuNavbarConsumer'>
+            {notifications.length > 0 ? (
+              [...notifications].reverse().map((notification) => {
+                return (
+                  <MenuItem>
+                    <div>
+                      <p>{notification.description}</p>
+                    </div>
+                  </MenuItem>
+                );
+              })
+            ) : (
+              <p>No notifications</p>
+            )}
+          </div>
+        </Menu>
       </div>
       <div className='accountNavbarConsumer'>
         <button onClick={handleClick} className='accountButtonNavbarConsumer'>
