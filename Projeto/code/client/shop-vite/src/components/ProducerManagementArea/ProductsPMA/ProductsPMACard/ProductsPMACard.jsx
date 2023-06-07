@@ -3,8 +3,17 @@ import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../assets/UserContext";
 import "./ProductsPMACard.css";
 
-export default function ProductsPMACard({ product }) {
-  const { myUserVariable, setMyUserVariable } = useContext(UserContext);
+export default function ProductsPMACard({ product, setCheckApi, handleToast }) {
+  const { myUserVariable } = useContext(UserContext);
+
+  async function handleDeleteProduct() {
+    await axios.delete(
+      `http://localhost:3000/api/v1/users/${myUserVariable.user_id}/products/${product.id}`
+    );
+    handleToast("Product deleted successfully!");
+    setCheckApi(true);
+  }
+
   return (
     <div
       className='productsPMACard__product'
@@ -41,7 +50,10 @@ export default function ProductsPMACard({ product }) {
         <div className='productsPMACard__product__edit'>
           <i className='fas fa-edit'></i>
         </div>
-        <div className='productPMACard__product__remove'>
+        <div
+          className='productPMACard__product__remove'
+          onClick={handleDeleteProduct}
+        >
           <i className='fas fa-trash-alt'></i>
         </div>
       </div>

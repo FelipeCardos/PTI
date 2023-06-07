@@ -189,8 +189,9 @@ export default function AddProducts(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log("product: " + JSON.stringify(formData));
-    props.handleToast();
+    props.handleToast("Product added successfully!");
     props.handleShowAddProducts();
+    props.setCheckApi(true);
     // axios
     //   .post("http://localhost:3000/api/v1/products/", formData, {
     //     headers: {

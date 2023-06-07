@@ -8,6 +8,7 @@ import "./ProductsPMA.css";
 import ProductsPMACard from "./ProductsPMACard/ProductsPMACard";
 
 export default function ProductsPMA() {
+  const [checkApi, setCheckApi] = useState(true);
   const { myUserVariable } = useContext(UserContext);
   const [modal, setModal] = useState(false);
   const [showAddProducts, setShowAddProducts] = useState(false);
@@ -67,13 +68,16 @@ export default function ProductsPMA() {
       return productsV2;
     }
 
-    fetchData().then((products) => {
-      setProducts(products);
-    });
-  }, []);
+    if (checkApi) {
+      fetchData().then((products) => {
+        setProducts(products);
+      });
+      setCheckApi(false);
+    }
+  }, [checkApi]);
 
-  function handleToast() {
-    toast.success("Product added successfully!", {
+  function handleToast(message) {
+    toast(message, {
       position: "top-right",
       autoClose: 3000,
     });
@@ -102,7 +106,12 @@ export default function ProductsPMA() {
         <hr className='productsPMAYourProductsTitleHR' />
         <div className='containerProductsPMAYourProductsProducts'>
           {products.map((product) => (
-            <ProductsPMACard key={product.id} product={product} />
+            <ProductsPMACard
+              key={product.id}
+              product={product}
+              setCheckApi={setCheckApi}
+              handleToast={handleToast}
+            />
           ))}
         </div>
       </div>
@@ -112,6 +121,7 @@ export default function ProductsPMA() {
           <AddProducts
             handleShowAddProducts={handleShowAddProducts}
             handleToast={handleToast}
+            setCheckApi={setCheckApi}
           />
         </div>
       )}
