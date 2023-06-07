@@ -7,7 +7,7 @@ export default function AddProducts(props) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    productImage: null,
+    productImage: "",
     category: [],
     attributes: [],
     productionDate: "",
@@ -143,21 +143,13 @@ export default function AddProducts(props) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "productImage") {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const base64data = reader.result;
-        setFormData((prevFormData) => {
-          return {
-            ...prevFormData,
-            [name]: base64data,
-          };
-        });
-      };
-    }
     setFormData((prevFormData) => {
+      if (name === "productImage") {
+        return {
+          ...prevFormData,
+          [name]: event.target.files[0],
+        };
+      }
       return {
         ...prevFormData,
         [name]: value,
@@ -189,9 +181,27 @@ export default function AddProducts(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log("product: " + JSON.stringify(formData));
-    props.handleToast("Product added successfully!");
-    props.handleShowAddProducts();
-    props.setCheckApi(true);
+    const imageToImgur = new FormData();
+    imageToImgur.append("image", formData.productImage);
+    async function uploadImageToImgur() {
+      const response = await axios.post(
+        "https://api.imgur.com/3/image",
+        imageToImgur,
+        {
+          headers: {
+            Authorization: "Client-ID 8b559544db848af",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data.data.link;
+    }
+    uploadImageToImgur().then((link) => {
+      console.log(link);
+    });
+    // props.handleToast("Product added successfully!");
+    // props.handleShowAddProducts();
+    // props.setCheckApi(true);
     // axios
     //   .post("http://localhost:3000/api/v1/products/", formData, {
     //     headers: {
