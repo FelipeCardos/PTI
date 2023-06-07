@@ -80,6 +80,14 @@ export default function NavbarConsumer({ user }) {
     return () => clearInterval(interval);
   }, []);
 
+  async function handleMouseOverNotification(notification) {
+    if (!notification.seen) {
+      await axios.put(
+        `http://localhost:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
+      );
+    }
+  }
+
   async function handleLogout() {
     await axios.get("http://localhost:3000/api/v1/auth/logout", {
       headers: {
@@ -158,7 +166,11 @@ export default function NavbarConsumer({ user }) {
             {notifications.length > 0 ? (
               [...notifications].reverse().map((notification) => {
                 return (
-                  <MenuItem>
+                  <MenuItem
+                    onMouseOver={() =>
+                      handleMouseOverNotification(notification)
+                    }
+                  >
                     <div>
                       <p>{notification.description}</p>
                     </div>
