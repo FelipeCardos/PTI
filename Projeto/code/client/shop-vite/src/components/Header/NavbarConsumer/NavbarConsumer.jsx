@@ -171,7 +171,13 @@ export default function NavbarConsumer({ user }) {
                       handleMouseOverNotification(notification)
                     }
                   >
-                    <div>
+                    <div
+                      className={
+                        notification.seen
+                          ? "notificationMenuNavbarConsumerSeen"
+                          : "notificationMenuNavbarConsumerUnseen"
+                      }
+                    >
                       <p>{notification.description}</p>
                     </div>
                   </MenuItem>

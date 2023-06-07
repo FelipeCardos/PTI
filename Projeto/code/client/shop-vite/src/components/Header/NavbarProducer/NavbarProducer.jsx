@@ -139,7 +139,7 @@ export default function NavbarProducer({ user }) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <div className='notificationMenuNavbarConsumer'>
+          <div className='notificationMenuNavbarProducer'>
             {notifications.length > 0 ? (
               [...notifications].reverse().map((notification) => {
                 return (
@@ -148,7 +148,13 @@ export default function NavbarProducer({ user }) {
                       handleMouseOverNotification(notification)
                     }
                   >
-                    <div>
+                    <div
+                      className={
+                        notification.seen
+                          ? "notificationMenuNavbarProducerSeen"
+                          : "notificationMenuNavbarProducerUnseen"
+                      }
+                    >
                       <p>{notification.description}</p>
                     </div>
                   </MenuItem>
