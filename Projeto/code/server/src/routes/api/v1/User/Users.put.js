@@ -2,6 +2,7 @@ const express = require("express");
 
 const Address = require("./Address/Users.Address.put");
 const Vehicle = require("./Vehicle/Users.Vehicles.put");
+const Notification = require("./Notification/Notification.put");
 
 const router = express.Router();
 
@@ -35,5 +36,6 @@ router.put("/:id", async (req, res) => {
 
 router.use("/:id/address", Address);
 router.use("/:id/vehicles", Vehicle);
+router.use("/:id/notifications", Notification);
 
 module.exports = router;
