@@ -49,7 +49,11 @@ export default function NavbarConsumer({ user }) {
       );
       getNotifications().then((res) => {
         setNotifications(res);
-        setNotificationsNumber(res.length);
+        let notificationsNumber = 0;
+        for (const notification of res) {
+          if (!notification.seen) notificationsNumber++;
+        }
+        setNotificationsNumber(notificationsNumber);
       });
     }, 1500);
 

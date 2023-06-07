@@ -7,6 +7,7 @@ import "./NavbarProducer.css";
 
 export default function NavbarProducer({ user }) {
   const [notificationsNumber, setNotificationsNumber] = useState(0);
+  const [notifications, setNotifications] = useState([]);
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,10 +27,24 @@ export default function NavbarProducer({ user }) {
       );
       return notifications.data.length;
     }
-    getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+    getNotifications().then((res) => {
+      setNotifications(res);
+      let notificationsNumber = 0;
+      for (const notification of res) {
+        if (!notification.seen) notificationsNumber++;
+      }
+      setNotificationsNumber(notificationsNumber);
+    });
 
     const interval = setInterval(() => {
-      getNumberOfNotifications().then((res) => setNotificationsNumber(res));
+      getNotifications().then((res) => {
+        setNotifications(res);
+        let notificationsNumber = 0;
+        for (const notification of res) {
+          if (!notification.seen) notificationsNumber++;
+        }
+        setNotificationsNumber(notificationsNumber);
+      });
     }, 1500);
 
     return () => clearInterval(interval);
