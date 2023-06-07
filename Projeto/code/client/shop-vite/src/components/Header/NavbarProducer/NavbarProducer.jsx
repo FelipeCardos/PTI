@@ -19,6 +19,15 @@ export default function NavbarProducer({ user }) {
     setAnchorEl(null);
   };
 
+  const [anchorEl2, setAnchorEl2] = useState(null);
+  const open2 = Boolean(anchorEl2);
+  const handleClick2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+  const handleClose2 = () => {
+    setAnchorEl2(null);
+  };
+
   useEffect(() => {
     async function getNumberOfNotifications() {
       const notifications = await axios.get(
@@ -103,12 +112,40 @@ export default function NavbarProducer({ user }) {
         </button>
       </div>
       <div className='notificationBellNavbarProducer'>
-        <button className='notificationBellButtonNavbarProducer'>
+        <button
+          className='notificationBellButtonNavbarProducer'
+          onClick={handleClick2}
+        >
           <i className='fa fa-bell'></i>
         </button>
         <span className='notificationBellBadgeNavbarProducer'>
           {notificationsNumber}
         </span>
+        <Menu
+          id='basic-menu2'
+          anchorEl={anchorEl2}
+          open={open2}
+          onClose={handleClose2}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <div className='notificationMenuNavbarConsumer'>
+            {notifications.length > 0 ? (
+              [...notifications].reverse().map((notification) => {
+                return (
+                  <MenuItem>
+                    <div>
+                      <p>{notification.description}</p>
+                    </div>
+                  </MenuItem>
+                );
+              })
+            ) : (
+              <p>No notifications</p>
+            )}
+          </div>
+        </Menu>
       </div>
       <div className='accountNavbarProducer'>
         <button onClick={handleClick} className='accountButtonNavbarProducer'>

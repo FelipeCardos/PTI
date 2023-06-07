@@ -10,6 +10,26 @@ export default function NavbarConsumer({ user }) {
   const [notificationsNumber, setNotificationsNumber] = useState(0);
   const [notifications, setNotifications] = useState([]);
 
+  let navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [anchorEl2, setAnchorEl2] = useState(null);
+  const open2 = Boolean(anchorEl2);
+  const handleClick2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+  const handleClose2 = () => {
+    setAnchorEl2(null);
+  };
+
   useEffect(() => {
     async function getShoppingCartNumberOfProducts() {
       let numberOfProducts = 0;
@@ -59,25 +79,6 @@ export default function NavbarConsumer({ user }) {
 
     return () => clearInterval(interval);
   }, []);
-  let navigate = useNavigate();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const [anchorEl2, setAnchorEl2] = useState(null);
-  const open2 = Boolean(anchorEl2);
-  const handleClick2 = (event) => {
-    setAnchorEl2(event.currentTarget);
-  };
-  const handleClose2 = () => {
-    setAnchorEl2(null);
-  };
 
   async function handleLogout() {
     await axios.get("http://localhost:3000/api/v1/auth/logout", {
