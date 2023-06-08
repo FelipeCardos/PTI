@@ -8,6 +8,8 @@ import "./NavbarProducer.css";
 export default function NavbarProducer({ user }) {
   const [notificationsNumber, setNotificationsNumber] = useState(0);
   const [notifications, setNotifications] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -15,8 +17,16 @@ export default function NavbarProducer({ user }) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+    const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  
+  const handleSearch = (event) => {
+    event.preventDefault();
+    navigate(`/products?search=${searchQuery}`);
   };
 
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -99,15 +109,19 @@ export default function NavbarProducer({ user }) {
         </button>
       </div>
       <div className='searchNavbarProducer'>
-        <input
-          type='text'
-          className='searchBarNavbarProducer'
-          name='searchQuery'
-          placeholder='Search...'
-        />
-        <button type='button' className='searchButtonNavbarProducer'>
+        <form onSubmit={handleSearch} className='search-form'>      
+          <input
+            type='text'
+            className='searchBarNavbar'
+            name='searchQuery'
+            placeholder='Search...'
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+        <button type='submit' className='searchButtonNavbarProducer'>
           <i className='fa fa-search'></i>
         </button>
+        </form>
       </div>
       <div className='managementAreaNavbarProducer'>
         <button

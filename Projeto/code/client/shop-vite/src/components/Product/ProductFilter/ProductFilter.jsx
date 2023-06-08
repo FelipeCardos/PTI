@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./ProductFilter.css"
 
 export default function ProductFilter({ productsList, updateFilteredProducts, clearFilteredProducts }) {
   const [priceInterval, setPriceInterval] = useState([]);
@@ -195,6 +196,7 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
         {priceInterval.map((interval, index) => (
           <div key={index}>
             <input
+              className="price-checkbox"
               type="checkbox"
               checked={selectedIntervals.includes(interval)}
               onChange={() => handleCheckboxChange(interval)}
@@ -235,7 +237,6 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
           </div>
         ))}
       </div>
-      <button onClick={clearFilteredProducts}>Clear Filters</button>
     </div>
   );
 }

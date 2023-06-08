@@ -49,3 +49,6 @@
   .category-bar-container.disabled {
     pointer-events: none;
 }
+.no-scroll {
+    overflow: hidden;
+  }

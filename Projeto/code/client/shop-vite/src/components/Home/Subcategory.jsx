@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Subcategory.css"
 
 
 export default function Subcategory({ subCategoryList }) {
@@ -16,7 +17,7 @@ export default function Subcategory({ subCategoryList }) {
     <div className={`subcategory-container ${isSubcategoryHovered ? 'hovered' : ''}`} onMouseEnter={() => setIsSubcategoryHovered(true)} onMouseLeave={() => setIsSubcategoryHovered(false)}>
       <ul className="subcategory-ulli">
         {subCategoryList.map((subcategory) => (
-          <li key={subcategory.id}>
+          <li className="subcategory-li" key={subcategory.id}>
             <button className="subcategory" onClick={() =>handleSubcategory(subcategory.id)}>{subcategory.name}</button>
           </li>
         ))}
