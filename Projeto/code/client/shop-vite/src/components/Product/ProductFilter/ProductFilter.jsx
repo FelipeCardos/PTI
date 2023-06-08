@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
-export default function ProductFilter({ productsList, updateFilteredProducts }) {
+export default function ProductFilter({ productsList, updateFilteredProducts, clearFilteredProducts }) {
   const [priceInterval, setPriceInterval] = useState([]);
   const [selectedIntervals, setSelectedIntervals] = useState([]);
   const [producers, setProducers] = useState([]);
-  const [productsPerProducer, setProdutsPerProducer] = useState([]);
   const [selectedProducers, setSelectedProducers] = useState([]);
+  const [selectedRates, setSelectedRates] = useState([]);
+  const [prodRates, setProdRates] = useState([]);
+  const rating = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     getPriceInterval();
@@ -45,14 +46,29 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
     setSelectedIntervals(updatedIntervals);
 
     const noneSelected = updatedIntervals.length === 0;
-    if (noneSelected) {
-      updateFilteredProducts(productsList);
-    } else {
-      const filteredProducts = productsList.filter((product) =>
-        updatedIntervals.some((interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound)
+    let filteredProducts = productsList;
+
+    if (!noneSelected) {
+      filteredProducts = productsList.filter((product) =>
+        updatedIntervals.some(
+          (interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound
+        )
       );
-      updateFilteredProducts(filteredProducts);
     }
+
+    if (selectedProducers.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedProducers.includes(product.producer_id)
+      );
+    }
+
+    if (selectedRates.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedRates.includes(calculateAverageRate(prodRates[product.id]))
+      );
+    }
+
+    updateFilteredProducts(filteredProducts);
   };
 
   function getProducers() {
@@ -73,19 +89,104 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
     }
     setSelectedProducers(updatedProducers);
 
-
     const noneSelected = updatedProducers.length === 0;
+    let filteredProducts = productsList;
 
-    if (noneSelected) {
-      updateFilteredProducts(productsList);
-    } else {
-      const filteredProducts = productsList.filter((product) =>
-        updatedProducers.some((p) => p === product.producer_id)
+    if (!noneSelected) {
+      filteredProducts = productsList.filter((product) =>
+        updatedProducers.includes(product.producer_id)
       );
-      console.log(filteredProducts)
-      updateFilteredProducts(filteredProducts);
     }
+
+    if (selectedIntervals.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedIntervals.some(
+          (interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound
+        )
+      );
+    }
+
+    if (selectedRates.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedRates.includes(calculateAverageRate(prodRates[product.id]))
+      );
+    }
+
+    updateFilteredProducts(filteredProducts);
   };
+
+  function handleRateCheckboxChange(rate) {
+    let updatedRates;
+    if (selectedRates.includes(rate)) {
+      updatedRates = selectedRates.filter((selected) => selected !== rate);
+    } else {
+      updatedRates = [...selectedRates, rate];
+    }
+    setSelectedRates(updatedRates);
+
+    let filteredProducts = [];
+    if (updatedRates.length > 0) {
+      for (let product of productsList) {
+        if (prodRates[product.id] && updatedRates.includes(calculateAverageRate(prodRates[product.id]))) {
+          filteredProducts.push(product);
+        }
+      }
+    } else {
+      filteredProducts = productsList;
+    }
+
+    if (selectedIntervals.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedIntervals.some(
+          (interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound
+        )
+      );
+    }
+
+    if (selectedProducers.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedProducers.includes(product.producer_id)
+      );
+    }
+
+    updateFilteredProducts(filteredProducts);
+  }
+
+  function getRates(productId) {
+    return axios
+      .get(`http://localhost:3000/api/v1/products/rates/${productId}`)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.log("Error fetching rates:", error);
+        return [];
+      });
+  }
+
+  function calculateAverageRate(rates) {
+    if (rates.length === 0) {
+      return 0;
+    }
+
+    const sum = rates.reduce((total, rate) => total + rate.rating, 0);
+    return sum / rates.length;
+  }
+
+  useEffect(() => {
+    const productIds = productsList.map((product) => product.id);
+    const ratesRequests = productIds.map((productId) => getRates(productId));
+    Promise.all(ratesRequests)
+      .then((responses) => {
+        const ratesByProduct = responses.reduce((acc, response, index) => {
+          acc[productIds[index]] = response;
+          return acc;
+        }, {});
+        setProdRates(ratesByProduct);
+      })
+      .catch((error) => {
+        console.log("Error fetching rates:", error);
+      });
+  }, [productsList]);
+
   return (
     <div className="filter-container">
       <h3>Prices</h3>
@@ -103,7 +204,9 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
         ))}
       </div>
       <div className="grid-producers">
+        <hr />
         <h3>Producers</h3>
+        <hr />
         {producers.map((producer) => (
           <div key={producer.id}>
             <input
@@ -115,6 +218,24 @@ export default function ProductFilter({ productsList, updateFilteredProducts }) 
           </div>
         ))}
       </div>
+      <hr />
+      <h3>Rating</h3>
+      <hr />
+      <div className="grid-rating">
+        {rating.map((rate) => (
+          <div key={rate}>
+            <div className="">
+              <input
+                type="checkbox"
+                checked={selectedRates.includes(rate)}
+                onChange={() => handleRateCheckboxChange(rate)}
+              />
+              {rate}
+            </div>
+          </div>
+        ))}
+      </div>
+      <button onClick={clearFilteredProducts}>Clear Filters</button>
     </div>
   );
 }

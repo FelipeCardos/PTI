@@ -5,15 +5,39 @@ import "./SideBar.css";
 import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import Subcategory from "./Subcategory";
+import { useNavigate } from "react-router-dom";
+
 
 const categories = [
-  "Books", "Toys", "Makeup", "Electronics", "Home"
+  { 
+    name:"Home & Kitchen",
+    id:3
+  }, 
+  {
+    name: "Electronics",
+    id: 1
+
+  },
+  {
+    name: "Clothing",
+    id: 2
+  }, 
+  {
+    name:"Mobile Phones",
+    id: 5
+  }, 
+  {
+    name:"Bottoms",
+    id:7
+  },
 ];
 
 export default function CategoryBar() {
   const [moreCategories, setCategories] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredCategories, setHoveredCategories] = useState([]);
+  let navigate = useNavigate();
+
 
   const sidebarRef = useRef(null);
   const dropdownToggleRef = useRef(null);
@@ -29,6 +53,10 @@ export default function CategoryBar() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  function handleCategory(id){
+    navigate(`/products?category=${id}`);    
+  }
 
   function loadCategories() {
     axios.get("http://localhost:3000/api/v1/categories")
@@ -117,8 +145,8 @@ export default function CategoryBar() {
             <MenuIcon />
           </button>
           {categories.map((category) => (
-            <button className="category" key={category}>
-              <div>{category}</div>
+            <button className="category" key={category} onClick={() => handleCategory(category.id)}>
+              <div>{category.name}</div>
             </button>
           ))}
         </div>

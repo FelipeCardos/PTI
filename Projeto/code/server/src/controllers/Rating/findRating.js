@@ -35,11 +35,27 @@ async function FindAllRatingsWithProductId(productId) {
   return ratings;
 }
 
-async function FindAllRatingsWithRating(rating) {
-  const ratings = await Rating.findAll({
-    where: { rating: rating },
-  });
-  return ratings;
+async function FindAllRatingsWithRating(rating,consumerId,producer_id) {
+  let ratings = null;  
+  if(consumerId){
+      ratings = await Rating.findAll({
+        where: 
+        { 
+          rating: rating,
+          consumer_id: consumerId,
+        },
+      });
+    }
+    else{
+      ratings = await Rating.findAll({
+        where: 
+        {
+          rating: rating,
+          producer_id: producer_id,
+        },
+      }); 
+    }
+    return ratings;
 }
 
 module.exports = {

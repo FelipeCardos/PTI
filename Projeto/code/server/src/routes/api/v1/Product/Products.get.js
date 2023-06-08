@@ -22,6 +22,10 @@ const {
   FindAllProductsWithProducerId,
 } = require("../../../../controllers/Product/findProducts");
 
+const{
+  FindAllRatingsWithProductId,
+} = require("../../../../controllers/Rating/findRating")
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -73,6 +77,15 @@ router.get("/producer/:id",(req,res) =>{
     else res.status(404).send("No products with producer id: " + idProducer);
   });
 });
+
+router.get("/rates/:id", (req,res) =>{
+  const idProduct = req.params.id;
+  FindAllRatingsWithProductId(idProduct).then((products) =>{
+    if(products) res.status(200).json(products);
+    else res.status(404).send("Not found");
+  });
+});
+
 
 router.use("/:id/productionUnits", ProductionUnit);
 router.use("/:id/cartLines", CartLine);
