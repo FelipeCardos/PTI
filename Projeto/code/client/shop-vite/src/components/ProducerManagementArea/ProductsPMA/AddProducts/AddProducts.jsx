@@ -1,11 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import categoryData from "../../../../assets/categories.json";
+import * as filestack from "filestack-js";
+import { UserContext } from "../../../../assets/UserContext";
 import "./AddProducts.css";
-import * as filestack from 'filestack-js';
 
 export default function AddProducts(props) {
+  const { myUserVariable } = useContext(UserContext);
   const [formData, setFormData] = useState({
+    producerId: myUserVariable.user_id,
     name: "",
     description: "",
     productImage: "",
@@ -18,13 +21,13 @@ export default function AddProducts(props) {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedSubcategory, setSelectedSubcategory] = useState(0);
   const [attributes, setAttributes] = useState([]);
-  
-  const client = filestack.init('');
+
+  const client = filestack.init("AtdGTk00Sqm7RnGtjj4dEz");
   const options = {
     accept: ["image/*"],
     maxFiles: 1,
     uploadInBackground: false,
-    onOpen: () => console.log('opened!'),
+    onOpen: () => console.log("opened!"),
     onUploadDone: (res) => {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -146,7 +149,7 @@ export default function AddProducts(props) {
     }
   };
 
-  function handleSowFileStack() {
+  function handleShowFileStack() {
     client.picker(options).open();
   }
 
@@ -199,44 +202,27 @@ export default function AddProducts(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("product: " + JSON.stringify(formData));
-    const imageToImgur = new FormData();
-    imageToImgur.append("image", formData.productImage);
-    async function uploadImageToImgur() {
-      const response = await axios.post(
-        "https://api.imgur.com/3/image",
-        imageToImgur,
-        {
-          headers: {
-            Authorization: "Client-ID 8b559544db848af",
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      return response.data.data.link;
-    }
-    uploadImageToImgur().then((link) => {
-      console.log(link);
-    });
-    // props.handleToast("Product added successfully!");
+    props.handleToast("Product added successfully!");
     // props.handleShowAddProducts();
-    // props.setCheckApi(true);
-    // axios
-    //   .post("http://localhost:3000/api/v1/products/", formData, {
-    //     headers: {
-    //       "Content-Type": "application/x-www-form-urlencoded",
-    //     },
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     console.log("Servidor: " + JSON.stringify(res.data));
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    props.setCheckApi(true);
+    const attributesStringfied = JSON.stringify(formData.attributes);
+    let formDataToSend = { ...formData };
+    formDataToSend.attributes = attributesStringfied;
+    axios
+      .post("http://localhost:3000/api/v1/products/", formDataToSend, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("Servidor: " + JSON.stringify(res.data, 2));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  console.log(formData);
   return (
     <div className='containerAddProduct'>
       <div className='containerAddProductTitle'>New Product</div>
@@ -337,8 +323,14 @@ export default function AddProducts(props) {
             name='productImage'
             accept='image/*'
           /> */}
-          <button type='button' onClick={handleSowFileStack}> Upload Image </button>
-          <a href={formData.productImage} target='_blank'> {formData.productImage} </a>
+          <button type='button' onClick={handleShowFileStack}>
+            {" "}
+            Upload Image{" "}
+          </button>
+          <a href={formData.productImage} target='_blank'>
+            {" "}
+            {formData.productImage}{" "}
+          </a>
         </div>
         <div>
           <label htmlFor='price'>Price (€):</label>

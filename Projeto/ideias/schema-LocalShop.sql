@@ -64,7 +64,7 @@ CREATE TABLE Product(
     producer_id INT UNSIGNED NOT NULL,
     price INT NOT NULL CHECK (price > 0),
     production_date DATETIME NOT NULL,
-    PRIMARY KEY (id, producer_id),
+    PRIMARY KEY (id),
     FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
 );
 
@@ -93,6 +93,7 @@ CREATE TABLE Category(
 );
 
 CREATE TABLE ProductCategory(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     product_id INT UNSIGNED NOT NULL,
     category_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,

@@ -8,25 +8,29 @@ const {
 
 router.post("/", async (req, res) => {
   const {
+    producerId,
     name,
     description,
     category,
     attributes,
     productionDate,
-    productImages,
+    productImage,
     price,
   } = req.body;
 
-  // const product = await createProduct(
-  //   name,
-  //   description,
-  //   category,
-  //   attributes,
-  //   productionDate,
-  //   productImages,
-  //   price
-  // );
-  res.status(200).send(req.body);
+  const attributesObj = JSON.parse(attributes);
+
+  const product = await createProduct(
+    producerId,
+    name,
+    description,
+    category,
+    attributesObj,
+    productionDate,
+    productImage,
+    price
+  );
+  res.status(200).send(product);
 });
 
 module.exports = router;

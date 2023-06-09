@@ -1,12 +1,7 @@
 const { Product } = require("../../database/models");
-
-//     name: "",
-//     description: "",
-//     category: "",
-//     attributes: [],
-//     productionDate: "",
-//     productImages: [],
-//     price: "",
+const { ProductCategory } = require("../../database/models");
+const { ProductAttribute } = require("../../database/models");
+const { ProductImage } = require("../../database/models");
 
 //     name: "",
 //     description: "",
@@ -17,33 +12,42 @@ const { Product } = require("../../database/models");
 //     price: "",
 
 async function createProduct(
+  producerId,
   name,
   description,
   category,
   attributes,
   productionDate,
-  productImages,
+  productImageUri,
   price
 ) {
   const product = await Product.create({
+    producer_id: producerId,
     name: name,
     description: description,
-    price: price,
-    productionDate: productionDate,
+    price: price * 100,
+    production_date: productionDate,
+  });
+  const productImage = await ProductImage.create({
+    product_id: product.id,
+    uri: productImageUri,
   });
   for (let i = 0; i < category.length; i++) {
+    console.log(product.id, category[i]);
     const productCategory = await ProductCategory.create({
       product_id: product.id,
       category_id: category[i],
     });
   }
-  for (let i = 0; i < attributes.length; i++) {
+  for (const attributeKey of Object.keys(attributes)) {
+    const attributeContent = attributes[attributeKey];
     const productAttribute = await ProductAttribute.create({
       product_id: product.id,
-      attribute_id: attributes[i],
+      attribute_id: attributeKey,
+      content: attributeContent,
     });
   }
-  // utilizar api do imgur para fazer upload das imagens e guardar os links
+  return product;
 }
 
 module.exports = { createProduct };

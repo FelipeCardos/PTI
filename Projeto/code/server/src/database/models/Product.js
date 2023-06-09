@@ -22,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     producer_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
-      primaryKey: true,
       references: {
         model: 'User',
         key: 'id'
@@ -47,7 +46,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "producer_id" },
         ]
       },
       {
