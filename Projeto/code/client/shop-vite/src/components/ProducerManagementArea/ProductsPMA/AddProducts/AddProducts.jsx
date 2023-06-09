@@ -203,7 +203,7 @@ export default function AddProducts(props) {
   function handleSubmit(event) {
     event.preventDefault();
     props.handleToast("Product added successfully!");
-    // props.handleShowAddProducts();
+    props.handleShowAddProducts();
     props.setCheckApi(true);
     const attributesStringfied = JSON.stringify(formData.attributes);
     let formDataToSend = { ...formData };
