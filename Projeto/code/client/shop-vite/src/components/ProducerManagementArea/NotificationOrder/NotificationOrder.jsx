@@ -34,10 +34,14 @@ export default function NotificationOrder({
     }
 
     async function getProductionUnitData(id) {
-      const response = await axios.get(
+      let response = await axios.get(
         `http://localhost:3000/api/v1/productionUnits/${id}`
       );
-      return response.data;
+      const productionUnitAddress = await axios.get(
+        `http://localhost:3000/api/v1/users/${response.data.productionUnit.producer_id}/productionUnits/${id}/address`
+      );
+      response.data.productionUnit.address = productionUnitAddress.data.address;
+      return response.data.productionUnit;
     }
 
     async function getVehiclesFromProductionUnit(
@@ -79,8 +83,6 @@ export default function NotificationOrder({
     fetchData();
   }, []);
 
-  console.log(product);
-
   return (
     <div className='notificationOrder'>
       <div className='notificationOrderTitle'>Order ID: {order.cart_id}</div>
@@ -92,6 +94,11 @@ export default function NotificationOrder({
         <img src={product.image} alt='' />
       </div>
       <div className='notificationOrderVehicleSelection'>
+        <div className='notificationOrderProductionUnitSelected'>
+          Production Unit: {productionUnit?.address?.country},{" "}
+          {productionUnit?.address?.state}, {productionUnit?.address?.street},{" "}
+          {productionUnit?.address?.postal_code}
+        </div>
         <div className='notificationOrderVehicleSelectionTitle'>
           Vehicle selection
         </div>
@@ -106,9 +113,7 @@ export default function NotificationOrder({
           })}
         </select>
       </div>
-      <div className="notificationOrderProductInfo">
-        {product.description}
-      </div>
+      <div className='notificationOrderProductInfo'>{product.description}</div>
       <div
         className='notificationOrderButton'
         onClick={handleShowNotificationOrder}

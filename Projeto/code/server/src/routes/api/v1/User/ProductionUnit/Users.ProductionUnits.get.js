@@ -3,7 +3,10 @@ const express = require("express");
 const {
   FindAllProductionUnitsWithUserId,
 } = require("../../../../../controllers/ProductionUnit/findProductionUnit");
+
 const Vehicle = require("./Vehicle/Users.ProductionUnits.Vehicles.get");
+const Address = require("./Address/Users.ProductionUnits.Address.get");
+
 const {
   checkAuthenticated,
   checkUsersIsAdminOrProducer,
@@ -42,5 +45,6 @@ router.get(
 );
 
 router.use("/:productionUnitsId/vehicles", Vehicle);
+router.use("/:productionUnitsId/address", Address);
 
 module.exports = router;
