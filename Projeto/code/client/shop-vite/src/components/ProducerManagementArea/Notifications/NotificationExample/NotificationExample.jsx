@@ -10,9 +10,10 @@ export default function NotificationExample({ notification }) {
     );
     setNoti({ ...noti, seen: true });
   }
+
   return (
     <div className='notificationExample' onClick={handleNotificationClick}>
-      {notification.description}
+      <div dangerouslySetInnerHTML={{ __html: notification.description }}></div>
       {noti.seen ? null : (
         <div className='notificationSeen'>
           <i className='fa fa-exclamation'></i>

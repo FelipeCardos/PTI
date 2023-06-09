@@ -29,6 +29,9 @@ router.use("/productionUnits", Productionunit);
 const User = require("./User/Users.root");
 router.use("/users", User);
 
+const Vehicle = require("./Vehicle/Vehicles.root");
+router.use("/vehicles", Vehicle);
+
 const Payment = require("./Payment/Payment.root");
 router.use("/payment", Payment);
 

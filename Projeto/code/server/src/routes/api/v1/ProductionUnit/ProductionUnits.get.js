@@ -14,7 +14,9 @@ const {
 const {
   FindAddressById,
 } = require("../../../../controllers/Address/findAddress");
-const { FindAllProductProductionUnit } = require("../../../../controllers/ProductProductionUnit/findProductProductionUnit");
+const {
+  FindAllProductProductionUnit,
+} = require("../../../../controllers/ProductProductionUnit/findProductProductionUnit");
 
 const router = express.Router();
 
@@ -36,17 +38,6 @@ router.get("/", checkAuthenticated, checkUsersIsAdmin, async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   FindProductionUnitWithId(id).then((productionUnit) => {
-    if (productionUnit === null) {
-      res.status(404).send("Not Found");
-    } else {
-      res.status(200).json({ productionUnit: productionUnit });
-    }
-  });
-});
-
-router.get("/user/:id", async (req, res) => {
-  const id = req.params.id;
-  FindAllProductionUnitsWithUserId(id).then((productionUnit) => {
     if (productionUnit === null) {
       res.status(404).send("Not Found");
     } else {
