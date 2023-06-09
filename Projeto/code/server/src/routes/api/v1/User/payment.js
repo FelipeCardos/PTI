@@ -1,28 +1,16 @@
 const express = require("express");
 const passport = require("passport");
-const {
-  checkAuthenticated,
-  checkUsersIsProducer,
-  checkUsersIsConsumer,
-  checkIfUserIsOwnerOfTheResource,
-} = require("../../../../middleware/UserAuth");
-const { GetCartCost } = require("../../../../controllers/Cart/getCartCost");
+
+
+const {getCoordinatesFromUserAndProduct, calculatedistance} = require('../../../../controllers/Maps/map');
 
 const router = express.Router();
 // passport.authenticate("jwt", { session: false })
 
-router.get("/", (req, res) => {
-  req.user;
-  // GetCartCost(1).then((cartCost) => {
-  //     console.log(cartCost);
-  //     res.status(200).json({cartCost: cartCost});
-  // });
-  // let user = req.user;
-  // console.log(
-  //   "-------------------------------------------------------------------"
-  // );
-  // console.log(user);
-  res.send("Hello World");
+router.get("/", async (req, res) => {
+  const x  =  await getCoordinatesFromUserAndProduct(1, 1);
+    const y = await calculatedistance(x[0], x[1], x[2], x[3]);
+    res.json(y);
 });
 
 module.exports = router;

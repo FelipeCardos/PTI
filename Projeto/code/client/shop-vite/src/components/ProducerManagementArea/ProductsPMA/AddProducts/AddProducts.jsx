@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import categoryData from "../../../../assets/categories.json";
 import "./AddProducts.css";
+import * as filestack from 'filestack-js';
 
 export default function AddProducts(props) {
   const [formData, setFormData] = useState({
@@ -17,6 +18,20 @@ export default function AddProducts(props) {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedSubcategory, setSelectedSubcategory] = useState(0);
   const [attributes, setAttributes] = useState([]);
+  
+  const client = filestack.init('');
+  const options = {
+    accept: ["image/*"],
+    maxFiles: 1,
+    uploadInBackground: false,
+    onOpen: () => console.log('opened!'),
+    onUploadDone: (res) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        productImage: res.filesUploaded[0].url,
+      }));
+    },
+  };
 
   useEffect(() => {
     async function fetchCategories() {
@@ -130,6 +145,10 @@ export default function AddProducts(props) {
       });
     }
   };
+
+  function handleSowFileStack() {
+    client.picker(options).open();
+  }
 
   function handleAttributeChange(event) {
     const { id, value } = event.target;
@@ -312,12 +331,14 @@ export default function AddProducts(props) {
           />
         </div>
         <div>
-          <input
+          {/* <input
             type='file'
             onChange={handleChange}
             name='productImage'
             accept='image/*'
-          />
+          /> */}
+          <button type='button' onClick={handleSowFileStack}> Upload Image </button>
+          <a href={formData.productImage} target='_blank'> {formData.productImage} </a>
         </div>
         <div>
           <label htmlFor='price'>Price (€):</label>
