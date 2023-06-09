@@ -32,11 +32,17 @@ const router = express.Router({ mergeParams: true });
 router.put("/", async (req, res) => {
   const cartId = req.params.id;
   const productId = req.body.productId;
-  const amount = req.body.amount;
-  const cartline = await UpdateCartLineAmountWithCartIdAndProductId(
+  const status = req.body.status || null;
+  const vehicleId = req.body.vehicleId || null;
+  const amount = req.body.amount || null;
+  const deliveryDate = req.body.deliveryDate || null;
+  const cartline = await UpdateCartLine(
     cartId,
     productId,
-    amount
+    status,
+    vehicleId,
+    amount,
+    deliveryDate
   );
   return res.send(cartline);
 });

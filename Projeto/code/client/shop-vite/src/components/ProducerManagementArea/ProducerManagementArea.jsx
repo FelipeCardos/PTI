@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import NotificationOrder from "./NotificationOrder/NotificationOrder";
 import Notifications from "./Notifications/Notifications";
 import "./ProducerManagementArea.css";
@@ -27,6 +28,13 @@ export default function ProducerManagementArea() {
 
   window.handleClickInNotificationOrder = handleClickInNotificationOrder;
 
+  function handleToast(message) {
+    toast(message, {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  }
+
   return (
     <div className='containerProducerManagementArea'>
       <div className='containerNotificationsProducerManagementArea'>
@@ -46,8 +54,10 @@ export default function ProducerManagementArea() {
         <NotificationOrder
           order={order}
           handleShowNotificationOrder={handleShowNotificationOrder}
+          handleToast={handleToast}
         />
       )}
+      <ToastContainer />
     </div>
   );
 }

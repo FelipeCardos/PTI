@@ -6,11 +6,13 @@ import "./NotificationOrder.css";
 export default function NotificationOrder({
   order,
   handleShowNotificationOrder,
+  handleToast,
 }) {
   const [product, setProduct] = useState({});
   const [cartline, setCartline] = useState({});
   const [productionUnit, setProductionUnit] = useState({});
   const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState({});
   useEffect(() => {
     async function getProductData(id) {
       let product = await axios.get(
@@ -83,6 +85,29 @@ export default function NotificationOrder({
     fetchData();
   }, []);
 
+  function handleVehicleSelection(event) {
+    setSelectedVehicle(event.target.value);
+  }
+
+  function handleConfirmationOfVehicleAssignment() {
+    axios.put(
+      `http://localhost:3000/api/v1/carts/${order.cart_id}/cartLines`,
+
+      {
+        productId: product.id,
+        vehicleId: selectedVehicle,
+        status: "TRANSPORT_IMMINENT",
+      },
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+    handleShowNotificationOrder();
+    handleToast("Vehicle assigned successfully");
+  }
+
   return (
     <div className='notificationOrder'>
       <div className='notificationOrderTitle'>Order ID: {order.cart_id}</div>
@@ -102,7 +127,7 @@ export default function NotificationOrder({
         <div className='notificationOrderVehicleSelectionTitle'>
           Vehicle selection
         </div>
-        <select name='vehicle' id=''>
+        <select name='vehicle' id='' onChange={handleVehicleSelection}>
           <option value=''>Select Vehicle</option>
           {vehicles.map((vehicle) => {
             return (
@@ -116,7 +141,7 @@ export default function NotificationOrder({
       <div className='notificationOrderProductInfo'>{product.description}</div>
       <div
         className='notificationOrderButton'
-        onClick={handleShowNotificationOrder}
+        onClick={handleConfirmationOfVehicleAssignment}
       >
         Confirm
       </div>

@@ -397,7 +397,7 @@ INSERT INTO
 VALUES
   (1, 'https://example.com/images/smart_tv.jpg'),
   (2, 'https://i.imgur.com/hvmPEvO.jpg'),
-  (3, 'https://example.com/images/smartphone.jpg'),
+  (3, 'https://i.imgur.com/yUuJLnA.jpg'),
   (4, 'https://i.imgur.com/4jFawpJ.jpg'),
   (5, 'https://example.com/images/jeans.jpg'),
   (6, 'https://example.com/images/refrigerator.jpg'),
@@ -1047,7 +1047,11 @@ VALUES
   (2, 'Production request approved.', FALSE),
   (4, 'Production order delayed.', FALSE),
   (4, 'Production order canceled.', FALSE),
-  (6, 'New product design submitted.', FALSE),
+  (
+    6,
+    'You have a new order, <a onclick="handleClickInNotificationOrder(2,3, 3)">click here to select the vehicle</a>',
+    FALSE
+  ),
   -- Consumer notifications
   (1, 'Order confirmed and processing.', FALSE),
   (1, 'Order out for delivery.', FALSE),
