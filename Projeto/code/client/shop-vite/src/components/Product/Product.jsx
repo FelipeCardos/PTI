@@ -10,31 +10,90 @@ import ProductSimilar from "./ProductSimilar/ProductSimilar";
 export default function Product() {
   let { product_id } = useParams();
   const [product, setProduct] = useState({});
-  const [productAttributes, setProductAttributes] = useState({});
+  const [productAttributes, setProductAttributes] = useState([]);
+  const [productCategories, setProductCategories] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/v1/products/" + product_id)
-      .then((res) => {
-        console.log(res.data);
-        setProduct(res.data);
-        setProductAttributes((prevProductAttributes) => {
-          return {
-            ...prevProductAttributes,
-            ["Barcode"]: res.data.barcode_id,
-            ["Production Date"]: res.data.production_date,
-          };
-        });
+    async function getProducts() {
+      const products = await axios.get(
+        "http://localhost:3000/api/v1/products/" + product_id
+      );
+      return products.data;
+      // setProduct(res.data);
+      // setProductAttributes((prevProductAttributes) => {
+      //   return {
+      //     ...prevProductAttributes,
+      //     ["Barcode"]: res.data.barcode_id,
+      //     ["Production Date"]: res.data.production_date,
+      //   };
+      // });
+    }
+
+    async function getProducer(producer_id) {
+      const producer = await axios.get(
+        "http://localhost:3000/api/v1/users/" + producer_id
+      );
+      return producer.data;
+    }
+
+    async function getProductAttributes(product_id) {
+      const productAttributes = await axios.get(
+        "http://localhost:3000/api/v1/products/" +
+          product_id +
+          "/productAttributes"
+      );
+      return productAttributes.data;
+    }
+
+    async function getProductCategories(product_id) {
+      const productCategories = await axios.get(
+        "http://localhost:3000/api/v1/products/" +
+          product_id +
+          "/productCategories"
+      );
+      return productCategories.data;
+    }
+
+    async function fetchData() {
+      const products = await getProducts();
+      const producer = await getProducer(products.producer_id);
+      const productAttributes = await getProductAttributes(product_id);
+      const productCategories = await getProductCategories(product_id);
+
+      setProduct((prevProducts) => {
+        return {
+          ...prevProducts,
+          ...products,
+          ["producer"]: producer,
+        };
       });
+      setProductAttributes(productAttributes);
+      setProductCategories(productCategories);
+    }
+
+    fetchData();
   }, []);
 
   function handleAddtoCart() {
     console.log("add to cart");
   }
+
+  console.log(product);
   return (
     <div className='containerProduct'>
       <div className='containerProductBreadcrumb'>
-        <div>Categoria 1 / categoria 1.1 / categoria 1.1.1</div>
+        <div>
+          {productCategories.map((category) => {
+            return (
+              <span>
+                <a href={"/products?category=" + category.id}>
+                  {category.name}
+                </a>
+                <span> / </span>
+              </span>
+            );
+          })}
+        </div>
       </div>
       <div className='containerProductTitle'>
         <div>
@@ -80,7 +139,14 @@ export default function Product() {
             )}
           </div>
           <div className='containerProductPriceInfoProducer'>
-            Sold by: Producer's name
+            {product.producer && (
+              <span>
+                Sold by:{" "}
+                <a href={"/producer/" + product.producer.id}>
+                  {product.producer.name}
+                </a>
+              </span>
+            )}
           </div>
         </div>
         <div className='containerProductPriceAddToCartButton'>
@@ -94,7 +160,7 @@ export default function Product() {
       <div className='containerProductSimilarProducts'>
         <div>
           {/* Falta renderizar os produtos similares*/}
-          <ProductSimilar image={"../" + rubiks} />
+          {/* <ProductSimilar image={"../" + rubiks} /> */}
         </div>
       </div>
       <div className='containerProductProductAttributes'>
@@ -109,7 +175,7 @@ export default function Product() {
             {/* Falta renderizar os atributos na tabela*/}
             <thead></thead>
             <tbody>
-              {Object.entries(productAttributes).map((attribute) => (
+              {productAttributes.map((attribute) => (
                 <AttributeRow attribute={attribute} />
               ))}
             </tbody>

@@ -1,20 +1,14 @@
 import { React, useEffect, useState } from "react";
 import "./AttributeRow.css";
 
-export default function AttributeRow(props) {
-  const [attribute, setAttribute] = useState();
-  console.log(props.attribute);
-
-  useEffect(() => {
-    setAttribute(props.attribute);
-  }, [props.attribute]);
+export default function AttributeRow({ attribute }) {
   return (
     <tr className='containerProductProductAttributesInfoRow'>
       <td className='containerProductProductAttributesInfoRowTitle'>
-        {props.attribute ? props.attribute[0] : null}
+        {attribute.title}
       </td>
       <td className='containerProductProductAttributesInfoRowData'>
-        {props.attribute ? props.attribute[1] : null}
+        {attribute.content}
       </td>
     </tr>
   );
