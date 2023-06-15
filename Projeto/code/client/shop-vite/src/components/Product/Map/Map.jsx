@@ -16,7 +16,7 @@ export default function MapComponent() {
   return (
     <div
       id='map-container'
-      style={{ height: "400px", width: "800px", overflow: "hidden" }}
+      style={{ height: "100%", width: "70%", overflow: "hidden" }}
     ></div>
   );
 }

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import rubiks from "../Carrossel/images/rubiks.jpg";
 import LoadingSpinner from "../Loadings/LoadingSpinner";
 import AttributeRow from "./AttributeRow/AttributeRow";
-import Map from "./Map/Map";
+import MapComponent from "./Map/Map";
 import "./Product.css";
 import ProductSimilar from "./ProductSimilar/ProductSimilar";
 
@@ -13,6 +13,8 @@ export default function Product() {
   const [product, setProduct] = useState({});
   const [productAttributes, setProductAttributes] = useState([]);
   const [productCategories, setProductCategories] = useState([]);
+  const [productionUnits, setProductionUnits] = useState([]);
+  const [selectProductionUnit, setSelectProductionUnit] = useState({});
 
   useEffect(() => {
     async function getProducts() {
@@ -61,6 +63,26 @@ export default function Product() {
       return productRating.data;
     }
 
+    async function getProductProductionUnits(product_id) {
+      const productProductionUnits = await axios.get(
+        "http://localhost:3000/api/v1/products/" +
+          product_id +
+          "/productionUnits"
+      );
+      return productProductionUnits.data;
+    }
+
+    async function getProductionUnitData(production_unit_id) {
+      let response = await axios.get(
+        `http://localhost:3000/api/v1/productionUnits/${production_unit_id}`
+      );
+      const productionUnitAddress = await axios.get(
+        `http://localhost:3000/api/v1/users/${response.data.productionUnit.producer_id}/productionUnits/${production_unit_id}/address`
+      );
+      response.data.productionUnit.address = productionUnitAddress.data.address;
+      return response.data.productionUnit;
+    }
+
     async function fetchData() {
       const products = await getProducts();
       const productImage = await getProductImage(product_id);
@@ -68,7 +90,15 @@ export default function Product() {
       const producer = await getProducer(products.producer_id);
       const productAttributes = await getProductAttributes(product_id);
       const productCategories = await getProductCategories(product_id);
-
+      const productProductionUnits = await getProductProductionUnits(
+        product_id
+      );
+      for (let productionUnit of productProductionUnits) {
+        productionUnit.production_unit = await getProductionUnitData(
+          productionUnit.production_unit_id
+        );
+        console.log(productionUnit);
+      }
       setProduct((prevProducts) => {
         return {
           ...prevProducts,
@@ -80,10 +110,20 @@ export default function Product() {
       });
       setProductAttributes(productAttributes);
       setProductCategories(productCategories);
+      setProductionUnits(productProductionUnits);
     }
 
     fetchData();
   }, []);
+
+  function handleProductionUnitSelection(event) {
+    setSelectProductionUnit(
+      productionUnits.find(
+        (productionUnit) =>
+          productionUnit.production_unit_id == event.target.value
+      )
+    );
+  }
 
   function handleAddtoCart() {
     console.log("add to cart");
@@ -95,7 +135,6 @@ export default function Product() {
       sum += rating.rating;
     });
     let avgRating = Math.floor(sum / ratingList.length + 0.5);
-    console.log(avgRating);
     let stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= avgRating) {
@@ -141,11 +180,6 @@ export default function Product() {
                 <span className='fa fa-star checked'></span>
               </span>
             )}
-            {/* <span className='fa fa-star checked'></span>
-              <span className='fa fa-star checked'></span>
-              <span className='fa fa-star checked'></span>
-              <span className='fa fa-star'></span>
-              <span className='fa fa-star'></span> */}
             <span>
               {" "}
               {product.rating ? product.rating.length : "99999999"} reviews
@@ -208,8 +242,41 @@ export default function Product() {
         <div>
           {/* Falta renderizar os produtos similares*/}
           {/* <ProductSimilar image={"../" + rubiks} /> */}
-          <Map />
         </div>
+      </div>
+      <div className='containerProductsMap'>
+        <div className='containerProductsMapProductionUnits'>
+          <div className='containerProductsMapProductionUnitsTitle'>
+            Choose the production unit you which the product to come from:
+          </div>
+          <select
+            name='productionUnit'
+            id=''
+            onChange={handleProductionUnitSelection}
+          >
+            <option value=''>Select a production unit</option>
+            {productionUnits.map((productionUnit) => {
+              return (
+                <option value={productionUnit.production_unit_id}>
+                  {productionUnit.production_unit.address.country},{" "}
+                  {productionUnit.production_unit.address.state},{" "}
+                  {productionUnit.production_unit.address.street},{" "}
+                  {productionUnit.production_unit.address.postal_code}
+                </option>
+              );
+            })}
+          </select>
+          <div className='containerProductsMapProductionUnitsAmount'>
+            <span>Amount:</span>
+            <input
+              type='number'
+              name='amount'
+              id=''
+              max={selectProductionUnit.amount}
+            />
+          </div>
+        </div>
+        <MapComponent />
       </div>
       <div className='containerProductProductAttributes'>
         <div className='containerProductProductAttributesTitle'>

@@ -16,7 +16,6 @@ const {
 const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {
-  let productionUnits = [];
   const productId = req.params.id;
   const productProductionUnitPairs =
     await FindAllProductionUnitsIdsWithProductId(productId);

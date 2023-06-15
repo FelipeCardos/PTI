@@ -13,7 +13,7 @@ const {
 } = require("../../../../../../middleware/UserAuth");
 
 router.get("/", async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.productionUnitsId;
   FindProductionUnitWithId(id).then((productionUnit) => {
     if (productionUnit === null) {
       res.status(404).send("Not Found");
