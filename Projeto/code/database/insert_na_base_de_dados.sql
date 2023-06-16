@@ -999,24 +999,31 @@ INSERT INTO
     delivery_date
   )
 VALUES
-  (1, 1, 'OPEN', NULL, 2, NULL),
-  (1, 2, 'OPEN', NULL, 1, NULL),
-  (3, 1, 'OPEN', NULL, 3, NULL),
-  (5, 3, 'OPEN', NULL, 2, NULL),
-  (7, 2, 'OPEN', NULL, 1, NULL);
+  (1, 1, 'OPEN', 3, NULL, 2, NULL),
+  (1, 2, 'OPEN', 2, NULL, 1, NULL),
+  (3, 1, 'OPEN', 3, NULL, 3, NULL),
+  (5, 3, 'OPEN', 3, NULL, 2, NULL),
+  (7, 2, 'OPEN', 1, NULL, 1, NULL);
 
 -- For carts with 'PROCESSING' status and cart lines
 INSERT INTO
-  CartLine (cart_id, product_id, status, vehicle_id, amount)
+  CartLine (
+    cart_id,
+    product_id,
+    status,
+    production_unit_id,
+    vehicle_id,
+    amount
+  )
 VALUES
-  (2, 1, 'PROCESSING', NULL, 1),
-  (2, 2, 'PROCESSING', NULL, 2),
-  (2, 3, 'AWAITING_TRANSPORT', NULL, 2),
-  (2, 4, 'TRANSPORT_IMMINENT', 1, 1),
-  (4, 5, 'PROCESSING', NULL, 2),
-  (4, 6, 'IN_TRANSIT', 7, 3),
-  (6, 7, 'LAST_KM', 4, 1),
-  (6, 8, 'PROCESSING', NULL, 2);
+  (2, 1, 'PROCESSING', 3, NULL, 1),
+  (2, 2, 'PROCESSING', 1, NULL, 2),
+  (2, 3, 'AWAITING_TRANSPORT', 3, NULL, 2),
+  (2, 4, 'TRANSPORT_IMMINENT', 1, 1, 1),
+  (4, 5, 'PROCESSING', 5, NULL, 2),
+  (4, 6, 'IN_TRANSIT', 6, 7, 3),
+  (6, 7, 'LAST_KM', 5, 4, 1),
+  (6, 8, 'PROCESSING', 8, NULL, 2);
 
 -- For carts with 'COMPLETE' status and cart lines
 INSERT INTO
@@ -1024,16 +1031,17 @@ INSERT INTO
     cart_id,
     product_id,
     status,
+    production_unit_id,
     vehicle_id,
     amount,
     delivery_date
   )
 VALUES
-  (8, 1, 'COMPLETE', 3, 2, '2023-05-23 15:00:00'),
-  (8, 2, 'COMPLETE', 3, 1, '2023-05-23 15:00:00'),
-  (8, 3, 'FAILURE', 2, 2, NULL),
-  (9, 2, 'COMPLETE', 2, 1, '2023-05-23 16:00:00'),
-  (9, 3, 'COMPLETE', 2, 2, '2023-05-23 16:30:00');
+  (8, 1, 'COMPLETE', 3, 3, 2, '2023-05-23 15:00:00'),
+  (8, 2, 'COMPLETE', 3, 3, 1, '2023-05-23 15:00:00'),
+  (8, 3, 'FAILURE', 2, 2, 2, NULL),
+  (9, 2, 'COMPLETE', 2, 2, 1, '2023-05-23 16:00:00'),
+  (9, 3, 'COMPLETE', 2, 2, 2, '2023-05-23 16:30:00');
 
 INSERT INTO
   Notification (user_id, description, seen)

@@ -8,3 +8,8 @@
 .orderExample:hover {
   border: 1px solid var(--bs-blue);
 }
+
+.orderExampleCartId {
+  font-size: 1.2em;
+  font-weight: bold;
+}

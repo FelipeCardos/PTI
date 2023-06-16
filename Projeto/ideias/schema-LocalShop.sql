@@ -192,6 +192,7 @@ CREATE TABLE CartLine(
         'FAILURE',
         'CANCELLED'
     ) NOT NULL,
+    production_unit_id INT UNSIGNED,
     vehicle_id INT UNSIGNED,
     amount INT NOT NULL CHECK (amount > 0),
     delivery_date DATETIME,

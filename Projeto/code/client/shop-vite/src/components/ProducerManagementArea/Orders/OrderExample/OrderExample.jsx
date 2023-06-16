@@ -7,8 +7,9 @@ export default function OrderExample({ order }) {
   function handleNotificationClick() {}
 
   return (
-    <div className='notificationExample' onClick={handleNotificationClick}>
-      <div>{order.cart_id}</div>
+    <div className='orderExample' onClick={handleNotificationClick}>
+      <div className='orderExampleCartId'>Order ID: {order.cart_id}</div>
+      <div></div>
     </div>
   );
 }
