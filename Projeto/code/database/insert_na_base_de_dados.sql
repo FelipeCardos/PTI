@@ -1049,7 +1049,7 @@ VALUES
   (4, 'Production order canceled.', FALSE),
   (
     6,
-    'You have a new order, <a onclick="handleClickInNotificationOrder(2,3, 3)">click here to select the vehicle</a>',
+    'You have a new order to deliver.',
     FALSE
   ),
   -- Consumer notifications

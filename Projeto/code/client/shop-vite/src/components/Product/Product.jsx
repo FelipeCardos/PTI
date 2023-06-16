@@ -283,7 +283,7 @@ export default function Product() {
           Product Information
         </div>
         <div className='containerProductProductAttributesDescription'>
-          {product.description ? product.description : <LoadingSpinner />}
+          {product.description ? product.description : "Loading..."}
         </div>
         <div className='containerProductProductAttributesInfo'>
           <table className='containerProductProductAttributesInfoTable'>

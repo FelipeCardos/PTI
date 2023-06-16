@@ -1,8 +1,9 @@
+import axios from "axios";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 
-export default function MapComponent() {
+export default function MapComponent({ user, productionUnits }) {
   useEffect(() => {
     const map = L.map("map-container").setView([51.505, -0.09], 13);
 

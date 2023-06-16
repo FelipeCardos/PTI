@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationOrder from "./NotificationOrder/NotificationOrder";
-import Notifications from "./Notifications/Notifications";
+import Orders from "./Orders/Orders";
 import "./ProducerManagementArea.css";
 import ProductionUnits from "./ProductionUnits/ProductionUnits";
 import Products from "./Products/Products";
@@ -37,8 +37,8 @@ export default function ProducerManagementArea() {
 
   return (
     <div className='containerProducerManagementArea'>
-      <div className='containerNotificationsProducerManagementArea'>
-        <Notifications />
+      <div className='containerOrdersProducerManagementArea'>
+        <Orders />
       </div>
       <div className='containerProductsProducerManagementArea'>
         <Products />
