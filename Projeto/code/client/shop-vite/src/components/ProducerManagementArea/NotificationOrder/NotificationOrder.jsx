@@ -5,7 +5,7 @@ import "./NotificationOrder.css";
 
 export default function NotificationOrder({
   order,
-  handleShowNotificationOrder,
+  handleShowOrder,
   handleToast,
 }) {
   const [product, setProduct] = useState({});
@@ -89,8 +89,8 @@ export default function NotificationOrder({
     setSelectedVehicle(event.target.value);
   }
 
-  function handleConfirmationOfVehicleAssignment() {
-    axios.put(
+  async function handleConfirmationOfVehicleAssignment() {
+    const updateVehicle = await axios.put(
       `http://localhost:3000/api/v1/carts/${order.cart_id}/cartLines`,
 
       {
@@ -104,8 +104,9 @@ export default function NotificationOrder({
         },
       }
     );
-    handleShowNotificationOrder();
     handleToast("Vehicle assigned successfully");
+    handleShowOrder();
+    console.log(updateVehicle.data);
   }
 
   return (
@@ -144,6 +145,9 @@ export default function NotificationOrder({
         onClick={handleConfirmationOfVehicleAssignment}
       >
         Confirm
+      </div>
+      <div className='notificationOrderXButton' onClick={handleShowOrder}>
+        <i className='fa fa-times'></i>
       </div>
     </div>
   );

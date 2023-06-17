@@ -57,3 +57,10 @@
   border: 1px solid var(--bs-red);
   color: var(--bs-red);
 }
+
+.orderExampleStatusButtons > button:disabled {
+  background-color: grey;
+  border: 1px solid grey;
+  color: white;
+  cursor: default;
+}

@@ -4,9 +4,10 @@ import { UserContext } from "../../../assets/UserContext";
 import OrderExample from "./OrderExample/OrderExample";
 import "./Orders.css";
 
-export default function Orders() {
+export default function Orders({ handleShowOrder, handleToast, showOrder }) {
   const { myUserVariable } = useContext(UserContext);
   const [orders, setOrders] = useState([]);
+  const [checkApi, setCheckApi] = useState(true);
 
   useEffect(() => {
     async function getOrders() {
@@ -40,8 +41,12 @@ export default function Orders() {
       setOrders(orders);
     }
 
-    fetchData();
-  }, []);
+    if (checkApi || !showOrder) {
+      fetchData();
+      setCheckApi(false);
+    }
+    console.log("orders", orders[0]);
+  }, [checkApi, showOrder]);
 
   return (
     <>
@@ -49,7 +54,14 @@ export default function Orders() {
       <hr className='ordersTitleHR' />
       <div className='containerOrdersExamples'>
         {orders.map((order) => (
-          <OrderExample key={order.cart_id} order={order} />
+          <OrderExample
+            key={order.cart_id}
+            order={order}
+            handleShowOrder={handleShowOrder}
+            showOrder={showOrder}
+            handleToast={handleToast}
+            setCheckApi={setCheckApi}
+          />
         ))}
       </div>
     </>

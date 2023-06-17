@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NotificationOrder from "./NotificationOrder/NotificationOrder";
 import Orders from "./Orders/Orders";
 import "./ProducerManagementArea.css";
@@ -9,24 +10,14 @@ import Vehicles from "./Vehicles/Vehicles";
 
 export default function ProducerManagementArea() {
   const [modal, setModal] = useState(false);
-  const [showNotificationOrder, setShowNotificationOrder] = useState(false);
+  const [showOrder, setShowOrder] = useState(false);
   const [order, setOrder] = useState({});
 
-  function handleShowNotificationOrder() {
-    setShowNotificationOrder(!showNotificationOrder);
+  function handleShowOrder(order) {
+    setOrder(order);
+    setShowOrder(!showOrder);
     setModal(!modal);
   }
-
-  function handleClickInNotificationOrder(
-    cart_id,
-    product_id,
-    production_unit_id
-  ) {
-    handleShowNotificationOrder();
-    setOrder({ cart_id, product_id, production_unit_id });
-  }
-
-  window.handleClickInNotificationOrder = handleClickInNotificationOrder;
 
   function handleToast(message) {
     toast(message, {
@@ -38,7 +29,11 @@ export default function ProducerManagementArea() {
   return (
     <div className='containerProducerManagementArea'>
       <div className='containerOrdersProducerManagementArea'>
-        <Orders />
+        <Orders
+          handleShowOrder={handleShowOrder}
+          showOrder={showOrder}
+          handleToast={handleToast}
+        />
       </div>
       <div className='containerProductsProducerManagementArea'>
         <Products />
@@ -50,10 +45,10 @@ export default function ProducerManagementArea() {
         <Vehicles />
       </div>
       {modal && <div className='modalProducerManagementArea'></div>}
-      {showNotificationOrder && (
+      {showOrder && (
         <NotificationOrder
           order={order}
-          handleShowNotificationOrder={handleShowNotificationOrder}
+          handleShowOrder={handleShowOrder}
           handleToast={handleToast}
         />
       )}
