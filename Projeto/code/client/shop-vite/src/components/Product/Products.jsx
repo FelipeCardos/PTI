@@ -4,6 +4,7 @@ import ProductSimilar from "./ProductSimilar/ProductSimilar";
 import "./Products.css";
 import axios from "axios";
 import ProductFilter from "./ProductFilter/ProductFilter";
+import Pagination from '@mui/material/Pagination';
 
 export default function Products() {
   let location = useLocation();
@@ -93,29 +94,19 @@ export default function Products() {
         {displayedProducts.map((product, index) => (
           <div key={`${product.id}-${index}`}>
             <ProductSimilar product={product} />
-        </div>
+          </div>
         ))}
       </div>
       <div className="pagination-container">
-        <button className="pagination-control" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          className="pagination-control"
-          disabled={currentPage === totalPages}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          Next
-        </button>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={(event, page) => handlePageChange(page)}
+          color="primary"
+          shape="rounded"
+          size="large"
+          className="pagination"
+        />
       </div>
     </div>
   );
