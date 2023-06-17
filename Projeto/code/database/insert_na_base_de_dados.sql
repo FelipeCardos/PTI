@@ -994,6 +994,7 @@ INSERT INTO
     cart_id,
     product_id,
     status,
+    production_unit_id,
     vehicle_id,
     amount,
     delivery_date

@@ -15,7 +15,7 @@
 }
 
 .containerOrdersExamples {
-  margin-top: 1vh;
+  margin: 1vh 0;
   display: flex;
   flex-direction: column;
   height: 80vh;

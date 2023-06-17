@@ -23,6 +23,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('OPEN','PROCESSING','AWAITING_TRANSPORT','TRANSPORT_IMMINENT','IN_TRANSIT','LAST_KM','COMPLETE','FAILURE','CANCELLED'),
       allowNull: false
     },
+    production_unit_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true
+    },
     vehicle_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,

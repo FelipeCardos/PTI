@@ -19,6 +19,18 @@ const {
 
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  const vehicles = await FindAllVehicles();
+  return res.send(vehicles);
+});
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const vehicle = await FindVehicleWithId(id);
+  if (vehicle === null) return res.status(404).send("Not Found");
+  return res.send(vehicle);
+});
+
 router.get("/:id/availability", async (req, res) => {
   const id = req.params.id;
   const vehicle = await FindVehicleWithId(id);
