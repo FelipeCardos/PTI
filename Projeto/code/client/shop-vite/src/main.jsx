@@ -5,6 +5,8 @@ import { UserContextProvider } from "./assets/UserContext";
 import LoadingHomePage from "./components/Loadings/LoadingHomePage";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner";
 import "./index.css";
+
+const Admin = lazy(() => import("./pages/AdminPage"));
 const ErrorPage = lazy(() => import("./pages/error-page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const SigninPage = lazy(() => import("./pages/SigninPage"));
@@ -133,6 +135,14 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
+  {
+    path:"/admin/",
+    element: (
+      <Suspense fallback={<LoadingSpinner/>}>
+        <Admin/>
+      </Suspense>
+    )
+  }
 ]);
 
 function Root() {
