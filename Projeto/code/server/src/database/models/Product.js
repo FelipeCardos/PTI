@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     producer_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'User',
         key: 'id'

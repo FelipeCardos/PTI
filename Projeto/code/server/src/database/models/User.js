@@ -38,6 +38,11 @@ module.exports = function(sequelize, DataTypes) {
     typeUser: {
       type: DataTypes.ENUM('Consumer','Producer','Admin'),
       allowNull: true
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

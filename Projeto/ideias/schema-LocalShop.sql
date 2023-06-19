@@ -16,6 +16,7 @@ CREATE TABLE User(
     address_id INT UNSIGNED,
     phone VARCHAR(255),
     typeUser ENUM('Consumer', 'Producer', 'Admin'),
+    active BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (address_id) REFERENCES Address(id) ON DELETE
     SET
         NULL
@@ -33,12 +34,14 @@ CREATE TABLE ProductionUnit(
     producer_id INT UNSIGNED,
     capacity INT UNSIGNED NOT NULL CHECK (capacity > 0),
     address_id INT UNSIGNED,
-    PRIMARY KEY (producer_id, id),
+    PRIMARY KEY (id),
     INDEX (id),
     FOREIGN KEY (address_id) REFERENCES Address(id) ON DELETE
     SET
         NULL,
-        FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
+        FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE Vehicle(
@@ -48,8 +51,10 @@ CREATE TABLE Vehicle(
     license_plate VARCHAR(32) NOT NULL,
     capacity INT UNSIGNED NOT NULL CHECK (capacity > 0),
     PRIMARY KEY (id),
-    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (production_unit_id) REFERENCES ProductionUnit(id) ON DELETE
+    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (production_unit_id) REFERENCES ProductionUnit(id) ON DELETE
     SET
         NULL
 );
@@ -61,19 +66,23 @@ CREATE TABLE Product(
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1000),
     barcode_id VARCHAR(13),
-    producer_id INT UNSIGNED NOT NULL,
+    producer_id INT UNSIGNED,
     price INT NOT NULL CHECK (price > 0),
     production_date DATETIME NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE CASCADE
+    FOREIGN KEY (producer_id) REFERENCES User(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE ProductImage(
     id INT UNSIGNED AUTO_INCREMENT,
-    product_id INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED,
     uri VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id, product_id),
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE
+    SET
+        NULL
 );
 
 # ----------------------------------------------------------------------------
@@ -89,58 +98,49 @@ CREATE TABLE Category(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     parent_category INT UNSIGNED,
-    FOREIGN KEY (parent_category) REFERENCES Category(id) ON DELETE CASCADE
+    FOREIGN KEY (parent_category) REFERENCES Category(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE ProductCategory(
-	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    product_id INT UNSIGNED NOT NULL,
-    category_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    product_id INT UNSIGNED,
+    category_id INT UNSIGNED,
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE CategoryAttribute(
     id INT UNSIGNED AUTO_INCREMENT,
-    category_id INT UNSIGNED NOT NULL,
+    category_id INT UNSIGNED,
     title VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id, category_id),
-    FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE ProductAttribute(
-    product_id INT UNSIGNED NOT NULL,
-    attribute_id INT UNSIGNED NOT NULL,
+	id INT UNSIGNED auto_increment PRIMARY KEY,
+    product_id INT UNSIGNED,
+    attribute_id INT UNSIGNED,
     content VARCHAR(255) NOT NULL,
-    PRIMARY KEY (product_id, attribute_id),
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
-    FOREIGN KEY (attribute_id) REFERENCES CategoryAttribute(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Comment(
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
-    comment VARCHAR(1000) NOT NULL,
-    parent_comment INT UNSIGNED,
-    date DATETIME NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
-    FOREIGN KEY (parent_comment) REFERENCES Comment(id) ON DELETE CASCADE
-);
-
-CREATE TABLE ConsumerVote(
-    consumer_id INT UNSIGNED,
-    comment_id INT UNSIGNED,
-    upvote BOOLEAN NOT NULL,
-    PRIMARY KEY (consumer_id, comment_id),
-    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (comment_id) REFERENCES Comment(id) ON DELETE CASCADE
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (attribute_id) REFERENCES CategoryAttribute(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE Rating(
     id INT UNSIGNED AUTO_INCREMENT,
-    consumer_id INT UNSIGNED NOT NULL,
+    consumer_id INT UNSIGNED,
     producer_id INT UNSIGNED,
     product_id INT UNSIGNED,
     rating INT UNSIGNED NOT NULL,
@@ -148,17 +148,23 @@ CREATE TABLE Rating(
         0 < rating
         AND rating <= 5
     ),
-    PRIMARY KEY (id, consumer_id),
-    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE
+    PRIMARY KEY (id),
+    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE Wishlist(
     id INT UNSIGNED AUTO_INCREMENT,
-    consumer_id INT UNSIGNED NOT NULL,
-    product_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (id, consumer_id),
-    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
+    consumer_id INT UNSIGNED,
+    product_id INT UNSIGNED,
+    PRIMARY KEY (id),
+    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE
+    SET
+        NULL
 );
 
 CREATE TABLE Cart(
@@ -174,8 +180,8 @@ CREATE TABLE Cart(
         'COMPLETE',
         'FAILURE'
     ) NOT NULL,
-    PRIMARY KEY (id, consumer_id),
-    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE CASCADE
+    PRIMARY KEY (id),
+    FOREIGN KEY (consumer_id) REFERENCES User(id) ON DELETE NO ACTION
 );
 
 CREATE TABLE CartLine(
@@ -198,15 +204,17 @@ CREATE TABLE CartLine(
     delivery_date DATETIME,
     PRIMARY KEY (cart_id, product_id),
     FOREIGN KEY (cart_id) REFERENCES Cart(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE NO ACTION,
-    FOREIGN KEY (vehicle_id) REFERENCES Vehicle(id) ON DELETE NO ACTION
+        FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE NO ACTION,
+        FOREIGN KEY (vehicle_id) REFERENCES Vehicle(id) ON DELETE NO ACTION
 );
 
 CREATE TABLE Notification(
     id INT UNSIGNED AUTO_INCREMENT,
-    user_id INT UNSIGNED NOT NULL,
+    user_id INT UNSIGNED,
     description VARCHAR(1000),
     seen BOOLEAN NOT NULL,
-    PRIMARY KEY (id, user_id),
-    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE
+    SET
+        NULL
 );

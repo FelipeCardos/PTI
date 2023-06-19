@@ -54,6 +54,7 @@ export default function InfoAO(props) {
   };
 
   useEffect(() => {
+    setDeleteAccountPasswordCorrect(false);
     const delayDebounceFn = setTimeout(() => {
       async function validatePassword() {
         const response = await axios.get(
@@ -115,12 +116,19 @@ export default function InfoAO(props) {
   function handleDeleteAccount() {
     props.toggleModal();
     setDeleteAccount(!deleteAccount);
+    setDeleteAccountPassword("");
   }
 
-  function handleDeleteAccountConfirmation() {
+  function handleDeleteAccountConfirmation(event) {
     event.preventDefault();
-    console.log("ola");
-    //DELETE REQUEST TO DELETE USER ACCOUNT IN DATABASE USING AXIOS
+    axios
+      .delete("http://localhost:3000/api/v1/users/" + myUserVariable.user_id)
+      .then((res) => {
+        console.log(res);
+        setMyUserVariable({ user_id: null });
+        console.log("Account deleted successfully!");
+        return window.location.reload();
+      });
   }
 
   function handleChangeDataAccount(event) {
@@ -269,7 +277,7 @@ export default function InfoAO(props) {
               </p>
               <label htmlFor='currentPassword'></label>
               <input
-                type='text'
+                type='password'
                 id='currentPassword'
                 name='currentPassword'
                 value={deleteAccountPassword}

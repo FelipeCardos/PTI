@@ -9,8 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     user_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      primaryKey: true,
+      allowNull: true,
       references: {
         model: 'User',
         key: 'id'
@@ -35,7 +34,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "user_id" },
         ]
       },
       {

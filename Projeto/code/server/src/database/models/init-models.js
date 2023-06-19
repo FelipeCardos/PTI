@@ -4,8 +4,6 @@ var _Cart = require("./Cart");
 var _CartLine = require("./CartLine");
 var _Category = require("./Category");
 var _CategoryAttribute = require("./CategoryAttribute");
-var _Comment = require("./Comment");
-var _ConsumerVote = require("./ConsumerVote");
 var _Credentials = require("./Credentials");
 var _Notification = require("./Notification");
 var _Product = require("./Product");
@@ -25,8 +23,6 @@ function initModels(sequelize) {
   var CartLine = _CartLine(sequelize, DataTypes);
   var Category = _Category(sequelize, DataTypes);
   var CategoryAttribute = _CategoryAttribute(sequelize, DataTypes);
-  var Comment = _Comment(sequelize, DataTypes);
-  var ConsumerVote = _ConsumerVote(sequelize, DataTypes);
   var Credentials = _Credentials(sequelize, DataTypes);
   var Notification = _Notification(sequelize, DataTypes);
   var Product = _Product(sequelize, DataTypes);
@@ -41,11 +37,7 @@ function initModels(sequelize) {
   var Wishlist = _Wishlist(sequelize, DataTypes);
 
   Cart.belongsToMany(Product, { as: 'product_id_Products', through: CartLine, foreignKey: "cart_id", otherKey: "product_id" });
-  CategoryAttribute.belongsToMany(Product, { as: 'product_id_Product_ProductAttributes', through: ProductAttribute, foreignKey: "attribute_id", otherKey: "product_id" });
-  Comment.belongsToMany(User, { as: 'consumer_id_Users', through: ConsumerVote, foreignKey: "comment_id", otherKey: "consumer_id" });
   Product.belongsToMany(Cart, { as: 'cart_id_Carts', through: CartLine, foreignKey: "product_id", otherKey: "cart_id" });
-  Product.belongsToMany(CategoryAttribute, { as: 'attribute_id_CategoryAttributes', through: ProductAttribute, foreignKey: "product_id", otherKey: "attribute_id" });
-  User.belongsToMany(Comment, { as: 'comment_id_Comments', through: ConsumerVote, foreignKey: "consumer_id", otherKey: "comment_id" });
   ProductionUnit.belongsTo(Address, { as: "address", foreignKey: "address_id"});
   Address.hasMany(ProductionUnit, { as: "ProductionUnits", foreignKey: "address_id"});
   User.belongsTo(Address, { as: "address", foreignKey: "address_id"});
@@ -60,14 +52,8 @@ function initModels(sequelize) {
   Category.hasMany(ProductCategory, { as: "ProductCategories", foreignKey: "category_id"});
   ProductAttribute.belongsTo(CategoryAttribute, { as: "attribute", foreignKey: "attribute_id"});
   CategoryAttribute.hasMany(ProductAttribute, { as: "ProductAttributes", foreignKey: "attribute_id"});
-  Comment.belongsTo(Comment, { as: "parent_comment_Comment", foreignKey: "parent_comment"});
-  Comment.hasMany(Comment, { as: "Comments", foreignKey: "parent_comment"});
-  ConsumerVote.belongsTo(Comment, { as: "comment", foreignKey: "comment_id"});
-  Comment.hasMany(ConsumerVote, { as: "ConsumerVotes", foreignKey: "comment_id"});
   CartLine.belongsTo(Product, { as: "product", foreignKey: "product_id"});
   Product.hasMany(CartLine, { as: "CartLines", foreignKey: "product_id"});
-  Comment.belongsTo(Product, { as: "product", foreignKey: "product_id"});
-  Product.hasMany(Comment, { as: "Comments", foreignKey: "product_id"});
   ProductAttribute.belongsTo(Product, { as: "product", foreignKey: "product_id"});
   Product.hasMany(ProductAttribute, { as: "ProductAttributes", foreignKey: "product_id"});
   ProductCategory.belongsTo(Product, { as: "product", foreignKey: "product_id"});
@@ -82,10 +68,6 @@ function initModels(sequelize) {
   ProductionUnit.hasMany(Vehicle, { as: "Vehicles", foreignKey: "production_unit_id"});
   Cart.belongsTo(User, { as: "consumer", foreignKey: "consumer_id"});
   User.hasMany(Cart, { as: "Carts", foreignKey: "consumer_id"});
-  Comment.belongsTo(User, { as: "user", foreignKey: "user_id"});
-  User.hasMany(Comment, { as: "Comments", foreignKey: "user_id"});
-  ConsumerVote.belongsTo(User, { as: "consumer", foreignKey: "consumer_id"});
-  User.hasMany(ConsumerVote, { as: "ConsumerVotes", foreignKey: "consumer_id"});
   Credentials.belongsTo(User, { as: "user", foreignKey: "user_id"});
   User.hasOne(Credentials, { as: "Credential", foreignKey: "user_id"});
   Notification.belongsTo(User, { as: "user", foreignKey: "user_id"});
@@ -109,8 +91,6 @@ function initModels(sequelize) {
     CartLine,
     Category,
     CategoryAttribute,
-    Comment,
-    ConsumerVote,
     Credentials,
     Notification,
     Product,
