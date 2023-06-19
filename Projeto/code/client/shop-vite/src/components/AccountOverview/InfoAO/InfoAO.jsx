@@ -8,8 +8,8 @@ export default function InfoAO(props) {
   const [editMode, setEditMode] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
-  const [deleteAccountEmail, setDeleteAccountEmail] = useState("");
-  const [deleteAccountEmailCorrect, setDeleteAccountEmailCorrect] =
+  const [deleteAccountPassword, setDeleteAccountPassword] = useState("");
+  const [deleteAccountPasswordCorrect, setDeleteAccountPasswordCorrect] =
     useState(false);
   const [formDataAccount, setFormDataAccount] = useState({
     name: "",
@@ -18,6 +18,7 @@ export default function InfoAO(props) {
     fiscal_identifier: "",
     address: "",
   });
+  const [provider, setProvider] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/v1/users/" + myUserVariable.user_id, {
@@ -31,6 +32,7 @@ export default function InfoAO(props) {
           fiscal_identifier: res.data.fiscal_identifier,
           address: res.data.address,
         });
+        setProvider(res.data.provider);
       });
   }, [myUserVariable]);
 
@@ -53,11 +55,22 @@ export default function InfoAO(props) {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      setDeleteAccountEmailCorrect(deleteAccountEmail === myUserVariable.email);
+      async function validatePassword() {
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/users/" +
+            myUserVariable.user_id +
+            "/credentials/password?password=" +
+            deleteAccountPassword
+        );
+        return response;
+      }
+      validatePassword().then((res) => {
+        setDeleteAccountPasswordCorrect(res.data.valid);
+      });
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [deleteAccountEmail]);
+  }, [deleteAccountPassword]);
 
   function handleEdit(event) {
     event.preventDefault();
@@ -65,7 +78,6 @@ export default function InfoAO(props) {
       console.log(myUserVariable);
       console.log(jsonToUrlEncoded(formDataAccount));
       (async () => {
-        //FALTA FORÇAR O LOGOUT E LOGIN PARA ATUALIZAR O CONTEXTO
         await axios
           .put(
             "http://localhost:3000/api/v1/users/" + myUserVariable.user_id,
@@ -80,6 +92,7 @@ export default function InfoAO(props) {
           )
           .then((res) => {
             console.log(res);
+            props.handleToast("Account information updated successfully!");
           })
           .catch((err) => {
             console.log(err);
@@ -148,7 +161,7 @@ export default function InfoAO(props) {
             <label htmlFor='name'>Your Email:</label>
             <input
               type='text'
-              readOnly={!editMode || !(myUserVariable.provider === "local")}
+              readOnly={!editMode || !(provider === "local")}
               value={formDataAccount.email}
               onChange={handleChangeDataAccount}
               name='email'
@@ -183,7 +196,7 @@ export default function InfoAO(props) {
           <button className='containerInfoAOEdit' onClick={handleEdit}>
             {editMode ? "Save" : "Edit"}
           </button>
-          {myUserVariable.provider === "local" && (
+          {provider === "local" && (
             <button
               className='containerInfoAOChangePassword'
               onClick={handleChangePassword}
@@ -252,20 +265,22 @@ export default function InfoAO(props) {
               <p className='containerInfoAODeleteAccountFormParagraph'>
                 Are you sure you want to delete your account? This action cannot
                 be undone. In order to delete your account, please type your
-                <strong> email</strong> below.
+                <strong> current password</strong> below.
               </p>
               <label htmlFor='currentPassword'></label>
               <input
                 type='text'
                 id='currentPassword'
                 name='currentPassword'
-                value={deleteAccountEmail}
-                onChange={(event) => setDeleteAccountEmail(event.target.value)}
+                value={deleteAccountPassword}
+                onChange={(event) =>
+                  setDeleteAccountPassword(event.target.value)
+                }
               />
               <div className='containerInfoAOModalFormButtons'>
                 <button
                   className='confirmDeleteAccount'
-                  disabled={!deleteAccountEmailCorrect}
+                  disabled={!deleteAccountPasswordCorrect}
                   onClick={handleDeleteAccountConfirmation}
                 >
                   DELETE

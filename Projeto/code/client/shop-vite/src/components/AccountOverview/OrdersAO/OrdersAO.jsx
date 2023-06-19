@@ -55,12 +55,13 @@ export default function OrdersAO(props) {
           </button>
           <button
             className='containerOrdersAOHeaderExportJSON'
-            onClick={() =>
+            onClick={() => {
+              props.handleToast("Exporting JSON...");
               downloadObjectAsJson(
                 orders,
                 "orders_" + Date.now() + "_" + myUserVariable.id
-              )
-            }
+              );
+            }}
           >
             Export to JSON
           </button>
