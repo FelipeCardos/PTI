@@ -9,6 +9,7 @@ export default function OrdersAO(props) {
   const [viewDetailsModal, setViewDetailsModal] = useState(false);
   const [viewDetailsModalItems, setViewDetailsModalItems] = useState({});
   const [orders, setOrders] = useState([]);
+  const [checkApi, setCheckApi] = useState(true);
 
   function toggleViewDetailsModal(id) {
     props.toggleModal();
@@ -32,19 +33,24 @@ export default function OrdersAO(props) {
   }
 
   useEffect(() => {
-    // GET REQUEST TO GET ALL ORDERS FROM THE USER
-    axios
-      .get(
+    async function getOrders() {
+      const orders = await axios.get(
         "http://localhost:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/carts"
-      )
-      .then((response) => {
-        const orders = response.data;
-        let result = orders.filter((order) => order.status !== "OPEN");
-        setOrders(result);
-      });
-  }, []);
+      );
+      return orders;
+    }
+    async function fetchData() {
+      const orders = await getOrders();
+      let result = orders.data.filter((order) => order.status !== "OPEN");
+      setOrders(result);
+    }
+    if (checkApi) {
+      fetchData();
+      setCheckApi(false);
+    }
+  }, [checkApi]);
   return (
     <>
       <div className='containerOrdersAOHeader'>
@@ -81,6 +87,7 @@ export default function OrdersAO(props) {
             isViewDetailsModalItemVisible={viewDetailsModalItems[order.id]}
             order_cart_lines={order.cart_lines}
             handleToast={props.handleToast}
+            setCheckApi={setCheckApi}
           />
         ))}
       </div>

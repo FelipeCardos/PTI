@@ -48,7 +48,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
         productPrice: product.price,
         producerId: producer.id,
         producerName: producer.name,
-        productImage: productImage.uri,
+        productImage: productImage[0].uri,
       });
     }
     fetchData();
@@ -96,6 +96,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
     updateCartLineAmount();
   }
 
+  console.log(cartline);
   return (
     <div className='containerCartline'>
       <div className='containerCartlineImage'>
@@ -103,8 +104,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
           className='containerCartlineProductImage'
           style={{
             backgroundImage: `url(${
-              cartline.productImage ||
-              "https://images.freeimages.com/images/large-previews/218/my-dog-cutter-1499799.jpg"
+              cartline.productImage || `https://i.imgur.com/1TYeM7X.png`
             })`,
           }}
         ></div>
