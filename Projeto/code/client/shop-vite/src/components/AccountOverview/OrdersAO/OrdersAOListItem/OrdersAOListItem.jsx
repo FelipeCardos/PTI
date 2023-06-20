@@ -49,6 +49,7 @@ export default function OrdersAOListItem(props) {
           toggleViewDetailsModal={props.toggleViewDetailsModal}
           order_status={props.order_status}
           order_cart_lines={props.order_cart_lines}
+          handleToast={props.handleToast}
         />
       )}
     </>

@@ -80,6 +80,7 @@ export default function OrdersAO(props) {
             order_status={order.status}
             isViewDetailsModalItemVisible={viewDetailsModalItems[order.id]}
             order_cart_lines={order.cart_lines}
+            handleToast={props.handleToast}
           />
         ))}
       </div>

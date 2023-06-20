@@ -42,6 +42,7 @@ export default function OrdersAOModalItem(props) {
             key={(cartLine.cart_id, cartLine.product_id)}
             toggleViewDetailsModal={props.toggleViewDetailsModal}
             cart_line={cartLine}
+            handleToast={props.handleToast}
           />
         ))}
       </div>
