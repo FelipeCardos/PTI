@@ -9,8 +9,7 @@ export default function NavbarConsumer({ user }) {
   const [shoppingCartNumber, setShoppingCartNumber] = useState(0);
   const [notificationsNumber, setNotificationsNumber] = useState(0);
   const [notifications, setNotifications] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   let navigate = useNavigate();
 
@@ -29,7 +28,6 @@ export default function NavbarConsumer({ user }) {
     event.preventDefault();
     navigate(`/products?search=${searchQuery}`);
   };
-
 
   const [anchorEl2, setAnchorEl2] = useState(null);
   const open2 = Boolean(anchorEl2);
@@ -131,7 +129,6 @@ export default function NavbarConsumer({ user }) {
       </div>
       <div className='searchNavbarConsumer'>
         <form onSubmit={handleSearch} className='search-form'>
-
           <input
             type='text'
             className='searchBarNavbar'
@@ -140,9 +137,9 @@ export default function NavbarConsumer({ user }) {
             value={searchQuery}
             onChange={handleInputChange}
           />
-        <button type='submit' className='searchButtonNavbarConsumer'>
-          <i className='fa fa-search'></i>
-        </button>
+          <button type='submit' className='searchButtonNavbarConsumer'>
+            <i className='fa fa-search'></i>
+          </button>
         </form>
       </div>
       <div className='shoppingCartNavbarConsumer' title='Shopping Cart'>

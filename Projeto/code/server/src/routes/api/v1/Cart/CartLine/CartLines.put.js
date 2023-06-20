@@ -11,6 +11,13 @@ const {
 } = require("../../../../../controllers/Cart/findCarts");
 
 const {
+  UpdateCart,
+  UpdateCartOrderDateWithId,
+  UpdateCartDeliveryDateWithId,
+  UpdateCartStatusWithId,
+} = require("../../../../../controllers/Cart/updateCart");
+
+const {
   FindAllCartLines,
   FindCartLineWithCartIdAndProductId,
   FindAllCartLinesWithCartId,
@@ -44,6 +51,31 @@ router.put("/", async (req, res) => {
     amount,
     deliveryDate
   );
+  let edgeCaseStatus = ["COMPLETE", "FAILURE", "CANCELLED"];
+  if (edgeCaseStatus.includes(status)) {
+    const cartlines = await FindAllCartLinesWithCartId(cartId);
+    let statusAllEqual = true;
+    for (const cartline of cartlines) {
+      if (cartline.status !== status) {
+        statusAllEqual = false;
+        break;
+      }
+    }
+    if (statusAllEqual) await UpdateCartStatusWithId(cartId, status);
+  }
+  // edge case
+  if (status === "COMPLETE") {
+    const cartlines = await FindAllCartLinesWithCartId(cartId);
+    let edgeCaseStatusBool = true;
+    for (const cartline of cartlines) {
+      if (!edgeCaseStatus.includes(cartline.status)) {
+        edgeCaseStatusBool = false;
+        break;
+      }
+    }
+    if (edgeCaseStatusBool) await UpdateCartStatusWithId(cartId, status);
+  }
+
   return res.send(cartline);
 });
 
