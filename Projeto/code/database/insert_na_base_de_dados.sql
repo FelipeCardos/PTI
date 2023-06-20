@@ -395,29 +395,29 @@ VALUES
 INSERT INTO
   ProductImage (product_id, uri)
 VALUES
-  (1, 'https://example.com/images/smart_tv.jpg'),
+  (1, 'https://imgur.com/riu92Vf'),
   (2, 'https://i.imgur.com/hvmPEvO.jpg'),
   (3, 'https://i.imgur.com/yUuJLnA.jpg'),
   (4, 'https://i.imgur.com/4jFawpJ.jpg'),
-  (5, 'https://example.com/images/jeans.jpg'),
-  (6, 'https://example.com/images/refrigerator.jpg'),
-  (7, 'https://example.com/images/sofa.jpg'),
-  (8, 'https://example.com/images/coffee_maker.jpg'),
-  (9, 'https://example.com/images/dining_table.jpg'),
-  (10, 'https://example.com/images/headphones.jpg'),
+  (5, 'https://i.imgur.com/nQzCkE7.jpg'),
+  (6, 'https://i.imgur.com/6WzUCZl.jpg'),
+  (7, 'https://i.imgur.com/Lc03GwG.jpg'),
+  (8, 'https://i.imgur.com/eGkFB3i.jpg'),
+  (9, 'https://i.imgur.com/rVu7ldQ.jpg'),
+  (10, 'https://i.imgur.com/O2Rh7Hh.jpg'),
   (
     11,
-    'https://example.com/images/washing_machine.jpg'
+    'https://i.imgur.com/TzUXyMC.jpg'
   ),
-  (12, 'https://example.com/images/dress.jpg'),
-  (13, 'https://example.com/images/shoes.jpg'),
-  (14, 'https://example.com/images/microwave.jpg'),
-  (15, 'https://example.com/images/bed.jpg'),
-  (16, 'https://example.com/images/toaster.jpg'),
-  (17, 'https://example.com/images/chair.jpg'),
-  (18, 'https://example.com/images/blender.jpg'),
-  (19, 'https://example.com/images/bookshelf.jpg'),
-  (20, 'https://example.com/images/camera.jpg');
+  (12, 'https://i.imgur.com/cEgotXc.jpg'),
+  (13, 'https://i.imgur.com/uF9UzQC.jpg'),
+  (14, 'https://i.imgur.com/dIV0gPr.jpg'),
+  (15, 'https://i.imgur.com/nyku3a3.jpg'),
+  (16, 'https://i.imgur.com/vjKNGkf.jpg'),
+  (17, 'https://i.imgur.com/2Q8cAVG.jpg'),
+  (18, 'https://i.imgur.com/nuVpPOO.jpg'),
+  (19, 'https://i.imgur.com/lYCGLdo.jpg'),
+  (20, 'https://i.imgur.com/idW6iE9.jpg');
 
 INSERT INTO
   ProductProductionUnit (product_id, production_unit_id, amount)
