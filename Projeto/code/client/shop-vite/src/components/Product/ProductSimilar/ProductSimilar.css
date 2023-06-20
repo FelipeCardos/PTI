@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: column;
 }
-.containerProductTitleImage{
+.containerProductTitleImage {
   width: 100%;
 }
 
@@ -41,6 +41,10 @@
   margin: 5px;
 }
 
-.containerProductSimilarProductTitle > div > span.checked {
+.containerProductSimilarProductTitleRating > span > span {
+  color: var(--bs-gray-400);
+}
+
+.containerProductSimilarProductTitleRating > span > span.checked {
   color: var(--bs-yellow);
 }
