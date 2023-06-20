@@ -174,3 +174,11 @@
   border: 1px solid var(--bs-red);
   color: var(--bs-red);
 }
+
+.ordersAOViewDetailsModalListItemButtonCancel:disabled,
+.containerOrdersAOListItemButtonCancel:disabled {
+  cursor: auto;
+  background-color: gray;
+  color: white;
+  border: 1px solid gray;
+}

@@ -62,6 +62,7 @@ export default function OrdersAOModalItemListItem(props) {
         <button
           className='ordersAOViewDetailsModalListItemButtonCancel'
           onClick={() => cancelOrder()}
+          disabled={props.cart_line.status === "CANCELLED"}
         >
           CANCEL
         </button>

@@ -32,6 +32,8 @@ export default function OrdersAOListItem(props) {
     props.setCheckApi(true);
   }
 
+  console.log(props);
+
   return (
     <>
       <div className='containerOrdersAOListItem'>
@@ -62,14 +64,15 @@ export default function OrdersAOListItem(props) {
         <div className='containerOrdersAOListItemStatus'>
           <strong>Status:</strong> {props.order_status}
         </div>
-        <div
+        <button
           className='containerOrdersAOListItemButtonCancel'
           onClick={() => {
             cancelOrder();
           }}
+          disabled={props.order_status === "CANCELLED"}
         >
           CANCEL
-        </div>
+        </button>
         <div className='containerOrdersAOListItemButton'>
           <button
             className='ordersAOViewDetails'
