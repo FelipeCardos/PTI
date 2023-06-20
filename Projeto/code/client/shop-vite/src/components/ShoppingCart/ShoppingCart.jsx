@@ -68,6 +68,7 @@ export default function ShoppingCart() {
           {shoppingCartLines.map((data) => {
             return (
               <Cartline
+                key={data.cartId + data.productId}
                 data={data}
                 checkApi={checkApi}
                 setCheckApi={setCheckApi}
