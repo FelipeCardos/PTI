@@ -1,19 +1,48 @@
+import axios from "axios";
 import { React, useContext, useEffect, useState } from "react";
 import "../OrdersAO.css";
 import OrdersAOModalItem from "./OrdersAOModalItem/OrdersAOModalItem";
 
 export default function OrdersAOListItem(props) {
+  function formatDate(date) {
+    const sqlDate = new Date(date);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    return new Intl.DateTimeFormat(undefined, options).format(sqlDate);
+  }
+
+  async function cancelOrder() {
+    await axios.put(
+      "http://localhost:3000/api/v1/carts/" + props.order_id,
+      {
+        status: "CANCELLED",
+      },
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        withCredentials: true,
+      }
+    );
+    props.handleToast("Order cancelled successfully!");
+    props.setCheckApi(true);
+  }
+
   return (
     <>
       <div className='containerOrdersAOListItem'>
         <div className='containerOrdersAOListItemOrderID'>
-          OrderID: {props.order_id}
+          <strong>OrderID:</strong> {props.order_id}
         </div>
         <div className='containerOrdersAOListItemDate'>
-          Date: {props.order_date}
+          <strong>Date:</strong> {formatDate(props.order_date)}
         </div>
         <div className='containerOrdersAOListItemPrice'>
-          Price:{" "}
+          <strong>Price:</strong>{" "}
           {props.order_price
             .toString()
             .padStart(3, "0")
@@ -31,7 +60,15 @@ export default function OrdersAOListItem(props) {
             "€"}
         </div>
         <div className='containerOrdersAOListItemStatus'>
-          Status: {props.order_status}
+          <strong>Status:</strong> {props.order_status}
+        </div>
+        <div
+          className='containerOrdersAOListItemButtonCancel'
+          onClick={() => {
+            cancelOrder();
+          }}
+        >
+          CANCEL
         </div>
         <div className='containerOrdersAOListItemButton'>
           <button
@@ -50,6 +87,7 @@ export default function OrdersAOListItem(props) {
           order_status={props.order_status}
           order_cart_lines={props.order_cart_lines}
           handleToast={props.handleToast}
+          setCheckApi={props.setCheckApi}
         />
       )}
     </>

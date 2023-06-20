@@ -38,7 +38,7 @@ async function UpdateCartLineStatusWithCartIdAndProductId(
   productId,
   status
 ) {
-  const cartLine = await CartLine.findOne({
+  let cartLine = await CartLine.findOne({
     where: {
       cart_id: cartId,
       product_id: productId,

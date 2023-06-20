@@ -21,18 +21,19 @@ export default function OrdersAOModalItemListItem(props) {
     );
     props.handleToast("Order cancelled successfully!");
     props.toggleViewDetailsModal(props.cart_line.cart_id);
+    props.setCheckApi(true);
   }
 
   return (
     <div className='containerOrdersAOViewDetailsModalListItem'>
       <div className='containerOrdersAOViewDetailsModalListItemProduct'>
-        Product: {props.cart_line.product.name}
+        <strong>Product:</strong> {props.cart_line.product.name}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProductQuantity'>
-        Quantity: {props.cart_line.amount}
+        <strong>Quantity:</strong> {props.cart_line.amount}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProductPrice'>
-        Price:{" "}
+        <strong>Price: </strong>
         {props.cart_line.product.price
           .toString()
           .padStart(3, "0")
@@ -50,7 +51,12 @@ export default function OrdersAOModalItemListItem(props) {
           "€"}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemProducer'>
-        Producer: {props.cart_line.product.producer.name}
+        <strong>Producer: </strong>
+        {props.cart_line.product.producer.name}
+      </div>
+      <div className='containerOrdersAOViewDetailsModalListItemStatus'>
+        <strong>Status: </strong>
+        {props.cart_line.status}
       </div>
       <div className='containerOrdersAOViewDetailsModalListItemButtonCancel'>
         <button

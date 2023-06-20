@@ -155,3 +155,22 @@
   padding: 0 20px;
   margin-top: 10px;
 }
+
+.ordersAOViewDetailsModalListItemButtonCancel,
+.containerOrdersAOListItemButtonCancel {
+  background-color: var(--bs-red);
+  color: white;
+  border: 1px solid var(--bs-red);
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ordersAOViewDetailsModalListItemButtonCancel:hover,
+.containerOrdersAOListItemButtonCancel:hover {
+  background-color: var(--bs-red-hover);
+  border: 1px solid var(--bs-red);
+  color: var(--bs-red);
+}

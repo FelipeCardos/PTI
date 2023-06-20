@@ -758,7 +758,6 @@ VALUES
   (9, 19, 'Wooden'),
   (20, 19, 'Black');
 
-
 -- Insert data into Rating table
 INSERT INTO
   Rating (consumer_id, producer_id, product_id, rating)
@@ -805,7 +804,7 @@ VALUES
     1,
     '2023-05-20 10:30:00',
     NULL,
-    'AWAITING_PAYMENT'
+    'PROCESSING'
   ),
   (6, 3, '2023-05-21 14:45:00', NULL, 'PROCESSING'),
   (
@@ -853,7 +852,7 @@ VALUES
   (1, 1, 'OPEN', 3, NULL, 2, NULL),
   (1, 2, 'OPEN', 2, NULL, 1, NULL),
   (3, 1, 'OPEN', 3, NULL, 3, NULL),
-  (5, 3, 'OPEN', 3, NULL, 2, NULL),
+  (5, 3, 'AWAITING_TRANSPORT', 3, NULL, 2, NULL),
   (7, 2, 'OPEN', 1, NULL, 1, NULL);
 
 -- For carts with 'PROCESSING' status and cart lines
