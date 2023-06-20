@@ -4,6 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
 
+const ACTIVE_USER = 1;
 
 export default function Admin() {
     const adminOptions = ["PRODUCER", "CONSUMER", "ORDER", "PRODUCT"];
@@ -94,7 +95,7 @@ export default function Admin() {
             <div className="table-column">
                 <div className="container-table">
                     <div className="table">
-                        <table>
+                        <table className="table table-hover">
                             <thead>
                                 <tr>
                                     {tableHeaders.map((header) =>
@@ -112,8 +113,8 @@ export default function Admin() {
                                                 <td>{data.fiscal_identifier}</td>
                                                 <td>{data.phone}</td>
                                                 <td>
-                                                    <button className={data.status === "ACTIVE" ? "btn btn-danger" : "btn btn-success"}>
-                                                        {data.status === "ACTIVE" ? "DEACTIVATE" : "ACTIVATE"}
+                                                    <button className={data.status === ACTIVE_USER ? "btn btn-danger" : "btn btn-success"}>
+                                                        {data.status === ACTIVE_USER ? "DEACTIVATE" : "ACTIVATE"}
                                                     </button>
                                                 </td>
                                             </tr>
@@ -130,8 +131,8 @@ export default function Admin() {
                                                 <td>{data.fiscal_identifier}</td>
                                                 <td>{data.phone}</td>
                                                 <td>
-                                                    <button className={data.status === "ACTIVE" ? "btn btn-danger" : "btn btn-success"}>
-                                                        {data.status === "ACTIVE" ? "DEACTIVATE" : "ACTIVATE"}
+                                                    <button className={data.status === ACTIVE_USER ? "btn btn-danger" : "btn btn-success"}>
+                                                        {data.status === ACTIVE_USER ? "DEACTIVATE" : "ACTIVATE"}
                                                     </button>
                                                 </td>
                                             </tr>

@@ -1,32 +1,11 @@
 .container-feed-products{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr ;
-    grid-gap: 2px;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;    
 }
 .grid-feed-products{
     background-color: white;
     border-radius: 12px;
     min-height: 30vh;
     position: relative;
-    overflow: auto;
     margin: 5px
-}
-.product-content{
-    max-width: 100%;
-    margin: 0 auto;
-    height: 90%;
-    overflow: hidden;
-}
-.product-content>img{
-    margin-top: 1vh;
-    height: auto;
-    width: 100%;
-    border-radius: 10px;
-}
-.product-content>p{
-    border: 0px;
-    margin: 0px 0px 0px 10px;
-}
-hr{
-    color: #0d6efd;
 }

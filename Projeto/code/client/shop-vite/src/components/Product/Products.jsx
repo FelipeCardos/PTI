@@ -92,7 +92,7 @@ export default function Products() {
       </div>
       <div className="products-grid">
         {displayedProducts.map((product, index) => (
-          <div key={`${product.id}-${index}`}>
+          <div className="container-productsimilar" key={`${product.id}-${index}`}>
             <ProductSimilar product={product} />
           </div>
         ))}

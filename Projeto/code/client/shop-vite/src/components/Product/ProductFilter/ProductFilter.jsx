@@ -194,14 +194,17 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
       <hr />
       <div className="grid-prices">
         {priceInterval.map((interval, index) => (
-          <div key={index}>
+          <div key={index} className="form-check">
             <input
-              className="price-checkbox"
+              className="price-checkbox form-check-input"
+              id={index}
               type="checkbox"
               checked={selectedIntervals.includes(interval)}
               onChange={() => handleCheckboxChange(interval)}
             />
+            <label class="form-check-label" for={index}>
             {`${interval.lowerBound} - ${interval.upperBound}`}
+            </label>
           </div>
         ))}
       </div>
@@ -210,13 +213,17 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
         <h3>Producers</h3>
         <hr />
         {producers.map((producer) => (
-          <div key={producer.id}>
+          <div key={producer.id} className="form-check">
             <input
+              className="form-check-input"
+              id={producer.id}
               type="checkbox"
               checked={selectedProducers.includes(producer.id)}
               onChange={() => handleProducerCheckboxChange(producer.id)}
             />
-            {producer.name}
+            <label class="form-check-label" for={producer.id}>
+              {producer.name}
+            </label>
           </div>
         ))}
       </div>
@@ -228,11 +235,15 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
           <div key={rate}>
             <div className="">
               <input
+                className="form-check-input"
+                id={rate}
                 type="checkbox"
                 checked={selectedRates.includes(rate)}
                 onChange={() => handleRateCheckboxChange(rate)}
               />
+            <label class="form-check-label" for={rate}>
               {rate}
+            </label>
             </div>
           </div>
         ))}

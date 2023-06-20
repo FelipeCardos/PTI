@@ -24,13 +24,15 @@
 }
 
 .containerProductSimilarProductTitle {
-  position: absolute;
   bottom: 0;
   background-color: white;
-  width: 95%;
+  width: 100%;
   border-radius: 0 0.5em 0 0.5em;
   display: flex;
   flex-direction: column;
+}
+.containerProductTitleImage{
+  width: 100%;
 }
 
 .containerProductSimilarProductTitle > span {
