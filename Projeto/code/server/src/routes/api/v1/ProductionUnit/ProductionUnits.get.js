@@ -18,32 +18,33 @@ const {
   FindAllProductProductionUnit,
 } = require("../../../../controllers/ProductProductionUnit/findProductProductionUnit");
 
+const {
+  getCoordinatesFromAddress,
+  getCoordinatesFromUserAndProduct,
+  calculatedistance,
+} = require("../../../../controllers/Maps/map");
+
 const router = express.Router();
 
-router.get("/", checkAuthenticated, checkUsersIsAdmin, async (req, res) => {
-  FindAllProductionUnits().then((productionUnits) => {
-    if (productionUnits === null) {
-      res.status(404).send("Not Found");
-    } else {
-      for (let i = 0; i < productionUnits.length; i++) {
-        FindAddressById(productionUnits[i].address_id).then((address) => {
-          productionUnits[i].dataValues["address"] = address;
-        });
-      }
-      res.status(200).json({ productionUnits: productionUnits });
-    }
-  });
+router.get("/", async (req, res) => {
+  const productionUnits = await FindAllProductionUnits();
+  if (productionUnits === null) return res.status(404).send("Not Found");
+  for (let productionUnit of productionUnits) {
+    const address = await FindAddressById(productionUnit.address_id);
+    productionUnit.dataValues["address"] = address;
+  }
+  return res.status(200).json({ productionUnits: productionUnits });
 });
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
-  FindProductionUnitWithId(id).then((productionUnit) => {
-    if (productionUnit === null) {
-      res.status(404).send("Not Found");
-    } else {
-      res.status(200).json({ productionUnit: productionUnit });
-    }
-  });
+  const productionUnit = await FindProductionUnitWithId(id);
+  if (productionUnit === null) return res.status(404).send("Not Found");
+  const address = await FindAddressById(productionUnit.address_id);
+  productionUnit.dataValues["address"] = address;
+  const coordinates = await getCoordinatesFromAddress(address);
+  productionUnit.dataValues["coordinates"] = coordinates;
+  return res.status(200).json({ productionUnit: productionUnit });
 });
 
 router.use("/:id/products", Product);

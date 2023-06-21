@@ -16,7 +16,12 @@ router.get("/", async (req, res) => {
   const user = await FindUserById(id);
   const address = await FindAddressById(user.address_id);
   const coordinates = await getCoordinatesFromAddress(address);
-  return res.status(200).json({ address: { ...address, ...coordinates } });
+  return res
+    .status(200)
+    .json({
+      address: { ...address.dataValues },
+      coordinates: { ...coordinates },
+    });
 });
 
 module.exports = router;
