@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./ProductFilter.css"
+import "./ProductFilter.css";
 
 export default function ProductFilter({ productsList, updateFilteredProducts, clearFilteredProducts }) {
   const [priceInterval, setPriceInterval] = useState([]);
@@ -197,13 +197,13 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
           <div key={index} className="form-check">
             <input
               className="price-checkbox form-check-input"
-              id={index}
+              id={`interval-${index}`}
               type="checkbox"
               checked={selectedIntervals.includes(interval)}
               onChange={() => handleCheckboxChange(interval)}
             />
-            <label class="form-check-label" for={index}>
-            {`${interval.lowerBound} - ${interval.upperBound}`}
+            <label className="form-check-label" htmlFor={`interval-${index}`}>
+              {`${interval.lowerBound} - ${interval.upperBound}`}
             </label>
           </div>
         ))}
@@ -213,38 +213,36 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
         <h3>Producers</h3>
         <hr />
         {producers.map((producer) => (
-          <div key={producer.id} className="form-check">
+          <div key={`producer-${producer.id}`} className="form-check">
             <input
               className="form-check-input"
-              id={producer.id}
+              id={`producer-${producer.id}`}
               type="checkbox"
               checked={selectedProducers.includes(producer.id)}
               onChange={() => handleProducerCheckboxChange(producer.id)}
             />
-            <label class="form-check-label" for={producer.id}>
+            <label className="form-check-label" htmlFor={`producer-${producer.id}`}>
               {producer.name}
             </label>
           </div>
         ))}
       </div>
-      <hr />
-      <h3>Rating</h3>
-      <hr />
-      <div className="grid-rating">
+      <div className="grid-ratings">
+        <hr />
+        <h3>Ratings</h3>
+        <hr />
         {rating.map((rate) => (
-          <div key={rate}>
-            <div className="">
-              <input
-                className="form-check-input"
-                id={rate}
-                type="checkbox"
-                checked={selectedRates.includes(rate)}
-                onChange={() => handleRateCheckboxChange(rate)}
-              />
-            <label class="form-check-label" for={rate}>
-              {rate}
+          <div key={`rating-${rate}`} className="form-check">
+            <input
+              className="form-check-input"
+              id={`rating-${rate}`}
+              type="checkbox"
+              checked={selectedRates.includes(rate)}
+              onChange={() => handleRateCheckboxChange(rate)}
+            />
+            <label className="form-check-label" htmlFor={`rating-${rate}`}>
+              {rate} {rate === 1 ? "star" : "stars"}
             </label>
-            </div>
           </div>
         ))}
       </div>

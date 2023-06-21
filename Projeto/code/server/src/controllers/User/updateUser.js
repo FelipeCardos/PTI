@@ -80,7 +80,21 @@ async function UpdateUserPhoneWithId(id, phone) {
   return user;
 }
 
+async function UpdateUserStatusWithId(id){
+  const user = await User.findOne({
+    where: {
+      id: id,
+    },
+  });
+  //Função pode ser utilizada para ativar e desativar
+  //já que se está ativo a unica mudança seria para desativar e
+  //se esta desativo, a única mudança seria para ativar
+  user.active = !user.active; 
+  await user.save();
+}
+
 module.exports = {
+  UpdateUserStatusWithId,
   UpdateUser,
   UpdateUserNameWithId,
   UpdateUserEmailWithId,

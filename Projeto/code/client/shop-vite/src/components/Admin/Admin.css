@@ -50,27 +50,8 @@
     justify-content: center;
   }
   
-  .container-table {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 20px;
-    max-height: 100vh;
-    overflow: auto;
-  }
-  
-  .table {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    table-layout: fixed;
-    border-spacing: 10px; /* Ajuste o valor conforme necessário */
-    width: 100%;
-  }
-  
+
+
   .table td,
   .table th {
     padding: 15px; /* Ajuste o valor do padding conforme necessário */

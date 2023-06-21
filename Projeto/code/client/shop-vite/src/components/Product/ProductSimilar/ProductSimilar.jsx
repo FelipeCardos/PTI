@@ -63,7 +63,7 @@ export default function ProductSimilar(props) {
       className='containerProductSimilarProduct'
       onClick={() => handleClick(product.id)}
     >
-      <div className='containerProductSimilarProductTitle'>
+      <div className='containerProductSimilarProductTitle' id={product.id}>
         <div className='containerProductTitleImage'>
           <img
             className='img-thumbnail'

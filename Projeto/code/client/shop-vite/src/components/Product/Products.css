@@ -15,7 +15,7 @@
 
 .products-grid{
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .pagination-container{
     grid-column: 2;
