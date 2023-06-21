@@ -4,6 +4,16 @@ import "../OrdersAO.css";
 import OrdersAOModalItem from "./OrdersAOModalItem/OrdersAOModalItem";
 
 export default function OrdersAOListItem(props) {
+  const [cancelableDate, setCancelableDate] = useState(0);
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const orderDate = new Date(props.order_date);
+    const diffTime = Math.abs(currentDate - orderDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    setCancelableDate(diffDays);
+  }, []);
+
   function formatDate(date) {
     const sqlDate = new Date(date);
     const options = {
@@ -69,7 +79,14 @@ export default function OrdersAOListItem(props) {
           onClick={() => {
             cancelOrder();
           }}
-          disabled={props.order_status === "CANCELLED"}
+          disabled={props.order_status === "CANCELLED" || cancelableDate > 15}
+          title={
+            cancelableDate < 15
+              ? `You still have more ${
+                  15 - cancelableDate
+                } days to cancel this order.`
+              : "You can't cancel this order anymore."
+          }
         >
           CANCEL
         </button>
