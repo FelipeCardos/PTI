@@ -18,6 +18,11 @@ export default function Product() {
   const [productionUnits, setProductionUnits] = useState([]);
   const [selectProductionUnit, setSelectProductionUnit] = useState({});
   const [userCoordinates, setUserCoordinates] = useState({});
+  const [formData, setFormData] = useState({
+    amount: 0,
+    product_id: product_id,
+    production_unit_id: null,
+  });
 
   useEffect(() => {
     async function getProducts() {
@@ -127,16 +132,57 @@ export default function Product() {
   }, []);
 
   function handleProductionUnitSelection(event) {
+    if (event.target.value == "") {
+      setSelectProductionUnit({});
+      setFormData((prevFormData) => {
+        return {
+          ...prevFormData,
+          ["production_unit_id"]: null,
+        };
+      });
+      return;
+    }
     setSelectProductionUnit(
       productionUnits.find(
         (productionUnit) =>
           productionUnit.production_unit_id == event.target.value
-      ) || {}
+      )
     );
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        ["production_unit_id"]: event.target.value,
+      };
+    });
   }
 
-  function handleAddtoCart() {
-    console.log("add to cart");
+  async function handleAddtoCart() {
+    // http://localhost:3000/api/v1/users/1/shoppingCart
+    const shoppingCart = await axios.get(
+      "http://localhost:3000/api/v1/users/" +
+        myUserVariable.user_id +
+        "/shoppingCart"
+    );
+    const shoppingCartId = shoppingCart.data.id;
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/users/" +
+        myUserVariable.user_id +
+        "/carts/" +
+        shoppingCartId +
+        "/cartLines",
+      {
+        amount: formData.amount,
+        product_id: formData.product_id,
+        production_unit_id: formData.production_unit_id,
+      },
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        withCredentials: true,
+      }
+    );
+    console.log(response);
   }
 
   function renderStarts(ratingList) {
@@ -156,7 +202,18 @@ export default function Product() {
     return stars;
   }
 
-  console.log(productionUnits);
+  function handleChangeAmount(event) {
+    const value = Math.min(event.target.value, selectProductionUnit.amount);
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        ["amount"]: value,
+      };
+    });
+  }
+
+  console.log("FORM DATA: ");
+  console.log(formData);
 
   return (
     <div className='containerProduct'>
@@ -243,7 +300,20 @@ export default function Product() {
           </div>
         </div>
         <div className='containerProductPriceAddToCartButton'>
-          <button onClick={handleAddtoCart}>Add to cart</button>
+          <button
+            onClick={handleAddtoCart}
+            disabled={
+              formData.production_unit_id === null ||
+              formData.amount === null ||
+              formData.amount === 0
+            }
+          >
+            Add to cart
+          </button>
+          <p>
+            *Must select the production unit you want to receive from and the
+            desired amount
+          </p>
         </div>
       </div>
       <div className='containerProductSimilarProducts'>
@@ -280,7 +350,9 @@ export default function Product() {
               type='number'
               name='amount'
               id=''
-              max={selectProductionUnit?.amount}
+              value={formData.amount}
+              disabled={!selectProductionUnit.amount}
+              onChange={handleChangeAmount}
             />
           </div>
         </div>
