@@ -131,7 +131,7 @@ export default function Product() {
       productionUnits.find(
         (productionUnit) =>
           productionUnit.production_unit_id == event.target.value
-      )
+      ) || {}
     );
   }
 
@@ -280,7 +280,7 @@ export default function Product() {
               type='number'
               name='amount'
               id=''
-              max={selectProductionUnit.amount}
+              max={selectProductionUnit?.amount}
             />
           </div>
         </div>
@@ -288,6 +288,7 @@ export default function Product() {
           <MapComponent
             user={userCoordinates}
             productionUnits={productionUnits}
+            selectProductionUnit={selectProductionUnit}
           />
         ) : (
           <LoadingSpinner />
