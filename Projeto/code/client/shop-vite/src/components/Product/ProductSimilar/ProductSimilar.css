@@ -31,18 +31,7 @@
   display: flex;
   flex-direction: column;
 }
-
 .containerProductTitleImage {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%; /* Define um valor de padding proporcional à largura, para manter a proporção */
-  position: relative;
-}
-
-.containerProductTitleImage img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: contain; /* Ajusta a imagem para caber completamente dentro da div */
@@ -54,6 +43,10 @@
   margin: 5px;
 }
 
-.containerProductSimilarProductTitle > div > span.checked {
+.containerProductSimilarProductTitleRating > span > span {
+  color: var(--bs-gray-400);
+}
+
+.containerProductSimilarProductTitleRating > span > span.checked {
   color: var(--bs-yellow);
 }

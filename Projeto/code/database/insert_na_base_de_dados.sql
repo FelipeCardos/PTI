@@ -395,7 +395,7 @@ VALUES
 INSERT INTO
   ProductImage (product_id, uri)
 VALUES
-  (1, 'https://imgur.com/riu92Vf'),
+  (1, 'https://i.imgur.com/riu92Vf.jpg'),
   (2, 'https://i.imgur.com/hvmPEvO.jpg'),
   (3, 'https://i.imgur.com/yUuJLnA.jpg'),
   (4, 'https://i.imgur.com/4jFawpJ.jpg'),
