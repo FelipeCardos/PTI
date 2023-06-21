@@ -1,6 +1,7 @@
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../../assets/UserContext";
 import rubiks from "../Carrossel/images/rubiks.jpg";
 import LoadingSpinner from "../Loadings/LoadingSpinner";
 import AttributeRow from "./AttributeRow/AttributeRow";
@@ -10,11 +11,13 @@ import ProductSimilar from "./ProductSimilar/ProductSimilar";
 
 export default function Product() {
   let { product_id } = useParams();
+  const { myUserVariable } = useContext(UserContext);
   const [product, setProduct] = useState({});
   const [productAttributes, setProductAttributes] = useState([]);
   const [productCategories, setProductCategories] = useState([]);
   const [productionUnits, setProductionUnits] = useState([]);
   const [selectProductionUnit, setSelectProductionUnit] = useState({});
+  const [userCoordinates, setUserCoordinates] = useState({});
 
   useEffect(() => {
     async function getProducts() {
@@ -22,6 +25,16 @@ export default function Product() {
         "http://localhost:3000/api/v1/products/" + product_id
       );
       return products.data;
+    }
+
+    async function getUserCoordinates() {
+      const userCoordinates = await axios.get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/address"
+      );
+      console.log(userCoordinates.data);
+      return userCoordinates.data;
     }
 
     async function getProducer(producer_id) {
@@ -76,10 +89,6 @@ export default function Product() {
       let response = await axios.get(
         `http://localhost:3000/api/v1/productionUnits/${production_unit_id}`
       );
-      const productionUnitAddress = await axios.get(
-        `http://localhost:3000/api/v1/users/${response.data.productionUnit.producer_id}/productionUnits/${production_unit_id}/address`
-      );
-      response.data.productionUnit.address = productionUnitAddress.data.address;
       return response.data.productionUnit;
     }
 
@@ -93,11 +102,11 @@ export default function Product() {
       const productProductionUnits = await getProductProductionUnits(
         product_id
       );
+      const userCoordinates = await getUserCoordinates();
       for (let productionUnit of productProductionUnits) {
         productionUnit.production_unit = await getProductionUnitData(
           productionUnit.production_unit_id
         );
-        console.log(productionUnit);
       }
       setProduct((prevProducts) => {
         return {
@@ -111,6 +120,7 @@ export default function Product() {
       setProductAttributes(productAttributes);
       setProductCategories(productCategories);
       setProductionUnits(productProductionUnits);
+      setUserCoordinates(userCoordinates);
     }
 
     fetchData();
@@ -145,6 +155,8 @@ export default function Product() {
     }
     return stars;
   }
+
+  console.log(productionUnits);
 
   return (
     <div className='containerProduct'>
@@ -232,10 +244,6 @@ export default function Product() {
         </div>
         <div className='containerProductPriceAddToCartButton'>
           <button onClick={handleAddtoCart}>Add to cart</button>
-          <i className='fa fa-heart'></i>
-        </div>
-        <div className='containerProductPriceCompareProduct'>
-          <button>Compare product</button>
         </div>
       </div>
       <div className='containerProductSimilarProducts'>
@@ -276,7 +284,14 @@ export default function Product() {
             />
           </div>
         </div>
-        <MapComponent />
+        {userCoordinates.coordinates ? (
+          <MapComponent
+            user={userCoordinates}
+            productionUnits={productionUnits}
+          />
+        ) : (
+          <LoadingSpinner />
+        )}
       </div>
       <div className='containerProductProductAttributes'>
         <div className='containerProductProductAttributesTitle'>
