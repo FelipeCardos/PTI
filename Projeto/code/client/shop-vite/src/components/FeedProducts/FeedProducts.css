@@ -1,11 +1,18 @@
-.container-feed-products{
+.container-feed-products {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr ;    
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-.grid-feed-products{
+
+.grid-feed-products {
     background-color: white;
     border-radius: 12px;
     min-height: 30vh;
     position: relative;
-    margin: 5px
+    margin: 5px;
+}
+
+.grid-feed-products img {
+    height: 200px; /* Defina a altura desejada para as imagens */
+    width: 100%;
+    object-fit: cover; /* Redimensiona a imagem para preencher o contêiner */
 }

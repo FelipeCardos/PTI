@@ -14,56 +14,42 @@ export default function Products() {
   const [productsList, setProductsList] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 15;
 
   useEffect(() => {
+    async function loadProductsList() {
+      try {
+        let response;
+
+        if (categoryId) {
+          response = await axios.get("http://localhost:3000/api/v1/categories/" + categoryId + "/products");
+        } else {
+          response = await axios.get("http://localhost:3000/api/v1/products/search/" + stringSearch);
+        }
+
+        const products = response.data;
+        setProductsList(products);
+        setFilteredProducts(products);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     loadProductsList();
-  }, []);
+  }, [categoryId, stringSearch]);
 
   useEffect(() => {
     handlePageChange(1);
   }, [filteredProducts]);
 
-  function loadProductsList() {
+  const filterProducts = (allProducts) => {
     if (categoryId) {
-      axios.get("http://localhost:3000/api/v1/categories/" + categoryId + "/products").then((response) => {
-        setProductsList(response.data);
-        setFilteredProducts(response.data); // Inicialmente, a lista filtrada é igual à lista completa
-      });
+      const filtered = allProducts.filter((product) => product.categoryId === categoryId);
+      setFilteredProducts(filtered);
     } else {
-      // Array temporário para armazenar os produtos sem duplicatas
-      const tempProductsList = new Set(); // Usando um Set para evitar duplicatas
-
-      axios.get("http://localhost:3000/api/v1/products/search/" + stringSearch).then((response) => {
-        response.data.forEach((product) => {
-          tempProductsList.add(product);
-        });
-
-        axios.get("http://localhost:3000/api/v1/categories/search/" + stringSearch).then((response) => {
-          const categoryIds = response.data.map((catId) => catId.id);
-
-          // Função auxiliar para carregar os produtos das categorias
-          function loadCategoryProducts(index) {
-            if (index >= categoryIds.length) {
-              // Todas as categorias foram carregadas, definir a lista de produtos sem duplicatas
-              setProductsList(Array.from(tempProductsList));
-              setFilteredProducts(Array.from(tempProductsList)); // Inicialmente, a lista filtrada é igual à lista completa
-              return;
-            }
-
-            axios.get("http://localhost:3000/api/v1/categories/" + categoryIds[index] + "/products").then((response) => {
-              response.data.forEach((product) => {
-                tempProductsList.add(product);
-              });
-              loadCategoryProducts(index + 1);
-            });
-          }
-
-          loadCategoryProducts(0);
-        });
-      });
+      setFilteredProducts(allProducts);
     }
-  }
+  };
 
   const handleFilteredProducts = (filteredProducts) => {
     setCurrentPage(1);
@@ -86,7 +72,7 @@ export default function Products() {
           <ProductFilter
             productsList={productsList}
             updateFilteredProducts={handleFilteredProducts}
-            clearFilteredProducts={() => setFilteredProducts([])} // Limpar a lista ao receber atualização do componente filho
+            clearFilteredProducts={() => setFilteredProducts(productsList)}
           />
         </div>
       </div>
@@ -104,7 +90,6 @@ export default function Products() {
           onChange={(event, page) => handlePageChange(page)}
           color="primary"
           shape="rounded"
-          size="large"
           className="pagination"
         />
       </div>
