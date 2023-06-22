@@ -9,8 +9,8 @@ export default function PreviewLocalImpactReport({
   handlePreviewLocalImpactReport,
   cartlines,
 }) {
-  console.log(cartlines);
   const [pusCoordinatesRadius, setPusCoordinatesRadius] = useState([]);
+  const [tableData, setTableData] = useState([...cartlines]);
   useEffect(() => {
     async function getProductionUnitCoordinates(productionUnitId) {
       const response = await axios.get(
@@ -75,8 +75,49 @@ export default function PreviewLocalImpactReport({
         });
       }
     }
+
+    async function getTableData() {
+      const tableData = [];
+      for (const cartline of cartlines) {
+        const cart = await axios.get(
+          "http://localhost:3000/api/v1/carts/" + cartline.cart_id
+        );
+        const productionUnit = await axios.get(
+          "http://localhost:3000/api/v1/productionUnits/" +
+            cartline.production_unit_id
+        );
+        const product = await axios.get(
+          "http://localhost:3000/api/v1/products/" + cartline.product_id
+        );
+        const vehicle = await axios.get(
+          "http://localhost:3000/api/v1/vehicles/" + cartline.vehicle_id
+        );
+        const user = await axios.get(
+          "http://localhost:3000/api/v1/users/" + cart.data.consumer_id
+        );
+        const distance = await getDistanceBetweenUserAndProductionUnit(
+          await getUserCoordinates(cartline.cart_id),
+          await getProductionUnitCoordinates(cartline.production_unit_id)
+        );
+        tableData.push({
+          cart: cartline.cart_id || "No cart",
+          product: product.data.name || "No name",
+          amount: cartline.amount || "No amount",
+          productionUnit:
+            productionUnit.data.productionUnit.coordinates.formatted ||
+            "No production unit",
+          vehicle: vehicle.data.license_plate || "No license plate",
+          consumer: user.data.name || "No name",
+          distance: distance || "No distance",
+        });
+      }
+      setTableData(tableData);
+    }
     fetchData();
+    getTableData();
   }, []);
+
+  console.log(tableData);
   return (
     <div className='containerPreviewLocalImpactReport'>
       <div className='containerPreviewLocalImpactReportTitle'>
@@ -102,56 +143,41 @@ export default function PreviewLocalImpactReport({
           )}
         </div>
         <div className='containerPreviewLocalImpactReportCartlines'>
-          {/* <table className='containerPreviewLocalImpactReportCartlinesTable'>
+          <table className='containerPreviewLocalImpactReportCartlinesTable'>
             <thead>
               <tr>
+                <th>Cart</th>
+                <th>Consumer</th>
                 <th>Product</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Producer</th>
+                <th>Amount</th>
+                <th>Production Unit</th>
+                <th>Vehicle</th>
                 <th>Distance</th>
               </tr>
             </thead>
             <tbody>
-              {cartlines.map((cartline, index) => {
+              {tableData.map((tableData, index) => {
                 return (
                   <tr
                     key={index}
                     className='containerPreviewLocalImpactReportCartline'
                   >
+                    <td>{tableData.cart}</td>
                     <td className='containerPreviewLocalImpactReportCartlineName'>
-                      {cartline.product.name}
+                      {tableData.consumer}
                     </td>
-                    <td title={cartline.product.description}>
-                      {cartline.product.description}
-                    </td>
-                    <td>
-                      {cartline.product.price
-                        .toString()
-                        .padStart(3, "0")
-                        .slice(
-                          0,
-                          cartline.product.price.toString().padStart(3, "0")
-                            .length - 2
-                        ) +
-                        "," +
-                        cartline.product.price
-                          .toString()
-                          .slice(
-                            cartline.product.price.toString().length - 2,
-                            cartline.product.price.toString().length
-                          ) +
-                        "€"}
-                    </td>
-                    <td>{cartline.product.producer.name}</td>
+                    <td>{tableData.product}</td>
+                    <td>{tableData.amount}</td>
+                    <td>{tableData.productionUnit}</td>
+                    <td>{tableData.vehicle}</td>
                     <td className='containerPreviewLocalImpactReportCartlineDistance'>
-                      {(distancias[index] / 1000).toFixed(2)} kms
+                      {(tableData.distance / 1000).toFixed(2)} kms
                     </td>
                   </tr>
                 );
               })}
             </tbody>
-          </table> */}
+          </table>
         </div>
       </div>
     </div>
