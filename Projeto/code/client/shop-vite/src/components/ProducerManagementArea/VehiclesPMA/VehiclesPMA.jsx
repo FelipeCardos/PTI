@@ -63,14 +63,7 @@ export default function VehiclesPMA() {
   }, []);
   return (
     <div className='containerVehiclesPMA'>
-      <div className='containerVehiclesPMADashboard'>
-        <ToastContainer />
-        <div className='vehiclesPMADashboardTitle'>Dashboard</div>
-        <hr className='vehiclesPMADashboardTitleHR' />
-        <div className='containerVehiclesPMADashboardCharts'>
-          {/* Falta renderizar os gráficos */}
-        </div>
-      </div>
+      <ToastContainer />
       <div className='containerVehiclesPMAYourVehicles'>
         <div className='vehiclesPMAYourVehiclesTitle'>
           Your Vehicles

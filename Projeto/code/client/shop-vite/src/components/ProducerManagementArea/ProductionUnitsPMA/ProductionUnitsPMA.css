@@ -7,11 +7,6 @@
   }
 }
 
-.containerProductionUnitsPMA {
-  display: grid;
-  grid: 300px 1fr / 1fr;
-}
-
 .productionUnitsPMADashboardTitle,
 .productionUnitsPMAYourProductionUnitsTitle {
   display: flex;

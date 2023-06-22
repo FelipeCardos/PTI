@@ -48,14 +48,7 @@ export default function ProductionUnitsPMA() {
 
   return (
     <div className='containerProductionUnitsPMA'>
-      <div className='containerProductionUnitsPMADashboard'>
-        <ToastContainer />
-        <div className='productionUnitsPMADashboardTitle'>Dashboard</div>
-        <hr className='productionUnitsPMADashboardTitleHR' />
-        <div className='containerProductionUnitsPMADashboardCharts'>
-          {/* Falta renderizar os gráficos */}
-        </div>
-      </div>
+      <ToastContainer />
       <div className='containerProductionUnitsPMAYourProductionUnits'>
         <div className='productionUnitsPMAYourProductionUnitsTitle'>
           Your Production Units{" "}

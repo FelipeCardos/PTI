@@ -85,14 +85,7 @@ export default function ProductsPMA() {
 
   return (
     <div className='containerProductsPMA'>
-      <div className='containerProductsPMADashboard'>
-        <ToastContainer />
-        <div className='productsPMADashboardTitle'>Dashboard</div>
-        <hr className='productsPMADashboardTitleHR' />
-        <div className='containerProductsPMADashboardCharts'>
-          {/* Falta renderizar os gráficos */}
-        </div>
-      </div>
+      <ToastContainer />
       <div className='containerProductsPMAYourProducts'>
         <div className='productsPMAYourProductsTitle'>
           Your Products

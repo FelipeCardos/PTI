@@ -7,7 +7,6 @@ import LoadingSpinner from "../Loadings/LoadingSpinner";
 import AttributeRow from "./AttributeRow/AttributeRow";
 import MapComponent from "./Map/Map";
 import "./Product.css";
-import ProductSimilar from "./ProductSimilar/ProductSimilar";
 
 export default function Product() {
   let { product_id } = useParams();
@@ -33,12 +32,12 @@ export default function Product() {
     }
 
     async function getUserCoordinates() {
+      console.log(myUserVariable.user_id);
       const userCoordinates = await axios.get(
         "http://localhost:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/address"
       );
-      console.log(userCoordinates.data);
       return userCoordinates.data;
     }
 
@@ -314,12 +313,6 @@ export default function Product() {
             *Must select the production unit you want to receive from and the
             desired amount
           </p>
-        </div>
-      </div>
-      <div className='containerProductSimilarProducts'>
-        <div>
-          {/* Falta renderizar os produtos similares*/}
-          {/* <ProductSimilar image={"../" + rubiks} /> */}
         </div>
       </div>
       <div className='containerProductsMap'>

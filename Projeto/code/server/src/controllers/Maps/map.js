@@ -8,16 +8,6 @@ require("dotenv").config();
 async function getCoordinatesFromAddress(address) {
   const url = "https://api.geoapify.com/v1/geocode/search";
   const apiKey = process.env.MAP;
-
-  console.log(
-    address.street +
-      ", " +
-      address.postal_code +
-      ", " +
-      address.state +
-      ", " +
-      address.country
-  );
   const response = await axios.get(url, {
     params: {
       text:

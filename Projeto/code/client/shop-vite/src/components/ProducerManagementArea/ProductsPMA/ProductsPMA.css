@@ -7,11 +7,6 @@
   }
 }
 
-.containerProductsPMA {
-  display: grid;
-  grid: 350px 1fr / 1fr;
-}
-
 .productsPMADashboardTitle,
 .productsPMAYourProductsTitle {
   display: flex;
