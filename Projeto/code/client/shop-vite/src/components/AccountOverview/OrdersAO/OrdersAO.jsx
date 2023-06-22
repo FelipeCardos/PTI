@@ -3,11 +3,14 @@ import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../assets/UserContext";
 import "./OrdersAO.css";
 import OrdersAOListItem from "./OrdersAOListItem/OrdersAOListItem";
+import PreviewLocalImpactReport from "./PreviewLocalImpactReport/PreviewLocalImpactReport";
 
 export default function OrdersAO(props) {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [viewDetailsModal, setViewDetailsModal] = useState(false);
   const [viewDetailsModalItems, setViewDetailsModalItems] = useState({});
+  const [previewLocalImpactReport, setPreviewLocalImpactReport] =
+    useState(false);
   const [orders, setOrders] = useState([]);
   const [checkApi, setCheckApi] = useState(true);
 
@@ -30,6 +33,11 @@ export default function OrdersAO(props) {
     document.body.appendChild(downloadAnchorNode); // required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
+  }
+
+  function handlePreviewLocalImpactReport() {
+    setPreviewLocalImpactReport(!previewLocalImpactReport);
+    props.toggleModal();
   }
 
   useEffect(() => {
@@ -56,7 +64,10 @@ export default function OrdersAO(props) {
       <div className='containerOrdersAOHeader'>
         <div className='containerOrdersAOHeaderTitle'>Orders</div>
         <div className='containerOrdersAOHeaderButtons'>
-          <button className='containerOrdersAOHeaderLocalImpactReport'>
+          <button
+            className='containerOrdersAOHeaderLocalImpactReport'
+            onClick={handlePreviewLocalImpactReport}
+          >
             View Local Impact Report
           </button>
           <button
@@ -91,6 +102,11 @@ export default function OrdersAO(props) {
           />
         ))}
       </div>
+      {previewLocalImpactReport && (
+        <PreviewLocalImpactReport
+          handlePreviewLocalImpactReport={handlePreviewLocalImpactReport}
+        />
+      )}
     </>
   );
 }
