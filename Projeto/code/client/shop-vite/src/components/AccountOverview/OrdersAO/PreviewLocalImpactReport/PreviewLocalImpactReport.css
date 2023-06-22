@@ -8,13 +8,30 @@
   inset: 15% 20% auto 20%;
 }
 
+.containerPreviewLocalImpactReportTitle {
+  display: flex;
+  font-size: 29px;
+  font-weight: bold;
+  height: 10vh;
+  align-items: center;
+  margin-left: 20px;
+}
+
 .containerPreviewLocalImpactReportCloseButton {
   position: absolute;
   right: 0;
   top: 0;
 }
 
-.containerPreviewLocalImpactReportCloseButton > button {
+.containerPreviewLocalImpactReportPrintButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 50px;
+}
+
+.containerPreviewLocalImpactReportCloseButton > button,
+.containerPreviewLocalImpactReportPrintButton > button {
   background-color: white;
   border: 0;
   border-radius: 0.5em;
@@ -22,4 +39,53 @@
   font-weight: bold;
   cursor: pointer;
   font-size: 30px;
+}
+
+.containerPreviewLocalImpactReportCloseButton > button:hover,
+.containerPreviewLocalImpactReportPrintButton > button:hover {
+  color: var(--bs-blue);
+}
+
+.containerPreviewLocalImpactReportContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 100%;
+  padding: 0 20px;
+  overflow-y: scroll;
+}
+
+.containerPreviewLocalImpactReportMap {
+  height: 50vh;
+  width: 100%;
+}
+
+.containerPreviewLocalImpactReportCartlines {
+  margin: 20px 0;
+}
+
+.containerPreviewLocalImpactReportCartlinesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.containerPreviewLocalImpactReportCartlinesTable th,
+.containerPreviewLocalImpactReportCartlinesTable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.containerPreviewLocalImpactReportCartlinesTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.containerPreviewLocalImpactReportCartlinesTable tr:last-child td {
+  border-bottom: none;
 }
