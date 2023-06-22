@@ -22,7 +22,7 @@ export default function OrdersAOModalItem(props) {
         </button>
       </div>
       <div className='containerOrdersAOViewDetailsModalTitle'>
-        Order Details
+        Order ID: {props.order_id}
         <button
           className='containerOrdersAOViewDetailsModalExportJSON'
           onClick={() =>

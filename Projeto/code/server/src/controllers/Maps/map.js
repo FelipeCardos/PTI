@@ -128,7 +128,7 @@ async function getCoordinatesFromUserAndProduct(userId, productId) {
   return result;
 }
 
-function calculatedistance(lon1, lat1, lon2, lat2) {
+function CalculateDistance(lon1, lat1, lon2, lat2) {
   const R = 6371e3; // metres
   const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
   const φ2 = (lat2 * Math.PI) / 180;
@@ -154,5 +154,5 @@ function calculatedistance(lon1, lat1, lon2, lat2) {
 module.exports = {
   getCoordinatesFromAddress,
   getCoordinatesFromUserAndProduct,
-  calculatedistance,
+  CalculateDistance,
 };

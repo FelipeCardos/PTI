@@ -35,4 +35,7 @@ router.use("/vehicles", Vehicle);
 const Payment = require("./Payment/Payment.root");
 router.use("/payment", Payment);
 
+const Distance = require("./Distance/Distance.root");
+router.use("/distance", Distance);
+
 module.exports = router;

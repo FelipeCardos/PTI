@@ -1,17 +1,84 @@
 import axios from "axios";
 import { React, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../../assets/UserContext";
 import "../OrdersAO.css";
 import OrdersAOModalItem from "./OrdersAOModalItem/OrdersAOModalItem";
 
 export default function OrdersAOListItem(props) {
-  const [cancelableDate, setCancelableDate] = useState(0);
+  const { myUserVariable } = useContext(UserContext);
+  const [cancelableDays, setCancelableDays] = useState(0);
+  const [cartLines, setCartLines] = useState(props.order_cart_lines);
 
   useEffect(() => {
-    const currentDate = new Date();
-    const orderDate = new Date(props.order_date);
-    const diffTime = Math.abs(currentDate - orderDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    setCancelableDate(diffDays);
+    async function getCoordinates() {
+      let coordinates = [];
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/address"
+      );
+      coordinates.push([
+        response.data.coordinates.lat,
+        response.data.coordinates.lon,
+      ]);
+      for (let cartline of props.order_cart_lines) {
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/productionUnits/" +
+            cartline.production_unit_id
+        );
+        coordinates.push([
+          response.data.productionUnit.coordinates.lat,
+          response.data.productionUnit.coordinates.lon,
+        ]);
+      }
+      return coordinates;
+    }
+
+    async function getDistance(lat1, lon1, lat2, lon2) {
+      // in metres
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/distance/?lat1=" +
+          lat1 +
+          "&lon1=" +
+          lon1 +
+          "&lat2=" +
+          lat2 +
+          "&lon2=" +
+          lon2
+      );
+      return response.data;
+    }
+
+    async function fetchData() {
+      const coordinates = await getCoordinates();
+      let minDaysToCancel = 10000;
+      for (let i = 0; i < coordinates.length - 1; i++) {
+        const distance = await getDistance(
+          coordinates[i][0],
+          coordinates[i][1],
+          coordinates[i + 1][0],
+          coordinates[i + 1][1]
+        );
+        // 300km é o valor base para o cálculo da data de cancelamento da encomenda 7 dias + (nKms / 300km)
+        const distanceInKm = distance.distance / 1000;
+        const distanceInDays = Math.ceil((distanceInKm / 300) * 7);
+
+        setCartLines((cartLines) => {
+          const newCartLines = [...cartLines];
+          newCartLines[i].daysToCancel = distanceInDays;
+          return newCartLines;
+        });
+
+        if (distanceInDays < minDaysToCancel) {
+          minDaysToCancel = distanceInDays;
+        }
+      }
+      return minDaysToCancel;
+    }
+
+    fetchData().then((minDaysToCancel) => {
+      setCancelableDays(minDaysToCancel);
+    });
   }, []);
 
   function formatDate(date) {
@@ -23,6 +90,14 @@ export default function OrdersAOListItem(props) {
     };
 
     return new Intl.DateTimeFormat(undefined, options).format(sqlDate);
+  }
+
+  function getDiffDays() {
+    const currentDate = new Date();
+    const orderDate = new Date(props.order_date);
+    const diffTime = Math.abs(currentDate - orderDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   }
 
   async function cancelOrder() {
@@ -42,7 +117,7 @@ export default function OrdersAOListItem(props) {
     props.setCheckApi(true);
   }
 
-  console.log(props);
+  console.log(cartLines);
 
   return (
     <>
@@ -79,11 +154,13 @@ export default function OrdersAOListItem(props) {
           onClick={() => {
             cancelOrder();
           }}
-          disabled={props.order_status === "CANCELLED" || cancelableDate > 15}
+          disabled={
+            props.order_status === "CANCELLED" || getDiffDays() > cancelableDays
+          }
           title={
-            cancelableDate < 15
+            getDiffDays() < cancelableDays
               ? `You still have more ${
-                  15 - cancelableDate
+                  cancelableDays - getDiffDays()
                 } days to cancel this order.`
               : "You can't cancel this order anymore."
           }
@@ -105,7 +182,7 @@ export default function OrdersAOListItem(props) {
           order_id={props.order_id}
           toggleViewDetailsModal={props.toggleViewDetailsModal}
           order_status={props.order_status}
-          order_cart_lines={props.order_cart_lines}
+          order_cart_lines={cartLines}
           handleToast={props.handleToast}
           setCheckApi={props.setCheckApi}
         />
