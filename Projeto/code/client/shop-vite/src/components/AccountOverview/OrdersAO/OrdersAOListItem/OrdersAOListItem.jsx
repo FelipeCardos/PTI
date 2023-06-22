@@ -61,7 +61,7 @@ export default function OrdersAOListItem(props) {
         );
         // 300km é o valor base para o cálculo da data de cancelamento da encomenda 7 dias + (nKms / 300km)
         const distanceInKm = distance.distance / 1000;
-        const distanceInDays = Math.ceil((distanceInKm / 300) * 7);
+        const distanceInDays = Math.ceil(distanceInKm / 300 + 7);
 
         setCartLines((cartLines) => {
           const newCartLines = [...cartLines];
