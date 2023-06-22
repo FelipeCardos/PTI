@@ -4,6 +4,7 @@ import { UserContext } from "../../../assets/UserContext";
 import "./OrdersAO.css";
 import OrdersAOListItem from "./OrdersAOListItem/OrdersAOListItem";
 import PreviewLocalImpactReport from "./PreviewLocalImpactReport/PreviewLocalImpactReport";
+import PreviewLocalImpactReportProducer from "./PreviewLocalImpactReportProducer/PreviewLocalImpactReportProducer.jsx";
 
 export default function OrdersAO(props) {
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
@@ -147,10 +148,15 @@ export default function OrdersAO(props) {
           />
         ))}
       </div>
-      {previewLocalImpactReport && (
+      {previewLocalImpactReport && typeUser === "Consumer" && (
         <PreviewLocalImpactReport
           handlePreviewLocalImpactReport={handlePreviewLocalImpactReport}
-          typeUser={typeUser}
+        />
+      )}
+      {previewLocalImpactReport && typeUser === "Producer" && (
+        <PreviewLocalImpactReportProducer
+          handlePreviewLocalImpactReport={handlePreviewLocalImpactReport}
+          cartlines={orders}
         />
       )}
     </>
