@@ -8,6 +8,7 @@ export default function OrdersAOListItem(props) {
   const { myUserVariable } = useContext(UserContext);
   const [cancelableDays, setCancelableDays] = useState(0);
   const [cartLines, setCartLines] = useState(props.order_cart_lines);
+  const [product, setProduct] = useState({});
 
   useEffect(() => {
     async function getCoordinates() {
@@ -48,8 +49,19 @@ export default function OrdersAOListItem(props) {
       );
       return response.data;
     }
+    async function getProduct() {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/products/" +
+          props.order_cartline.product_id
+      );
+      return response.data;
+    }
 
     async function fetchData() {
+      if (props.typeUser === "Producer") {
+        const responseProduct = await getProduct();
+        return setProduct(responseProduct);
+      }
       const coordinates = await getCoordinates();
       let minDaysToCancel = 10000;
       for (let i = 0; i < coordinates.length - 1; i++) {
@@ -117,65 +129,109 @@ export default function OrdersAOListItem(props) {
     props.setCheckApi(true);
   }
 
-  console.log(cartLines);
-
   return (
     <>
-      <div className='containerOrdersAOListItem'>
-        <div className='containerOrdersAOListItemOrderID'>
-          <strong>OrderID:</strong> {props.order_id}
-        </div>
-        <div className='containerOrdersAOListItemDate'>
-          <strong>Date:</strong> {formatDate(props.order_date)}
-        </div>
-        <div className='containerOrdersAOListItemPrice'>
-          <strong>Price:</strong>{" "}
-          {props.order_price
-            .toString()
-            .padStart(3, "0")
-            .slice(
-              0,
-              props.order_price.toString().padStart(3, "0").length - 2
-            ) +
-            "," +
-            props.order_price
+      {props.typeUser === "Consumer" && (
+        <div className='containerOrdersAOListItem'>
+          {/* Consumer */}
+          <div className='containerOrdersAOListItemOrderID'>
+            <strong>OrderID:</strong> {props.order_id}
+          </div>
+          <div className='containerOrdersAOListItemDate'>
+            <strong>Date:</strong> {formatDate(props.order_date)}
+          </div>
+          <div className='containerOrdersAOListItemPrice'>
+            <strong>Price:</strong>{" "}
+            {props.order_price
               .toString()
+              .padStart(3, "0")
               .slice(
-                props.order_price.toString().length - 2,
-                props.order_price.toString().length
+                0,
+                props.order_price.toString().padStart(3, "0").length - 2
               ) +
-            "€"}
-        </div>
-        <div className='containerOrdersAOListItemStatus'>
-          <strong>Status:</strong> {props.order_status}
-        </div>
-        <button
-          className='containerOrdersAOListItemButtonCancel'
-          onClick={() => {
-            cancelOrder();
-          }}
-          disabled={
-            props.order_status === "CANCELLED" || getDiffDays() > cancelableDays
-          }
-          title={
-            getDiffDays() < cancelableDays
-              ? `You still have more ${
-                  cancelableDays - getDiffDays()
-                } days to cancel this order.`
-              : "You can't cancel this order anymore."
-          }
-        >
-          CANCEL
-        </button>
-        <div className='containerOrdersAOListItemButton'>
+              "," +
+              props.order_price
+                .toString()
+                .slice(
+                  props.order_price.toString().length - 2,
+                  props.order_price.toString().length
+                ) +
+              "€"}
+          </div>
+          <div className='containerOrdersAOListItemStatus'>
+            <strong>Status:</strong> {props.order_status}
+          </div>
           <button
-            className='ordersAOViewDetails'
-            onClick={() => props.toggleViewDetailsModal(props.order_id)}
+            className='containerOrdersAOListItemButtonCancel'
+            onClick={() => {
+              cancelOrder();
+            }}
+            disabled={
+              props.order_status === "CANCELLED" ||
+              getDiffDays() > cancelableDays
+            }
+            title={
+              getDiffDays() < cancelableDays
+                ? `You still have more ${
+                    cancelableDays - getDiffDays()
+                  } days to cancel this order.`
+                : "You can't cancel this order anymore."
+            }
           >
-            View Details
+            CANCEL
           </button>
+          <div className='containerOrdersAOListItemButton'>
+            <button
+              className='ordersAOViewDetails'
+              onClick={() => props.toggleViewDetailsModal(props.order_id)}
+            >
+              View Details
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+      {/* Producer */}
+      {props.typeUser === "Producer" && (
+        <div className='containerOrdersAOListItem'>
+          <div className='containerOrdersAOListItemOrderID'>
+            <strong>OrderID:</strong> {props.order_cartline.cart_id}
+          </div>
+          <div className='containerOrdersAOListItemDate'>
+            <strong>Date:</strong>{" "}
+            {props.order_cartline.delivery_date
+              ? formatDate(props.order_cartline.delivery_date)
+              : "Not delivered"}
+          </div>
+          <div>
+            <strong>Product:</strong> {product.name}
+          </div>
+          <div className='containerOrdersAOListItemPrice'>
+            <strong>Price:</strong>{" "}
+            {(product.price * props.order_cartline.amount)
+              .toString()
+              .padStart(3, "0")
+              .slice(
+                0,
+                (product.price * props.order_cartline.amount)
+                  .toString()
+                  .padStart(3, "0").length - 2
+              ) +
+              "," +
+              (product.price * props.order_cartline.amount)
+                .toString()
+                .slice(
+                  (product.price * props.order_cartline.amount).toString()
+                    .length - 2,
+                  (product.price * props.order_cartline.amount).toString()
+                    .length
+                ) +
+              "€"}
+          </div>
+          <div className='containerOrdersAOListItemStatus'>
+            <strong>Status:</strong> {props.order_status}
+          </div>
+        </div>
+      )}
       {props.isViewDetailsModalItemVisible && (
         <OrdersAOModalItem
           key={props.order_id}

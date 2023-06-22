@@ -12,6 +12,7 @@ export default function OrdersAO(props) {
   const [previewLocalImpactReport, setPreviewLocalImpactReport] =
     useState(false);
   const [orders, setOrders] = useState([]);
+  const [typeUser, setTypeUser] = useState("");
   const [checkApi, setCheckApi] = useState(true);
 
   function toggleViewDetailsModal(id) {
@@ -41,6 +42,35 @@ export default function OrdersAO(props) {
   }
 
   useEffect(() => {
+    async function getUsersType() {
+      const user = await axios.get(
+        "http://localhost:3000/api/v1/users/" + myUserVariable.user_id
+      );
+      return user.data.typeUser;
+    }
+
+    async function getCartlinesOfProducer() {
+      const allCartlines = await axios.get(
+        "http://localhost:3000/api/v1/cartLines/"
+      );
+      const producerProducts = await axios.get(
+        "http://localhost:3000/api/v1/users/" +
+          myUserVariable.user_id +
+          "/products"
+      );
+      let producerProductsIds = [];
+      for (let producerProduct of producerProducts.data) {
+        producerProductsIds.push(producerProduct.id);
+      }
+      let cartlines = [];
+      for (let cartline of allCartlines.data) {
+        if (producerProductsIds.includes(cartline.product_id)) {
+          cartlines.push(cartline);
+        }
+      }
+      return cartlines;
+    }
+
     async function getOrders() {
       const orders = await axios.get(
         "http://localhost:3000/api/v1/users/" +
@@ -50,15 +80,28 @@ export default function OrdersAO(props) {
       return orders;
     }
     async function fetchData() {
-      const orders = await getOrders();
-      let result = orders.data.filter((order) => order.status !== "OPEN");
-      setOrders(result);
+      const userType = await getUsersType();
+      setTypeUser(userType);
+      if (userType === "Consumer") {
+        const orders = await getOrders();
+        let result = orders.data.filter((order) => order.status !== "OPEN");
+        return setOrders(result);
+      }
+      if (userType === "Producer") {
+        const cartlines = await getCartlinesOfProducer();
+        const allowedStatus = ["COMPLETE", "CANCELED", "FAILURE"];
+        let result = cartlines.filter((cartline) =>
+          allowedStatus.includes(cartline.status)
+        );
+        return setOrders(result);
+      }
     }
     if (checkApi) {
       fetchData();
       setCheckApi(false);
     }
   }, [checkApi]);
+
   return (
     <>
       <div className='containerOrdersAOHeader'>
@@ -99,12 +142,15 @@ export default function OrdersAO(props) {
             order_cart_lines={order.cart_lines}
             handleToast={props.handleToast}
             setCheckApi={setCheckApi}
+            typeUser={typeUser}
+            order_cartline={order}
           />
         ))}
       </div>
       {previewLocalImpactReport && (
         <PreviewLocalImpactReport
           handlePreviewLocalImpactReport={handlePreviewLocalImpactReport}
+          typeUser={typeUser}
         />
       )}
     </>
