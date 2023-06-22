@@ -44,6 +44,7 @@ export default function OrdersAOModalItem(props) {
             cart_line={cartLine}
             handleToast={props.handleToast}
             setCheckApi={props.setCheckApi}
+            order_date={props.order_date}
           />
         ))}
       </div>

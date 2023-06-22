@@ -24,6 +24,14 @@ export default function OrdersAOModalItemListItem(props) {
     props.setCheckApi(true);
   }
 
+  function getDiffDays() {
+    const currentDate = new Date();
+    const orderDate = new Date(props.order_date);
+    const diffTime = Math.abs(currentDate - orderDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
   return (
     <div className='containerOrdersAOViewDetailsModalListItem'>
       <div className='containerOrdersAOViewDetailsModalListItemProduct'>
@@ -62,7 +70,17 @@ export default function OrdersAOModalItemListItem(props) {
         <button
           className='ordersAOViewDetailsModalListItemButtonCancel'
           onClick={() => cancelOrder()}
-          disabled={props.cart_line.status === "CANCELLED"}
+          disabled={
+            props.cart_line.status === "CANCELLED" ||
+            getDiffDays() > props.cart_line.daysToCancel
+          }
+          title={
+            getDiffDays() < props.cart_line.daysToCancel
+              ? `You still have more ${
+                  props.cart_line.daysToCancel - getDiffDays()
+                } days to cancel this order.`
+              : "You can't cancel this order anymore."
+          }
         >
           CANCEL
         </button>
