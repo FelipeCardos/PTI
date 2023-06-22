@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./Admin.css";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Pagination from "@mui/material/Pagination";
 import axios from "axios";
-import Pagination from '@mui/material/Pagination';
+import React, { useEffect, useState } from "react";
+import "./Admin.css";
 
 export default function Admin() {
   const adminOptions = ["PRODUCER", "CONSUMER", "ORDER", "PRODUCT"];
@@ -16,7 +16,7 @@ export default function Admin() {
   const currentItems = tableData.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    getData("PRODUCER")
+    getData("PRODUCER");
   }, []);
 
   function getData(option) {
@@ -24,19 +24,45 @@ export default function Admin() {
     setChosenOption(option);
     switch (option) {
       case "PRODUCER":
-        setTableHeaders(["Id", "Name", "Email", "Fiscal Identifier", "Phone", "Status"]);
+        setTableHeaders([
+          "Id",
+          "Name",
+          "Email",
+          "Fiscal Identifier",
+          "Phone",
+          "Status",
+        ]);
         handleUser("PRODUCER");
         break;
       case "CONSUMER":
-        setTableHeaders(["Id", "Name", "Email", "Fiscal Identifier", "Phone", "Status"]);
+        setTableHeaders([
+          "Id",
+          "Name",
+          "Email",
+          "Fiscal Identifier",
+          "Phone",
+          "Status",
+        ]);
         handleUser("CONSUMER");
         break;
       case "ORDER":
-        setTableHeaders(["Order ID", "Consumer ID", "Order Date", "Delivery Date", "Status"]);
+        setTableHeaders([
+          "Order ID",
+          "Consumer ID",
+          "Order Date",
+          "Delivery Date",
+          "Status",
+        ]);
         handleOrder();
         break;
       case "PRODUCT":
-        setTableHeaders(["Id", "Name", "Description", "Price", "Production Date"]);
+        setTableHeaders([
+          "Id",
+          "Name",
+          "Description",
+          "Price",
+          "Production Date",
+        ]);
         handleProduct();
         break;
       default:
@@ -45,7 +71,7 @@ export default function Admin() {
   }
 
   function handleUser(userType) {
-    axios.get("http://localhost:3000/api/v1/users/").then((response) => {
+    axios.get("http://yourlocalshop.pt:3000/api/v1/users/").then((response) => {
       const users = response.data.users.filter(
         (user) => user.typeUser.toUpperCase() === userType
       );
@@ -54,17 +80,19 @@ export default function Admin() {
   }
 
   function handleOrder() {
-    axios.get("http://localhost:3000/api/v1/carts/").then((response) => {
+    axios.get("http://yourlocalshop.pt:3000/api/v1/carts/").then((response) => {
       setTableData(response.data);
     });
   }
 
   function handleProduct() {
-    axios.get("http://localhost:3000/api/v1/products/").then((response) => {
-      const products = response.data;
-      console.log(response.data);
-      setTableData(products);
-    });
+    axios
+      .get("http://yourlocalshop.pt:3000/api/v1/products/")
+      .then((response) => {
+        const products = response.data;
+        console.log(response.data);
+        setTableData(products);
+      });
   }
 
   const pageCount = Math.ceil(tableData.length / itemsPerPage);
@@ -74,7 +102,8 @@ export default function Admin() {
   }
 
   function handleActivateDeactivateUser(idUser) {
-    axios.put(`http://localhost:3000/api/v1/users/${idUser}/status`)
+    axios
+      .put(`http://yourlocalshop.pt:3000/api/v1/users/${idUser}/status`)
       .then(() => {
         // Atualize a tabela buscando os dados atualizados
         switch (chosenOption) {
@@ -88,45 +117,64 @@ export default function Admin() {
             break;
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   }
 
   async function handleLogout() {
-    await axios.get("http://localhost:3000/api/v1/auth/logout", {
+    await axios.get("http://yourlocalshop.pt:3000/api/v1/auth/logout", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       withCredentials: true,
     });
     console.log("logout");
-    return (window.location.href = "http://localhost:5173/");
+    return (window.location.href = "https://yourlocalshop.pt/");
   }
 
   return (
-    <div className="container-main">
-      <div className="menu-column">
-        <div className="grid-admin-column">
-          <div className="admin">
-            <AccountCircleIcon style={{ fontSize: "100px" }}></AccountCircleIcon>
+    <div className='container-main'>
+      <div className='menu-column'>
+        <div className='grid-admin-column'>
+          <div className='admin'>
+            <AccountCircleIcon
+              style={{ fontSize: "100px" }}
+            ></AccountCircleIcon>
           </div>
           {adminOptions.map((option) => (
-            <div key={option} className="container-options">
-              <button onClick={() => { getData(option) }} className="options">{option}</button>
+            <div key={option} className='container-options'>
+              <button
+                onClick={() => {
+                  getData(option);
+                }}
+                className='options'
+              >
+                {option}
+              </button>
             </div>
           ))}
-            <button className="btn btn-danger " onClick={()=> {handleLogout()}}>Logout</button>
+          <button
+            className='btn btn-danger '
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            Logout
+          </button>
         </div>
       </div>
-      <div className="table-column">
-        <div className="container-table">
-          <div className="table">
-            <table className="table table-hover">
+      <div className='table-column'>
+        <div className='container-table'>
+          <div className='table'>
+            <table className='table table-hover'>
               <thead>
                 <tr>
-                  {tableHeaders.map((header) =>
-                    <th className="table-header" key={header}>{header}</th>)}
+                  {tableHeaders.map((header) => (
+                    <th className='table-header' key={header}>
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -141,8 +189,13 @@ export default function Admin() {
                         <td>{data.phone}</td>
                         <td>
                           <button
-                            className={data.active ? "btn btn-danger" : "btn btn-success"}
-                            onClick={() => handleActivateDeactivateUser(data.id)}>
+                            className={
+                              data.active ? "btn btn-danger" : "btn btn-success"
+                            }
+                            onClick={() =>
+                              handleActivateDeactivateUser(data.id)
+                            }
+                          >
                             {data.active ? "DEACTIVATE" : "ACTIVATE"}
                           </button>
                         </td>
@@ -160,8 +213,13 @@ export default function Admin() {
                         <td>{data.fiscal_identifier}</td>
                         <td>{data.phone}</td>
                         <td>
-                          <button className={data.active ? "btn btn-danger" : "btn btn-success"}
-                            onClick={() => handleActivateDeactivateUser(data.id)}
+                          <button
+                            className={
+                              data.active ? "btn btn-danger" : "btn btn-success"
+                            }
+                            onClick={() =>
+                              handleActivateDeactivateUser(data.id)
+                            }
                           >
                             {data.active ? "DEACTIVATE" : "ACTIVATE"}
                           </button>
@@ -192,7 +250,12 @@ export default function Admin() {
                         <td>{data.description}</td>
                         <td>
                           {data.price
-                            ? `${data.price.toString().padStart(3, "0").slice(0, -2)},${data.price.toString().slice(-2)}€`
+                            ? `${data.price
+                                .toString()
+                                .padStart(3, "0")
+                                .slice(0, -2)},${data.price
+                                .toString()
+                                .slice(-2)}€`
                             : "999999,99€"}
                         </td>
                         <td>{data.production_date}</td>
@@ -202,13 +265,13 @@ export default function Admin() {
                 )}
               </tbody>
             </table>
-            <div className="container-pagination">
+            <div className='container-pagination'>
               <Pagination
                 count={pageCount}
                 page={currentPage}
                 onChange={handlePageChange}
-                variant="outlined"
-                shape="rounded"
+                variant='outlined'
+                shape='rounded'
               />
             </div>
           </div>

@@ -65,7 +65,7 @@ router.get("/", async (req, res) => {
     );
   }
 
-  res.redirect("http://localhost:5173/");
+  res.redirect("https://yourlocalshop.pt/");
 });
 
 module.exports = router;

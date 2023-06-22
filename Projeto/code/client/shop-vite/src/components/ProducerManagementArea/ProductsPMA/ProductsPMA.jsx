@@ -22,7 +22,7 @@ export default function ProductsPMA() {
   useEffect(() => {
     async function getProducts() {
       const products = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/products",
         { withCredentials: true }
@@ -32,7 +32,9 @@ export default function ProductsPMA() {
 
     async function getProductImage(productId) {
       const productImage = await axios.get(
-        "http://localhost:3000/api/v1/products/" + productId + "/productImages",
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
+          productId +
+          "/productImages",
         { withCredentials: true }
       );
       return productImage.data;
@@ -41,7 +43,7 @@ export default function ProductsPMA() {
     async function getProductStock(productId) {
       let productStock = 0;
       const productProductionUnits = await axios.get(
-        "http://localhost:3000/api/v1/products/" +
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
           productId +
           "/productionUnits",
         { withCredentials: true }

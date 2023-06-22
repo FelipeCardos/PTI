@@ -8,7 +8,7 @@ import "./NavbarProducer.css";
 export default function NavbarProducer({ user }) {
   const [notificationsNumber, setNotificationsNumber] = useState(0);
   const [notifications, setNotifications] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   let navigate = useNavigate();
 
@@ -17,13 +17,13 @@ export default function NavbarProducer({ user }) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-    const handleInputChange = (event) => {
+  const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleSearch = (event) => {
     event.preventDefault();
     navigate(`/products?search=${searchQuery}`);
@@ -41,7 +41,9 @@ export default function NavbarProducer({ user }) {
   useEffect(() => {
     async function getNotifications() {
       const notifications = await axios.get(
-        "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
+          user.userId +
+          "/notifications",
         { withCredentials: true }
       );
       return notifications.data;
@@ -72,20 +74,20 @@ export default function NavbarProducer({ user }) {
   async function handleMouseOverNotification(notification) {
     if (!notification.seen) {
       await axios.put(
-        `http://localhost:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
+        `http://yourlocalshop.pt:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
       );
     }
   }
 
   async function handleLogout() {
-    await axios.get("http://localhost:3000/api/v1/auth/logout", {
+    await axios.get("http://yourlocalshop.pt:3000/api/v1/auth/logout", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       withCredentials: true,
     });
     console.log("logout");
-    return (window.location.href = "http://localhost:5173/");
+    return (window.location.href = "http://yourlocalshop.pt:5173/");
   }
 
   return (
@@ -109,7 +111,7 @@ export default function NavbarProducer({ user }) {
         </button>
       </div>
       <div className='searchNavbarProducer'>
-        <form onSubmit={handleSearch} className='search-form'>      
+        <form onSubmit={handleSearch} className='search-form'>
           <input
             type='text'
             className='searchBarNavbar'
@@ -118,9 +120,9 @@ export default function NavbarProducer({ user }) {
             value={searchQuery}
             onChange={handleInputChange}
           />
-        <button type='submit' className='searchButtonNavbarProducer'>
-          <i className='fa fa-search'></i>
-        </button>
+          <button type='submit' className='searchButtonNavbarProducer'>
+            <i className='fa fa-search'></i>
+          </button>
         </form>
       </div>
       <div className='managementAreaNavbarProducer'>

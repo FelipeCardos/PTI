@@ -16,9 +16,9 @@ export default function PreviewLocalImpactReport({
 
   useEffect(() => {
     async function getUserCartLines() {
-      // http://localhost:3000/api/v1/users/:user_id/carts
+      // http://yourlocalshop.pt:3000/api/v1/users/:user_id/carts
       const userCartLines = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/carts"
       );
@@ -35,7 +35,7 @@ export default function PreviewLocalImpactReport({
 
     async function getUserCoordinates() {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/address"
       );
@@ -47,7 +47,8 @@ export default function PreviewLocalImpactReport({
 
     async function getProductionUnitCoordinates(productionUnitId) {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/productionUnits/" + productionUnitId
+        "http://yourlocalshop.pt:3000/api/v1/productionUnits/" +
+          productionUnitId
       );
       return {
         lat: response.data.productionUnit.coordinates.lat,
@@ -60,7 +61,7 @@ export default function PreviewLocalImpactReport({
       productionUnitCoordinates
     ) {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/distance/?lat1=" +
+        "http://yourlocalshop.pt:3000/api/v1/distance/?lat1=" +
           userCoordinates.lat +
           "&lon1=" +
           userCoordinates.lon +

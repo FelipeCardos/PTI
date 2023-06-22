@@ -15,7 +15,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
     async function fetchData() {
       async function getProduct(id) {
         const getProduct = await axios.get(
-          `http://localhost:3000/api/v1/products/${id}`,
+          `http://yourlocalshop.pt:3000/api/v1/products/${id}`,
           { withCredentials: true }
         );
         return getProduct.data;
@@ -23,7 +23,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
 
       async function getProducer(id) {
         const getProducer = await axios.get(
-          `http://localhost:3000/api/v1/users/${id}`,
+          `http://yourlocalshop.pt:3000/api/v1/users/${id}`,
           { withCredentials: true }
         );
         return getProducer.data;
@@ -31,7 +31,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
 
       async function getProductImage(id) {
         const getProductImage = await axios.get(
-          `http://localhost:3000/api/v1/products/${id}/productImages`,
+          `http://yourlocalshop.pt:3000/api/v1/products/${id}/productImages`,
           { withCredentials: true }
         );
         return getProductImage.data;
@@ -57,7 +57,9 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
   function handleDeleteCartline() {
     async function deleteCartline() {
       const response = await axios.delete(
-        "http://localhost:3000/api/v1/carts/" + cartline.cartId + "/cartLines",
+        "http://yourlocalshop.pt:3000/api/v1/carts/" +
+          cartline.cartId +
+          "/cartLines",
         {
           data: { productId: cartline.productId },
         },
@@ -77,7 +79,9 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
   function handleControlAmount(operation) {
     async function updateCartLineAmount() {
       const response = await axios.put(
-        "http://localhost:3000/api/v1/carts/" + cartline.cartId + "/cartLines",
+        "http://yourlocalshop.pt:3000/api/v1/carts/" +
+          cartline.cartId +
+          "/cartLines",
         {
           productId: cartline.productId,
           amount: operation === "+" ? data.amount + 1 : data.amount - 1,

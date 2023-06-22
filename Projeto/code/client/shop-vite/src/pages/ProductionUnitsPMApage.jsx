@@ -14,9 +14,12 @@ export default function ProductionUnitsPMApage() {
     if (!myUserVariable) return navigate("/signin");
     (async () => {
       await axios
-        .get("http://localhost:3000/api/v1/users/" + myUserVariable.user_id, {
-          withCredentials: true,
-        })
+        .get(
+          "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => {
           if (res.data.typeUser !== "Producer") return navigate("/");
         });

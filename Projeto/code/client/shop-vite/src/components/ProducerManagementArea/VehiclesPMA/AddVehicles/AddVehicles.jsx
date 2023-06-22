@@ -33,7 +33,7 @@ export default function AddVehicles(props) {
     event.preventDefault();
     axios
       .post(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/vehicles",
         formData,

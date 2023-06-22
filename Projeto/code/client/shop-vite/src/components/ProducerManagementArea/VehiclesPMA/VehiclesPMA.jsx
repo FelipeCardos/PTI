@@ -29,7 +29,7 @@ export default function VehiclesPMA() {
   function updateVehicles() {
     axios
       .get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/vehicles",
         {
@@ -47,7 +47,7 @@ export default function VehiclesPMA() {
     updateVehicles();
     axios
       .get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/productionUnits",
         {

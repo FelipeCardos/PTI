@@ -14,7 +14,7 @@ export default function OrdersAOListItem(props) {
     async function getCoordinates() {
       let coordinates = [];
       const response = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/address"
       );
@@ -24,7 +24,7 @@ export default function OrdersAOListItem(props) {
       ]);
       for (let cartline of props.order_cart_lines) {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/productionUnits/" +
+          "http://yourlocalshop.pt:3000/api/v1/productionUnits/" +
             cartline.production_unit_id
         );
         coordinates.push([
@@ -38,7 +38,7 @@ export default function OrdersAOListItem(props) {
     async function getDistance(lat1, lon1, lat2, lon2) {
       // in metres
       const response = await axios.get(
-        "http://localhost:3000/api/v1/distance/?lat1=" +
+        "http://yourlocalshop.pt:3000/api/v1/distance/?lat1=" +
           lat1 +
           "&lon1=" +
           lon1 +
@@ -51,7 +51,7 @@ export default function OrdersAOListItem(props) {
     }
     async function getProduct() {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/products/" +
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
           props.order_cartline.product_id
       );
       return response.data;
@@ -114,7 +114,7 @@ export default function OrdersAOListItem(props) {
 
   async function cancelOrder() {
     await axios.put(
-      "http://localhost:3000/api/v1/carts/" + props.order_id,
+      "http://yourlocalshop.pt:3000/api/v1/carts/" + props.order_id,
       {
         status: "CANCELLED",
       },

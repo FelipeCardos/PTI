@@ -26,7 +26,7 @@ export default function Product() {
   useEffect(() => {
     async function getProducts() {
       const products = await axios.get(
-        "http://localhost:3000/api/v1/products/" + product_id
+        "http://yourlocalshop.pt:3000/api/v1/products/" + product_id
       );
       return products.data;
     }
@@ -34,7 +34,7 @@ export default function Product() {
     async function getUserCoordinates() {
       console.log(myUserVariable.user_id);
       const userCoordinates = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/address"
       );
@@ -43,14 +43,14 @@ export default function Product() {
 
     async function getProducer(producer_id) {
       const producer = await axios.get(
-        "http://localhost:3000/api/v1/users/" + producer_id
+        "http://yourlocalshop.pt:3000/api/v1/users/" + producer_id
       );
       return producer.data;
     }
 
     async function getProductAttributes(product_id) {
       const productAttributes = await axios.get(
-        "http://localhost:3000/api/v1/products/" +
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productAttributes"
       );
@@ -59,7 +59,7 @@ export default function Product() {
 
     async function getProductCategories(product_id) {
       const productCategories = await axios.get(
-        "http://localhost:3000/api/v1/products/" +
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productCategories"
       );
@@ -68,21 +68,25 @@ export default function Product() {
 
     async function getProductImage(product_id) {
       const productImage = await axios.get(
-        "http://localhost:3000/api/v1/products/" + product_id + "/productImages"
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
+          product_id +
+          "/productImages"
       );
       return productImage.data[0];
     }
 
     async function getProductRating(product_id) {
       const productRating = await axios.get(
-        "http://localhost:3000/api/v1/products/" + product_id + "/ratings"
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
+          product_id +
+          "/ratings"
       );
       return productRating.data;
     }
 
     async function getProductProductionUnits(product_id) {
       const productProductionUnits = await axios.get(
-        "http://localhost:3000/api/v1/products/" +
+        "http://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productionUnits"
       );
@@ -91,7 +95,7 @@ export default function Product() {
 
     async function getProductionUnitData(production_unit_id) {
       let response = await axios.get(
-        `http://localhost:3000/api/v1/productionUnits/${production_unit_id}`
+        `http://yourlocalshop.pt:3000/api/v1/productionUnits/${production_unit_id}`
       );
       return response.data.productionUnit;
     }
@@ -156,15 +160,15 @@ export default function Product() {
   }
 
   async function handleAddtoCart() {
-    // http://localhost:3000/api/v1/users/1/shoppingCart
+    // http://yourlocalshop.pt:3000/api/v1/users/1/shoppingCart
     const shoppingCart = await axios.get(
-      "http://localhost:3000/api/v1/users/" +
+      "http://yourlocalshop.pt:3000/api/v1/users/" +
         myUserVariable.user_id +
         "/shoppingCart"
     );
     const shoppingCartId = shoppingCart.data.id;
     const response = await axios.post(
-      "http://localhost:3000/api/v1/users/" +
+      "http://yourlocalshop.pt:3000/api/v1/users/" +
         myUserVariable.user_id +
         "/carts/" +
         shoppingCartId +

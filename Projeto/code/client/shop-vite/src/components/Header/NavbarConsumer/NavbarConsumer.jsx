@@ -42,11 +42,15 @@ export default function NavbarConsumer({ user }) {
     async function getShoppingCartNumberOfProducts() {
       let numberOfProducts = 0;
       const cart = await axios.get(
-        "http://localhost:3000/api/v1/users/" + user.userId + "/shoppingCart",
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
+          user.userId +
+          "/shoppingCart",
         { withCredentials: true }
       );
       const cartlines = await axios.get(
-        "http://localhost:3000/api/v1/carts/" + cart.data.id + "/cartLines"
+        "http://yourlocalshop.pt:3000/api/v1/carts/" +
+          cart.data.id +
+          "/cartLines"
       );
       for (const cartline of cartlines.data) {
         numberOfProducts += cartline.amount;
@@ -55,7 +59,9 @@ export default function NavbarConsumer({ user }) {
     }
     async function getNotifications() {
       const notifications = await axios.get(
-        "http://localhost:3000/api/v1/users/" + user.userId + "/notifications",
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
+          user.userId +
+          "/notifications",
         { withCredentials: true }
       );
       return notifications.data;
@@ -91,20 +97,20 @@ export default function NavbarConsumer({ user }) {
   async function handleMouseOverNotification(notification) {
     if (!notification.seen) {
       await axios.put(
-        `http://localhost:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
+        `http://yourlocalshop.pt:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
       );
     }
   }
 
   async function handleLogout() {
-    await axios.get("http://localhost:3000/api/v1/auth/logout", {
+    await axios.get("http://yourlocalshop.pt:3000/api/v1/auth/logout", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       withCredentials: true,
     });
     console.log("logout");
-    return (window.location.href = "http://localhost:5173/");
+    return (window.location.href = "https://yourlocalshop.pt");
   }
 
   return (

@@ -1,32 +1,32 @@
-import React, { useEffect, useState, useRef } from "react";
-import "./CategoryBar.css";
-import MenuIcon from '@mui/icons-material/Menu';
-import "./SideBar.css";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 import axios from "axios";
-import Subcategory from "./Subcategory";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./CategoryBar.css";
+import "./SideBar.css";
+import Subcategory from "./Subcategory";
 
 const categories = [
   {
     name: "Home & Kitchen",
-    id: 3
+    id: 3,
   },
   {
     name: "Electronics",
-    id: 1
+    id: 1,
   },
   {
     name: "Clothing",
-    id: 2
+    id: 2,
   },
   {
     name: "Mobile Phones",
-    id: 5
+    id: 5,
   },
   {
     name: "Bottoms",
-    id: 7
+    id: 7,
   },
 ];
 
@@ -65,12 +65,13 @@ export default function CategoryBar() {
   }
 
   function loadCategories() {
-    axios.get("http://localhost:3000/api/v1/categories")
+    axios
+      .get("http://yourlocalshop.pt:3000/api/v1/categories")
       .then((response) => {
         let categories = [];
 
         for (let category of response.data) {
-          if (category.parent_category === null) categories.push(category)
+          if (category.parent_category === null) categories.push(category);
         }
         setCategories(sortedCategories(categories));
         setHoveredCategories(new Array(categories.length).fill(false));
@@ -78,7 +79,8 @@ export default function CategoryBar() {
   }
 
   function loadSubCategory(id) {
-    axios.get("http://localhost:3000/api/v1/categories/" + id)
+    axios
+      .get("http://yourlocalshop.pt:3000/api/v1/categories/" + id)
       .then((response) => {
         setSubcategory(response.data.subcategories);
         setIdSubCategory(id);
@@ -120,13 +122,19 @@ export default function CategoryBar() {
   return (
     <div>
       {isMenuOpen && (
-        <div className="container-sidebar" ref={sidebarRef}>
-          <div className={`sidebar-grid`} style={{ display: isSubcategoryVisible ? 'grid' : 'flex' }}>
-            <div className="container-category">
-              <ul className="sidebar-ulli">
+        <div className='container-sidebar' ref={sidebarRef}>
+          <div
+            className={`sidebar-grid`}
+            style={{ display: isSubcategoryVisible ? "grid" : "flex" }}
+          >
+            <div className='container-category'>
+              <ul className='sidebar-ulli'>
                 {moreCategories.map((category, index) => (
-                  <li className="sidebar-ulli" key={category.id}>
-                    <button className="sidebar-category" onClick={() => loadSubCategory(category.id)}>
+                  <li className='sidebar-ulli' key={category.id}>
+                    <button
+                      className='sidebar-category'
+                      onClick={() => loadSubCategory(category.id)}
+                    >
                       <div id={category.id}>
                         <p>{category.name}</p>
                       </div>
@@ -136,20 +144,32 @@ export default function CategoryBar() {
               </ul>
             </div>
             {isSubcategoryVisible && (
-              <div className="container-subcategory">
-                <Subcategory subCategoryList={subCategory} idSubCategory={idSubCategory} disabled={!isCategoryClicked} />
+              <div className='container-subcategory'>
+                <Subcategory
+                  subCategoryList={subCategory}
+                  idSubCategory={idSubCategory}
+                  disabled={!isCategoryClicked}
+                />
               </div>
             )}
           </div>
         </div>
       )}
-      <div className={`category-bar-container ${isMenuOpen ? 'disabled' : ''}`}>
-        <div className="grid-category-bar">
-          <button onClick={handleClick} className="dropdown-toggle" ref={dropdownToggleRef}>
+      <div className={`category-bar-container ${isMenuOpen ? "disabled" : ""}`}>
+        <div className='grid-category-bar'>
+          <button
+            onClick={handleClick}
+            className='dropdown-toggle'
+            ref={dropdownToggleRef}
+          >
             <MenuIcon />
           </button>
           {categories.map((category) => (
-            <button className="category" key={category.id} onClick={() => handleCategory(category.id)}>
+            <button
+              className='category'
+              key={category.id}
+              onClick={() => handleCategory(category.id)}
+            >
               <div>{category.name}</div>
             </button>
           ))}

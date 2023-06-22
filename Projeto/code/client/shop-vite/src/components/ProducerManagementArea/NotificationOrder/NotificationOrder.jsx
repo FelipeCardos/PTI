@@ -16,10 +16,10 @@ export default function NotificationOrder({
   useEffect(() => {
     async function getProductData(id) {
       let product = await axios.get(
-        `http://localhost:3000/api/v1/products/${id}`
+        `http://yourlocalshop.pt:3000/api/v1/products/${id}`
       );
       let image = await axios.get(
-        `http://localhost:3000/api/v1/products/${id}/productImages`
+        `http://yourlocalshop.pt:3000/api/v1/products/${id}/productImages`
       );
       product.data.image = image.data[0].uri;
       return product.data;
@@ -27,7 +27,7 @@ export default function NotificationOrder({
 
     async function getCartlineData(cart_id, product_id) {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/carts/${cart_id}/cartlines`
+        `http://yourlocalshop.pt:3000/api/v1/carts/${cart_id}/cartlines`
       );
       const cartline = response.data.filter(
         (cartline) => cartline.product_id === product_id
@@ -37,10 +37,10 @@ export default function NotificationOrder({
 
     async function getProductionUnitData(id) {
       let response = await axios.get(
-        `http://localhost:3000/api/v1/productionUnits/${id}`
+        `http://yourlocalshop.pt:3000/api/v1/productionUnits/${id}`
       );
       const productionUnitAddress = await axios.get(
-        `http://localhost:3000/api/v1/users/${response.data.productionUnit.producer_id}/productionUnits/${id}/address`
+        `http://yourlocalshop.pt:3000/api/v1/users/${response.data.productionUnit.producer_id}/productionUnits/${id}/address`
       );
       response.data.productionUnit.address = productionUnitAddress.data.address;
       return response.data.productionUnit;
@@ -51,7 +51,7 @@ export default function NotificationOrder({
       production_unit_id
     ) {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/users/${producer_id}/productionUnits/${production_unit_id}/vehicles`
+        `http://yourlocalshop.pt:3000/api/v1/users/${producer_id}/productionUnits/${production_unit_id}/vehicles`
       );
       return response.data;
     }
@@ -70,7 +70,7 @@ export default function NotificationOrder({
       for (const vehicle of vehicles.vehicles) {
         if (
           await axios.get(
-            `http://localhost:3000/api/v1/vehicles/${vehicle.id}/availability`
+            `http://yourlocalshop.pt:3000/api/v1/vehicles/${vehicle.id}/availability`
           )
         ) {
           availableVehicles.push(vehicle);
@@ -91,7 +91,7 @@ export default function NotificationOrder({
 
   async function handleConfirmationOfVehicleAssignment() {
     const updateVehicle = await axios.put(
-      `http://localhost:3000/api/v1/carts/${order.cart_id}/cartLines`,
+      `http://yourlocalshop.pt:3000/api/v1/carts/${order.cart_id}/cartLines`,
 
       {
         productId: product.id,

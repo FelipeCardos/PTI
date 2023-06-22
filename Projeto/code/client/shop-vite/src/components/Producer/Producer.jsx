@@ -1,69 +1,68 @@
-import {React, useState, useEffect} from "react";
+import axios from "axios";
+import { React, useEffect, useState } from "react";
 import "./Producer.css";
 import ProducerInfo from "./ProducerInfo";
 import Product from "./Product";
 import ProductionUnit from "./ProductionUnit";
-import axios from "axios";
 
 export default function Producer(props) {
-
   const [producerName, setProducerName] = useState("");
   const [producerAddress, setProducerAddress] = useState("");
   const [productionUnits, setProductionUnits] = useState([]);
   const [products, setProducts] = useState([]);
 
-  useEffect(()=>{
-    async function getProducer(id){
-      try{
+  useEffect(() => {
+    async function getProducer(id) {
+      try {
         const response = await axios.get(
-          `http://localhost:3000/api/v1/users/${id}`
+          `http://yourlocalshop.pt:3000/api/v1/users/${id}`
         );
         const address = await axios.get(
           `http://localhost:3000/api/v1/users/${id}/address/`
         );
-        setProducerAddress(address.data.coordinates.formatted)
+        yourlocalshop.pt;
+        setProducerAddress(address.data.coordinates.formatted);
         setProducerName(response.data.name);
-      }
-      catch(error){
+      } catch (error) {
         console.error(error);
       }
     }
-    async function getProductionUnits(id){
-      try{
+    async function getProductionUnits(id) {
+      try {
         const response = await axios.get(
-          `http://localhost:3000/api/v1/users/${id}/productionUnits/`, {withCredentials:true}
+          `http://localhost:3000/api/v1/users/${id}/productionUnits/`,
+          { withCredentials: true }
         );
 
-        setProductionUnits(response.data.productionUnits)
-
-      }catch(error){
+        setProductionUnits(response.data.productionUnits);
+      } catch (error) {
         console.error(error);
       }
     }
-    async function getProducts(id){
-      try{
+    async function getProducts(id) {
+      try {
         const response = await axios.get(
-          `http://localhost:3000/api/v1/users/${id}/products/`, {withCredentials:true}
+          `http://localhost:3000/api/v1/users/${id}/products/`,
+          { withCredentials: true }
         );
         setProducts(response.data);
-
-      }catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     }
 
     getProducer(props.id);
     getProductionUnits(props.id);
-    getProducts(props.id)
-  },[])
-  
-  async function getImage(id){
+    getProducts(props.id);
+  }, []);
+
+  async function getImage(id) {
     const response = await axios.get(
-      `http://localhost:3000/api/v1/products/${id}/productImages/`
+      `http://yourlocalshop.pt:3000/api/v1/products/${id}/productImages/`
     );
-      
-    return response.data.uri
-  };
+
+    return response.data.uri;
+  }
 
   return (
     <div className='producer'>
@@ -74,7 +73,13 @@ export default function Producer(props) {
       <div className='productionUnitList'>
         {productionUnits.map((productionUnit) => (
           <ProductionUnit
-            productionUnitLocation={productionUnit.address.state + ", " + productionUnit.address.country + ", " + productionUnit.address.postal_code}
+            productionUnitLocation={
+              productionUnit.address.state +
+              ", " +
+              productionUnit.address.country +
+              ", " +
+              productionUnit.address.postal_code
+            }
           />
         ))}
       </div>

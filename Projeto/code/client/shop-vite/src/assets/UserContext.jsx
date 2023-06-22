@@ -11,7 +11,7 @@ export const UserContextProvider = ({ children }) => {
       try {
         let data = null;
         const response = await axios.get(
-          "http://localhost:3000/api/v1/auth/user",
+          "http://yourlocalshop.pt:3000/api/v1/auth/user",
           { withCredentials: true }
         );
         data = response.data;

@@ -6,13 +6,16 @@ const Notification = require("./Notification/Notification.put");
 
 const router = express.Router();
 
-const { UpdateUser, UpdateUserStatusWithId } = require("../../../../controllers/User/updateUser");
+const {
+  UpdateUser,
+  UpdateUserStatusWithId,
+} = require("../../../../controllers/User/updateUser");
 const { FindUserById } = require("../../../../controllers/User/findUsers");
 
-router.put("/:id/status", async (req,res) =>{
-  try{
+router.put("/:id/status", async (req, res) => {
+  try {
     const id = req.params.id;
-    const {name, fiscal_identifier, address_id, phone, active} = req.body;    
+    const { name, fiscal_identifier, address_id, phone, active } = req.body;
     const user = await FindUserById(id);
 
     if (!user) return res.status(404).send("Not Found");
@@ -20,14 +23,14 @@ router.put("/:id/status", async (req,res) =>{
     const updatedUser = await UpdateUserStatusWithId(id);
 
     res.send(updatedUser);
-  }catch (error) {
+  } catch (error) {
     console.error("Error updating user:", error);
     res.status(500).send("Internal Server Error");
   }
-})
+});
 
 router.put("/:id", async (req, res) => {
-  // http://localhost:3000/api/v1/users/:id
+  // http://yourlocalshop.pt:3000/api/v1/users/:id
   try {
     const id = req.params.id;
     const { name, fiscal_identifier, address_id, phone } = req.body;

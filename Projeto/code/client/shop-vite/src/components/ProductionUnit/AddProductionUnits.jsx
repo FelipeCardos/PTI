@@ -1,18 +1,17 @@
 import axios from "axios";
 import React, { useState } from "react";
-import './AddProductionUnit.css';
+import "./AddProductionUnit.css";
 
 export default function ProductionUnitsAdd(props) {
   const signupType = props.tipo;
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [formData, setFormData] = useState({
     Country: "",
     State: "",
     Street: signupType,
     PostalCode: "",
-    Capacity: ""
+    Capacity: "",
   });
-
 
   function handleChange(event) {
     setInputValue(event.target.value);
@@ -29,7 +28,7 @@ export default function ProductionUnitsAdd(props) {
     event.preventDefault();
     console.log("productionUnit: " + JSON.stringify(formData));
     axios
-      .post("http://localhost:5000/productionUnit/", formData, {
+      .post("http://yourlocalshop.pt:5000/productionUnit/", formData, {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
@@ -58,7 +57,7 @@ export default function ProductionUnitsAdd(props) {
           </div>
           <div>
             <input
-              type="text"
+              type='text'
               placeholder='State'
               onChange={handleChange}
               name='State'
@@ -67,7 +66,7 @@ export default function ProductionUnitsAdd(props) {
           </div>
           <div>
             <input
-              type="text"
+              type='text'
               placeholder='Street'
               onChange={handleChange}
               name='Street'
@@ -76,7 +75,7 @@ export default function ProductionUnitsAdd(props) {
           </div>
           <div>
             <input
-              type="text"
+              type='text'
               placeholder='Postal Code'
               onChange={handleChange}
               name='PostalCode'
@@ -85,7 +84,7 @@ export default function ProductionUnitsAdd(props) {
           </div>
           <div>
             <input
-              type="text"
+              type='text'
               placeholder='Capacity'
               onChange={handleChange}
               name='Capacity'
@@ -93,10 +92,15 @@ export default function ProductionUnitsAdd(props) {
             />
           </div>
           <div>
-            <input disabled={Object.values(formData).some((value) => value === '')} type='submit' className='nextButton' value='NEXT' />
+            <input
+              disabled={Object.values(formData).some((value) => value === "")}
+              type='submit'
+              className='nextButton'
+              value='NEXT'
+            />
           </div>
         </form>
-        <br/>
+        <br />
       </div>
     </div>
   );

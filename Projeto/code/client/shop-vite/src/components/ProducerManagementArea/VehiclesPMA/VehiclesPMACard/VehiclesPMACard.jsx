@@ -16,7 +16,7 @@ export default function VehiclesPMACard(props) {
     }
     try {
       const response = await axios.put(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.id +
           "/vehicles/" +
           props.vehicle.id,

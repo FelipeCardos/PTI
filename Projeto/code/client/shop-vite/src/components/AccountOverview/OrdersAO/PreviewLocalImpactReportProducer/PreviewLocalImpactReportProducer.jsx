@@ -14,7 +14,8 @@ export default function PreviewLocalImpactReport({
   useEffect(() => {
     async function getProductionUnitCoordinates(productionUnitId) {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/productionUnits/" + productionUnitId
+        "http://yourlocalshop.pt:3000/api/v1/productionUnits/" +
+          productionUnitId
       );
       return {
         lat: response.data.productionUnit.coordinates.lat,
@@ -24,11 +25,11 @@ export default function PreviewLocalImpactReport({
 
     async function getUserCoordinates(cartId) {
       const cart = await axios.get(
-        "http://localhost:3000/api/v1/carts/" + cartId
+        "http://yourlocalshop.pt:3000/api/v1/carts/" + cartId
       );
       const userId = cart.data.consumer_id;
       const response = await axios.get(
-        "http://localhost:3000/api/v1/users/" + userId + "/address"
+        "http://yourlocalshop.pt:3000/api/v1/users/" + userId + "/address"
       );
       return {
         lat: response.data.coordinates.lat,
@@ -41,7 +42,7 @@ export default function PreviewLocalImpactReport({
       productionUnitCoordinates
     ) {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/distance/?lat1=" +
+        "http://yourlocalshop.pt:3000/api/v1/distance/?lat1=" +
           userCoordinates.lat +
           "&lon1=" +
           userCoordinates.lon +
@@ -80,20 +81,20 @@ export default function PreviewLocalImpactReport({
       const tableData = [];
       for (const cartline of cartlines) {
         const cart = await axios.get(
-          "http://localhost:3000/api/v1/carts/" + cartline.cart_id
+          "http://yourlocalshop.pt:3000/api/v1/carts/" + cartline.cart_id
         );
         const productionUnit = await axios.get(
-          "http://localhost:3000/api/v1/productionUnits/" +
+          "http://yourlocalshop.pt:3000/api/v1/productionUnits/" +
             cartline.production_unit_id
         );
         const product = await axios.get(
-          "http://localhost:3000/api/v1/products/" + cartline.product_id
+          "http://yourlocalshop.pt:3000/api/v1/products/" + cartline.product_id
         );
         const vehicle = await axios.get(
-          "http://localhost:3000/api/v1/vehicles/" + cartline.vehicle_id
+          "http://yourlocalshop.pt:3000/api/v1/vehicles/" + cartline.vehicle_id
         );
         const user = await axios.get(
-          "http://localhost:3000/api/v1/users/" + cart.data.consumer_id
+          "http://yourlocalshop.pt:3000/api/v1/users/" + cart.data.consumer_id
         );
         const distance = await getDistanceBetweenUserAndProductionUnit(
           await getUserCoordinates(cartline.cart_id),

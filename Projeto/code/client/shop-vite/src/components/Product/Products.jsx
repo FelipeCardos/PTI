@@ -1,10 +1,10 @@
+import Pagination from "@mui/material/Pagination";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import ProductFilter from "./ProductFilter/ProductFilter";
 import ProductSimilar from "./ProductSimilar/ProductSimilar";
 import "./Products.css";
-import axios from "axios";
-import ProductFilter from "./ProductFilter/ProductFilter";
-import Pagination from '@mui/material/Pagination';
 
 export default function Products() {
   let location = useLocation();
@@ -22,9 +22,16 @@ export default function Products() {
         let response;
 
         if (categoryId) {
-          response = await axios.get("http://localhost:3000/api/v1/categories/" + categoryId + "/products");
+          response = await axios.get(
+            "http://yourlocalshop.pt:3000/api/v1/categories/" +
+              categoryId +
+              "/products"
+          );
         } else {
-          response = await axios.get("http://localhost:3000/api/v1/products/search/" + stringSearch);
+          response = await axios.get(
+            "http://yourlocalshop.pt:3000/api/v1/products/search/" +
+              stringSearch
+          );
         }
 
         const products = response.data;
@@ -44,7 +51,9 @@ export default function Products() {
 
   const filterProducts = (allProducts) => {
     if (categoryId) {
-      const filtered = allProducts.filter((product) => product.categoryId === categoryId);
+      const filtered = allProducts.filter(
+        (product) => product.categoryId === categoryId
+      );
       setFilteredProducts(filtered);
     } else {
       setFilteredProducts(allProducts);
@@ -66,9 +75,9 @@ export default function Products() {
   const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
   return (
-    <div className="container-products">
-      <div className="container-filter">
-        <div className="filter-grid">
+    <div className='container-products'>
+      <div className='container-filter'>
+        <div className='filter-grid'>
           <ProductFilter
             productsList={productsList}
             updateFilteredProducts={handleFilteredProducts}
@@ -76,21 +85,24 @@ export default function Products() {
           />
         </div>
       </div>
-      <div className="products-grid">
+      <div className='products-grid'>
         {displayedProducts.map((product, index) => (
-          <div className="container-productsimilar" key={`${product.id}-${index}`}>
+          <div
+            className='container-productsimilar'
+            key={`${product.id}-${index}`}
+          >
             <ProductSimilar product={product} />
           </div>
         ))}
       </div>
-      <div className="pagination-container">
+      <div className='pagination-container'>
         <Pagination
           count={totalPages}
           page={currentPage}
           onChange={(event, page) => handlePageChange(page)}
-          color="primary"
-          shape="rounded"
-          className="pagination"
+          color='primary'
+          shape='rounded'
+          className='pagination'
         />
       </div>
     </div>

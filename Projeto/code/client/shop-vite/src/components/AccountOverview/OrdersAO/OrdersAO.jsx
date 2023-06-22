@@ -45,17 +45,17 @@ export default function OrdersAO(props) {
   useEffect(() => {
     async function getUsersType() {
       const user = await axios.get(
-        "http://localhost:3000/api/v1/users/" + myUserVariable.user_id
+        "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id
       );
       return user.data.typeUser;
     }
 
     async function getCartlinesOfProducer() {
       const allCartlines = await axios.get(
-        "http://localhost:3000/api/v1/cartLines/"
+        "http://yourlocalshop.pt:3000/api/v1/cartLines/"
       );
       const producerProducts = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/products"
       );
@@ -74,7 +74,7 @@ export default function OrdersAO(props) {
 
     async function getOrders() {
       const orders = await axios.get(
-        "http://localhost:3000/api/v1/users/" +
+        "http://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/carts"
       );

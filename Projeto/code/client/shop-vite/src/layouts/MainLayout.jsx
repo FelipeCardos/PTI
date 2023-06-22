@@ -1,10 +1,10 @@
 import axios from "axios";
 import { React, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../assets/UserContext";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Header/Navbar/NavBar";
 import NavbarConsumer from "../components/Header/NavbarConsumer/NavbarConsumer";
-import { useNavigate } from "react-router-dom";
 import NavbarProducer from "../components/Header/NavbarProducer/NavbarProducer";
 
 export default function MainLayout({ children }) {
@@ -19,9 +19,9 @@ export default function MainLayout({ children }) {
   });
   useEffect(() => {
     if (!myUserVariable) return setNavbars({ ...navbars, Navbar: true });
-    (async () => {
+    (async () http://yourlocalshop.pt
       await axios
-        .get("http://localhost:3000/api/v1/users/" + myUserVariable.user_id, {
+        .get("http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id, {
           withCredentials: true,
         })
         .then((res) => {

@@ -19,8 +19,8 @@ router.get(
   "/callback",
   passport.authenticate("google", {
     failureMessage: "Cannot login to Google, please try again later!",
-    failureRedirect: "http://localhost:3000/api/v1/555555",
-    successRedirect: "http://localhost:5173/",
+    failureRedirect: "http://yourlocalshop.pt:3000/api/v1/555555",
+    successRedirect: "http://yourlocalshop.pt:5173/",
   }),
   (req, res) => {
     res.send("Thank you for signing in!");

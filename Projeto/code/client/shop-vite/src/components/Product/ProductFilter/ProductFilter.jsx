@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./ProductFilter.css";
 
-export default function ProductFilter({ productsList, updateFilteredProducts, clearFilteredProducts }) {
+export default function ProductFilter({
+  productsList,
+  updateFilteredProducts,
+  clearFilteredProducts,
+}) {
   const [priceInterval, setPriceInterval] = useState([]);
   const [selectedIntervals, setSelectedIntervals] = useState([]);
   const [producers, setProducers] = useState([]);
@@ -40,7 +44,9 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
   const handleCheckboxChange = (interval) => {
     let updatedIntervals;
     if (selectedIntervals.includes(interval)) {
-      updatedIntervals = selectedIntervals.filter((selected) => selected !== interval);
+      updatedIntervals = selectedIntervals.filter(
+        (selected) => selected !== interval
+      );
     } else {
       updatedIntervals = [...selectedIntervals, interval];
     }
@@ -52,7 +58,9 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
     if (!noneSelected) {
       filteredProducts = productsList.filter((product) =>
         updatedIntervals.some(
-          (interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound
+          (interval) =>
+            product.price >= interval.lowerBound &&
+            product.price <= interval.upperBound
         )
       );
     }
@@ -73,7 +81,7 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
   };
 
   function getProducers() {
-    axios.get("http://localhost:3000/api/v1/users").then((response) => {
+    axios.get("http://yourlocalshop.pt:3000/api/v1/users").then((response) => {
       const producersFromServer = response.data.users.filter(
         (producer) => producer.typeUser === "Producer"
       );
@@ -84,7 +92,9 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
   const handleProducerCheckboxChange = (producerId) => {
     let updatedProducers;
     if (selectedProducers.includes(producerId)) {
-      updatedProducers = selectedProducers.filter((selected) => selected !== producerId);
+      updatedProducers = selectedProducers.filter(
+        (selected) => selected !== producerId
+      );
     } else {
       updatedProducers = [...selectedProducers, producerId];
     }
@@ -102,7 +112,9 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
     if (selectedIntervals.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
         selectedIntervals.some(
-          (interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound
+          (interval) =>
+            product.price >= interval.lowerBound &&
+            product.price <= interval.upperBound
         )
       );
     }
@@ -128,7 +140,10 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
     let filteredProducts = [];
     if (updatedRates.length > 0) {
       for (let product of productsList) {
-        if (prodRates[product.id] && updatedRates.includes(calculateAverageRate(prodRates[product.id]))) {
+        if (
+          prodRates[product.id] &&
+          updatedRates.includes(calculateAverageRate(prodRates[product.id]))
+        ) {
           filteredProducts.push(product);
         }
       }
@@ -139,7 +154,9 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
     if (selectedIntervals.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
         selectedIntervals.some(
-          (interval) => product.price >= interval.lowerBound && product.price <= interval.upperBound
+          (interval) =>
+            product.price >= interval.lowerBound &&
+            product.price <= interval.upperBound
         )
       );
     }
@@ -155,7 +172,7 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
 
   function getRates(productId) {
     return axios
-      .get(`http://localhost:3000/api/v1/products/rates/${productId}`)
+      .get(`http://yourlocalshop.pt:3000/api/v1/products/rates/${productId}`)
       .then((response) => response.data)
       .catch((error) => {
         console.log("Error fetching rates:", error);
@@ -189,58 +206,61 @@ export default function ProductFilter({ productsList, updateFilteredProducts, cl
   }, [productsList]);
 
   return (
-    <div className="filter-container">
+    <div className='filter-container'>
       <h3>Prices</h3>
       <hr />
-      <div className="grid-prices">
+      <div className='grid-prices'>
         {priceInterval.map((interval, index) => (
-          <div key={index} className="form-check">
+          <div key={index} className='form-check'>
             <input
-              className="price-checkbox form-check-input"
+              className='price-checkbox form-check-input'
               id={`interval-${index}`}
-              type="checkbox"
+              type='checkbox'
               checked={selectedIntervals.includes(interval)}
               onChange={() => handleCheckboxChange(interval)}
             />
-            <label className="form-check-label" htmlFor={`interval-${index}`}>
+            <label className='form-check-label' htmlFor={`interval-${index}`}>
               {`${interval.lowerBound} - ${interval.upperBound}`}
             </label>
           </div>
         ))}
       </div>
-      <div className="grid-producers">
+      <div className='grid-producers'>
         <hr />
         <h3>Producers</h3>
         <hr />
         {producers.map((producer) => (
-          <div key={`producer-${producer.id}`} className="form-check">
+          <div key={`producer-${producer.id}`} className='form-check'>
             <input
-              className="form-check-input"
+              className='form-check-input'
               id={`producer-${producer.id}`}
-              type="checkbox"
+              type='checkbox'
               checked={selectedProducers.includes(producer.id)}
               onChange={() => handleProducerCheckboxChange(producer.id)}
             />
-            <label className="form-check-label" htmlFor={`producer-${producer.id}`}>
+            <label
+              className='form-check-label'
+              htmlFor={`producer-${producer.id}`}
+            >
               {producer.name}
             </label>
           </div>
         ))}
       </div>
-      <div className="grid-ratings">
+      <div className='grid-ratings'>
         <hr />
         <h3>Ratings</h3>
         <hr />
         {rating.map((rate) => (
-          <div key={`rating-${rate}`} className="form-check">
+          <div key={`rating-${rate}`} className='form-check'>
             <input
-              className="form-check-input"
+              className='form-check-input'
               id={`rating-${rate}`}
-              type="checkbox"
+              type='checkbox'
               checked={selectedRates.includes(rate)}
               onChange={() => handleRateCheckboxChange(rate)}
             />
-            <label className="form-check-label" htmlFor={`rating-${rate}`}>
+            <label className='form-check-label' htmlFor={`rating-${rate}`}>
               {rate} {rate === 1 ? "star" : "stars"}
             </label>
           </div>

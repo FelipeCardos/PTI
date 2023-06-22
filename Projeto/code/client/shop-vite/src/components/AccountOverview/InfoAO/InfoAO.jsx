@@ -21,9 +21,12 @@ export default function InfoAO(props) {
   const [provider, setProvider] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/users/" + myUserVariable.user_id, {
-        withCredentials: true,
-      })
+      .get(
+        "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         setFormDataAccount({
           name: res.data.name,
@@ -58,7 +61,7 @@ export default function InfoAO(props) {
     const delayDebounceFn = setTimeout(() => {
       async function validatePassword() {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/users/" +
+          "http://yourlocalshop.pt:3000/api/v1/users/" +
             myUserVariable.user_id +
             "/credentials/password?password=" +
             deleteAccountPassword
@@ -81,7 +84,8 @@ export default function InfoAO(props) {
       (async () => {
         await axios
           .put(
-            "http://localhost:3000/api/v1/users/" + myUserVariable.user_id,
+            "http://yourlocalshop.pt:3000/api/v1/users/" +
+              myUserVariable.user_id,
             jsonToUrlEncoded(formDataAccount),
             {
               headers: {
@@ -122,7 +126,9 @@ export default function InfoAO(props) {
   function handleDeleteAccountConfirmation(event) {
     event.preventDefault();
     axios
-      .delete("http://localhost:3000/api/v1/users/" + myUserVariable.user_id)
+      .delete(
+        "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id
+      )
       .then((res) => {
         console.log(res);
         setMyUserVariable({ user_id: null });
