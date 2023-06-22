@@ -31,6 +31,7 @@ router.post("/login", async (req, res) => {
           httpOnly: true,
           expires: dayjs().add(7, "days").toDate(),
         });
+        console.log(userWithEmail)
         res.status(200).send("Authorized");
       } else {
         res.status(401).send("Unauthorized");

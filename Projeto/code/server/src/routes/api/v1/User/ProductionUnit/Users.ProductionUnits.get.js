@@ -21,8 +21,6 @@ const router = express.Router({ mergeParams: true });
 router.get(
   "/",
   checkAuthenticated,
-  checkUsersIsAdminOrProducer,
-  checkIfUserIsOwnerOfTheResource,
   async (req, res) => {
     const id = req.params.id;
     FindAllProductionUnitsWithUserId(id).then(async (productionUnits) => {

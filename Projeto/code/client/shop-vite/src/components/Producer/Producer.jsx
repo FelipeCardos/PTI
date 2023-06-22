@@ -1,87 +1,80 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import "./Producer.css";
 import ProducerInfo from "./ProducerInfo";
 import Product from "./Product";
 import ProductionUnit from "./ProductionUnit";
+import axios from "axios";
 
 export default function Producer(props) {
-  {
-    /* query à base de dados para obter os dados do fornecedor
-    nomeadamente obtenho o nome, as unidades de producao e os produtos por ele vendidos tenha em stock ou não */
-  }
-  const productionUnits = [
-    {
-      name: "Unidade de Produção 1",
-      location: "Morada da Unidade de Produção 1",
-    },
-    {
-      name: "Unidade de Produção 2",
-      location: "Morada da Unidade de Produção 2",
-    },
-    {
-      name: "Unidade de Produção 3",
-      location: "Morada da Unidade de Produção 3",
-    },
-    {
-      name: "Unidade de Produção 4",
-      location: "Morada da Unidade de Produção 4",
-    },
-    {
-      name: "Unidade de Produção 5",
-      location: "Morada da Unidade de Produção 5",
-    },
-  ];
 
-  const products = [
-    {
-      name: "Produto 1",
-      price: "Preço do Produto 1",
-      stock: "Stock do Produto 1",
-      image: "https://picsum.photos/100/100",
-      rating: 3,
-    },
-    {
-      name: "Produto 2",
-      price: "Preço do Produto 2",
-      stock: "Stock do Produto 2",
-      image: "https://picsum.photos/100/100",
-      rating: 3,
-    },
-    {
-      name: "Produto 3",
-      price: "Preço do Produto 3",
-      stock: "Stock do Produto 3",
-      image: "https://picsum.photos/100/100",
-      rating: 3,
-    },
-    {
-      name: "Produto 4",
-      price: "Preço do Produto 4",
-      stock: "Stock do Produto 4",
-      image: "https://picsum.photos/100/100",
-      rating: 4,
-    },
-    {
-      name: "Produto 5",
-      price: "Preço do Produto 5",
-      stock: "Stock do Produto 5",
-      image: "https://picsum.photos/100/100",
-      rating: 3,
-    },
-  ];
+  const [producerName, setProducerName] = useState("");
+  const [producerAddress, setProducerAddress] = useState("");
+  const [productionUnits, setProductionUnits] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(()=>{
+    async function getProducer(id){
+      try{
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/users/${id}`
+        );
+        const address = await axios.get(
+          `http://localhost:3000/api/v1/users/${id}/address/`
+        );
+        setProducerAddress(address.data.coordinates.formatted)
+        setProducerName(response.data.name);
+      }
+      catch(error){
+        console.error(error);
+      }
+    }
+    async function getProductionUnits(id){
+      try{
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/users/${id}/productionUnits/`, {withCredentials:true}
+        );
+
+        setProductionUnits(response.data.productionUnits)
+
+      }catch(error){
+        console.error(error);
+      }
+    }
+    async function getProducts(id){
+      try{
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/users/${id}/products/`, {withCredentials:true}
+        );
+        setProducts(response.data);
+
+      }catch(error){
+        console.log(error)
+      }
+    }
+
+    getProducer(props.id);
+    getProductionUnits(props.id);
+    getProducts(props.id)
+  },[])
+  
+  async function getImage(id){
+    const response = await axios.get(
+      `http://localhost:3000/api/v1/products/${id}/productImages/`
+    );
+      
+    return response.data.uri
+  };
 
   return (
     <div className='producer'>
       <ProducerInfo
-        producerName={"Nome do Fornecedor"}
-        producerLocation={"Morada do Fornecedor"}
-        producerRating={"Rating do Fornecedor"}
+        producerName={producerName}
+        producerLocation={producerAddress}
       ></ProducerInfo>
       <div className='productionUnitList'>
         {productionUnits.map((productionUnit) => (
           <ProductionUnit
-            productionUnitName={productionUnit.name}
-            productionUnitLocation={productionUnit.location}
+            productionUnitLocation={productionUnit.address.state + ", " + productionUnit.address.country + ", " + productionUnit.address.postal_code}
           />
         ))}
       </div>
@@ -91,7 +84,7 @@ export default function Producer(props) {
             productName={product.name}
             productPrice={product.price}
             productStock={product.stock}
-            productImage={product.image}
+            productImage={getImage(product.id)}
             productRating={product.rating}
           />
         ))}

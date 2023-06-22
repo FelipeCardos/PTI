@@ -10,7 +10,7 @@ export default function Admin() {
   const [tableData, setTableData] = useState([]);
   const [chosenOption, setChosenOption] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // Número de itens por página
+  const [itemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = tableData.slice(indexOfFirstItem, indexOfLastItem);
@@ -93,6 +93,17 @@ export default function Admin() {
       });
   }
 
+  async function handleLogout() {
+    await axios.get("http://localhost:3000/api/v1/auth/logout", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      withCredentials: true,
+    });
+    console.log("logout");
+    return (window.location.href = "http://localhost:5173/");
+  }
+
   return (
     <div className="container-main">
       <div className="menu-column">
@@ -105,6 +116,7 @@ export default function Admin() {
               <button onClick={() => { getData(option) }} className="options">{option}</button>
             </div>
           ))}
+            <button className="btn btn-danger " onClick={()=> {handleLogout()}}>Logout</button>
         </div>
       </div>
       <div className="table-column">

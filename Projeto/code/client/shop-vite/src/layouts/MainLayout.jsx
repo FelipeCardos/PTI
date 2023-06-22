@@ -4,9 +4,11 @@ import { UserContext } from "../assets/UserContext";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Header/Navbar/NavBar";
 import NavbarConsumer from "../components/Header/NavbarConsumer/NavbarConsumer";
+import { useNavigate } from "react-router-dom";
 import NavbarProducer from "../components/Header/NavbarProducer/NavbarProducer";
 
 export default function MainLayout({ children }) {
+  let navigate = useNavigate();
   const { myUserVariable, setMyUserVariable } = useContext(UserContext);
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
@@ -38,7 +40,9 @@ export default function MainLayout({ children }) {
               NavbarProducer: true,
               Navbar: false,
             });
-        });
+            if (data.typeUser === "Admin")
+            return navigate("/admin");
+          });
     })();
   }, [myUserVariable]);
 

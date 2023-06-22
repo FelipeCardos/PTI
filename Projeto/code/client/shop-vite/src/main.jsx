@@ -120,7 +120,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/producer/:producer_id",
+    path: "/producer/:id",
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <ProducerPage />
