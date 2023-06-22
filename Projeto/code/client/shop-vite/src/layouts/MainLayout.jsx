@@ -19,11 +19,14 @@ export default function MainLayout({ children }) {
   });
   useEffect(() => {
     if (!myUserVariable) return setNavbars({ ...navbars, Navbar: true });
-    (async () http://yourlocalshop.pt
+    (async () => {
       await axios
-        .get("http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id, {
-          withCredentials: true,
-        })
+        .get(
+          "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => {
           const data = res.data;
           setUserName(data.name);
@@ -40,9 +43,8 @@ export default function MainLayout({ children }) {
               NavbarProducer: true,
               Navbar: false,
             });
-            if (data.typeUser === "Admin")
-            return navigate("/admin");
-          });
+          if (data.typeUser === "Admin") return navigate("/admin");
+        });
     })();
   }, [myUserVariable]);
 
