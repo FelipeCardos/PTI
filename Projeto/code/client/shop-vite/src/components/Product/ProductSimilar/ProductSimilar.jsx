@@ -11,7 +11,7 @@ export default function ProductSimilar(props) {
     async function getProductImage(product_id) {
       try {
         const response = await axios.get(
-          `http://yourlocalshop.pt:3000/api/v1/products/${product_id}/productImages`
+          `https://yourlocalshop.pt:3000/api/v1/products/${product_id}/productImages`
         );
         const productImage = response.data[0];
         setProduct((prevProduct) => ({
@@ -24,7 +24,7 @@ export default function ProductSimilar(props) {
     }
     async function getProductRating(product_id) {
       const productRating = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" +
+        "https://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/ratings"
       );

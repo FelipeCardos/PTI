@@ -39,7 +39,7 @@ export default function Signin(props) {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post("http://yourlocalshop.pt:3000/api/v1/auth/local/login", formData, {
+      .post("https://yourlocalshop.pt:3000/api/v1/auth/local/login", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           "Access-Control-Allow-Origin": "*",
@@ -49,7 +49,7 @@ export default function Signin(props) {
       .then((res) => {
         if (res.status === 200) {
           axios
-            .get("http://yourlocalshop.pt:3000/api/v1/auth/user", {
+            .get("https://yourlocalshop.pt:3000/api/v1/auth/user", {
               withCredentials: true,
             })
             .then((res) => {
@@ -69,10 +69,10 @@ export default function Signin(props) {
   function handleGoogleSignin(typeUser) {
     if (typeUser === "Consumer") {
       window.location.href =
-        "http://yourlocalshop.pt:3000/api/v1/auth/google/login";
+        "https://yourlocalshop.pt:3000/api/v1/auth/google/login";
     } else if (typeUser === "Producer") {
       window.location.href =
-        "http://yourlocalshop.pt:3000/api/v1/auth/google/login?isProducer=true";
+        "https://yourlocalshop.pt:3000/api/v1/auth/google/login?isProducer=true";
     }
   }
 

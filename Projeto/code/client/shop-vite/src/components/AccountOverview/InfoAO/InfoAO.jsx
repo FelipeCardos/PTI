@@ -22,7 +22,7 @@ export default function InfoAO(props) {
   useEffect(() => {
     axios
       .get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
+        "https://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
         {
           withCredentials: true,
         }
@@ -61,7 +61,7 @@ export default function InfoAO(props) {
     const delayDebounceFn = setTimeout(() => {
       async function validatePassword() {
         const response = await axios.get(
-          "http://yourlocalshop.pt:3000/api/v1/users/" +
+          "https://yourlocalshop.pt:3000/api/v1/users/" +
             myUserVariable.user_id +
             "/credentials/password?password=" +
             deleteAccountPassword
@@ -84,7 +84,7 @@ export default function InfoAO(props) {
       (async () => {
         await axios
           .put(
-            "http://yourlocalshop.pt:3000/api/v1/users/" +
+            "https://yourlocalshop.pt:3000/api/v1/users/" +
               myUserVariable.user_id,
             jsonToUrlEncoded(formDataAccount),
             {
@@ -127,7 +127,7 @@ export default function InfoAO(props) {
     event.preventDefault();
     axios
       .delete(
-        "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id
+        "https://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id
       )
       .then((res) => {
         console.log(res);

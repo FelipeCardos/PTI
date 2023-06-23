@@ -18,14 +18,14 @@ export default function Orders({ handleShowOrder, handleToast, showOrder }) {
         "LAST_KM",
       ];
       const productsOfProducer = await axios.get(
-        `http://yourlocalshop.pt:3000/api/v1/users/${myUserVariable.user_id}/products`
+        `https://yourlocalshop.pt:3000/api/v1/users/${myUserVariable.user_id}/products`
       );
       let productsIds = [];
       for (const product of productsOfProducer.data) {
         productsIds.push(product.id);
       }
       const cartlines = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/cartLines"
+        "https://yourlocalshop.pt:3000/api/v1/cartLines"
       );
       const cartlinesOfProducer = cartlines.data.filter((cartline) => {
         return (

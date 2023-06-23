@@ -8,7 +8,7 @@ export default function ProductsPMACard({ product, setCheckApi, handleToast }) {
 
   async function handleDeleteProduct() {
     await axios.delete(
-      `http://yourlocalshop.pt:3000/api/v1/users/${myUserVariable.user_id}/products/${product.id}`
+      `https://yourlocalshop.pt:3000/api/v1/users/${myUserVariable.user_id}/products/${product.id}`
     );
     handleToast("Product deleted successfully!");
     setCheckApi(true);

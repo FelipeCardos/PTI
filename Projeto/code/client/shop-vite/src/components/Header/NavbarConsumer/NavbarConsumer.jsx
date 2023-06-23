@@ -42,13 +42,13 @@ export default function NavbarConsumer({ user }) {
     async function getShoppingCartNumberOfProducts() {
       let numberOfProducts = 0;
       const cart = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" +
+        "https://yourlocalshop.pt:3000/api/v1/users/" +
           user.userId +
           "/shoppingCart",
         { withCredentials: true }
       );
       const cartlines = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/carts/" +
+        "https://yourlocalshop.pt:3000/api/v1/carts/" +
           cart.data.id +
           "/cartLines"
       );
@@ -59,7 +59,7 @@ export default function NavbarConsumer({ user }) {
     }
     async function getNotifications() {
       const notifications = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" +
+        "https://yourlocalshop.pt:3000/api/v1/users/" +
           user.userId +
           "/notifications",
         { withCredentials: true }
@@ -97,13 +97,13 @@ export default function NavbarConsumer({ user }) {
   async function handleMouseOverNotification(notification) {
     if (!notification.seen) {
       await axios.put(
-        `http://yourlocalshop.pt:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
+        `https://yourlocalshop.pt:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
       );
     }
   }
 
   async function handleLogout() {
-    await axios.get("http://yourlocalshop.pt:3000/api/v1/auth/logout", {
+    await axios.get("https://yourlocalshop.pt:3000/api/v1/auth/logout", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

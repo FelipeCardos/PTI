@@ -31,7 +31,7 @@ export default function Signup() {
     console.log("Cliente: " + JSON.stringify(formData));
     axios
       .post(
-        "http://yourlocalshop.pt:3000/api/v1/auth/local/register",
+        "https://yourlocalshop.pt:3000/api/v1/auth/local/register",
         formData,
         {
           headers: {

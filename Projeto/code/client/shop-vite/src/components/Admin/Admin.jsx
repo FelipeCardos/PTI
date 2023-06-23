@@ -71,7 +71,7 @@ export default function Admin() {
   }
 
   function handleUser(userType) {
-    axios.get("http://yourlocalshop.pt:3000/api/v1/users/").then((response) => {
+    axios.get("https://yourlocalshop.pt:3000/api/v1/users/").then((response) => {
       const users = response.data.users.filter(
         (user) => user.typeUser.toUpperCase() === userType
       );
@@ -80,14 +80,14 @@ export default function Admin() {
   }
 
   function handleOrder() {
-    axios.get("http://yourlocalshop.pt:3000/api/v1/carts/").then((response) => {
+    axios.get("https://yourlocalshop.pt:3000/api/v1/carts/").then((response) => {
       setTableData(response.data);
     });
   }
 
   function handleProduct() {
     axios
-      .get("http://yourlocalshop.pt:3000/api/v1/products/")
+      .get("https://yourlocalshop.pt:3000/api/v1/products/")
       .then((response) => {
         const products = response.data;
         console.log(response.data);
@@ -103,7 +103,7 @@ export default function Admin() {
 
   function handleActivateDeactivateUser(idUser) {
     axios
-      .put(`http://yourlocalshop.pt:3000/api/v1/users/${idUser}/status`)
+      .put(`https://yourlocalshop.pt:3000/api/v1/users/${idUser}/status`)
       .then(() => {
         // Atualize a tabela buscando os dados atualizados
         switch (chosenOption) {
@@ -123,7 +123,7 @@ export default function Admin() {
   }
 
   async function handleLogout() {
-    await axios.get("http://yourlocalshop.pt:3000/api/v1/auth/logout", {
+    await axios.get("https://yourlocalshop.pt:3000/api/v1/auth/logout", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

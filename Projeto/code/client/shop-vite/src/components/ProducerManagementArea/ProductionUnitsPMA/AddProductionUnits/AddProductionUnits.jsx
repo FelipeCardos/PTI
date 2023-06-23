@@ -27,7 +27,7 @@ export default function AddProductionUnits(props) {
     event.preventDefault();
     axios
       .post(
-        "http://yourlocalshop.pt:3000/api/v1/users/" +
+        "https://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/productionUnits",
         formData,

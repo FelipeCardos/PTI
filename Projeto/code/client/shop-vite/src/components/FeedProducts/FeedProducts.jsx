@@ -12,7 +12,7 @@ export default function FeedProducts() {
 
   function loadFeedProducts() {
     axios
-      .get("http://yourlocalshop.pt:3000/api/v1/products")
+      .get("https://yourlocalshop.pt:3000/api/v1/products")
       .then((response) => {
         setProducts(response.data);
       });

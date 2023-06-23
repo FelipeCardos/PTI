@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams: true });
 
 const {
   CreateCartLine,
-} = require("../../../../../../controllers/CartLine/createCartLine");
+} = require("../../../../../../controllers/CartLine/createCartline");
 
 const {
   FindAllCarts,
@@ -17,7 +17,7 @@ const {
 } = require("../../../../../../controllers/Cart/findCarts");
 
 router.post("/", async (req, res) => {
-  // http://yourlocalshop.pt:3000/api/v1/users/:user_id/carts/:cart_id/cartLines example
+  // https://yourlocalshop.pt:3000/api/v1/users/:user_id/carts/:cart_id/cartLines example
   const cartId = req.params.idCart;
   const productId = req.body.product_id;
   const productionUnitId = req.body.production_unit_id;

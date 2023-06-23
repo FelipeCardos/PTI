@@ -66,7 +66,7 @@ export default function CategoryBar() {
 
   function loadCategories() {
     axios
-      .get("http://yourlocalshop.pt:3000/api/v1/categories")
+      .get("https://yourlocalshop.pt:3000/api/v1/categories")
       .then((response) => {
         let categories = [];
 
@@ -80,7 +80,7 @@ export default function CategoryBar() {
 
   function loadSubCategory(id) {
     axios
-      .get("http://yourlocalshop.pt:3000/api/v1/categories/" + id)
+      .get("https://yourlocalshop.pt:3000/api/v1/categories/" + id)
       .then((response) => {
         setSubcategory(response.data.subcategories);
         setIdSubCategory(id);

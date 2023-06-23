@@ -30,7 +30,7 @@ router.put("/:id/status", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  // http://yourlocalshop.pt:3000/api/v1/users/:id
+  // https://yourlocalshop.pt:3000/api/v1/users/:id
   try {
     const id = req.params.id;
     const { name, fiscal_identifier, address_id, phone } = req.body;

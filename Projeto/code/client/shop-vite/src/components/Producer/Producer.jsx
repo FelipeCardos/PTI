@@ -15,7 +15,7 @@ export default function Producer(props) {
     async function getProducer(id) {
       try {
         const response = await axios.get(
-          `http://yourlocalshop.pt:3000/api/v1/users/${id}`
+          `https://yourlocalshop.pt:3000/api/v1/users/${id}`
         );
         const address = await axios.get(
           `http://localhost:3000/api/v1/users/${id}/address/`
@@ -58,7 +58,7 @@ export default function Producer(props) {
 
   async function getImage(id) {
     const response = await axios.get(
-      `http://yourlocalshop.pt:3000/api/v1/products/${id}/productImages/`
+      `https://yourlocalshop.pt:3000/api/v1/products/${id}/productImages/`
     );
 
     return response.data.uri;

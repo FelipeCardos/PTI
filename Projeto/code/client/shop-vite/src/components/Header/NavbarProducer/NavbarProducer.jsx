@@ -41,7 +41,7 @@ export default function NavbarProducer({ user }) {
   useEffect(() => {
     async function getNotifications() {
       const notifications = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" +
+        "https://yourlocalshop.pt:3000/api/v1/users/" +
           user.userId +
           "/notifications",
         { withCredentials: true }
@@ -74,13 +74,13 @@ export default function NavbarProducer({ user }) {
   async function handleMouseOverNotification(notification) {
     if (!notification.seen) {
       await axios.put(
-        `http://yourlocalshop.pt:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
+        `https://yourlocalshop.pt:3000/api/v1/users/${notification.user_id}/notifications/${notification.id}`
       );
     }
   }
 
   async function handleLogout() {
-    await axios.get("http://yourlocalshop.pt:3000/api/v1/auth/logout", {
+    await axios.get("https://yourlocalshop.pt:3000/api/v1/auth/logout", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

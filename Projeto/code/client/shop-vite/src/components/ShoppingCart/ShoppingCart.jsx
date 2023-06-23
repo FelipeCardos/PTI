@@ -15,7 +15,7 @@ export default function ShoppingCart() {
   useEffect(() => {
     async function getShoppingCart() {
       const getShoppingCart = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" +
+        "https://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/shoppingCart",
         {
@@ -26,7 +26,7 @@ export default function ShoppingCart() {
     }
     async function getCartLines(id) {
       const getCartLines = await axios.get(
-        `http://yourlocalshop.pt:3000/api/v1/carts/${id}/cartLines`,
+        `https://yourlocalshop.pt:3000/api/v1/carts/${id}/cartLines`,
         { withCredentials: true }
       );
       return getCartLines.data;
@@ -46,7 +46,7 @@ export default function ShoppingCart() {
 
   async function handleCheckout() {
     // const checkout = await axios.post(
-    //   "http://yourlocalshop.pt:3000/api/v1/payment/stripe/create-payment-intent",
+    //   "https://yourlocalshop.pt:3000/api/v1/payment/stripe/create-payment-intent",
     //   { cartId: cartId },
     //   {
     //     headers: {
@@ -56,7 +56,7 @@ export default function ShoppingCart() {
     //     withCredentials: true,
     //   }
     // );
-    window.location.href = `http://yourlocalshop.pt:3000/api/v1/payment/stripe/create-payment-intent?cartId=${cartId}`;
+    window.location.href = `https://yourlocalshop.pt:3000/api/v1/payment/stripe/create-payment-intent?cartId=${cartId}`;
     return;
   }
 

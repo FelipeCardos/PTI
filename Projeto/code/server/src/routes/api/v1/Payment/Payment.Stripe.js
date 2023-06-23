@@ -26,7 +26,7 @@ router.get("/create-payment-intent", async (req, res) => {
   const session = await Stripe.checkout.sessions.create({
     line_items: lineItems,
     mode: "payment",
-    success_url: "http://yourlocalshop.pt:3000/api/v1/payment/stripe/success",
+    success_url: "https://yourlocalshop.pt:3000/api/v1/payment/stripe/success",
     cancel_url: "http://yourlocalshop.pt:5173/shopping-cart",
   });
 

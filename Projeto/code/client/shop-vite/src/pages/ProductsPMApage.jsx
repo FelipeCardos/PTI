@@ -16,7 +16,7 @@ export default function ProductsPMApage() {
     (async () => {
       await axios
         .get(
-          "http://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
+          "https://yourlocalshop.pt:3000/api/v1/users/" + myUserVariable.user_id,
           {
             withCredentials: true,
           }

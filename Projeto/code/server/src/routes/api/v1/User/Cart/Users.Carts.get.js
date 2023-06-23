@@ -20,7 +20,7 @@ const { FindUserById } = require("../../../../../controllers/User/findUsers");
 const router = express.Router({ mergeParams: true });
 
 router.get("/", (req, res) => {
-  // http://yourlocalshop.pt:3000/api/v1/users/:user_id/carts example
+  // https://yourlocalshop.pt:3000/api/v1/users/:user_id/carts example
   const userId = req.params.id;
   FindAllCartsWithUserId(userId).then(async (carts) => {
     if (carts) {

@@ -14,14 +14,14 @@ export default function OrderExample({
   useEffect(() => {
     async function getProduct() {
       const product = await axios.get(
-        `http://yourlocalshop.pt:3000/api/v1/products/${order.product_id}`
+        `https://yourlocalshop.pt:3000/api/v1/products/${order.product_id}`
       );
       return product.data;
     }
 
     async function getVehicle() {
       const vehicle = await axios.get(
-        `http://yourlocalshop.pt:3000/api/v1/vehicles/${order.vehicle_id}`
+        `https://yourlocalshop.pt:3000/api/v1/vehicles/${order.vehicle_id}`
       );
       return vehicle.data;
     }
@@ -57,7 +57,7 @@ export default function OrderExample({
 
   async function handleChangeStatus(status) {
     await axios.put(
-      `http://yourlocalshop.pt:3000/api/v1/carts/${order.cart_id}/cartLines`,
+      `https://yourlocalshop.pt:3000/api/v1/carts/${order.cart_id}/cartLines`,
 
       {
         productId: product.id,

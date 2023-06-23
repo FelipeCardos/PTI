@@ -42,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(
   cors({
-    origin: ["http://yourlocalshop.pt:3000", "http://yourlocalshop.pt:5173"],
+    origin: ["https://yourlocalshop.pt:3000", "http://yourlocalshop.pt:5173"],
     credentials: true,
   })
 );

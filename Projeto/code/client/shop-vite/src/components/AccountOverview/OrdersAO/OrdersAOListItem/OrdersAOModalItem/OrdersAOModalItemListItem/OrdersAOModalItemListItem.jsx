@@ -5,7 +5,7 @@ import "../../../OrdersAO.css";
 export default function OrdersAOModalItemListItem(props) {
   async function cancelOrder() {
     await axios.put(
-      "http://yourlocalshop.pt:3000/api/v1/carts/" +
+      "https://yourlocalshop.pt:3000/api/v1/carts/" +
         props.cart_line.cart_id +
         "/cartLines",
       {

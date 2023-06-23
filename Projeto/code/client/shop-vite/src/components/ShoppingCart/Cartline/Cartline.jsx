@@ -15,7 +15,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
     async function fetchData() {
       async function getProduct(id) {
         const getProduct = await axios.get(
-          `http://yourlocalshop.pt:3000/api/v1/products/${id}`,
+          `https://yourlocalshop.pt:3000/api/v1/products/${id}`,
           { withCredentials: true }
         );
         return getProduct.data;
@@ -23,7 +23,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
 
       async function getProducer(id) {
         const getProducer = await axios.get(
-          `http://yourlocalshop.pt:3000/api/v1/users/${id}`,
+          `https://yourlocalshop.pt:3000/api/v1/users/${id}`,
           { withCredentials: true }
         );
         return getProducer.data;
@@ -31,7 +31,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
 
       async function getProductImage(id) {
         const getProductImage = await axios.get(
-          `http://yourlocalshop.pt:3000/api/v1/products/${id}/productImages`,
+          `https://yourlocalshop.pt:3000/api/v1/products/${id}/productImages`,
           { withCredentials: true }
         );
         return getProductImage.data;
@@ -57,7 +57,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
   function handleDeleteCartline() {
     async function deleteCartline() {
       const response = await axios.delete(
-        "http://yourlocalshop.pt:3000/api/v1/carts/" +
+        "https://yourlocalshop.pt:3000/api/v1/carts/" +
           cartline.cartId +
           "/cartLines",
         {
@@ -79,7 +79,7 @@ export default function Cartline({ data, setCheckApi, checkApi }) {
   function handleControlAmount(operation) {
     async function updateCartLineAmount() {
       const response = await axios.put(
-        "http://yourlocalshop.pt:3000/api/v1/carts/" +
+        "https://yourlocalshop.pt:3000/api/v1/carts/" +
           cartline.cartId +
           "/cartLines",
         {

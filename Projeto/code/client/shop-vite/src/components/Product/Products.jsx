@@ -23,13 +23,13 @@ export default function Products() {
 
         if (categoryId) {
           response = await axios.get(
-            "http://yourlocalshop.pt:3000/api/v1/categories/" +
+            "https://yourlocalshop.pt:3000/api/v1/categories/" +
               categoryId +
               "/products"
           );
         } else {
           response = await axios.get(
-            "http://yourlocalshop.pt:3000/api/v1/products/search/" +
+            "https://yourlocalshop.pt:3000/api/v1/products/search/" +
               stringSearch
           );
         }

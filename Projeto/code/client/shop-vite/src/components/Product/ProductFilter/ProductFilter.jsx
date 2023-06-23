@@ -81,7 +81,7 @@ export default function ProductFilter({
   };
 
   function getProducers() {
-    axios.get("http://yourlocalshop.pt:3000/api/v1/users").then((response) => {
+    axios.get("https://yourlocalshop.pt:3000/api/v1/users").then((response) => {
       const producersFromServer = response.data.users.filter(
         (producer) => producer.typeUser === "Producer"
       );
@@ -172,7 +172,7 @@ export default function ProductFilter({
 
   function getRates(productId) {
     return axios
-      .get(`http://yourlocalshop.pt:3000/api/v1/products/rates/${productId}`)
+      .get(`https://yourlocalshop.pt:3000/api/v1/products/rates/${productId}`)
       .then((response) => response.data)
       .catch((error) => {
         console.log("Error fetching rates:", error);

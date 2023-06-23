@@ -26,7 +26,7 @@ export default function Product() {
   useEffect(() => {
     async function getProducts() {
       const products = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" + product_id
+        "https://yourlocalshop.pt:3000/api/v1/products/" + product_id
       );
       return products.data;
     }
@@ -34,7 +34,7 @@ export default function Product() {
     async function getUserCoordinates() {
       console.log(myUserVariable.user_id);
       const userCoordinates = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" +
+        "https://yourlocalshop.pt:3000/api/v1/users/" +
           myUserVariable.user_id +
           "/address"
       );
@@ -43,14 +43,14 @@ export default function Product() {
 
     async function getProducer(producer_id) {
       const producer = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/users/" + producer_id
+        "https://yourlocalshop.pt:3000/api/v1/users/" + producer_id
       );
       return producer.data;
     }
 
     async function getProductAttributes(product_id) {
       const productAttributes = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" +
+        "https://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productAttributes"
       );
@@ -59,7 +59,7 @@ export default function Product() {
 
     async function getProductCategories(product_id) {
       const productCategories = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" +
+        "https://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productCategories"
       );
@@ -68,7 +68,7 @@ export default function Product() {
 
     async function getProductImage(product_id) {
       const productImage = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" +
+        "https://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productImages"
       );
@@ -77,7 +77,7 @@ export default function Product() {
 
     async function getProductRating(product_id) {
       const productRating = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" +
+        "https://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/ratings"
       );
@@ -86,7 +86,7 @@ export default function Product() {
 
     async function getProductProductionUnits(product_id) {
       const productProductionUnits = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/products/" +
+        "https://yourlocalshop.pt:3000/api/v1/products/" +
           product_id +
           "/productionUnits"
       );
@@ -95,7 +95,7 @@ export default function Product() {
 
     async function getProductionUnitData(production_unit_id) {
       let response = await axios.get(
-        `http://yourlocalshop.pt:3000/api/v1/productionUnits/${production_unit_id}`
+        `https://yourlocalshop.pt:3000/api/v1/productionUnits/${production_unit_id}`
       );
       return response.data.productionUnit;
     }
@@ -160,15 +160,15 @@ export default function Product() {
   }
 
   async function handleAddtoCart() {
-    // http://yourlocalshop.pt:3000/api/v1/users/1/shoppingCart
+    // https://yourlocalshop.pt:3000/api/v1/users/1/shoppingCart
     const shoppingCart = await axios.get(
-      "http://yourlocalshop.pt:3000/api/v1/users/" +
+      "https://yourlocalshop.pt:3000/api/v1/users/" +
         myUserVariable.user_id +
         "/shoppingCart"
     );
     const shoppingCartId = shoppingCart.data.id;
     const response = await axios.post(
-      "http://yourlocalshop.pt:3000/api/v1/users/" +
+      "https://yourlocalshop.pt:3000/api/v1/users/" +
         myUserVariable.user_id +
         "/carts/" +
         shoppingCartId +

@@ -39,14 +39,14 @@ export default function AddProducts(props) {
   useEffect(() => {
     async function fetchCategories() {
       const response = await axios.get(
-        "http://yourlocalshop.pt:3000/api/v1/categories"
+        "https://yourlocalshop.pt:3000/api/v1/categories"
       );
       return response.data;
     }
 
     async function fetchCategoryAttributes(category_id) {
       const response = await axios.get(
-        `http://yourlocalshop.pt:3000/api/v1/categories/${category_id}/categoryAttributes`
+        `https://yourlocalshop.pt:3000/api/v1/categories/${category_id}/categoryAttributes`
       );
       return response.data;
     }
@@ -209,7 +209,7 @@ export default function AddProducts(props) {
     let formDataToSend = { ...formData };
     formDataToSend.attributes = attributesStringfied;
     axios
-      .post("http://yourlocalshop.pt:3000/api/v1/products/", formDataToSend, {
+      .post("https://yourlocalshop.pt:3000/api/v1/products/", formDataToSend, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
